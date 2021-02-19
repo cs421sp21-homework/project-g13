@@ -25,23 +25,18 @@
 - As a user, I want to be able to login and have a profile so they have the ability to join a group.
 
 ## Iteration 4
-
-## Iteration 5
-
-**Must-have**
-
 - As a user, I want to only see restaurants that are open at the time of swiping or at a specified time of
   eating so I am not swiping on closed restaurants for desired eating time.
 - As a user, I want to be able to select random restaurants as an option if I'm not feeling any particular
   cuisine.
+- As a user, I'd like to be able to search restaurants to look at prices and other menu options.
+- As a user, I want to see how the restaurants ranked in case the first option no longer sounds appealing for the whole group.
 
-**Nice-to-have**
-
+## Iteration 5
 - As a user, I want to be able to detect nearby rooms so I can quickly join in instead of having to send
   invite links around.
-- As a user, I want to be able to make a profile.
 - As a user, I want the app to get my location automatically to provide the most accurate results.
-- As a user, I want to see how the restaurants ranked in case the first option no longer sounds appealing for the whole group.
 - As a user, I would like to see my previous restaurants I've ended up eating at and the group it was with.
-- As a user, I'd like to be able to search restaurants to look at prices and other menu options.
 - As a user, I'd like to be able to create my own lists of restaurants (favorites), so then you can choose based off those.
+
+
