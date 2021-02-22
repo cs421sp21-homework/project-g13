@@ -12,7 +12,7 @@ A brief description of your project, what it is used for.
 
 |        Name         |            JHU Email               | GitHub Username |
 | ------------------- | ---------------------------------- | --------------- |
-| Abdullah Yousuf     | ayousuf3@exchange.johnshopkins.edu | ayousuf23       |
+| Abdullah Yousuf     |         ayousuf3@jhu.edu           | ayousuf23       |
 | Nathaniel Eisenberg |         neisenb3@jhu.edu           | nateeisenberg1  |
 | Daniel Okereke      |         dokerek1@jhu.edu           | welper          |
 | Shanelle Cao        |          scao15@jhu.edu            | scao12          |
