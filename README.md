@@ -1,8 +1,8 @@
-# Name of the project 
+# Name of the project
 
 A brief description of your project, what it is used for.
 
-**Advisors** 
+**Advisors**
 
 | Name | JHU Email | GitHub Username |
 | ---- | --------- | --------------- |
@@ -10,14 +10,14 @@ A brief description of your project, what it is used for.
 
 **Team**
 
-| Name | JHU Email | GitHub Username |
-| ---- | --------- | --------------- |
-|      |           |                 |
-|      |           |                 |
-|      |           |                 |
-|      |           |                 |
-|      |           |                 |
-|      |           |                 |
+|        Name         |            JHU Email               | GitHub Username |
+| ------------------- | ---------------------------------- | --------------- |
+| Abdullah Yousuf     | ayousuf3@exchange.johnshopkins.edu | ayousuf23       |
+| Nathaniel Eisenberg |         neisenb3@jhu.edu           | nateeisenberg1  |
+| Daniel Okereke      |         dokerek1@jhu.edu           | welper          |
+| Shanelle Cao        |          scao15@jhu.edu            | scao12          |
+| Siqi Cao            |          scao16@jhu.edu            | siqicao2016     |
+| Eric Saenz          |         esaenz2@jhu.edu            | ericsaenz       |
 
 ## Installing / Getting started
 
@@ -78,7 +78,7 @@ And again you'd need to tell what the previous code actually does.
 
 ## Versioning
 
-We can maybe use [SemVer](http://semver.org/) for versioning. 
+We can maybe use [SemVer](http://semver.org/) for versioning.
 
 ## Configuration
 
