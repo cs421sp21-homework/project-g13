@@ -4,9 +4,9 @@ A brief description of your project, what it is used for.
 
 **Advisors**
 
-| Name | JHU Email | GitHub Username |
-| ---- | --------- | --------------- |
-|      |           |                 |
+|     Name     | JHU Email       | GitHub Username |
+| -------------| ----------------| --------------- |
+|   Nanxi Ye   | nye3@jhu.edu    | maxye-frz       |
 
 **Team**
 
