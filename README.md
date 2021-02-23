@@ -15,7 +15,7 @@ A brief description of your project, what it is used for.
 | Abdullah Yousuf     |         ayousuf3@jhu.edu           | ayousuf23       |
 | Nathaniel Eisenberg |         neisenb3@jhu.edu           | nateeisenberg1  |
 | Daniel Okereke      |         dokerek1@jhu.edu           | welper          |
-| Shanelle Cao        |          scao15@jhu.edu            | scao12          |
+| Shanelle Cao        |          scao15@jhu.edu            | scao15          |
 | Siqi Cao            |          scao16@jhu.edu            | siqicao2016     |
 | Eric Saenz          |         esaenz2@jhu.edu            | ericsaenz       |
 
