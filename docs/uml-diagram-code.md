@@ -1,4 +1,4 @@
-This document contains code for generating the UML diagrams on (yuml.me)[https://yuml.me/].
+This document contains code for generating the UML diagrams on [yuml.me](https://yuml.me/).
 
 For iteration 1
 
