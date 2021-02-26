@@ -14,3 +14,10 @@ When2Meet: [click here](https://www.when2meet.com/?11139749-jH8B8)
 # Tasks
 - Get a Yelp API key and get familiar with how the API works
 - Create a Heroku project and add everyone in the group as a collaborator
+- Add React to the frontend
+- Assign everyone task(s) to complete for iteration 1
+- Write code for getting restaurants from Yelp API
+- Write code for the models
+- Serve the frontend from the backend server
+- Deploy to Heroku
+- Handle continous integration 
