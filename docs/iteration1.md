@@ -9,8 +9,20 @@ When2Meet: [click here](https://www.when2meet.com/?11139749-jH8B8)
 
 # Wireframe & Use-case
 
-[Wireframe](./iteration1_wireframe.png)  
-[Use-case](./iteration1_usecase.md)
+![Wireframe](assets/iteration1_wireframe.png)  
+
+**Use Case: Receiving assistance in choosing a restaurant**
+1. The user opens the application.
+2. The user will be presented with the "Start" page, view (1).
+3. The user will click on the "Host a group" button.
+4. The user will be presented with the "Group" page, view (2).
+5. The user will click on the "Change Location" button and input his/her location.
+6. The user will click on the "Begin" button.
+7. The user will be presented with a "Restaurant option" page, view (3).
+8. The user will click on "Yes" if he/she finds the option appealing, or on "No" if he/she finds it unappealing.
+9. If the user clicks on "Yes", a new "Restaurant option" page will be presented.
+10. If the user swipes right, the "Match found" page, view (4), will be presented.
+11. The user will click on the "Done" button and be returned to the "Start" page.
 
 # Iteration Backlog
 
