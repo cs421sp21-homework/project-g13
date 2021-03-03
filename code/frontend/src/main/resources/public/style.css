@@ -1,0 +1,10 @@
+.card-body {
+
+}
+
+.restaurant-image {
+    width: 100%;
+    height: 40%;
+    background-size: cover;
+    background-image: url("https://www.ashton-design.com/case-study/readco/img/projects/JohnsHopkins/0511_FreshFoodCafe/0511_editedExterior.jpg");
+}
