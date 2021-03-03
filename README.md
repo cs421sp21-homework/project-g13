@@ -1,6 +1,6 @@
-# Name of the project
+# Chicken Tinder
 
-A brief description of your project, what it is used for.
+Can't decide what to eat? Hop on Chicken Tinder by yourself or with friends and you'll get told what to eat!
 
 **Advisors**
 
