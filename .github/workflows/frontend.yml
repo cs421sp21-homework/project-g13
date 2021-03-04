@@ -7,6 +7,14 @@ on:
     paths:
       - "code/frontend/**"
       - ".github/workflows/frontend.yml"
+  workflow_dispatch:
+      inputs:
+        logLevel:
+          description: 'Log level'     
+          required: true
+          default: 'warning'
+      tags:
+        description: 'Deploy frontend'  
 
 jobs:
   deploy:
@@ -17,3 +25,5 @@ jobs:
         run: git remote add heroku-frontend https://heroku:${{ secrets.HEROKU_API_TOKEN }}@git.heroku.com/${{ secrets.HEROKU_FRONTEND_APP_NAME }}.git
       - name: Deploy frontend to Heroku
         run: git push heroku-frontend `git subtree split --prefix code/frontend main`:refs/heads/main --force
+        
+  
