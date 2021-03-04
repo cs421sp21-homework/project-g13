@@ -1,6 +1,6 @@
 import { withRouter } from "react-router-dom";
-import { Component } from "react";
-//import "./App.css";
+import React, { Component } from "react";
+import "./App.css";
 
 class Card extends Component {
   constructor(props) {

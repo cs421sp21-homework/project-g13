@@ -1,0 +1,128 @@
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  text-align: center;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  background-color: black;
+  width: 100%;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.card-body {
+  width: 60vw;
+  height: 100vh;
+  margin: auto;
+  box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 25px;
+  overflow: hidden;
+  position: relative;
+}
+
+.top-spacer {
+  width: 100%;
+  height: 5%;
+}
+
+.display-inline {
+  display: inline;
+}
+
+.font-helvetica {
+  font-family: Helvetica;
+}
+
+.restaurant-image {
+  height: 45%;
+  width: 100%;
+  margin: auto;
+  background-image: url("https://www.ashton-design.com/case-study/readco/img/projects/JohnsHopkins/0511_FreshFoodCafe/0511_editedExterior.jpg");
+  background-size: 100% 100%;
+  border-bottom: solid black 10px;
+}
+
+.restaurant-info {
+  width: 95%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.restaurant-name {
+  font-size: 64px;
+  margin-left: 0px;
+}
+
+.restaurant-price-range {
+  font-size: 36px;
+  color: gray;
+  margin-left: 20px;
+}
+
+.restaurant-cuisine {
+  margin-top: 10px;
+  font-size: 36px;
+}
+
+.like-dislike-container {
+  position: absolute;
+  width: 500px;
+  height: 200px;
+  bottom: 8%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.like-dislike-button {
+  border-radius: 50%;
+  height: 100%;
+  width: 40%;
+  background-color: white;
+  font-size: 100px;
+  border: none;
+  box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.like-dislike-button:hover {
+  background-color: lightgray;
+}
+
+.like-dislike-button:active {
+  color: white;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.red {
+  color: red;
+}
