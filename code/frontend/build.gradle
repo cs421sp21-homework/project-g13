@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'org.example'
-version '1.0-SNAPSHOT'
+version '0.0.1'
 
 repositories {
     mavenCentral()
@@ -22,7 +22,20 @@ test {
     useJUnitPlatform()
 }
 
-heroku {
-    jdkVersion = 15
-    processTypes(web: "java -jar build/libs/course-search-api-0.0.1.jar")
+jar {
+    manifest {
+        attributes 'Main-Class' : 'Server'
+    }
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
+
+heroku {
+    appname = "chicken-tinder-13"
+    jdkVersion = 15
+    processTypes(web: "java -jar build/libs/frontend-0.0.1.jar")
+}
+
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean

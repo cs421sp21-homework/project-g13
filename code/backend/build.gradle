@@ -38,7 +38,10 @@ jar {
 }
 
 heroku {
-    appName="chicken-tinder-13"
+    appName="chicken-tinder-13-backend"
     jdkVersion = 11
-    processTypes(web: "java -jar build/libs/HelloWorld-0.0.1.jar")
+    processTypes(web: "java -jar build/libs/backend-0.0.1.jar")
 }
+
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
