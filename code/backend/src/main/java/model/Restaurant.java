@@ -5,8 +5,10 @@ public class Restaurant {
     private String name;
     private String location;
     private String priceRange;
-    private String cuisine;
+    private String[] categories;
     private String operatingHours;
+    private int rating;
+    private String image;
 
 
     /**
@@ -15,16 +17,19 @@ public class Restaurant {
      * @param name The restaurant's name.
      * @param location The restaurant's location.
      * @param priceRange The restaurant's price range.
-     * @param cuisine The type of food the restaurant serves.
+     * @param categories The type of food the restaurant serves.
      * @param operatingHours Times when the restaurant is open.
      */
     public Restaurant(String name, String location, String priceRange,
-                      String cuisine, String operatingHours) {
+                      String[] categories, String operatingHours, int rating,
+                      String image_url) {
         this.name = name;
         this.location = location;
         this.priceRange = priceRange;
-        this.cuisine = cuisine;
+        this.categories = categories;
         this.operatingHours = operatingHours;
+        this.rating = rating;
+        this.image = image_url;
     }
 
 

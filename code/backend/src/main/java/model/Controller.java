@@ -1,5 +1,10 @@
 package model;
+
 import java.util.ArrayList;
+
+import kong.unirest.Unirest;
+import kong.unirest.json.JSONArray;
+import kong.unirest.json.JSONObject;
 
 public class Controller {
 
@@ -34,6 +39,18 @@ public class Controller {
         //To implement in this iteration!
         //Loads restaurants from Yelp API and the user's location
         //into the restaurants arraylist.
+        JSONObject response = Unirest.get(query).asJson().getBody();
+        JSONArray businesses = response.getJSONArray("businesses");
+        for (int i = 0; i < businesses.length(); i++) {
+            JSONObject restaurant = businesses.getJSONObject(i);
+            String name = restaurant.getString("name");
+            String location = restaurant.getString("location"); // one line address or fancy display address
+            String priceRange = restaurant.getString("price"); // "$", change to int?
+            JSONArray categories = restaurant.getJSONArray("categories"); // need to further parse
+            int rating = restaurant.getInt("rating"); // add as a pair of rating,number of rating?
+            String image = restaurant.getString("image_url");
+        }
+
     }
 
     /**
