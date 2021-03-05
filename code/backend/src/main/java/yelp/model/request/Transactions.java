@@ -1,12 +1,18 @@
 package yelp.model.request;
 import com.fasterxml.jackson.annotation.JsonCreator;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
 public enum Transactions {
-    PICKUP("pickup"),
-    DELIVERY("delivery");
+
+    pickup("pickup"),
+
+    delivery("delivery"),
+
+    restaurant_reservation("restaurant_reservation");
 
     @Getter
     private String value;
@@ -23,4 +29,5 @@ public enum Transactions {
         }
         throw new IllegalArgumentException();
     }
+
 }

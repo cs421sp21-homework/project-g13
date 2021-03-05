@@ -1,5 +1,6 @@
 package yelp.model.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -8,6 +9,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BusinessSearch {
     @JsonProperty
     protected String id;
@@ -19,16 +21,16 @@ public class BusinessSearch {
     protected String name;
 
     @JsonProperty("image_url")
-    private String imageUrl;
+    private String image_url;
 
     @JsonProperty("is_closed")
-    private Boolean isClosed;
+    private Boolean is_closed;
 
     @JsonProperty
     private String url;
 
     @JsonProperty("review_count")
-    private Integer reviewCount;
+    private Integer review_count;
 
     @JsonProperty
     private List<Category> categories;
@@ -52,7 +54,7 @@ public class BusinessSearch {
     protected String phone;
 
     @JsonProperty("display_phone")
-    protected String displayPhone;
+    protected String display_phone;
 
     @JsonProperty
     @JsonInclude(JsonInclude.Include.NON_NULL)

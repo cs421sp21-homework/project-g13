@@ -1,7 +1,6 @@
 package yelp.services.impl;
 
 import org.springframework.http.*;
-import org.springframework.web.client.HttpServerErrorException;
 import yelp.model.parameters.BusinessSearchParameters;
 import yelp.model.response.BusinessSearchResponse;
 import yelp.services.YelpApi;
@@ -9,7 +8,6 @@ import yelp.services.YelpApi;
 import lombok.Data;
 
 import org.springframework.web.client.RestTemplate;
-
 
 @Data
 public class YelpService implements YelpApi {
@@ -19,7 +17,7 @@ public class YelpService implements YelpApi {
         this.token = token;
     }
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    RestTemplate restTemplate = new RestTemplate();
 
     @Override
     public BusinessSearchResponse searchBusiness(BusinessSearchParameters parameters) throws Exception {
@@ -32,6 +30,7 @@ public class YelpService implements YelpApi {
 
     private HttpEntity<String> getHttpEntity() {
         HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
         headers.set(AUTHORIZATION, getBearerToken());
         return new HttpEntity<>(headers);
     }
