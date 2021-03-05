@@ -1,15 +1,13 @@
 package yelp.services.impl;
 
+import org.springframework.http.*;
+import org.springframework.web.client.HttpServerErrorException;
 import yelp.model.parameters.BusinessSearchParameters;
 import yelp.model.response.BusinessSearchResponse;
 import yelp.services.YelpApi;
 
 import lombok.Data;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -26,9 +24,10 @@ public class YelpService implements YelpApi {
     @Override
     public BusinessSearchResponse searchBusiness(BusinessSearchParameters parameters) throws Exception {
         String uri = getBusinessesSearchEndpointUriWithParameters(parameters);
-        ResponseEntity<BusinessSearchResponse> response = restTemplate.exchange(uri, HttpMethod.GET, getHttpEntity(),
-                BusinessSearchResponse.class);
-        return response.getBody();
+        BusinessSearchResponse result = restTemplate
+                .exchange(uri, HttpMethod.GET, getHttpEntity(), BusinessSearchResponse.class)
+                .getBody();
+        return result;
     }
 
     private HttpEntity<String> getHttpEntity() {

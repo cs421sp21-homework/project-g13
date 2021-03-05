@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class BusinessNameID {
+public class Coordinates {
     @JsonProperty
-    protected String id;
+    private Double latitude;
 
     @JsonProperty
-    protected String name;
+    private Double longitude;
 }

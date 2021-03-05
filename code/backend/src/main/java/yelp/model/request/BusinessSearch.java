@@ -4,30 +4,55 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.util.List;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class BusinessSearch extends BusinessInfo {
+public class BusinessSearch {
     @JsonProperty
-    private Double rating;
+    protected String id;
 
     @JsonProperty
-    private String price;
+    protected String alias;
+
+    @JsonProperty
+    protected String name;
+
+    @JsonProperty("image_url")
+    private String imageUrl;
 
     @JsonProperty("is_closed")
     private Boolean isClosed;
+
+    @JsonProperty
+    private String url;
 
     @JsonProperty("review_count")
     private Integer reviewCount;
 
     @JsonProperty
-    private String url;
+    private List<Category> categories;
 
-    @JsonProperty("image_url")
-    private String imageUrl;
+    @JsonProperty
+    private Double rating;
+
+    @JsonProperty
+    protected Coordinates coordinates;
+
+    @JsonProperty
+    private List<Transactions> transactions;
+
+    @JsonProperty
+    private String price;
+
+    @JsonProperty
+    protected Location location;
+
+    @JsonProperty
+    protected String phone;
+
+    @JsonProperty("display_phone")
+    protected String displayPhone;
 
     @JsonProperty
     @JsonInclude(JsonInclude.Include.NON_NULL)

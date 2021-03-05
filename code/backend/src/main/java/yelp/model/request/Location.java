@@ -21,15 +21,16 @@ public class Location {
     @JsonProperty
     private String city;
 
+    @JsonProperty("zip_code")
+    private String zipCode;
+
     @JsonProperty
     private String country;
 
-    @JsonProperty("zip_code")
-    private String zipCode;
+    @JsonProperty
+    private String state;
 
     @JsonProperty("display_address")
     private List<String> displayAddress;
 
-    @JsonProperty("cross_streets")
-    private String crossStreets;
 }
