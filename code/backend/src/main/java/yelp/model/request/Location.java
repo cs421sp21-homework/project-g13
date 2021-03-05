@@ -22,7 +22,7 @@ public class Location {
     private String city;
 
     @JsonProperty("zip_code")
-    private String zipCode;
+    private String zip_code;
 
     @JsonProperty
     private String country;
@@ -31,6 +31,6 @@ public class Location {
     private String state;
 
     @JsonProperty("display_address")
-    private List<String> displayAddress;
+    private List<String> display_address;
 
 }
