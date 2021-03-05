@@ -23,38 +23,38 @@ Deploy Link: https://chicken-tinder-13.herokuapp.com/
 
 ## Installing / Getting started
 
-A quick introduction of the minimal setup you need to get the app up & running.
 
-```shell
-commands here
+```
+cd code/frontend
+npm install
+mpm start run
 ```
 
-Here you should say what actually happens when you execute the code above.
+Set your directory to the frontend directory. Install all the dependencies for the project. Then, run the frontend! The address for the frontend is in the terminal output. Head to that address and you'll see the frontend running!
 
 ## Developing
 
 ### Built With
-List main libraries, frameworks used including versions (React, Angular etc...)
-- React
-- SparkJava
+- React 17
+- SparkJava 3
 
 ### Prerequisites
 What is needed to set up the dev environment. For instance, global dependencies or any other tools. include download links.
 - Java 11 (https://adoptopenjdk.net/)
-- NodeJS (version): https://nodejs.org/en/download/
+- NodeJS: https://nodejs.org/en/download/
 
 ### Setting up Dev
 
 Here's a brief intro about what a developer must do in order to start developing
 the project further:
 
-```shell
+```
 git clone https://github.com/cs421sp21-homework/project-g13.git
-cd cs421sp21-homework/project-g13/code/
-packagemanager install
+cd cs421sp21-homework/project-g13/code/frontend
+npm install
 ```
 
-And state what happens step-by-step. If there is any virtual environment, local server or database feeder needed, explain here.
+First, we clone the git repository, so we can access all the files easily and make commits, branches, etc. Second, we go to the frontend section and install the project dependencies.
 
 ### Building
 
@@ -62,7 +62,8 @@ If your project needs some additional steps for the developer to build the
 project after some code changes, state them here. for example:
 
 - probably using Gradle? (./gradlew build build)
-```shell
+```
+shell
 ./configure
 make
 make install
