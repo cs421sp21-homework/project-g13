@@ -2,6 +2,8 @@
 
 Can't decide what to eat? Hop on Chicken Tinder by yourself or with friends for some recommendations!
 
+Deploy Link: https://chicken-tinder-13.herokuapp.com/
+
 **Advisors**
 
 |     Name     | JHU Email       | GitHub Username |
