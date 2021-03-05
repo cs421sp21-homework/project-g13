@@ -42,6 +42,7 @@ input[type="reset"] {
   overflow: hidden;
   position: relative;
   background-color: white;
+  color: black;
 }
 
 .display-inline {
@@ -64,6 +65,7 @@ input[type="reset"] {
   width: 95%;
   margin: auto;
   margin-top: 20px;
+  text-align: center;
 }
 
 .restaurant-name {
