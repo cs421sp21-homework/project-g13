@@ -1,7 +1,8 @@
-import spark.ModelAndView;
-import spark.template.handlebars.HandlebarsTemplateEngine;
 
-import static spark.Spark.*;
+
+import yelp.model.response.BusinessSearchResponse;
+import yelp.services.impl.YelpService;
+import yelp.model.parameters.BusinessSearchParameters;
 
 public class Server {
 
@@ -15,16 +16,20 @@ public class Server {
         return 4567;
     }
 
+
     public static void main(String[] args) {
 
-        port(getHerokuAssignedPort());
-        staticFiles.location("/public");
+        BusinessSearchParameters search = new BusinessSearchParameters();
+        search.setTerm("food");
+        search.setLocation("NYC");
 
-        get("/hello-world-onlybackend", (req, res) -> "Hello World!");
-
-        get("/hello-world-frontandbackend", (req, res) -> {
-            return new ModelAndView(null, "helloWorld.hbs");
-        }, new HandlebarsTemplateEngine());
+        YelpService query = new YelpService(
+                "JFIfCtXa51vEZE94eMQNCCwcZOOTbalEY7ZTP-KD_crZlGXR3Antcdqr9Vdr7xpMLtL5isLGRccvkbhYgQ1rIlHuvGPEtlHPdVedJX6kSXP0W3wK1TTOkXWGjR9BYHYx");
+        try{
+            BusinessSearchResponse response = query.searchBusiness(search);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }
