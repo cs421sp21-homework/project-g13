@@ -41,11 +41,7 @@ input[type="reset"] {
   border-radius: 25px;
   overflow: hidden;
   position: relative;
-}
-
-.top-spacer {
-  width: 100%;
-  height: 5%;
+  background-color: white;
 }
 
 .display-inline {
@@ -60,7 +56,6 @@ input[type="reset"] {
   height: 45%;
   width: 100%;
   margin: auto;
-  background-image: url("https://www.ashton-design.com/case-study/readco/img/projects/JohnsHopkins/0511_FreshFoodCafe/0511_editedExterior.jpg");
   background-size: 100% 100%;
   border-bottom: solid black 10px;
 }

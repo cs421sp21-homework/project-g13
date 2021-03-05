@@ -9,15 +9,16 @@ class Card extends Component {
       restaurant_name: "Restaurant",
       price_range: "$",
       cuisine: "American",
-      image:
-        "https://www.ashton-design.com/case-study/readco/img/projects/JohnsHopkins/0511_FreshFoodCafe/0511_editedExterior.jpg",
+      image: {
+        backgroundImage: 'url(' + "https://www.ashton-design.com/case-study/readco/img/projects/JohnsHopkins/0511_FreshFoodCafe/0511_editedExterior.jpg" + ')', 
+      }
     };
   }
 
   render() {
     return (
       <div class="card-body">
-        <div class="restaurant-image"></div>
+        <div class="restaurant-image" style={this.state.image}></div>
         <div class="restaurant-info">
           <h1 class="display-inline font-helvetica restaurant-name">
             {this.state.restaurant_name}
