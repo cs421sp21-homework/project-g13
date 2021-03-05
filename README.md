@@ -1,6 +1,6 @@
 # Chicken Tinder
 
-Can't decide what to eat? Hop on Chicken Tinder by yourself or with friends and you'll get told what to eat!
+Can't decide what to eat? Hop on Chicken Tinder by yourself or with friends for some recommendations!
 
 **Advisors**
 
@@ -33,10 +33,12 @@ Here you should say what actually happens when you execute the code above.
 
 ### Built With
 List main libraries, frameworks used including versions (React, Angular etc...)
+- React
+- SparkJava
 
 ### Prerequisites
 What is needed to set up the dev environment. For instance, global dependencies or any other tools. include download links.
-
+- Java 11 (https://adoptopenjdk.net/)
 
 ### Setting up Dev
 
@@ -44,8 +46,8 @@ Here's a brief intro about what a developer must do in order to start developing
 the project further:
 
 ```shell
-git clone https://github.com/your/your-project.git
-cd your-project/
+git clone https://github.com/cs421sp21-homework/project-g13.git
+cd cs421sp21-homework/project-g13/code/
 packagemanager install
 ```
 
@@ -56,6 +58,7 @@ And state what happens step-by-step. If there is any virtual environment, local 
 If your project needs some additional steps for the developer to build the
 project after some code changes, state them here. for example:
 
+- probably using Gradle? (./gradlew build build)
 ```shell
 ./configure
 make
@@ -70,6 +73,7 @@ give instructions on how to build and release a new version
 In case there's some step you have to take that publishes this project to a
 server, this is the right time to state it.
 
+- probably more Heroku stuff (./gradlew deployHeroku) (might be taken care of with continuous integration)
 ```shell
 packagemanager deploy your-project -s server.com -u username -p password
 ```
@@ -100,6 +104,7 @@ Explain your code style and show how to check it.
 ## Api Reference
 
 If the api is external, link to api documentation. If not describe your api including authentication methods as well as explaining all the endpoints with their required parameters.
+- Yelp API: https://www.yelp.com/developers/documentation/v3/
 
 ## Database
 
