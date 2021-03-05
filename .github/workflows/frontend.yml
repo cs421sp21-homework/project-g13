@@ -14,8 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Add frontend remote origin
-        run: heroku git:remote -a chicken-tinder-13
+        run: git remote add heroku-frontend https://heroku:${{ secrets.HEROKU_API_TOKEN }}@git.heroku.com/${{ secrets.HEROKU_FRONTEND_APP_NAME }}.git
       - name: Deploy frontend to Heroku
-        run: git push heroku main
+        run: git push heroku-frontend `git subtree split --prefix code/frontend main`:refs/heads/main --force
+
         
   
