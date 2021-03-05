@@ -4,6 +4,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
+import yelp.model.request.BusinessSearch;
 import yelp.model.response.BusinessSearchResponse;
 import yelp.services.impl.YelpService;
 import yelp.model.parameters.BusinessSearchParameters;
@@ -52,12 +53,17 @@ public class Server {
         search1.setTerm("food");
         search1.setLocation("NYC");
 
-        BusinessSearchResponse apiRes = searchYelpV3(search1);
+        List<BusinessSearch> businesses = searchYelpV3(search1)
+                .getBusinesses();
+        StringBuilder businessesLst = new StringBuilder("<br><br>");
+        for(BusinessSearch info: businesses) {
+            businessesLst.append(info).append("<br><br>");
+        }
 
         port(getHerokuAssignedPort());
         staticFiles.location("/public");
 
-        get("/hello-world-onlybackend", (req, res) -> "Hello World!" + apiRes.getBusinesses());
+        get("/hello-world-onlybackend", (req, res) -> "Hello World!" + "\n" + businessesLst);
 
         get("/hello-world-frontandbackend", (req, res) -> {
             return new ModelAndView(null, "helloWorld.hbs");
