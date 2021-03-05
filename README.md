@@ -41,6 +41,7 @@ List main libraries, frameworks used including versions (React, Angular etc...)
 ### Prerequisites
 What is needed to set up the dev environment. For instance, global dependencies or any other tools. include download links.
 - Java 11 (https://adoptopenjdk.net/)
+- NodeJS (version): https://nodejs.org/en/download/
 
 ### Setting up Dev
 
