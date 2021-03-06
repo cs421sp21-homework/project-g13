@@ -106,7 +106,7 @@ After iteration 1, we have deployed version 0.1.0
 
 Currently, the only configuration a user can enter while using the project is that of the individual consumer. They open the application and the only thing they can currently do is input a location and, upon submitting that location, they can click through some close-by restaurants.
 
-## Tests \*
+## Tests
 
 We currently do not have any tests written for iteration one. For this iteration, as we don't have a database and only take in one piece of information from the user, there wasn't any functions we could test at this time, but as we start building a database and adding more functionality to the frontend, we will add more tests.
 
