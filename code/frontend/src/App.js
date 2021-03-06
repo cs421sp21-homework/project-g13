@@ -31,7 +31,6 @@ class App extends Component {
           this.setState({restaurants: response});
           this.props.history.push("/ListRestaurants", this.state);
         });
-    console.log(this.state.restaurants[0]);
   }
 
 
