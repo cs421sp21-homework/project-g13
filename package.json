@@ -13,7 +13,9 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "axios": "^0.21.1"
+  },
   "author": "",
   "license": "ISC",
   "browserslist": {
