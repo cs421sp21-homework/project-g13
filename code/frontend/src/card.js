@@ -11,7 +11,7 @@ class Card extends Component {
     return (
       <div className="card-body">
         <div className="restaurant-image" style={{
-          backgroundImage: `url(${restaurant.backgroundImage})`
+          backgroundImage: `url(${restaurant.backgroundImage})`,
         }}/>
         <div className="restaurant-info">
           <h1 className="display-inline font-helvetica restaurant-name">
