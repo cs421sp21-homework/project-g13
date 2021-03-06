@@ -49,24 +49,29 @@ public class Server {
 
     public static void main(String[] args) {
 
-        BusinessSearchParameters search1 = new BusinessSearchParameters();
-        search1.setTerm("food");
-        search1.setLocation("NYC");
-
-        List<BusinessSearch> businesses = searchYelpV3(search1)
-                .getBusinesses();
-        StringBuilder businessesLst = new StringBuilder("<br><br>");
-        for(BusinessSearch info: businesses) {
-            businessesLst.append(info).append("<br><br>");
-        }
-
         port(getHerokuAssignedPort());
         staticFiles.location("/public");
 
-        get("/hello-world-onlybackend", (req, res) -> "Hello World!" + "\n" + businessesLst);
-
-        get("/hello-world-frontandbackend", (req, res) -> {
-            return new ModelAndView(null, "helloWorld.hbs");
-        }, new HandlebarsTemplateEngine());
+        get("/search", (req, res) -> {
+            String query = req.queryParams("query");
+            BusinessSearchParameters search1 = new BusinessSearchParameters();
+            search1.setTerm("food");
+            search1.setLocation(query);
+            List<BusinessSearch> businesses = searchYelpV3(search1)
+                    .getBusinesses();
+            res.type("application/json");
+            String json = "";
+            for (BusinessSearch biz : businesses) {
+                json += "{" +
+                        "\"restaurant_name\":\"" + biz.getName() + "\"," +
+                        "\"price_range\":\"" + biz.getPrice() + "\"," +
+                        "\"cuisine\":\"" + biz.getCategories().get(0).getTitle() + "\"," +
+                        "\"backgroundImage\":\"" + biz.getImage_url() + "\"," +
+                        "\"location\":\"" + biz.getLocation().getAddress1() + "\"" +
+                        "},";
+            }
+            json = "{\"restaurants\":[" + json.substring(0, json.length() - 1) + "]}";
+            return json;
+            });
     }
 }
