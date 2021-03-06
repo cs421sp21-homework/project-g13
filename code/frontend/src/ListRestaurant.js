@@ -21,9 +21,9 @@ class ListRestaurant extends Component {
     let location = Object.values(data);
     let locationString = "";
 
-    for (let i = 0; i < location.length; i++) {
+    for (let i = 0; i < location.length - 1; i++) {
       locationString += location[i];
-      if (i < location.length - 1) {
+      if (i < location.length - 2) {
         locationString += ", ";
       }
     }

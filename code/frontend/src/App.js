@@ -2,8 +2,15 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router";
 import { withRouter } from "react-router-dom";
 import ListRestaurant from "./ListRestaurant.js";
+import * as api from "./Api.js";
+
+import axios from "axios";
 
 class App extends Component {
+  componentDidMount() {
+    api.getRestaurants().then((response) => this.setState({restaurants: response.data.restaurants}));
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -12,6 +19,7 @@ class App extends Component {
       city: "",
       state: "",
       zipcode: "",
+      restaurants: [],
     };
   }
 
@@ -74,21 +82,7 @@ class App extends Component {
         </Route>
         <Route path="/ListRestaurants">
           <ListRestaurant
-              restaurants={[
-                {
-                  restaurant_name: "Restaurant",
-                  price_range: "$",
-                  cuisine: "American",
-                  backgroundImage: "https://www.ashton-design.com/case-study/readco/img/projects/JohnsHopkins/0511_FreshFoodCafe/0511_editedExterior.jpg",
-                },
-                {
-                  restaurant_name: "Restaurant2",
-                  price_range: "$$$",
-                  cuisine: "Not American",
-                  backgroundImage: "https://www.kaneconstruction.com/wp-content/uploads/2017/04/170302_407-for-Web.jpg",
-                }
-              ]}
-
+              restaurants={this.state.restaurants}
           />
         </Route>
       </Switch>

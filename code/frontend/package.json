@@ -10,7 +10,9 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "axios": "^0.21.1"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
