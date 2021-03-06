@@ -1,42 +1,31 @@
-import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
 import React, { Component } from "react";
 import "./App.css";
 
 class Card extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      restaurant_name: "Restaurant",
-      price_range: "$",
-      cuisine: "American",
-      image: {
-        backgroundImage: 'url(' + "https://www.ashton-design.com/case-study/readco/img/projects/JohnsHopkins/0511_FreshFoodCafe/0511_editedExterior.jpg" + ')', 
-      }
-    };
-  }
-
   render() {
+    const {restaurant} = this.props
     return (
-      <div class="card-body">
-        <div class="restaurant-image" style={this.state.image}></div>
-        <div class="restaurant-info">
-          <h1 class="display-inline font-helvetica restaurant-name">
-            {this.state.restaurant_name}
+      <div className="card-body">
+        <div className="restaurant-image" ref={restaurant.backgroundImage}/>
+        <div className="restaurant-info">
+          <h1 className="display-inline font-helvetica restaurant-name">
+            {restaurant.restaurant_name}
           </h1>
-          <h2 class="display-inline font-helvetica restaurant-price-range">
-            {this.state.price_range}
+          <h2 className="display-inline font-helvetica restaurant-price-range">
+            {restaurant.price_range}
           </h2>
-          <h2 class="font-helvetica restaurant-cuisine">
-            {this.state.cuisine}
+          <h2 className="font-helvetica restaurant-cuisine">
+            {restaurant.cuisine}
           </h2>
         </div>
 
-        <div class="like-dislike-container">
-          <button class="like-dislike-button float-left red">
-            <i class="fas fa-heart"></i>
+        <div className="like-dislike-container">
+          <button className="like-dislike-button float-left red">
+            <i className="fas fa-heart"/>
           </button>
-          <button class="like-dislike-button float-right">
-            <i className="fas fa-times"></i>
+          <button className="like-dislike-button float-right" onClick={this.props.onDislike}>
+            <i className="fas fa-times"/>
           </button>
         </div>
       </div>
@@ -44,4 +33,15 @@ class Card extends Component {
   }
 }
 
-export default withRouter(Card);
+export default Card;
+
+Card.propTypes = {
+  restaurant: PropTypes.shape({
+    _id: PropTypes.string,
+    restaurant_name: PropTypes.string.isRequired,
+    price_range: PropTypes.string.isRequired,
+    cuisine: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+  }).isRequired,
+  onDislike: PropTypes.func.isRequired,
+};
