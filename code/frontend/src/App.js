@@ -76,16 +76,18 @@ class App extends Component {
           <ListRestaurant
               restaurants={[
                 {
-                  restaurant_name: "Restaurant",
-                  price_range: "$",
+                  restaurant_name: "FFC",
+                  price_range: "$$",
                   cuisine: "American",
                   backgroundImage: "https://www.ashton-design.com/case-study/readco/img/projects/JohnsHopkins/0511_FreshFoodCafe/0511_editedExterior.jpg",
+                  location: "AMR II",
                 },
                 {
                   restaurant_name: "Restaurant2",
                   price_range: "$$$",
                   cuisine: "Not American",
                   backgroundImage: "https://www.kaneconstruction.com/wp-content/uploads/2017/04/170302_407-for-Web.jpg",
+                  location: "Wolman",
                 }
               ]}
 
