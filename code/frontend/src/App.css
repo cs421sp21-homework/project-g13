@@ -69,25 +69,25 @@ input[type="reset"] {
 }
 
 .restaurant-name {
-  font-size: 64px;
+  font-size: 8vmin;
   margin-left: 0px;
 }
 
 .restaurant-price-range {
-  font-size: 36px;
+  font-size: 4.5vmin;
   color: gray;
-  margin-left: 20px;
+  margin-left: 2.5vmin;
 }
 
 .restaurant-cuisine {
   margin-top: 10px;
-  font-size: 36px;
+  font-size: 4.5vmin;
 }
 
 .like-dislike-container {
   position: absolute;
-  width: 500px;
-  height: 200px;
+  width: 50vh;
+  height: 20vh;
   bottom: 8%;
   left: 50%;
   -webkit-transform: translateX(-50%);
