@@ -53,6 +53,14 @@ input[type="reset"] {
   font-family: Helvetica;
 }
 
+.clearfix {
+  clear: both;
+}
+
+.column-50 {
+  flex: 50%;
+}
+
 .restaurant-image {
   height: 45%;
   width: 100%;
@@ -62,32 +70,39 @@ input[type="reset"] {
 }
 
 .restaurant-info {
-  width: 95%;
+  width: 90%;
   margin: auto;
-  margin-top: 20px;
-  text-align: center;
+  margin-top: 2.5vmin;
+  display: flex;
 }
 
 .restaurant-name {
-  font-size: 64px;
-  margin-left: 0px;
+  font-size: 8vmin;
+  margin: inherit;
 }
 
 .restaurant-price-range {
-  font-size: 36px;
+  font-size: 4.5vmin;
   color: gray;
-  margin-left: 20px;
+  margin: inherit;
 }
 
 .restaurant-cuisine {
-  margin-top: 10px;
-  font-size: 36px;
+  font-size: 4.5vmin;
+  margin: 0;
+  margin-top: -1vmin;
+}
+
+.restaurant-location {
+  font-size: 4.5vmin;
+  color: black;
+  margin: 0px;
 }
 
 .like-dislike-container {
   position: absolute;
-  width: 500px;
-  height: 200px;
+  width: 50vh;
+  height: 20vh;
   bottom: 8%;
   left: 50%;
   -webkit-transform: translateX(-50%);

@@ -2,13 +2,9 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router";
 import { withRouter } from "react-router-dom";
 import ListRestaurant from "./ListRestaurant.js";
-import * as api from "./Api.js";
+import * as api from "./Api.js"
 
 class App extends Component {
-  componentDidMount() {
-    api.getRestaurants().then((response) => this.setState({restaurants: response.data.restaurants}));
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -27,6 +23,18 @@ class App extends Component {
       [event.target.name]: event.target.value,
     });
   };
+
+  submit = () => {
+    api.getRestaurants(`${this.state.address} ${this.state.suiteNum} 
+        ${this.state.city} ${this.state.state} ${this.state.zipcode}`)
+        .then((response) => {
+          this.setState({restaurants: response});
+          this.props.history.push("/ListRestaurants", this.state);
+        });
+    console.log(this.state.restaurants[0]);
+  }
+
+
 
   render() {
     return (
@@ -71,7 +79,9 @@ class App extends Component {
                   type="button"
                   value="Submit"
                   onClick={() =>
-                    this.props.history.push("/ListRestaurants", this.state)
+                    {
+                      this.submit();
+                    }
                   }
                 />
               </form>

@@ -7,22 +7,33 @@ class Card extends Component {
   render() {
 
     const {restaurant} = this.props;
+    console.log(restaurant);
 
     return (
       <div className="card-body">
         <div className="restaurant-image" style={{
-          backgroundImage: `url(${restaurant.backgroundImage})`
+          backgroundImage: `url(${restaurant.backgroundImage})`,
         }}/>
         <div className="restaurant-info">
-          <h1 className="display-inline font-helvetica restaurant-name">
-            {restaurant.restaurant_name}
-          </h1>
-          <h2 className="display-inline font-helvetica restaurant-price-range">
+          <div className="column-50">
+            <h1 className="font-helvetica restaurant-name float-left">
+              {restaurant.restaurant_name}
+            </h1>
+            <div className="clearfix no-margin"> </div>
+            <h2 className="font-helvetica restaurant-cuisine float-left">
+              {restaurant.cuisine}
+            </h2>
+          </div>
+          
+          <div className="column-50">
+          <h2 className="font-helvetica restaurant-price-range float-right">
             {restaurant.price_range}
           </h2>
-          <h2 className="font-helvetica restaurant-cuisine">
-            {restaurant.cuisine}
-          </h2>
+          <div className="clearfix no-margin"> </div>
+          <h3 className="font-helvetica restaurant-location float-right">
+            {restaurant.location}
+          </h3>
+          </div>
         </div>
 
         <div className="like-dislike-container">
@@ -48,6 +59,7 @@ Card.propTypes = {
     price_range: PropTypes.string.isRequired,
     cuisine: PropTypes.string.isRequired,
     backgroundImage: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
   }).isRequired,
   onDislike: PropTypes.func.isRequired,
 };
