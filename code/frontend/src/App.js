@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./App.css";
 import { Route, Switch } from "react-router";
 import { withRouter } from "react-router-dom";
 import ListRestaurant from "./ListRestaurant.js";
@@ -61,20 +60,36 @@ class App extends Component {
                   placeholder="Zip Code"
                   onChange={this.myChangeHandler}
                 />
-                <br></br>
+                <br/>
                 <input
                   type="button"
                   value="Submit"
                   onClick={() =>
                     this.props.history.push("/ListRestaurants", this.state)
                   }
-                ></input>
+                />
               </form>
             </header>
           </div>
         </Route>
         <Route path="/ListRestaurants">
-          <ListRestaurant />
+          <ListRestaurant
+              restaurants={[
+                {
+                  restaurant_name: "Restaurant",
+                  price_range: "$",
+                  cuisine: "American",
+                  backgroundImage: "https://www.ashton-design.com/case-study/readco/img/projects/JohnsHopkins/0511_FreshFoodCafe/0511_editedExterior.jpg",
+                },
+                {
+                  restaurant_name: "Restaurant2",
+                  price_range: "$$$",
+                  cuisine: "Not American",
+                  backgroundImage: "https://www.kaneconstruction.com/wp-content/uploads/2017/04/170302_407-for-Web.jpg",
+                }
+              ]}
+
+          />
         </Route>
       </Switch>
     );

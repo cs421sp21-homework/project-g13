@@ -3,11 +3,16 @@ import React, { Component } from "react";
 import "./App.css";
 
 class Card extends Component {
+
   render() {
-    const {restaurant} = this.props
+
+    const {restaurant} = this.props;
+
     return (
       <div className="card-body">
-        <div className="restaurant-image" ref={restaurant.backgroundImage}/>
+        <div className="restaurant-image" style={{
+          backgroundImage: `url(${restaurant.backgroundImage})`
+        }}/>
         <div className="restaurant-info">
           <h1 className="display-inline font-helvetica restaurant-name">
             {restaurant.restaurant_name}
@@ -31,6 +36,7 @@ class Card extends Component {
       </div>
     );
   }
+
 }
 
 export default Card;
