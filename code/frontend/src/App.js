@@ -4,8 +4,6 @@ import { withRouter } from "react-router-dom";
 import ListRestaurant from "./ListRestaurant.js";
 import * as api from "./Api.js";
 
-import axios from "axios";
-
 class App extends Component {
   componentDidMount() {
     api.getRestaurants().then((response) => this.setState({restaurants: response.data.restaurants}));
