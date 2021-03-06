@@ -53,6 +53,8 @@ public class Server {
         staticFiles.location("/public");
 
         get("/search", (req, res) -> {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "GET");
             String query = req.queryParams("query");
             BusinessSearchParameters search1 = new BusinessSearchParameters();
             search1.setTerm("food");
