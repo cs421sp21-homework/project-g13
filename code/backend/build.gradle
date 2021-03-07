@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id "com.heroku.sdk.heroku-gradle" version "2.0.0"
+    id "io.freefair.lombok" version "5.3.0"
 }
 
 version '0.0.1'
@@ -19,6 +20,15 @@ dependencies {
 
     implementation 'com.sparkjava:spark-template-mustache:2.7.1'
     implementation 'com.sparkjava:spark-template-handlebars:2.7.1'
+
+    // https://mvnrepository.com/artifact/org.springframework/spring-web
+    implementation group: 'org.springframework', name: 'spring-web', version: '3.0.4.RELEASE'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.0.1'
+    // https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-core-asl
+    implementation group: 'org.codehaus.jackson', name: 'jackson-core-asl', version: '1.9.13'
+    // https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl
+    implementation group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
 
     compile 'com.konghq:unirest-java:3.11.09'
 
@@ -39,8 +49,8 @@ jar {
 
 heroku {
     appName="chicken-tinder-13-backend"
-    jdkVersion = 11
-    processTypes(web: "java -jar build/libs/backend-0.0.1.jar")
+    jdkVersion = 15
+    processTypes(web: "java -jar build/libs/HelloWorld-0.0.1.jar")
 }
 
 task stage(dependsOn: ['build', 'clean'])
