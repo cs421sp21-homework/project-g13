@@ -108,7 +108,9 @@ Currently, the only configuration a user can enter while using the project is th
 
 ## Tests
 
-We currently do not have any tests written for iteration one. For this iteration, as we don't have a database and only take in one piece of information from the user, there wasn't any functions we could test at this time, but as we start building a database and adding more functionality to the frontend, we will add more tests.
+We currently do not have any tests written for the backend for iteration one.
+
+For the frontend, we have tests using PropTypes to ensure that variables have the proper types, which would throw an error if certain variables recieved types they weren't expecting.
 
 ## Style guide
 
