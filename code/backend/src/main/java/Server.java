@@ -74,6 +74,6 @@ public class Server {
             }
             json = "{\"restaurants\":[" + json.substring(0, json.length() - 1) + "]}";
             return json;
-            });
+        });
     }
 }
