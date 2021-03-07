@@ -1,12 +1,12 @@
 # Project Backlog
 
-## Iteration 1 (minimal-operating for 1 person only)
+## Iteration 1 (minimal-operations)
 
 - As a user, I would like to create a “swiping event” so that I can decide where I want to eat.
 - As a user, I would like to see each restaurant’s information so that I can decide if I like it or not.
 - As a user, I would like the restaurants shown to be close by so that I can actually get food there.
 
-## Iteration 2 (groups)
+## Iteration 2 (individual and groups)
 
 - As a user, I would like to create an account and login so that my information can be saved.
 - As a user, I would like to join a group so I can decide with my friends where to eat as a group.
