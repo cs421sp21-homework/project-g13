@@ -47,5 +47,13 @@ When2Meet: [click here](https://www.when2meet.com/?11286799-FBW9N)
 - As a group, we would like the “swiping event” to end after a certain amount of restaurants if no match was found so that it doesn’t go on forever.
 
 # Tasks
-
+- create the frontend interaction for continuous swiping
+- create the fronted interaction for joining and hosting groups
+- create the frontend interaction for match found/no match found
+- implement the account login system
+- create the database for storing group IDs
+- implement the assignment and managing of group IDs
+- create classes for groups
+- allow users to create and join groups in the backend
+- implement the swiping algorithm for groups
 # Retrospective
