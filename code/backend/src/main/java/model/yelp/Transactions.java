@@ -1,11 +1,5 @@
-package yelp.model.request;
-import com.fasterxml.jackson.annotation.JsonCreator;
+package model.yelp;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@AllArgsConstructor
 public enum Transactions {
 
     pickup("pickup"),
@@ -14,10 +8,14 @@ public enum Transactions {
 
     restaurant_reservation("restaurant_reservation");
 
-    @Getter
+
     private String value;
 
-    @JsonCreator
+    Transactions(String value) {
+        this.value = value;
+    }
+
+
     public static Transactions transactions(String value) {
         if (value == null) {
             throw new IllegalArgumentException();
@@ -30,4 +28,11 @@ public enum Transactions {
         throw new IllegalArgumentException();
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 }
