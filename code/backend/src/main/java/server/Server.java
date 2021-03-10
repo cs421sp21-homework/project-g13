@@ -40,7 +40,7 @@ public class Server {
 
             if (query == null) res.status(404);
 
-            List<Restaurant> resp = YelpService.getRestaurantByLocationWithDetail(query, 40, 40000);
+            List<Restaurant> resp = YelpService.getRestaurantByLocationWithDetail(query, 20, 40000);
             if (resp == null) res.status(404);
             Gson gson = new Gson();
             return gson.toJson(resp);

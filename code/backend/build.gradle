@@ -4,7 +4,7 @@ plugins {
     id "io.freefair.lombok" version "5.3.0"
 }
 
-version '0.0.1'
+version '0.0.2'
 
 repositories {
     mavenCentral()
@@ -46,7 +46,7 @@ jar {
 heroku {
     appName="chicken-tinder-13-backend"
     jdkVersion = 15
-    processTypes(web: "java -jar build/libs/ChickenTinderBackend-0.0.1.jar")
+    processTypes(web: "java -jar build/libs/ChickenTinderBackend-0.0.2.jar")
 }
 
 task stage(dependsOn: ['build', 'clean'])

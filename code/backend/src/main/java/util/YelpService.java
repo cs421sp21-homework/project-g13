@@ -6,6 +6,8 @@ import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 import model.yelp.Restaurant;
 import model.yelp.RestaurantSearchResponse;
+import model.yelp.Review;
+import model.yelp.ReviewSearchResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,6 @@ public class YelpService {
 
     private static String AUTHORIZATION = "Authorization";
     private static String BEARER = "Bearer";
-
 
     /**
      * Get restaurants by location
@@ -70,18 +71,27 @@ public class YelpService {
     }
 
     /**
+     * Get reviews of a certain
+     * @param id of the restaurant
+     * @return ReviewSearchResponse contains the reviews
+     */
+    public static ReviewSearchResponse getRestaurantReviews(String id) {
+        HttpResponse<JsonNode> response = Unirest.get(BASE_ENDPOINT+"/{id}/reviews")
+                .header(AUTHORIZATION, BEARER + " " + KEY)
+                .routeParam("id", id)
+                .asJson();
+        Gson gson = new Gson();
+        return gson.fromJson(response.getBody().toString(), ReviewSearchResponse.class);
+    }
+
+    /**
      * Get restaurants with full details in/around a location
      * @param location to get restaurants from
      * @return List<Restaurant> the restaurants with their info
      */
     public static List<Restaurant> getRestaurantByLocationWithDetail(String location) {
         RestaurantSearchResponse response = getRestaurantsByLocation(location);
-        if (response == null) return null;
-        List<Restaurant> restaurantsWithDetail = new ArrayList<>();
-        for (Restaurant rest: response.getBusinesses()) {
-            restaurantsWithDetail.add(getRestaurantWithDetail(rest.getId()));
-        }
-        return restaurantsWithDetail;
+        return getRestaurantsWithDetail(response);
     }
 
     /**
@@ -89,14 +99,29 @@ public class YelpService {
      * @param location to get restaurants from
      * @param limit maximum number of restuarants to get
      * @param radius meters around location to get restaurants from
-     * @return
+     * @return List<Restaurant> containing the restaurants
      */
     public static List<Restaurant> getRestaurantByLocationWithDetail(String location, int limit, int radius) {
         RestaurantSearchResponse response = getRestaurantsByLocation(location, limit, radius);
-        if (response == null) return null;
+        return getRestaurantsWithDetail(response);
+    }
+
+    /**
+     * Takes a RestaurantSearchResponse object and returns a list of those with
+     * all their details (photos, reviews, etc.).
+     * This is a helper method.
+     * @param response object returned when searching for restaurants via other methods
+     * @return List<Restaurant> containing the restaurants
+     */
+    private static List<Restaurant> getRestaurantsWithDetail(RestaurantSearchResponse response) {
+        if (response == null || response.getBusinesses() == null) return null;
         List<Restaurant> restaurantsWithDetail = new ArrayList<>();
         for (Restaurant rest: response.getBusinesses()) {
-            restaurantsWithDetail.add(getRestaurantWithDetail(rest.getId()));
+            Restaurant restWithDetail = getRestaurantWithDetail(rest.getId());
+            if (restWithDetail != null) {
+                restWithDetail.setReviews(getRestaurantReviews(rest.getId()).getReviews());
+                restaurantsWithDetail.add(restWithDetail);
+            }
         }
         return restaurantsWithDetail;
     }

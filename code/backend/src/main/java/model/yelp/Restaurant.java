@@ -56,6 +56,10 @@ public class Restaurant {
 
     private Double distance;
 
+
+    private List<Review> reviews;
+
+
     public String getId() {
         return id;
     }
@@ -190,5 +194,13 @@ public class Restaurant {
 
     public void setDistance(Double distance) {
         this.distance = distance;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }
