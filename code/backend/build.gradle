@@ -36,7 +36,9 @@ test {
 
 jar {
     manifest {
-        attributes 'Main-Class' : 'Server'
+        attributes 'Main-Class' : 'server.Server'
+
+
     }
     from {
         configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
