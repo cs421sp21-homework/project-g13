@@ -10,7 +10,7 @@ class Card extends Component {
 
     const {restaurant} = this.props;
 
-    const restaurantLocation = restaurant.location['address1'];
+    const restaurantLocation = restaurant.location["address1"];
     const cuisineType = restaurant.categories[0]['title'];
     const rating = restaurant.rating;
     const reviewCount = restaurant.review_count;
@@ -58,11 +58,28 @@ export default Card;
 Card.propTypes = {
   restaurant: PropTypes.shape({
     _id: PropTypes.string,
-    restaurant_name: PropTypes.string.isRequired,
-    price_range: PropTypes.string.isRequired,
-    cuisine: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    review_count: PropTypes.number.isRequired,
+    reviews: PropTypes.arrayOf(
+        PropTypes.shape({
+          text: PropTypes.string.isRequired,
+          rating: PropTypes.number.isRequired,
+        }).isRequired,
+    ).isRequired,
+    categories: PropTypes.arrayOf(
+        PropTypes.shape({
+          alias: PropTypes.string.isRequired,
+          title: PropTypes.string.isRequired,
+        }).isRequired,
+    ).isRequired,
+    photos: PropTypes.arrayOf(
+        PropTypes.string.isRequired,
+    ).isRequired,
+    location: PropTypes.shape({
+      address1: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
   onDislike: PropTypes.func.isRequired,
 };

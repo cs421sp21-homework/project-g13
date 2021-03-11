@@ -5,7 +5,7 @@ async function getRestaurants(location) {
             `https://chicken-tinder-13-backend.herokuapp.com/search?query=${location}`);
         return response.data;
     } catch(err) {
-        console.log("err");
+        console.log(err);
         return ["err"];
     }
 }
