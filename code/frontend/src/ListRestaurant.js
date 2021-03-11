@@ -17,21 +17,12 @@ class ListRestaurant extends Component {
     }
 
   render() {
-    const data = this.props.location.state;
-    let location = Object.values(data);
-    let locationString = "";
+    let data = this.props.location.state;
 
-    for (let i = 0; i < location.length - 1; i++) {
-      locationString += location[i];
-      if (i < location.length - 2) {
-        locationString += ", ";
-      }
-    }
+    const restaurants = data.restaurants;
 
-    const restaurants = this.props.restaurants;
     return (
       <div className="App-header">
-        <h1>{locationString}</h1>
         <Card
             restaurant={restaurants[this.state.position]}
             onDislike={this.nextRestaurant}
