@@ -26,6 +26,7 @@ class ListRestaurant extends Component {
         <Card
             restaurant={restaurants[this.state.position]}
             onDislike={this.nextRestaurant}
+            onLike = {() => {}}
         />
       </div>
     );

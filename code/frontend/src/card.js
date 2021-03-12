@@ -82,4 +82,5 @@ Card.propTypes = {
     }).isRequired,
   }).isRequired,
   onDislike: PropTypes.func.isRequired,
+  onLike: PropTypes.func.isRequired,
 };
