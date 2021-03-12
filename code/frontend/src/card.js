@@ -6,10 +6,22 @@ import "./App.css";
 
 class Card extends Component {
 
+  onKeyPressed(event) {
+    if (event.key === "ArrowLeft") {
+      this.props.onLike();
+    }
+    if (event.key === "ArrowRight") {
+      this.props.onDislike();
+    }
+  }
+
+  componentDidMount() {
+    document.addEventListener("keyup", this.onKeyPressed.bind(this));
+  }
+
   render() {
 
     const {restaurant} = this.props;
-
     const restaurantLocation = restaurant.location["address1"];
     const cuisineType = restaurant.categories[0]['title'];
     const rating = restaurant.rating;
@@ -17,8 +29,6 @@ class Card extends Component {
     const webUrl = restaurant.url;
     const photos = restaurant.photos;
     const reviews = restaurant.reviews;
-
-
 
     return (
       <NewCard style = {{justify: 'center'}}>
