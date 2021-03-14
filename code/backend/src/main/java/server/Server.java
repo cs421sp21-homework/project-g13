@@ -2,14 +2,11 @@ package server;
 
 import com.google.gson.Gson;
 import model.yelp.Restaurant;
-import model.yelp.RestaurantSearchResponse;
 import util.YelpService;
 
 import java.util.List;
 
-import static spark.Spark.get;
-import static spark.Spark.port;
-import static spark.Spark.staticFiles;
+import static spark.Spark.*;
 
 public class Server {
 
@@ -37,14 +34,18 @@ public class Server {
             res.header("Access-Control-Allow-Methods", "GET");
             res.header("Content-Type", "application/json");
             String query = req.queryParams("query");
+            int radius, limit;
 
             if (query == null) res.status(404);
+            try { limit = Integer.parseInt(req.queryParams("limit")); }
+            catch(Exception e) { limit = 20; }
+            try { radius = Integer.parseInt(req.queryParams("radius")); }
+            catch(Exception e) { radius = 40000; }
 
-            List<Restaurant> resp = YelpService.getRestaurantByLocationWithDetail(query, 20, 40000);
+            List<Restaurant> resp = YelpService.getRestaurantByLocationWithDetail(query, limit, radius);
             if (resp == null) res.status(404);
             Gson gson = new Gson();
             return gson.toJson(resp);
         });
-
     }
 }

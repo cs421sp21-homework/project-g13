@@ -6,7 +6,6 @@ import kong.unirest.JsonNode;
 import kong.unirest.Unirest;
 import model.yelp.Restaurant;
 import model.yelp.RestaurantSearchResponse;
-import model.yelp.Review;
 import model.yelp.ReviewSearchResponse;
 
 import java.util.ArrayList;
@@ -42,7 +41,7 @@ public class YelpService {
      * @param location to get restaurants from
      * @param limit of the number of restaurants to get
      * @param radius meters around location to get restaurants from
-     * @return RestaurantSearchResponse which contains the restaurants and the numbeer of results
+     * @return RestaurantSearchResponse which contains the restaurants and the number of results
      */
     public static RestaurantSearchResponse getRestaurantsByLocation(String location, int limit, int radius) {
         HttpResponse<JsonNode> response = Unirest.get(BASE_ENDPOINT+"/search")
