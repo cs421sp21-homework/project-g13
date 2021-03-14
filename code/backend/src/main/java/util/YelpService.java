@@ -30,6 +30,7 @@ public class YelpService {
         HttpResponse<JsonNode> response = Unirest.get(BASE_ENDPOINT+"/search")
                 .header(AUTHORIZATION, BEARER + " " + KEY)
                 .queryString("location", location)
+                .queryString("term", "food")
                 .asJson();
         Gson gson = new Gson();
         return  gson.fromJson(response.getBody().toString(),
@@ -49,6 +50,7 @@ public class YelpService {
                 .queryString("location", location)
                 .queryString("limit", limit)
                 .queryString("radius", radius)
+                .queryString("term", "food")
                 .asJson();
         Gson gson = new Gson();
         return  gson.fromJson(response.getBody().toString(),
