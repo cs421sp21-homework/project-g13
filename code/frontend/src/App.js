@@ -13,6 +13,7 @@ class App extends Component {
       city: "",
       state: "",
       zipcode: "",
+      radius: 25,
       restaurants: [],
       statusMessage: "",
     };
@@ -25,17 +26,42 @@ class App extends Component {
     });
   };
 
-  submit = () => {
-    this.setState({statusMessage: "Loading..."});
+  validInput = () => {
     if (this.state.address === "" || this.state.city === "" ||
         this.state.state === "" || this.state.zipcode === "") {
       this.setState({statusMessage: "Please enter all required fields."});
-    } else {
+      return false;
+    }
+    if (this.state.radius === "") {
+      this.setState({statusMessage: "Error: Search radius must be a number."});
+      return false;
+    }
+    if (this.state.radius > 25) {
+      this.setState({statusMessage: "Error: Maximum search radius is 25 miles."});
+      return false;
+    }
+    if (this.state.radius <= 0) {
+      this.setState({statusMessage: "Error: Search radius must be greater than 0."});
+      return false;
+    }
+    return true;
+  }
+
+  milesToMeters = (miles) => {
+    return Math.round(miles * 1609.34);
+  }
+
+  submit = () => {
+    this.setState({statusMessage: "Loading..."});
+    if (this.validInput()) {
       api.getRestaurants(`${this.state.address} ${this.state.suiteNum} 
-        ${this.state.city} ${this.state.state} ${this.state.zipcode}`)
+        ${this.state.city} ${this.state.state} ${this.state.zipcode}`,
+          this.milesToMeters(this.state.radius))
           .then((response) => {
             if (response[0] === "err") {
               this.setState({statusMessage: "Error: Location not recognized by Yelp."});
+            } else if (response.length === 0) {
+              this.setState({statusMessage: "Error: No results found. Try broadening your search radius."});
             } else {
               this.setState({restaurants: response});
               this.props.history.push("/ListRestaurants", this.state);
@@ -85,14 +111,21 @@ class App extends Component {
                   onChange={this.myChangeHandler}
                 />
                 <br/>
+                <h1>Search for restaurants within: </h1>
+                <input
+                    type="number"
+                    name="radius"
+                    max={25}
+                    min={0.5}
+                    step={0.5}
+                    defaultValue={25}
+                    onChange={this.myChangeHandler}
+                />
+                miles
                 <input
                   type="button"
                   value="Submit"
-                  onClick={() =>
-                    {
-                      this.submit();
-                    }
-                  }
+                  onClick={() => {this.submit()}}
                 />
               </form>
               <div className="status">
