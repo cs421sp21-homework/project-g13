@@ -7,9 +7,7 @@ import util.YelpService;
 
 import java.util.List;
 
-import static spark.Spark.get;
-import static spark.Spark.port;
-import static spark.Spark.staticFiles;
+import static spark.Spark.*;
 
 public class Server {
 
@@ -30,6 +28,8 @@ public class Server {
 
         //Set Yelp API key
         YelpService.setKey("JFIfCtXa51vEZE94eMQNCCwcZOOTbalEY7ZTP-KD_crZlGXR3Antcdqr9Vdr7xpMLtL5isLGRccvkbhYgQ1rIlHuvGPEtlHPdVedJX6kSXP0W3wK1TTOkXWGjR9BYHYx");
+
+        webSocket("/chat", WebSocketHandler.class);
 
         //Get restaurants endpoint
         get("/search", (req, res) -> {
