@@ -1,25 +1,28 @@
-const http = require("http");
-const socketIo = require("socket.io");
-
-const port = 3000;
-
-const index = require("./index");
+const express = require("express");
 const app = express();
-app.use(index);
+//const http = require("http");
+//const server = http.createServer(app);
+const cors = require("cors");
+app.use(cors());
+const socketio = require("socket.io");
 
-const server = http.createServer(app);
+const server = require("http").createServer();
+const options = {
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: true,
+  },
+};
+const io = require("socket.io")(server, options);
 
-const io = socketIo(server);
-
-app.get("/", function (req, res) {
-  res.render("index.html", null);
-});
+const PORT = 4000 || process.env.PORT;
 
 io.on("connection", function (socket) {
   console.log("user joined a room");
 
   socket.on("create_room", (room) => {
     socket.join(room);
+    console.log(room);
   });
 
   socket.on("join_room", (room) => {
@@ -35,5 +38,27 @@ io.on("connection", function (socket) {
   });
 });
 
-io.listen(port);
-console.log("listening on port ", port);
+server.listen(PORT, function () {
+  console.log(`listening on port ${PORT}`);
+});
+/*
+const path = require("path");
+
+const fs = require("fs");
+
+app.use(express.static(path.join(__dirname, "public")));
+fs.readFile("index.html", function (err, html) {
+  if (err) throw err;
+
+  http
+    .createServer(function (request, response) {
+      response.writeHeader(200, { "Content-Type": "text/html" });
+      response.write(html);
+      response.end();
+    })
+    .listen(PORT);
+});
+
+io.listen(PORT);
+console.log("listening on port ", PORT);
+*/
