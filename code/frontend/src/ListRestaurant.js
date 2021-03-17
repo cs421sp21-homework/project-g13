@@ -17,16 +17,24 @@ class ListRestaurant extends Component {
     }
 
   render() {
-    let data = this.props.location.state;
+    const data = this.props.location.state;
+    let location = Object.values(data);
+    let locationString = "";
 
-    const restaurants = data.restaurants;
+    for (let i = 0; i < location.length - 1; i++) {
+      locationString += location[i];
+      if (i < location.length - 2) {
+        locationString += ", ";
+      }
+    }
 
+    const restaurants = this.props.restaurants;
     return (
       <div className="App-header">
+        <h1>{locationString}</h1>
         <Card
             restaurant={restaurants[this.state.position]}
             onDislike={this.nextRestaurant}
-            onLike = {() => {}}
         />
       </div>
     );
@@ -38,28 +46,10 @@ export default withRouter(ListRestaurant);
 ListRestaurant.propTypes = {
     restaurants: PropTypes.arrayOf(
         PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            price: PropTypes.string.isRequired,
-            rating: PropTypes.number.isRequired,
-            review_count: PropTypes.number.isRequired,
-            reviews: PropTypes.arrayOf(
-                PropTypes.shape({
-                    text: PropTypes.string.isRequired,
-                    rating: PropTypes.number.isRequired,
-                }).isRequired,
-            ).isRequired,
-            location: PropTypes.shape({
-                address1: PropTypes.string.isRequired,
-            }).isRequired,
-            categories: PropTypes.arrayOf(
-                PropTypes.shape({
-                    alias: PropTypes.string.isRequired,
-                    title: PropTypes.string.isRequired,
-                }).isRequired,
-            ).isRequired,
-            photos: PropTypes.arrayOf(
-                PropTypes.string.isRequired,
-            ).isRequired,
+            restaurant_name: PropTypes.string.isRequired,
+            price_range: PropTypes.string.isRequired,
+            cuisine: PropTypes.string.isRequired,
+            backgroundImage: PropTypes.string.isRequired,
         }).isRequired,
     ).isRequired,
 };

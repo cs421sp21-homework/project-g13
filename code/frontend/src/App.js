@@ -14,7 +14,6 @@ class App extends Component {
       state: "",
       zipcode: "",
       restaurants: [],
-      statusMessage: "",
     };
   }
 
@@ -26,22 +25,12 @@ class App extends Component {
   };
 
   submit = () => {
-    this.setState({statusMessage: "Loading..."});
-    if (this.state.address === "" || this.state.city === "" ||
-        this.state.state === "" || this.state.zipcode === "") {
-      this.setState({statusMessage: "Please enter all required fields."});
-    } else {
-      api.getRestaurants(`${this.state.address} ${this.state.suiteNum} 
+    api.getRestaurants(`${this.state.address} ${this.state.suiteNum} 
         ${this.state.city} ${this.state.state} ${this.state.zipcode}`)
-          .then((response) => {
-            if (response[0] === "err") {
-              this.setState({statusMessage: "Error: Location not recognized by Yelp."});
-            } else {
-              this.setState({restaurants: response});
-              this.props.history.push("/ListRestaurants", this.state);
-            }
-          });
-    }
+        .then((response) => {
+          this.setState({restaurants: response});
+          this.props.history.push("/ListRestaurants", this.state);
+        });
   }
 
 
@@ -95,9 +84,6 @@ class App extends Component {
                   }
                 />
               </form>
-              <div className="status">
-                {this.state.statusMessage}
-              </div>
             </header>
           </div>
         </Route>

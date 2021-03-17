@@ -18,11 +18,14 @@ const io = require("socket.io")(server, options);
 const PORT = 4000 || process.env.PORT;
 
 io.on("connection", function (socket) {
-  console.log("user joined a room");
+  console.log("user joined the page");
+
+  socket.emit("message", "welcome to Food-Tinder");
 
   socket.on("create_room", (room) => {
     socket.join(room);
-    console.log(room);
+    console.log("hello");
+    socket.emit("message", "A user has joined the room!");
   });
 
   socket.on("join_room", (room) => {

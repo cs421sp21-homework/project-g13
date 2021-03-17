@@ -101,9 +101,8 @@ input[type="reset"] {
 
 .like-dislike-container {
   position: absolute;
-  margin-bottom: -50px;
-  width: 30vh;
-  height: 13vh;
+  width: 50vh;
+  height: 20vh;
   bottom: 8%;
   left: 50%;
   -webkit-transform: translateX(-50%);
