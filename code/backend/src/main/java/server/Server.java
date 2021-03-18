@@ -91,12 +91,16 @@ public class Server {
 
         get("/api/users", (req, res) -> {
             List<User> users = userDao.readAll();
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "GET");
             res.header("Content-Type", "application/json");
             return gson.toJson(users);
         });
 
         get("/api/groups", (req, res) -> {
             List<Group> groups = groupDao.readAllGroups();
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "GET");
             res.header("Content-Type", "application/json");
             return gson.toJson(groups);
         });
@@ -104,6 +108,8 @@ public class Server {
         get("/api/users/:uname", (req, res) -> {
             String uname = req.params("uname");
             User user = userDao.read(uname);
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "GET");
             res.header("Content-Type", "application/json");
             return gson.toJson(user);
         });
@@ -112,6 +118,8 @@ public class Server {
             int id = Integer.parseInt(req.params("id"));
             List<User> users = userDao.readAllInGroup(id);
             res.header("Content-Type", "application/json");
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "GET");
             return gson.toJson(users);
         });
 
@@ -119,12 +127,16 @@ public class Server {
             User user = gson.fromJson(req.body(), User.class);
             userDao.create(user.getUserName(), user.getPword(), user.getLoc(), user.getGroup_ID());
             res.header("Content-Type", "application/json");
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "POST");
             return gson.toJson(user);
         });
 
         post("/api/groups", (req, res) -> {
             Group group = groupDao.createGroup();
             res.header("Content-Type", "application/json");
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "POST");
             return gson.toJson(group);
         });
 
