@@ -102,7 +102,8 @@ public class Sql2oGroupDaoTest {
                 conn.createQuery(sql).addParameter("username", user.getUserName())
                         .addParameter("pWord", user.getPword())
                         .addParameter("loc", user.getLoc())
-                        .addParameter("group_id", user.getGroup_ID()).executeUpdate();
+                        .addParameter("group_id", user.getGroup_ID())
+                        .executeUpdate();
             }
         }
 
@@ -119,6 +120,7 @@ public class Sql2oGroupDaoTest {
     }
 
     @Test
+    @DisplayName("users can be added to group")
     void addUserToGroup() {
         Group g1 = groupDao.createGroup();
         User u1 = userDao.read("kfeatherstonef");
@@ -126,6 +128,7 @@ public class Sql2oGroupDaoTest {
     }
 
     @Test
+    @DisplayName("users can be removed")
     void removeUserFromGroup() {
         Group g1 = groupDao.createGroup();
         User u1 = userDao.read("kfeatherstonef");
@@ -137,6 +140,7 @@ public class Sql2oGroupDaoTest {
     }
 
     @Test
+    @DisplayName("remove works for valid input")
     void deleteGroup() {
         Group g1 = groupDao.createGroup();
         User u1 = userDao.read("kfeatherstonef");

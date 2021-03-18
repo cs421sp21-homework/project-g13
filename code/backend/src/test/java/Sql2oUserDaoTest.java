@@ -104,7 +104,8 @@ class Sql2oUserDaoTest {
                 conn.createQuery(sql).addParameter("username", user.getUserName())
                         .addParameter("pWord", user.getPword())
                         .addParameter("loc", user.getLoc())
-                        .addParameter("group_id", user.getGroup_ID()).executeUpdate();
+                        .addParameter("group_id", user.getGroup_ID())
+                        .executeUpdate();
             }
         }
 
@@ -120,21 +121,25 @@ class Sql2oUserDaoTest {
     }
 
     @Test
+    @DisplayName("remove works for valid input")
     void deleteUser() {
         User u1 = userDao.delete("msoallb");
     }
 
     @Test
+    @DisplayName("group name can be changed")
     void changeGroupNumber() {
         //User u1 = userDao.updateGroupID("msoallb", 5);
     }
 
     @Test
+    @DisplayName("can get list of group members")
     void getListOfUsers() {
         List<User> users = userDao.readAll();
     }
 
     @Test
+    @DisplayName("can find specific users based on unique username")
     void getSpecificUser() {
         User u1 = userDao.read("msoallb");
 

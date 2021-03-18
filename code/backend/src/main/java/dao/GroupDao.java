@@ -13,62 +13,76 @@ import java.util.List;
 public interface GroupDao {
 
     /**
-     * Create a user with predetermined group number.
+     * Create a group with specific group name.
      *
-     * @param offeringName The course alphanumeric code.
-     * @param title        The course Title.
-     * @return The course object created.
+     * @param name The group's name.
+     * @return The group object created.
      * @throws DaoException A generic exception for CRUD operations.
      */
     Group createGroup(String name) throws DaoException;
 
+    /**
+     * Create a group.
+     *
+     * @return The group object created.
+     * @throws DaoException A generic exception for CRUD operations.
+     */
     Group createGroup() throws DaoException;
 
     /**
-     * Read a course provided its offeringName.
+     * Get all users in group from database
      *
-     * @param offeringName The course alphanumeric code.
-     * @return The course object read from the data source.
+     * @param id The identifier for the group.
+     * @return The list containing the group's members.
      * @throws DaoException A generic exception for CRUD operations.
      */
-    List<User> readMembers(String id) throws DaoException;
+    List<User> readMembers(int id) throws DaoException;
 
     /**
-     * Read all courses from the database.
+     * Remove a member from group.
      *
-     * @return All the courses in the data source.
+     * @param group The group containing the user.
+     * @param user The user to be removed.
+     * @return ID of removed user.
      * @throws DaoException A generic exception for CRUD operations.
      */
     int removeMember(Group group, User user) throws DaoException;
 
     /**
-     * Read all courses from the database with title containing titleQuery.
+     * Add a member to group.
      *
-     * @param titleQuery A search term.
-     * @return All courses retrieved.
+     * @param group The group to contain the user.
+     * @param user The user to be added to the group.
+     * @return ID of added user.
      * @throws DaoException A generic exception for CRUD operations.
      */
     int addMember(Group group, User user) throws DaoException;
 
     /**
-     * Update the title of a courses provided its offeringName.
+     * Get all groups from database.
      *
-     * @param offeringName The course alphanumeric code.
-     * @param title        The course Title.
-     * @return The updated course object.
+     * @return The list holding all groups from database.
      * @throws DaoException A generic exception for CRUD operations.
      */
     List<Group> readAllGroups() throws DaoException;
 
     /**
-     * Delete a courses provided its offeringName.
+     * Update a group's name.
      *
-     * @param offeringName The course alphanumeric code.
-     * @return The course object deleted from the data source.
+     * @param id The id of the course to receive a new name.
+     * @param name The new name.
+     * @return The group that received a new name.
      * @throws DaoException A generic exception for CRUD operations.
      */
     Group updateGroupName(int id, String name) throws DaoException;
 
+    /**
+     * Remove group from database.
+     *
+     * @param group The group to be removed.
+     * @return The group that was removed. (eeh maybe / might make it a boolean for successful deletion)
+     * @throws DaoException A generic exception for CRUD operations.
+     * */
     Group deleteGroup(Group group) throws DaoException;
 
 }

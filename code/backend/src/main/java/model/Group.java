@@ -9,10 +9,9 @@ public class Group {
     private String name;
     private List<User> members;
 
-    public Group(int group_id) {
-        this.group_id = group_id;
-    }
-
+    /**
+     * Construct group with placeholder values
+     */
     public Group() {
         this.group_id = 0;
         this.name = null;

@@ -11,66 +11,72 @@ import java.util.List;
 public interface UserDao {
 
     /**
-     * Create a user with predetermined group number.
+     * Create a user with predetermined username, password, location, and group ID.
      *
-     * @param offeringName The course alphanumeric code.
-     * @param title The course Title.
-     * @return The course object created.
+     * @param uName The user's username.
+     * @param pWord The user's password.
+     * @param gid The group containing the user (1 for no group)
+     * @param location The user's location.
+     * @return The user object created.
      * @throws DaoException A generic exception for CRUD operations.
      */
     User create(String uName, String pWord, String location, int gid) throws DaoException;
 
     /**
      * Create a user without group number.
+     * Group number defaults to 1 since user is assumed solo.
      *
-     * @param offeringName The course alphanumeric code.
-     * @param title The course Title.
-     * @return The course object created.
+     *  @param uName The user's username.
+     * @param pWord The user's password.
+     * @param location The user's location.
+     * @return The user object created.
      * @throws DaoException A generic exception for CRUD operations.
      */
     User create(String uName, String pWord, String location) throws DaoException;
 
     /**
-     * Read a course provided its offeringName.
+     * Get a user provided their username.
      *
-     * @param offeringName The course alphanumeric code.
-     * @return The course object read from the data source.
+     * @param uName The user's username.
+     * @return The user.
      * @throws DaoException A generic exception for CRUD operations.
      */
     User read(String uName) throws DaoException;
 
     /**
-     * Read all courses from the database.
+     * Read all users from the database.
      *
-     * @return All the courses in the data source.
+     * @return List containing all users.
      * @throws DaoException A generic exception for CRUD operations.
      */
     List<User> readAll() throws DaoException;
 
     /**
-     * Read all courses from the database with title containing titleQuery.
+     * MIGHT NOT GET USED
+     * Get all users in some group.
+     * Can get all solos by looking for group id of 1.
      *
-     * @param titleQuery A search term.
-     * @return All courses retrieved.
+     * @param gid The group's id to look for its members.
+     * @return List containing all group members
      * @throws DaoException A generic exception for CRUD operations.
      */
     List<User> readAllInGroup(int gid) throws DaoException;
 
     /**
-     * Update the title of a courses provided its offeringName.
+     * Update user's group ID.
      *
-     * @param offeringName The course alphanumeric code.
-     * @param title The course Title.
-     * @return The updated course object.
+     * @param user The user with the group name to be changed.
+     * @param gid The id of the group for update.
+     * @return The user with new group ID.
      * @throws DaoException A generic exception for CRUD operations.
      */
     User updateGroupID(User user, int gid) throws DaoException;
 
     /**
-     * Delete a courses provided its offeringName.
+     * Delete user from database.
      *
-     * @param offeringName The course alphanumeric code.
-     * @return The course object deleted from the data source.
+     * @param uName The user's username.
+     * @return The deleted user.
      * @throws DaoException A generic exception for CRUD operations.
      */
     User delete(String uName) throws DaoException;

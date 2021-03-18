@@ -9,14 +9,16 @@ public class User {
     private int group_ID;
 
     /**
-     * Construct a User.
+     * Construct a User with no information.
      */
     public User() {
         this.loc = "Not set!";
+        this.userName = null;
+        this.pword = null;
     }
 
     /**
-     * Construct a User.
+     * Construct a User with regular information.
      */
     public User(String uName, String pWord, String location, int gid) {
         this.userName = uName;
