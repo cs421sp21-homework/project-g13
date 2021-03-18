@@ -8,7 +8,6 @@ function GroupPage() {
   let [room, setRoom] = useState(rooms[0]);
   let [name, setName] = useState("");
   let [roomName, setRoomName] = useState("");
-  const [chat, setChat] = useState([]);
 
   useEffect(() => {
     const socket = io("http://localhost:4000", {
@@ -16,12 +15,18 @@ function GroupPage() {
     });
 
     if (room) {
-      socket.emit("join_room", room);
+      socket.emit("join_room", { room, name });
     }
 
     socket.on("message", (message) => {
       console.log(message);
     });
+
+    return () => {
+      if (socket) {
+        socket.disconnect();
+      }
+    };
   }, [room, rooms]);
 
   function joinRoom(name) {
