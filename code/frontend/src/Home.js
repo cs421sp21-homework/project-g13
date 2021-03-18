@@ -1,5 +1,7 @@
+import "./App.css"
 import React, { Component } from "react";
-import { withRouter, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router";
+import { withRouter } from "react-router-dom";
 import App from './App'
 import Join from './Join'
 import Host from './Host'
@@ -11,26 +13,32 @@ class Home extends Component {
     }
 
     render() {
-        return (
+        return(
             <Switch>
                 <Route exact path="/">
-                    <ul className = 'simple-button'>
-                        <li>
-                            <button onClick={()=>this.nextPath('/Location')}>
-                                Start
-                            </button>
-                        </li>
-                        <li>
-                            <button onClick={()=>this.nextPath('/Join')}>
-                                Join a Group
-                            </button>
-                        </li>
-                        <li>
-                            <button onClick={()=>this.nextPath('/Host')}>
-                                Host a Group
-                            </button>
-                        </li>
-                    </ul>
+                    <div className='App'>
+                        <header className='App-header'>
+                            <form>
+                                <input
+                                    type="button"
+                                    value="Start"
+                                    onClick={() => this.nextPath('/Location')}
+                                />
+                                <br/>
+                                <input
+                                    type="button"
+                                    value="Join a Group"
+                                    onClick={() => this.nextPath('/Join')}
+                                />
+                                <br/>
+                                <input
+                                    type="button"
+                                    value="Host a Group"
+                                    onClick={() => this.nextPath('/Host')}
+                                />
+                            </form>
+                        </header>
+                    </div>
                 </Route>
                 <Route path="/Location">
                     <App/>
