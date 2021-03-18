@@ -93,6 +93,7 @@ public class Server {
             List<User> users = userDao.readAll();
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET");
+            res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
             return gson.toJson(users);
         });
