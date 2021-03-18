@@ -17,10 +17,7 @@ class ListRestaurant extends Component {
     }
 
   render() {
-    let data = this.props.location.state;
-
-    const restaurants = data.restaurants;
-
+    const restaurants = this.props.restaurants;
     return (
       <div className="App-header">
         <Card
