@@ -30,6 +30,8 @@ io.on("connection", function (socket) {
 
   socket.on("join_room", (room) => {
     socket.join(room);
+    console.log("user joined the room");
+    console.log(room);
   });
 
   socket.on("message", (data) => {
@@ -44,24 +46,3 @@ io.on("connection", function (socket) {
 server.listen(PORT, function () {
   console.log(`listening on port ${PORT}`);
 });
-/*
-const path = require("path");
-
-const fs = require("fs");
-
-app.use(express.static(path.join(__dirname, "public")));
-fs.readFile("index.html", function (err, html) {
-  if (err) throw err;
-
-  http
-    .createServer(function (request, response) {
-      response.writeHeader(200, { "Content-Type": "text/html" });
-      response.write(html);
-      response.end();
-    })
-    .listen(PORT);
-});
-
-io.listen(PORT);
-console.log("listening on port ", PORT);
-*/
