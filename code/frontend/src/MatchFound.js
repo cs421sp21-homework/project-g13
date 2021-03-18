@@ -2,12 +2,13 @@ import "./App.css";
 import { withRouter } from "react-router-dom";
 import { Switch, Route } from "react-router";
 import React, { Component } from "react";
-import Card from "./card.js";
 import PropTypes from "prop-types";
 import {SafeAnchor} from "react-bootstrap";
 
 class MatchFound extends Component {
     render() {
+        let data = this.props.location.state;
+
         return(
             <Switch>
                 <Route path="/Found">

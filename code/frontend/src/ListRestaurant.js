@@ -35,10 +35,9 @@ class ListRestaurant extends Component {
                 </div>
             </Route>
             <Route path="/Found">
-                <MatchFound/>
+                <MatchFound restaurant={restaurants[this.state.position]}/>
             </Route>
         </Switch>
-
     );
   }
 }
