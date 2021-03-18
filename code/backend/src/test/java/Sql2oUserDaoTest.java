@@ -20,8 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-//import static util.DataStore.sampleCourses;
-import static util.Database.getSql2o;
 
 class Sql2oUserDaoTest {
     private static Sql2o sql2o;
@@ -31,7 +29,16 @@ class Sql2oUserDaoTest {
     @BeforeAll
     static void connectToDatabase() throws URISyntaxException {
 
-        sql2o = getSql2o();
+        // using test database in backend app
+        //String testDatabaseUrl = System.getenv("TEST_DATABASE_URL");
+        URI dbUri = new URI("postgres://ntclafskylmibg:bc37662392ee4ca4f1c46d0ded963f7d32f96e9c8a04c3b0b3efd3f138775ef0@ec2-54-90-13-87.compute-1.amazonaws.com:5432/d41ch405o2l0a2");
+
+        String username = dbUri.getUserInfo().split(":")[0];
+        String password = dbUri.getUserInfo().split(":")[1];
+        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':'
+                + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+
+        sql2o = new Sql2o(dbUrl, username, password);
     }
 
 

@@ -18,8 +18,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static util.Database.getSql2o;
-
 public class Sql2oGroupDaoTest {
 
     private static Sql2o sql2o;
@@ -29,8 +27,15 @@ public class Sql2oGroupDaoTest {
 
     @BeforeAll
     static void connectToDatabase() throws URISyntaxException {
+        // using test database (in backend app)
+        URI dbUri = new URI("postgres://ntclafskylmibg:bc37662392ee4ca4f1c46d0ded963f7d32f96e9c8a04c3b0b3efd3f138775ef0@ec2-54-90-13-87.compute-1.amazonaws.com:5432/d41ch405o2l0a2");
 
-        sql2o = getSql2o();
+        String username = dbUri.getUserInfo().split(":")[0];
+        String password = dbUri.getUserInfo().split(":")[1];
+        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':'
+                + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+
+        sql2o = new Sql2o(dbUrl, username, password);
     }
 
     @BeforeAll
