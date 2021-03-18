@@ -1,6 +1,6 @@
 import "./App.css";
 import { withRouter } from "react-router-dom";
-import React, { Component } from "react";
+import { Component } from "react";
 import Card from "./card.js";
 import PropTypes from "prop-types";
 
