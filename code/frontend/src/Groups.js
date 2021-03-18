@@ -31,7 +31,9 @@ io.on("connection", function (socket) {
   socket.on("join_room", (room) => {
     socket.join(room);
     console.log("user joined the room");
+    const rooms = io.of("/").adapter.rooms;
     console.log(room);
+    console.log(rooms);
   });
 
   socket.on("message", (data) => {

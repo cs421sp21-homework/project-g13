@@ -6,6 +6,7 @@ import io from "socket.io-client";
 function GroupPage() {
   let [rooms, setRooms] = useState(["A", "B", "C"]);
   let [room, setRoom] = useState(rooms[0]);
+  let [name, setName] = useState("");
   let [roomName, setRoomName] = useState("");
   const [chat, setChat] = useState([]);
 
@@ -23,6 +24,11 @@ function GroupPage() {
     });
   }, [room, rooms]);
 
+  function joinRoom(name) {
+    console.log(name);
+    console.log(room);
+  }
+
   return (
     <div>
       <h1>Room: {room}</h1>
@@ -31,7 +37,14 @@ function GroupPage() {
           {r}
         </button>
       ))}
-
+      <input
+        type="text"
+        name="name"
+        placeholder="Enter Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <button onClick={() => joinRoom(name)}>Join Room</button>
       <input
         type="text"
         name="name"
