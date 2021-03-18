@@ -11,6 +11,9 @@ class App extends Component {
     this.state = {
       restaurants: [],
     };
+    this.setRestaurants = this.setRestaurants.bind(this);
+    this.createGroup = this.createGroup.bind(this);
+    this.getFromGroupID = this.getFromGroupID.bind(this);
   }
 
   setRestaurants = (restaurants) => {
