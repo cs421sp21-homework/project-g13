@@ -5,7 +5,7 @@ import io from "socket.io-client";
 
 function GroupPage() {
   let [rooms, setRooms] = useState(["A", "B", "C"]);
-  let [room, setRoom] = useState(rooms[0]);
+  let [room, setRoom] = useState("");
   let [name, setName] = useState("");
   let [roomName, setRoomName] = useState("");
 

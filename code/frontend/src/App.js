@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router";
 import { withRouter } from "react-router-dom";
 import ListRestaurant from "./ListRestaurant.js";
-import * as api from "./Api.js"
+import GroupPage from "./GroupPage.js";
+import * as api from "./Api.js";
 
 class App extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class App extends Component {
       state: "",
       zipcode: "",
       restaurants: [],
+      statusMessage: "",
     };
   }
 
@@ -25,15 +27,32 @@ class App extends Component {
   };
 
   submit = () => {
-    api.getRestaurants(`${this.state.address} ${this.state.suiteNum} 
-        ${this.state.city} ${this.state.state} ${this.state.zipcode}`)
+    this.setState({ statusMessage: "Loading..." });
+    if (
+      this.state.address === "" ||
+      this.state.city === "" ||
+      this.state.state === "" ||
+      this.state.zipcode === ""
+    ) {
+      this.setState({ statusMessage: "Please enter all required fields." });
+    } else {
+      api
+        .getRestaurants(
+          `${this.state.address} ${this.state.suiteNum} 
+        ${this.state.city} ${this.state.state} ${this.state.zipcode}`
+        )
         .then((response) => {
-          this.setState({restaurants: response});
-          this.props.history.push("/ListRestaurants", this.state);
+          if (response[0] === "err") {
+            this.setState({
+              statusMessage: "Error: Location not recognized by Yelp.",
+            });
+          } else {
+            this.setState({ restaurants: response });
+            this.props.history.push("/ListRestaurants", this.state);
+          }
         });
-  }
-
-
+    }
+  };
 
   render() {
     return (
@@ -73,24 +92,27 @@ class App extends Component {
                   placeholder="Zip Code"
                   onChange={this.myChangeHandler}
                 />
-                <br/>
+                <br />
                 <input
                   type="button"
                   value="Submit"
-                  onClick={() =>
-                    {
-                      this.submit();
-                    }
-                  }
+                  onClick={() => {
+                    this.submit();
+                  }}
                 />
               </form>
+              <div className="status">{this.state.statusMessage}</div>
             </header>
+            <body>
+              <button>Create a Group</button>
+            </body>
           </div>
         </Route>
         <Route path="/ListRestaurants">
-          <ListRestaurant
-              restaurants={this.state.restaurants}
-          />
+          <ListRestaurant restaurants={this.state.restaurants} />
+        </Route>
+        <Route path="/Groups">
+          <GroupPage />
         </Route>
       </Switch>
     );
