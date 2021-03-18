@@ -19,28 +19,38 @@ class App extends Component {
   }
 
   createGroup = (restaurants, location, radius) => {
-      api.postGroup().then((response) => {
-          api.postUser(radius, "dummy", location, response.group_id).then((resp) => {
-              console.log(resp);
+      api.postGroup().then((resp) => {
+          alert("Group id:" + resp.group_id);
+          api.postUser(resp.group_id, resp.group_id, location + "@" + radius, resp.group_id).then((response) => {
+              this.setRestaurants(restaurants);
           });
-          });
-      this.setRestaurants(restaurants);
+      });
   }
 
   getFromGroupID = (id) => {
       api.getGroupMembers(id).then((response) => {
-         api.getRestaurants(response[0].loc, response[0].userName).then((resp) => {
-             this.setRestaurants(resp)
+          console.log(response[0]);
+          const fields = response[0].loc.split('@');
+         api.getRestaurants(fields[0], fields[1]).then((resp) => {
+             this.setRestaurants(resp);
          })
       });
 
   }
 
-
   render() {
     return (
       <Switch>
-        <Route exact path="/">
+          <Route exact path="/">
+              <InputLocation
+                  onSubmit = {this.setRestaurants}
+              />
+          </Route>
+        <Route exact path="/group">
+            <button onClick={() => {
+                const id = prompt("Enter group id:");
+                this.getFromGroupID(id);
+            }}>Join a group</button>
           <InputLocation
               onSubmit = {this.createGroup}
           />

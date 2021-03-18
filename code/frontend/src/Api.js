@@ -1,5 +1,12 @@
 import axios from "axios";
 const BACKEND_URL = "https://chicken-tinder-13-backend.herokuapp.com"
+const axiosConfig = {
+    headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        "Access-Control-Allow-Origin": "*",
+    }
+};
+
 
 async function getRestaurants(location, radius) {
     try {
@@ -18,14 +25,20 @@ async function postGroup() {
 }
 
 async function postUser(uname, pwd, loc, groupid) {
-    const response = await(axios.post(`${BACKEND_URL}/api/users`,
-        {
-            loc: loc,
-            userName: uname,
-            pword: pwd,
-            group_ID: groupid,
-        }
-        ));
+    const data = JSON.stringify({
+        "userName": uname,
+        "pword": pwd,
+        "loc": loc,
+        "group_ID": groupid
+    });
+
+    const config = {
+        method: 'post',
+        url: 'https://chicken-tinder-13-backend.herokuapp.com/api/users',
+        data : data
+    };
+
+    const response = await axios(config);
     return response.data;
 }
 
