@@ -42,7 +42,7 @@ class Home extends Component {
                         </header>
                     </div>
                 </Route>
-                <Route path="/Location">
+                <Route path="/Location/:returnTo?">
                     <App/>
                 </Route>
                 <Route path="/Join">

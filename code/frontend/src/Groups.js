@@ -20,18 +20,48 @@ const PORT = 4000 || process.env.PORT;
 
 const socketMap = {};
 
+//import { emit } from "process";
+const Room = require("./Room.js");
+
+const roomsMap = new Map();
+
+Room.emitReadySignalFunc = function (room) {
+  io.to("room").emit("ready");
+}
+
+Room.emitRestaurantsFunc = function (room, data) {
+  io.to(room).emit("restaurants", data);
+}
+
 io.on("connection", function (socket) {
   socket.emit("message", "welcome to Food-Tinder");
 
   socket.on("create_room", (room) => {
+    console.log("create room");
     socket.join(room);
-    console.log("hello");
-    socket.emit("message", "A user has joined the room!");
+    roomsMap.set(room, new Room(room, 1));
+  });
+
+  //set room location
+  socket.on("set_location", (data) => {
+    const { room, location } = data;
+    if (roomsMap.has(room)) {
+      roomsMap.get(room).setLocation(location);
+    }
   });
 
   socket.on("join_room", (data) => {
     console.log("user joined the room");
     socket.join(data.room);
+
+    if (roomsMap.has(data.room)) {
+      if (roomsMap.get(data.room).addMember()) {
+        var restaurants = roomsMap.get(data.room).getRestaurants();
+        io.to(data.room).emit(JSON.stringify(restaurants));
+      }
+    } else {
+      roomsMap.set(data.room, new Room(1));
+    }
     //console.log(data.room);
 
     const rooms = io.of("/").adapter.rooms;
@@ -52,6 +82,31 @@ io.on("connection", function (socket) {
       message,
     });
   });
+
+  //when a client wants restaurants
+  socket.on("get_restaurant", (data) => {
+    if (roomsMap.has(data.room)) {
+      var rooms = roomsMap.get(data.room).getRestaurants();
+      io.to(data.room).emit(JSON.stringify(rooms));
+    }
+  });
+
+  //when a client receives restaurant data
+  socket.on("got_restaurant", async (data) => {
+    if (roomsMap.has(data.room)) {
+      //TO-DO
+    }
+  });
+
+  //when a client sends a vote
+  socket.on("vote", (data) => {
+    if (roomsMap.has(data.room)) {
+      if (roomsMap.get(data.room).addVote(data.restaurantId)) {
+        io.to(data.room).emit("match_found");
+      }
+    }
+  });
+
 });
 
 server.listen(PORT, function () {

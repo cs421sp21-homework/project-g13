@@ -20,6 +20,12 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    this.returnTo = this.props.match.params.returnTo;
+    console.log(this.returnTo);
+    this.state.statusMessage = this.returnTo;
+  }
+
   myChangeHandler = (event) => {
     event.preventDefault();
     this.setState({
@@ -58,7 +64,7 @@ class App extends Component {
   render() {
     return (
       <Switch>
-        <Route path="/Location">
+        <Route path="/Location:returnTo?">
           <div className="App">
             <header className="App-header">
               <form>

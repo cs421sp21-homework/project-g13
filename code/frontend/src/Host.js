@@ -2,11 +2,32 @@ import './App.css'
 import React, { Component } from "react";
 import { Switch, Route } from "react-router";
 import { withRouter } from "react-router-dom";
+import io from "socket.io-client";
 
 class Host extends Component {
+    constructor(props) {
+        super(props);
+        this.socket = io("http://localhost:4000", {
+            withCredentials: true,
+        });
+        var room = "" + Math.floor((Math.random() * 1000) + 1);
+        this.socket.emit("create_room", room);
+        window.sessionStorage.setItem("RoomID", room);
+        this.state = {
+            roomId: room,
+        };
+    }
+
     start() {
         //begin selection process for every group member.
         return;
+    }
+
+    setLocation() {
+        this.props.history.push({
+            pathname: '/Location',
+            returnTo: '/Host',
+        });
     }
 
     render() {
@@ -23,7 +44,7 @@ class Host extends Component {
                                 <input
                                     type="button"
                                     value="Set Group Location"
-                                    onClick={() => this.props.history.push('/Location')}
+                                    onClick={() => this.setLocation()}
                                 />
                                 <br/>
                                 <input
@@ -33,7 +54,7 @@ class Host extends Component {
                                 />
                             </form>
                             <div>
-                                <h2> Group ID: </h2>
+                                <h2> Group ID: {this.state.roomId}</h2>
                             </div>
                         </header>
                     </div>
