@@ -29,7 +29,8 @@ function RoomCheck() {
 
   return (
     <div>
-      <h1></h1>
+      <h1>Room You are in: </h1>
+      <h1> {room}</h1>
     </div>
   );
 }
