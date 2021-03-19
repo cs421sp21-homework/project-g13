@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import { Route, Switch } from "react-router";
 import { withRouter } from "react-router-dom";
 import ListRestaurant from "./ListRestaurant.js";
@@ -6,22 +6,16 @@ import InputLocation from "./InputLocation.js";
 import * as api from "./Api.js"
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+    state = {
       restaurants: [],
     };
-    this.setRestaurants = this.setRestaurants.bind(this);
-    this.createGroup = this.createGroup.bind(this);
-    this.getFromGroupID = this.getFromGroupID.bind(this);
-  }
 
   setRestaurants = (restaurants) => {
       this.setState({restaurants: restaurants});
-      this.props.history.push("/ListRestaurants");
+      this.props.history.push("./ListRestaurants");
   }
 
-  createGroup = (restaurants, location, radius) => {
+    createGroup = (restaurants, location, radius) => {
       api.postGroup().then((resp) => {
           alert("Group id:" + resp.group_id);
           api.postUser(resp.group_id, resp.group_id, location + "@" + radius, resp.group_id).then((response) => {
@@ -32,13 +26,11 @@ class App extends Component {
 
   getFromGroupID = (id) => {
       api.getGroupMembers(id).then((response) => {
-          console.log(response[0]);
           const fields = response[0].loc.split('@');
          api.getRestaurants(fields[0], fields[1]).then((resp) => {
              this.setRestaurants(resp);
          })
       });
-
   }
 
   render() {
