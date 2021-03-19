@@ -5,6 +5,8 @@ import { withRouter } from "react-router-dom";
 import App from './App'
 import Join from './Join'
 import Host from './Host'
+import ListRestaurant from './ListRestaurant';
+import MatchFound from './MatchFound';
 
 
 class Home extends Component {
@@ -48,6 +50,12 @@ class Home extends Component {
                 </Route>
                 <Route path="/Host">
                     <Host/>
+                </Route>
+                <Route path="/ListRestaurants">
+                    <ListRestaurant/>
+                </Route>
+                <Route path="/Found">
+                    <MatchFound/>
                 </Route>
             </Switch>
         )

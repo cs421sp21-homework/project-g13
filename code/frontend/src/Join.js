@@ -48,10 +48,10 @@ class Join extends Component {
                                     onClick={() => this.join()}
                                 />
                             </form>
+                            <div className="status">
+                                {this.state.statusMessage}
+                            </div>
                         </header>
-                    </div>
-                    <div className="status">
-                        {this.state.statusMessage}
                     </div>
                 </Route>
             </Switch>
