@@ -18,6 +18,7 @@ class ListRestaurant extends Component {
 
   render() {
     const restaurants = this.props.restaurants;
+    console.log(restaurants);
     return (
       <div className="App-header">
         <Card
