@@ -1,7 +1,9 @@
 import "./App.css";
 import { withRouter } from "react-router-dom";
+import { Switch, Route } from "react-router";
 import React, { Component } from "react";
 import Card from "./card.js";
+import MatchFound from "./MatchFound";
 import PropTypes from "prop-types";
 
 
@@ -22,13 +24,20 @@ class ListRestaurant extends Component {
     const restaurants = data.restaurants;
 
     return (
-      <div className="App-header">
-        <Card
-            restaurant={restaurants[this.state.position]}
-            onDislike={this.nextRestaurant}
-            onLike = {() => {}}
-        />
-      </div>
+        <Switch>
+            <Route path="/ListRestaurants">
+                <div className="App-header">
+                    <Card
+                        restaurant={restaurants[this.state.position]}
+                        onDislike={this.nextRestaurant}
+                        onLike = {() => this.props.history.push('/Found')}
+                    />
+                </div>
+            </Route>
+            <Route path="/Found">
+                <MatchFound restaurant={restaurants[this.state.position]}/>
+            </Route>
+        </Switch>
     );
   }
 }

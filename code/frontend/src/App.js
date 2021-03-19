@@ -58,7 +58,7 @@ class App extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/">
+        <Route path="/Location">
           <div className="App">
             <header className="App-header">
               <form>
