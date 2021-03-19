@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -124,31 +123,53 @@ class Sql2oUserDaoTest {
     void createUser() {
         User u1 = new User("kpawnsford16", "w6HXK786uN", "3 Leroy Circle", 1);
         User u2 = userDao.create(u1.getUserName(), u1.getPword(), u1.getLoc(), u1.getGroup_ID());
-        //Assertions.assertEquals(u1, u2);
+
+        assertEquals(u1.getUserName(), u2.getUserName());
+        assertEquals(u1.getLoc(), u2.getLoc());
+        assertEquals(u1.getPword(), u2.getPword());
+        assertEquals(u1.getGroup_ID(), u2.getGroup_ID());
+        // not testing same user ID because u1 has a default of zero while u2 has the actual user ID
+
     }
 
     @Test
     @DisplayName("remove works for valid input")
     void deleteUser() {
+
         User u1 = userDao.delete("msoallb");
+        List<User> users = userDao.readAll();
+
+        assertEquals(users.indexOf(u1), -1); // should not be found in database
     }
 
+    /*
     @Test
     @DisplayName("group name can be changed")
     void changeGroupNumber() {
         //User u1 = userDao.updateGroupID("msoallb", 5);
     }
 
+     */
+
     @Test
     @DisplayName("can get list of group members")
     void getListOfUsers() {
+        // not really a test, just seeing if it can work with errors
         List<User> users = userDao.readAll();
+
+        assertEquals(users.size(), 21);
     }
 
     @Test
     @DisplayName("can find specific users based on unique username")
     void getSpecificUser() {
         User u1 = userDao.read("msoallb");
+
+        assertEquals(u1.getUserName(), "msoallb");
+        assertEquals(u1.getPword(), "8ZNYnsZtL");
+        assertEquals(u1.getUser_ID(), 12);
+        assertEquals(u1.getLoc(), null);
+        assertEquals(u1.getGroup_ID(), 1); // 1 because not in a group
 
     }
 
