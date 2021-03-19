@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router";
 import { withRouter } from "react-router-dom";
 import ListRestaurant from "./ListRestaurant.js";
 import GroupPage from "./GroupPage.js";
+import RoomCheck from "./RoomCheck.js";
 import * as api from "./Api.js";
 
 class App extends Component {
@@ -113,6 +114,9 @@ class App extends Component {
         </Route>
         <Route path="/Groups">
           <GroupPage />
+        </Route>
+        <Route path="/RoomCheck">
+          <RoomCheck />
         </Route>
       </Switch>
     );

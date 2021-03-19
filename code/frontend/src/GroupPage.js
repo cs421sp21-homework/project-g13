@@ -14,8 +14,14 @@ function GroupPage() {
       withCredentials: true,
     });
 
+    socket.on("set-session-acknowledgement", function (data) {
+      sessionStorage.setItem("sessionId", data.sessionId);
+      console.log("Set Acknowledgement Works!");
+    });
+
     if (room) {
       socket.emit("join_room", { room, name });
+      sessionStorage.setItem("RoomID", room);
     }
 
     socket.on("message", (message) => {

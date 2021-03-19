@@ -5,6 +5,7 @@ const app = express();
 const cors = require("cors");
 app.use(cors());
 const socketio = require("socket.io");
+const { uuid } = require("uuidv4");
 
 const server = require("http").createServer();
 const options = {
@@ -20,8 +21,6 @@ const PORT = 4000 || process.env.PORT;
 const socketMap = {};
 
 io.on("connection", function (socket) {
-  console.log("user joined the page");
-
   socket.emit("message", "welcome to Food-Tinder");
 
   socket.on("create_room", (room) => {
