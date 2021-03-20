@@ -66,6 +66,7 @@ class Host extends Component {
       status: "Not Ready",
       numMembers: 1,
       restaurants: [],
+      isGroup: true,
     };
   }
   static id = 0;
@@ -149,9 +150,7 @@ class Host extends Component {
 
   start() {
     //begin selection process for every group member.
-    console.log("restaurant data below");
-    console.log(this.restaurants);
-    //this.props.history.push("/Location/ListRestaurants", this.restaurantData);
+
     this.socket.emit("start-event", this.state.roomId);
     this.props.history.push("/Location/ListRestaurants", this.state);
     return;
