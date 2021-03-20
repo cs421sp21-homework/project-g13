@@ -6,7 +6,7 @@ import GroupPage from "./GroupPage.js";
 import RoomCheck from "./RoomCheck.js";
 import * as api from "./Api.js";
 
-class App extends Component {
+class Location extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,7 +44,6 @@ class App extends Component {
     ) {
       this.setState({ statusMessage: "Please enter all required fields." });
     } else {
-      
       var locationString = `${this.state.address} ${this.state.suiteNum} 
       ${this.state.city} ${this.state.state} ${this.state.zipcode}`;
       
@@ -60,7 +59,7 @@ class App extends Component {
             });
           } else {
             this.setState({ restaurants: response });
-            this.props.history.push("/ListRestaurants", this.state);
+            this.props.history.push("/Location/ListRestaurants", this.state);
           }
         });
       }
@@ -69,6 +68,11 @@ class App extends Component {
 
   render() {
     return (
+      <Switch>
+        <Route path="/Location/ListRestaurants">
+          <ListRestaurant restaurants={this.state.restaurants} />
+        </Route>
+        <Route path="/Location">
           <div className="App">
             <header className="App-header">
               <form>
@@ -118,8 +122,16 @@ class App extends Component {
               <button>Create a Group</button>
             </body>
           </div>
+        </Route>
+        <Route path="/Groups">
+          <GroupPage />
+        </Route>
+        <Route path="/RoomCheck">
+          <RoomCheck />
+        </Route>
+      </Switch>
     );
   }
 }
 
-export default withRouter(App);
+export default withRouter(Location);

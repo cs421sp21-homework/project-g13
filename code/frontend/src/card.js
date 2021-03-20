@@ -40,7 +40,7 @@ class Card extends Component {
           <NewCard.Title style = {{fontSize: '3vh'}}>{restaurant.name}</NewCard.Title>
           <NewCard.Subtitle style = {{fontSize: '2vh'}}>{cuisineType} {restaurant.price}</NewCard.Subtitle>
           <NewCard.Text style = {{fontSize: '2vh'}}>
-            {rating} from {reviewCount} reviews
+            {rating} stars from {reviewCount} reviews
           </NewCard.Text>
           <NewCard.Text style = {{fontSize: '2vh'}}>
             {restaurantLocation}
@@ -49,7 +49,7 @@ class Card extends Component {
             {webUrl}
           </NewCard.Subtitle>
           <div className="like-dislike-container">
-            <button className="like-dislike-button float-left red">
+            <button className="like-dislike-button float-left red" onClick={this.props.onLike}>
               <i className="fas fa-heart"/>
             </button>
             <button className="like-dislike-button float-right" onClick={this.props.onDislike}>

@@ -2,10 +2,9 @@ import "./App.css"
 import React, { Component } from "react";
 import { Switch, Route } from "react-router";
 import { withRouter } from "react-router-dom";
-import App from './App'
+import Location from './Location'
 import Join from './Join'
 import Host from './Host'
-import ListRestaurant from './ListRestaurant';
 import MatchFound from './MatchFound';
 
 
@@ -48,16 +47,13 @@ class Home extends Component {
                     </div>
                 </Route>
                 <Route path="/Location/:returnTo?">
-                    <App/>
+                    <Location/>
                 </Route>
                 <Route path="/Join">
                     <Join/>
                 </Route>
                 <Route path="/Host/:groupLocation?">
                     <Host/>
-                </Route>
-                <Route path="/ListRestaurants">
-                    <ListRestaurant/>
                 </Route>
                 <Route path="/Found">
                     <MatchFound/>

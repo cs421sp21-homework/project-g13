@@ -2,43 +2,60 @@ import "./App.css";
 import { withRouter } from "react-router-dom";
 import { Switch, Route } from "react-router";
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import Card from "./card.js";
 import MatchFound from "./MatchFound";
-import PropTypes from "prop-types";
+import NotFound from "./NotFound"
 
 
 class ListRestaurant extends Component {
     state = {
         position: 0,
+        match: null,
     }
 
     nextRestaurant = () => {
-        if (this.state.position + 1 < this.props.restaurants.length) {
+        if (this.state.position < 20 &&
+            this.state.position + 1 < this.props.restaurants.length) {
             this.setState({position: this.state.position + 1});
+        } else {
+            this.state.position = -1;
+            this.props.history.push('/Location/ListRestaurants/NotFound')
         }
     }
 
+
+
   render() {
-    let data = this.props.location.state;
-
-    const restaurants = data.restaurants;
-
-    return (
-        <Switch>
-            <Route path="/ListRestaurants">
-                <div className="App-header">
-                    <Card
-                        restaurant={restaurants[this.state.position]}
-                        onDislike={this.nextRestaurant}
-                        onLike = {() => this.props.history.push('/Found')}
-                    />
-                </div>
-            </Route>
-            <Route path="/Found">
-                <MatchFound restaurant={restaurants[this.state.position]}/>
-            </Route>
-        </Switch>
-    );
+        if (this.state.position != -1) {
+            let data = this.props.location.state;
+            const restaurants = data.restaurants;
+            return (
+                    <Route path="/Location/ListRestaurants">
+                        <div className="App-header">
+                            <Card
+                                restaurant={restaurants[this.state.position]}
+                                onDislike={this.nextRestaurant}
+                                onLike={() => {
+                                    this.state.match = restaurants[this.state.position];
+                                    this.state.position = -1;
+                                    this.props.history.push('/Location/ListRestaurants/Found');
+                                }}
+                            />
+                        </div>
+                    </Route>
+            );
+        }
+        return (
+            <Switch>
+                <Route path="/Location/ListRestaurants/Found">
+                    <MatchFound restaurant={this.state.match}/>
+                </Route>
+                <Route path="/Location/ListRestaurants/NotFound">
+                    <NotFound/>
+                </Route>
+            </Switch>
+        )
   }
 }
 
