@@ -26,10 +26,12 @@ When2Meet: [click here](https://www.when2meet.com/?11139749-jH8B8)
 11. The user will click on the "Done" button and be returned to the "Start" page.
 
 # Iteration Backlog
+- As a user, I would like the “swiping event” to fetch restaurants from Yelp so that I know what restaurants are available near me.
+- As a user, I would like the restaurants to be shown one by one so that I am not flooded with too many options.
+- As a user, I would like to see each restaurant’s name, address, cuisine, price, rating, pictures, and a link to its website so that I can decide if I like it or not.
+- As a user, I would like to enter my location so that I will be presented with restaurants around me.
 
-- As a user, I would like to create a “swiping event” that will present me with a continuous stream of restaurant options so that I can decide where I want to eat.
-- As a user, I would like to be able to input my location so that I will only be presented with restaurants that are near me.
-- As a user, I would like to be presented with various details about each restaurant so that it will be easier to decide whether I wish to eat there or not.
+
 
 # Retrospective
 

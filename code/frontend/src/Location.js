@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router";
+import { Route, Switch, useParams } from "react-router";
 import { withRouter } from "react-router-dom";
 import ListRestaurant from "./ListRestaurant.js";
-import * as api from "./Api.js"
+import GroupPage from "./GroupPage.js";
+import RoomCheck from "./RoomCheck.js";
+import * as api from "./Api.js";
 
-class App extends Component {
+class Location extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,10 +15,16 @@ class App extends Component {
       city: "",
       state: "",
       zipcode: "",
-      radius: 25,
       restaurants: [],
       statusMessage: "",
     };
+  }
+
+  componentDidMount() {
+    console.log("opened set location page");
+    this.returnTo = this.props.match.params.returnTo;
+    console.log(this.returnTo);
+    //this.setState({ statusMessage: this.returnTo });
   }
 
   myChangeHandler = (event) => {
@@ -52,30 +60,37 @@ class App extends Component {
   }
 
   submit = () => {
-    this.setState({statusMessage: "Loading..."});
+    this.setState({ statusMessage: "Loading..." });
     if (this.validInput()) {
-      api.getRestaurants(`${this.state.address} ${this.state.suiteNum} 
-        ${this.state.city} ${this.state.state} ${this.state.zipcode}`,
-          this.milesToMeters(this.state.radius))
-          .then((response) => {
-            if (response[0] === "err") {
-              this.setState({statusMessage: "Error: Location not recognized by Yelp."});
-            } else if (response.length === 0) {
-              this.setState({statusMessage: "Error: No results found. Try broadening your search radius."});
-            } else {
-              this.setState({restaurants: response});
-              this.props.history.push("/ListRestaurants", this.state);
-            }
-          });
+      var locationString = `${this.state.address} ${this.state.suiteNum} 
+      ${this.state.city} ${this.state.state} ${this.state.zipcode}`;
+      
+      if (this.returnTo !== undefined && this.returnTo !== "") {
+        this.props.history.push("/Host/"+locationString);
+      } else {
+        api
+        .getRestaurants(locationString)
+        .then((response) => {
+          if (response[0] === "err") {
+            this.setState({
+              statusMessage: "Error: Location not recognized by Yelp.",
+            });
+          } else {
+            this.setState({ restaurants: response });
+            this.props.history.push("/Location/ListRestaurants", this.state);
+          }
+        });
+      }
     }
-  }
-
-
+  };
 
   render() {
     return (
       <Switch>
-        <Route exact path="/">
+        <Route path="/Location/ListRestaurants">
+          <ListRestaurant restaurants={this.state.restaurants} />
+        </Route>
+        <Route path="/Location">
           <div className="App">
             <header className="App-header">
               <form>
@@ -122,26 +137,31 @@ class App extends Component {
                     onChange={this.myChangeHandler}
                 />
                 miles
+                <br/>
                 <input
                   type="button"
                   value="Submit"
-                  onClick={() => {this.submit()}}
+                  onClick={() => {
+                    this.submit();
+                  }}
                 />
               </form>
-              <div className="status">
-                {this.state.statusMessage}
-              </div>
+              <div className="status">{this.state.statusMessage}</div>
             </header>
+            <body>
+              <button>Create a Group</button>
+            </body>
           </div>
         </Route>
-        <Route path="/ListRestaurants">
-          <ListRestaurant
-              restaurants={this.state.restaurants}
-          />
+        <Route path="/Groups">
+          <GroupPage />
+        </Route>
+        <Route path="/RoomCheck">
+          <RoomCheck />
         </Route>
       </Switch>
     );
   }
 }
 
-export default withRouter(App);
+export default withRouter(Location);

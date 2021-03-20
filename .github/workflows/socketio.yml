@@ -6,7 +6,7 @@ on:
       - group-ui
     paths:
       - "code/socketio/**"
-      - ".github/workflows/socket.yml"
+      - ".github/workflows/socketio.yml"
 
 jobs:
   deploy:
@@ -16,4 +16,8 @@ jobs:
       - name: Add socketio remote origin
         run: git remote add heroku-socketio https://heroku:${{ secrets.HEROKU_API_TOKEN }}@git.heroku.com/${{ secrets.HEROKU_SOCKETIO_APP_NAME }}.git
       - name: Deploy socketio to Heroku
+<<<<<<< HEAD
         run: git push heroku-socketio `git subtree split --prefix code/socketio main`:refs/heads/main --force
+=======
+        run: git push heroku-socketio `git subtree split --prefix code/socketio group-ui`:refs/heads/main --force
+>>>>>>> group-ui
