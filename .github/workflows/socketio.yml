@@ -6,7 +6,7 @@ on:
       - group-ui
     paths:
       - "code/socketio/**"
-      - ".github/workflows/socket.yml"
+      - ".github/workflows/socketio.yml"
 
 jobs:
   deploy:
