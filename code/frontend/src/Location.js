@@ -6,7 +6,7 @@ import GroupPage from "./GroupPage.js";
 import RoomCheck from "./RoomCheck.js";
 import * as api from "./Api.js";
 
-class App extends Component {
+class Location extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -123,4 +123,4 @@ class App extends Component {
   }
 }
 
-export default withRouter(App);
+export default withRouter(Location);

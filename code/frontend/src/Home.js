@@ -2,7 +2,7 @@ import "./App.css"
 import React, { Component } from "react";
 import { Switch, Route } from "react-router";
 import { withRouter } from "react-router-dom";
-import App from './App'
+import Location from './Location'
 import Join from './Join'
 import Host from './Host'
 import ListRestaurant from './ListRestaurant';
@@ -43,7 +43,7 @@ class Home extends Component {
                     </div>
                 </Route>
                 <Route path="/Location">
-                    <App/>
+                    <Location/>
                 </Route>
                 <Route path="/Join">
                     <Join/>

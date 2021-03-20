@@ -2,9 +2,10 @@ import "./App.css";
 import { withRouter } from "react-router-dom";
 import { Switch, Route } from "react-router";
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import Card from "./card.js";
 import MatchFound from "./MatchFound";
-import PropTypes from "prop-types";
+import NotFound from "./NotFound"
 
 
 class ListRestaurant extends Component {
@@ -13,8 +14,11 @@ class ListRestaurant extends Component {
     }
 
     nextRestaurant = () => {
-        if (this.state.position + 1 < this.props.restaurants.length) {
+        if (this.state.position < 20 &&
+            this.state.position + 1 < this.props.restaurants.length) {
             this.setState({position: this.state.position + 1});
+        } else {
+            this.props.history.push('NotFound')
         }
     }
 
@@ -35,7 +39,10 @@ class ListRestaurant extends Component {
                 </div>
             </Route>
             <Route path="/Found">
-                <MatchFound restaurant={restaurants[this.state.position]}/>
+                <MatchFound/>
+            </Route>
+            <Route path="/NotFound">
+                <NotFound/>
             </Route>
         </Switch>
     );
