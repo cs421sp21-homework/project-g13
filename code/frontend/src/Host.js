@@ -1,6 +1,6 @@
 import './App.css'
 import React, { Component } from "react";
-import { Switch, Route } from "react-router";
+import { Switch, Route, generatePath } from "react-router";
 import { withRouter } from "react-router-dom";
 import io from "socket.io-client";
 
@@ -15,6 +15,7 @@ class Host extends Component {
         window.sessionStorage.setItem("RoomID", room);
         this.state = {
             roomId: room,
+            location: "Not Set",
         };
     }
 
@@ -25,9 +26,14 @@ class Host extends Component {
 
     setLocation() {
         this.props.history.push({
-            pathname: '/Location',
-            returnTo: '/Host',
+            pathname: generatePath("/Location/Host"),
         });
+    }
+
+    componentDidMount() {
+        this.groupLocation = this.props.match.params.groupLocation;
+        console.log(this.groupLocation);
+        this.setState({location: this.groupLocation});
     }
 
     render() {
@@ -55,6 +61,7 @@ class Host extends Component {
                             </form>
                             <div>
                                 <h2> Group ID: {this.state.roomId}</h2>
+                                <h2> Location: {this.state.location}</h2>
                             </div>
                         </header>
                     </div>

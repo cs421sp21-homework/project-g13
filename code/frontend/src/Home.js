@@ -48,7 +48,7 @@ class Home extends Component {
                 <Route path="/Join">
                     <Join/>
                 </Route>
-                <Route path="/Host">
+                <Route path="/Host/:groupLocation?">
                     <Host/>
                 </Route>
                 <Route path="/ListRestaurants">

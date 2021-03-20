@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router";
+import { Route, Switch, useParams } from "react-router";
 import { withRouter } from "react-router-dom";
 import ListRestaurant from "./ListRestaurant.js";
 import GroupPage from "./GroupPage.js";
@@ -21,9 +21,10 @@ class App extends Component {
   }
 
   componentDidMount() {
+    console.log("opened set location page");
     this.returnTo = this.props.match.params.returnTo;
     console.log(this.returnTo);
-    this.state.statusMessage = this.returnTo;
+    this.setState({ statusMessage: this.returnTo });
   }
 
   myChangeHandler = (event) => {
@@ -43,11 +44,15 @@ class App extends Component {
     ) {
       this.setState({ statusMessage: "Please enter all required fields." });
     } else {
-      api
-        .getRestaurants(
-          `${this.state.address} ${this.state.suiteNum} 
-        ${this.state.city} ${this.state.state} ${this.state.zipcode}`
-        )
+      
+      var locationString = `${this.state.address} ${this.state.suiteNum} 
+      ${this.state.city} ${this.state.state} ${this.state.zipcode}`;
+      
+      if (this.returnTo !== undefined && this.returnTo !== "") {
+        this.props.history.push("/Host/"+locationString);
+      } else {
+        api
+        .getRestaurants(locationString)
         .then((response) => {
           if (response[0] === "err") {
             this.setState({
@@ -58,13 +63,12 @@ class App extends Component {
             this.props.history.push("/ListRestaurants", this.state);
           }
         });
+      }
     }
   };
 
   render() {
     return (
-      <Switch>
-        <Route path="/Location:returnTo?">
           <div className="App">
             <header className="App-header">
               <form>
@@ -114,17 +118,6 @@ class App extends Component {
               <button>Create a Group</button>
             </body>
           </div>
-        </Route>
-        <Route path="/ListRestaurants">
-          <ListRestaurant restaurants={this.state.restaurants} />
-        </Route>
-        <Route path="/Groups">
-          <GroupPage />
-        </Route>
-        <Route path="/RoomCheck">
-          <RoomCheck />
-        </Route>
-      </Switch>
     );
   }
 }
