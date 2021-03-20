@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Route, Switch, useParams } from "react-router";
 import { withRouter } from "react-router-dom";
 import ListRestaurant from "./ListRestaurant.js";
-import GroupPage from "./GroupPage.js";
-import RoomCheck from "./RoomCheck.js";
 import * as api from "./Api.js";
 
 class Location extends Component {
@@ -118,16 +116,7 @@ class Location extends Component {
               </form>
               <div className="status">{this.state.statusMessage}</div>
             </header>
-            <body>
-              <button>Create a Group</button>
-            </body>
           </div>
-        </Route>
-        <Route path="/Groups">
-          <GroupPage />
-        </Route>
-        <Route path="/RoomCheck">
-          <RoomCheck />
         </Route>
       </Switch>
     );
