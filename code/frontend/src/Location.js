@@ -13,6 +13,7 @@ class Location extends Component {
       city: "",
       state: "",
       zipcode: "",
+      radius: "",
       restaurants: [],
       statusMessage: "",
     };
