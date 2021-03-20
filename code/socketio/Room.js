@@ -69,9 +69,13 @@ class Room {
     }
 
     addVote(restaurantId) {
-        if ((restaurantId !== undefined && restaurantId !== "")) {
-            var votes = this.restaurantVotes.get(restaurantId)++;
+        var votes = 1;
+        if ((restaurantId !== null && restaurantId !== "")) {
+            if (this.restaurantVotes.has(restaurantId)) {
+                votes = this.restaurantVotes.get(restaurantId)++;
+            }
             this.restaurantVotes.set(restaurantId, votes);
+            
             if (votes >= this.size) {
                 return true;
             }
