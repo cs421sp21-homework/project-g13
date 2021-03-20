@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Switch, Route, generatePath } from "react-router";
 import { withRouter } from "react-router-dom";
 import io from "socket.io-client";
+import ListRestaurant from "./ListRestaurant";
 
 class Host extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class Host extends Component {
     this.pendingSendLocation = false;
     this.pendingJoinRoom = false;
     this.pendingCreate = false;
+
     //socket.io stuff
     this.socket = io("http://localhost:4000", {
       withCredentials: true,
@@ -40,6 +42,10 @@ class Host extends Component {
       this.setState({ numMembers: data });
     });
 
+    this.socket.on("start-event", () => {
+      this.onStartEvent();
+    });
+
     var isHost = sessionStorage.getItem("isHost");
     var roomId = sessionStorage.getItem("roomId");
     if (isHost === null && roomId === null) {
@@ -59,6 +65,7 @@ class Host extends Component {
       canNotStart: true,
       status: "Not Ready",
       numMembers: 1,
+      restaurants: [],
     };
   }
   static id = 0;
@@ -109,6 +116,7 @@ class Host extends Component {
     try {
       this.restaurants = JSON.parse(data);
       console.log(this.restaurants);
+      this.setState({ restaurants: this.restaurants });
     } catch (err) {
       this.setState({ status: "Received invalid restaurant data" });
     }
@@ -135,8 +143,17 @@ class Host extends Component {
     }
   }
 
+  onStartEvent() {
+    this.props.history.push("/Location/ListRestaurants", this.state);
+  }
+
   start() {
     //begin selection process for every group member.
+    console.log("restaurant data below");
+    console.log(this.restaurants);
+    //this.props.history.push("/Location/ListRestaurants", this.restaurantData);
+    this.socket.emit("start-event", this.state.roomId);
+    this.props.history.push("/Location/ListRestaurants", this.state);
     return;
   }
 
@@ -192,7 +209,6 @@ class Host extends Component {
                   type="button"
                   value="Set Group Location"
                   onClick={() => this.setLocation()}
-                  disabled={this._isHost}
                 />
                 <br />
                 <input
@@ -210,6 +226,9 @@ class Host extends Component {
               </div>
             </header>
           </div>
+        </Route>
+        <Route path="/ListRestaurants">
+          <ListRestaurant />
         </Route>
       </Switch>
     );
