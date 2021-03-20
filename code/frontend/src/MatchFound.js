@@ -89,6 +89,4 @@ MatchFound.propTypes = {
             address1: PropTypes.string.isRequired,
         }).isRequired,
     }).isRequired,
-    onDislike: PropTypes.func.isRequired,
-    onLike: PropTypes.func.isRequired,
 };
