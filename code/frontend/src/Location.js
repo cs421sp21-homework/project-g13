@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router";
+import { Route, Switch, useParams } from "react-router";
 import { withRouter } from "react-router-dom";
 import ListRestaurant from "./ListRestaurant.js";
 import GroupPage from "./GroupPage.js";
@@ -20,6 +20,13 @@ class Location extends Component {
     };
   }
 
+  componentDidMount() {
+    console.log("opened set location page");
+    this.returnTo = this.props.match.params.returnTo;
+    console.log(this.returnTo);
+    this.setState({ statusMessage: this.returnTo });
+  }
+
   myChangeHandler = (event) => {
     event.preventDefault();
     this.setState({
@@ -37,11 +44,15 @@ class Location extends Component {
     ) {
       this.setState({ statusMessage: "Please enter all required fields." });
     } else {
-      api
-        .getRestaurants(
-          `${this.state.address} ${this.state.suiteNum} 
-        ${this.state.city} ${this.state.state} ${this.state.zipcode}`
-        )
+      
+      var locationString = `${this.state.address} ${this.state.suiteNum} 
+      ${this.state.city} ${this.state.state} ${this.state.zipcode}`;
+      
+      if (this.returnTo !== undefined && this.returnTo !== "") {
+        this.props.history.push("/Host/"+locationString);
+      } else {
+        api
+        .getRestaurants(locationString)
         .then((response) => {
           if (response[0] === "err") {
             this.setState({
@@ -52,6 +63,7 @@ class Location extends Component {
             this.props.history.push("/Location/ListRestaurants", this.state);
           }
         });
+      }
     }
   };
 

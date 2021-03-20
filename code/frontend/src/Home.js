@@ -10,6 +10,11 @@ import MatchFound from './MatchFound';
 
 
 class Home extends Component {
+    constructor(props) {
+        super(props);
+        sessionStorage.clear();
+    }
+
     nextPath(path) {
         this.props.history.push(path);
     }
@@ -42,13 +47,13 @@ class Home extends Component {
                         </header>
                     </div>
                 </Route>
-                <Route path="/Location">
+                <Route path="/Location/:returnTo?">
                     <Location/>
                 </Route>
                 <Route path="/Join">
                     <Join/>
                 </Route>
-                <Route path="/Host">
+                <Route path="/Host/:groupLocation?">
                     <Host/>
                 </Route>
                 <Route path="/Found">
