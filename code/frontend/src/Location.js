@@ -13,7 +13,7 @@ class Location extends Component {
       city: "",
       state: "",
       zipcode: "",
-      radius: "",
+      radius: 5,
       restaurants: [],
     };
   }
@@ -42,8 +42,8 @@ class Location extends Component {
       this.setState({statusMessage: "Error: Search radius must be a number."});
       return false;
     }
-    if (this.state.radius > 25) {
-      this.setState({statusMessage: "Error: Maximum search radius is 25 miles."});
+    if (this.state.radius > 24.85) {
+      this.setState({statusMessage: "Error: Maximum search radius is 24.85 miles."});
       return false;
     }
     if (this.state.radius <= 0) {
@@ -124,10 +124,10 @@ class Location extends Component {
                 <input
                     type="number"
                     name="radius"
-                    max={25}
+                    max={24.85}
                     min={0.5}
                     step={0.5}
-                    defaultValue={25}
+                    defaultValue={5}
                     onChange={this.myChangeHandler}
                 />
                 miles
