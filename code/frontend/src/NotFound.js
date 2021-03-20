@@ -7,6 +7,12 @@ import ListRestaurant from "./ListRestaurant";
 import * as api from "./Api.js";
 
 class NotFound extends Component {
+    
+    componentDidMount() {
+        sessionStorage.clear();
+    }
+    
+    
     reload() {
         //somehow fetch restaurants again
         //can't fetch here bc can't pass back to parent component

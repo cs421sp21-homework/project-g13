@@ -70,7 +70,8 @@ class Room {
 
     addVote(restaurantId) {
         if ((restaurantId !== undefined && restaurantId !== "")) {
-            var votes = this.restaurantVotes.get(restaurantId)++;
+            var votes = this.restaurantVotes.get(restaurantId);
+            votes++;
             this.restaurantVotes.set(restaurantId, votes);
             if (votes >= this.size) {
                 return true;

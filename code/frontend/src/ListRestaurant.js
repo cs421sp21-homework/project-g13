@@ -11,22 +11,26 @@ import io from "socket.io-client";
 class ListRestaurant extends Component {
   constructor(props) {
     super(props);
-    this.isGroup = props.isGroup;
+    this.isGroup = this.props.location.state.isGroup;
+    console.log("Group " + this.isGroup);
     this.state = {
       position: 0,
       match: null,
     };
 
+    
     var roomId = sessionStorage.getItem("roomId");
     if (this.isGroup && roomId != null) {
       //start socket.io
       this.socket = io("http://localhost:4000", {
         withCredentials: true,
       });
-      this.socket.on("match_found", (data) => onMatchFound(data));
+      this.socket.on("match_found", (data) => this.onMatchFound(data));
       this.room = roomId;
       console.log(this.room);
       this.socket.emit("join_room", this.room);
+
+      console.log("got socket");
     }
   }
 
@@ -36,7 +40,7 @@ class ListRestaurant extends Component {
       let data = this.props.location.state;
       const restaurants = data.restaurants;
 
-      for (i = 0; i < restaurants.length; i++) {
+      for (var i = 0; i < restaurants.length; i++) {
         if (restaurants[i] != null && restaurants[i].id === restaurant) {
           this.state.position = i;
           break;
@@ -50,25 +54,16 @@ class ListRestaurant extends Component {
   }
 
   onLike() {
-    if (this.isGroup) {
-      let data = this.props.location.state;
-      const restaurants = data.restaurants;
-      this.socket.emit("vote", {
-        room: this.room,
-        restaurantId: restaurants[this.state.position].id,
-      });
-      nextRestaurant();
-    } else {
-      this.state.match = restaurants[this.state.position];
-      this.state.position = -1;
-      this.props.history.push("/Location/ListRestaurants/Found");
-    }
+    
+    
   }
 
   nextRestaurant = () => {
+    console.log("below");
+    console.log(this.props.location.state.restaurants.length);
     if (
       this.state.position < 20 &&
-      this.state.position + 1 < this.props.restaurants.length
+      this.state.position + 1 < this.props.location.state.restaurants.length
     ) {
       this.setState({ position: this.state.position + 1 });
     } else {
@@ -87,7 +82,18 @@ class ListRestaurant extends Component {
             <Card
               restaurant={restaurants[this.state.position]}
               onDislike={this.nextRestaurant}
-              onLike={this.onLike}
+              onLike={() => {
+                if (this.isGroup != null && this.isGroup) {
+                  this.socket.emit("vote", {room: this.room, restaurantId: restaurants[this.state.position].id});
+                  this.nextRestaurant();
+                  console.log("voted for restaurant");
+                } else {
+                  this.state.match = restaurants[this.state.position];
+                  this.state.position = -1;
+                  this.props.history.push("/Location/ListRestaurants/Found");
+                }
+                
+              }}
             />
           </div>
         </Route>

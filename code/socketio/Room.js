@@ -72,7 +72,8 @@ class Room {
         var votes = 1;
         if ((restaurantId !== null && restaurantId !== "")) {
             if (this.restaurantVotes.has(restaurantId)) {
-                votes = this.restaurantVotes.get(restaurantId)++;
+                votes = this.restaurantVotes.get(restaurantId);
+                votes++;
             }
             this.restaurantVotes.set(restaurantId, votes);
             

@@ -8,6 +8,11 @@ import Slideshow from "./Slideshow";
 import Home from "./Home";
 
 class MatchFound extends Component {
+
+    componentDidMount() {
+        sessionStorage.clear();
+    }
+
     render() {
         const {restaurant} = this.props;
         const restaurantLocation = restaurant.location["address1"];
