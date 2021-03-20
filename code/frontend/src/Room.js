@@ -43,7 +43,9 @@ class Room {
     setLocation(location) {
         if (location !== undefined && location !== "") {
             this.location = location;
-            this.retreiveRestaurants();
+            //this.retreiveRestaurants();
+            this.ready = true;
+            Room.emitReadySignalFunc(this.name);
         }
     }
 
@@ -74,7 +76,7 @@ class Room {
         this.received++;
         if (this.received >= this.size) {
             this.ready = true;
-            emitReadySignalFunc(this.name);
+            Room.emitReadySignalFunc(this.name);
         }
     }
 
@@ -90,6 +92,14 @@ class Room {
 
     getRestaurants() {
         return this.restaurants;
+    }
+
+    addEventListener(name, listener) {
+        addEventListener(name, listener, false);
+    }
+
+    static set_emitReadySignalFunc(func) {
+        Room.emitReadySignalFunc = func;
     }
 }
 

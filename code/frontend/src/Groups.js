@@ -25,29 +25,37 @@ const Room = require("./Room.js");
 
 const roomsMap = new Map();
 
-Room.emitReadySignalFunc = function (room) {
-  io.to("room").emit("ready");
-}
+Room.set_emitReadySignalFunc((room) => {
+  console.log("emit ready");
+  io.to(room).emit("ready");
+  io.to(room).emit("message", {message: "ready"});
+});
+  
 
 Room.emitRestaurantsFunc = function (room, data) {
   io.to(room).emit("restaurants", data);
 }
 
 io.on("connection", function (socket) {
-  socket.emit("message", "welcome to Food-Tinder");
+  socket.emit("message", {message: "welcome to Food-Tinder"});
 
   socket.on("create_room", (room) => {
     console.log("create room");
     socket.join(room);
     roomsMap.set(room, new Room(room, 1));
+    //io.to(room).emit("message", {message: "this is a test"});
+    socket.emit("message", {message: "this is a test"});
   });
 
   //set room location
   socket.on("set_location", (data) => {
+    console.log("set location");
+    console.log(socket.id + " sent location");
     const { room, location } = data;
     if (roomsMap.has(room)) {
       roomsMap.get(room).setLocation(location);
     }
+    io.to(room).emit("message", {message: "this is a test"});
   });
 
   socket.on("join_room", (data) => {
@@ -55,10 +63,15 @@ io.on("connection", function (socket) {
     socket.join(data.room);
 
     if (roomsMap.has(data.room)) {
-      if (roomsMap.get(data.room).addMember()) {
+      const r = roomsMap.get(data.room);
+      if (r.ready) {
+        console.log("sent ready");
+        socket.emit("ready");
+      }
+      /*if (roomsMap.get(data.room).addMember()) {
         var restaurants = roomsMap.get(data.room).getRestaurants();
         io.to(data.room).emit(JSON.stringify(restaurants));
-      }
+      }*/
     } else {
       roomsMap.set(data.room, new Room(1));
     }
@@ -78,7 +91,7 @@ io.on("connection", function (socket) {
   socket.on("message", (data) => {
     //Use to emit messages to all users connected
     const { room, message } = data;
-    socket.to(room).emit(message, {
+    socket.to(room).emit("message", {
       message,
     });
   });
