@@ -43,9 +43,9 @@ class Room {
     setLocation(location) {
         if (location !== undefined && location !== "") {
             this.location = location;
-            //this.retreiveRestaurants();
-            this.ready = true;
-            Room.emitReadySignalFunc(this.name);
+            this.received = 0;
+            //console.log(this.name ) 
+            this.retreiveRestaurants();
         }
     }
 
@@ -58,6 +58,13 @@ class Room {
                 //send restaurant data to client
                 return true;
             }
+        }
+    }
+
+    memberLeft() {
+        this.size--;
+        if (this.received >= this.size) {
+            this.ready = true;
         }
     }
 
@@ -74,6 +81,7 @@ class Room {
 
     receivedRestaurantData() {
         this.received++;
+        //console
         if (this.received >= this.size) {
             this.ready = true;
             Room.emitReadySignalFunc(this.name);
@@ -85,7 +93,7 @@ class Room {
             const response = await getRestaurants(this.location);
             if (response.length !== 0) {
                 this.restaurants.push(...response);
-                emitRestaurantsFunc(this.name, JSON.stringify(this.restaurants));
+                Room.emitRestaurantsFunc(this.name, JSON.stringify(this.restaurants));
             }
         }
     }

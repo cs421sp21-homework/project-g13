@@ -18,17 +18,8 @@ class Host extends Component {
             withCredentials: true,
         });
 
-        this.socket.on("ready", () => {
-            console.log("recieved ready event");
-            console.log(this._isMounted);
-            if (this._isMounted) {
-                console.log("mounted");
-                this.setState({canNotStart: false, status: "Ready"});
-            } else {
-                console.log("not mounted");
-                this.state.canNotStart = false;
-                this.state.status = "Ready";
-            }
+        this.socket.on("ready", (data) => {
+            
             
         });
 
@@ -39,6 +30,14 @@ class Host extends Component {
 
         this.socket.on("connect", () => {
             this.socketOnConnect();
+        });
+
+        this.socket.on("get_restaurants", (data) => {
+            this.onGetRestaurants(data);
+        });
+
+        this.socket.on("room_size_changed", (data) => {
+            this.setState({numMembers: data});
         });
 
         var isHost = sessionStorage.getItem("isHost");
@@ -58,6 +57,7 @@ class Host extends Component {
             location: "Not Set",
             canNotStart: true,
             status: "Not Ready",
+            numMembers: 1,
         };
     }
     static id = 0;
@@ -100,6 +100,37 @@ class Host extends Component {
         }
     }
 
+    onGetRestaurants(data) {
+        console.log("got restaurant data");
+        try {
+            this.restaurants = JSON.parse(data);
+            console.log(this.restaurants);
+        } catch (err) {
+            this.setState({status: "Received invalid restaurant data"});
+        }
+
+        if (this.restaurants.length > 0) {
+            if (this.restaurants[0] === "err") {
+                this.setState({status: "Received invalid restaurant data"});
+            } else {
+                this.setState({status: "Received restaurant data"});
+                this.socket.emit("got_restaurants", this.state.roomId);
+            }
+        } else {
+            this.setState({status: "Received no restaurant data"});
+        }
+    }
+
+    onReady(data) {
+        console.log("recieved ready event");
+        console.log(this._isMounted);
+        if (data) {
+            this.setState({canNotStart: !data, status: "Ready"});
+        } else {
+            this.setState({canNotStart: !data});
+        }
+    }
+
     start() {
         //begin selection process for every group member.
         return;
@@ -125,7 +156,7 @@ class Host extends Component {
                 this.pendingSendLocation = true;
             }
             
-            console.log(this.id + ": " + this.socket.id);
+            //console.log(this.id + ": " + this.socket.id);
 
             //this.socket.emit("message", {room: this.state.roomId, message: "hi"});
         }      
@@ -164,6 +195,7 @@ class Host extends Component {
                             <div>
                                 <h2> Group ID: {this.state.roomId}</h2>
                                 <h2> Location: {this.state.location}</h2>
+                                <h2> Members: {this.state.numMembers}</h2>
                                 <h2> Status: {this.state.status}</h2>
                             </div>
                         </header>
