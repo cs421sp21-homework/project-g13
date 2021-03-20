@@ -113,6 +113,11 @@ io.on("connection", function (socket) {
     }
   });
 
+  //start swiping event for everyone
+  socket.on("start-event", (data) => {
+    io.to(data).emit("start-event");
+  });
+
   socket.on("disconnecting", ()=> {
     console.log("client " + socket.id + " is disconnecting");
     var rooms = socket.rooms;
