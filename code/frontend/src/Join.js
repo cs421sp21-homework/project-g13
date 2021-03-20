@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Switch, Route } from "react-router";
 import { withRouter } from "react-router-dom";
 import io from "socket.io-client";
+import Host from "./Host.js";
 
 class Join extends Component {
   constructor(props) {
@@ -27,11 +28,13 @@ class Join extends Component {
       //connect to group
       sessionStorage.setItem("roomId", this.state.groupID);
       sessionStorage.setItem("isHost", false);
-      this.state.socket.emit("join_room", this.state.groupID);
+      //this.state.socket.emit("join_room", this.state.groupID);
       this.setState({
         statusMessage:
           "Joined group successfully! Waiting for host to start...",
       });
+
+      this.props.history.push("/Host");
     }
   };
 
@@ -62,6 +65,9 @@ class Join extends Component {
               <div className="status">{this.state.statusMessage}</div>
             </header>
           </div>
+        </Route>
+        <Route path="/Host">
+          <Host />
         </Route>
       </Switch>
     );
