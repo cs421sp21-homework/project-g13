@@ -24,7 +24,7 @@ class Location extends Component {
     console.log("opened set location page");
     this.returnTo = this.props.match.params.returnTo;
     console.log(this.returnTo);
-    this.setState({ statusMessage: this.returnTo });
+    //this.setState({ statusMessage: this.returnTo });
   }
 
   myChangeHandler = (event) => {

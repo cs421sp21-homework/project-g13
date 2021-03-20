@@ -5,58 +5,101 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Card from "./card.js";
 import MatchFound from "./MatchFound";
-import NotFound from "./NotFound";
+import NotFound from "./NotFound"
+import io from "socket.io-client";
+
 
 class ListRestaurant extends Component {
-  state = {
-    position: 0,
-    match: null,
-  };
+    constructor(props) {
+        super(props);
+        this.isGroup = props.isGroup;
+        this.state = {
+            position: 0,
+            match: null,
+        };
 
-  nextRestaurant = () => {
-    if (
-      this.state.position < 20 &&
-      this.state.position + 1 < this.props.restaurants.length
-    ) {
-      this.setState({ position: this.state.position + 1 });
-    } else {
-      this.state.position = -1;
-      this.props.history.push("/Location/ListRestaurants/NotFound");
+        var roomId = sessionStorage.getItem("roomId");
+        if (this.isGroup && roomId != null) {
+            //start socket.io 
+            this.socket = io("http://localhost:4000", {
+            withCredentials: true,
+            });
+            this.socket.on("match_found", (data) => onMatchFound(data));
+            this.room = roomId;
+            console.log(this.room);
+            this.socket.emit("join_room", this.room);
+        }
+    }
+
+    onMatchFound(restaurant) {
+        if (restaurant != null && restaurant !== "") {
+            //search for restaurant with same id
+            let data = this.props.location.state;
+            const restaurants = data.restaurants;
+
+            for (i=0; i<restaurants.length; i++) {
+                if (restaurants[i] != null && restaurants[i].id === restaurant) {
+                    this.state.position = i;
+                    break;
+                }
+            }
+
+            this.state.match = restaurants[this.state.position];
+            this.state.position = -1;
+            this.props.history.push('/Location/ListRestaurants/Found');
+        }
+    }
+
+    onLike() {
+        if (this.isGroup) {
+            let data = this.props.location.state;
+            const restaurants = data.restaurants;
+            this.socket.emit("vote",  {room: this.room, restaurantId: restaurants[this.state.position].id});
+            nextRestaurant();
+        } else {
+            this.state.match = restaurants[this.state.position];
+            this.state.position = -1;
+            this.props.history.push('/Location/ListRestaurants/Found');
+        }
+    }
+
+    nextRestaurant = () => {
+        if (this.state.position < 20 &&
+            this.state.position + 1 < this.props.restaurants.length) {
+            this.setState({position: this.state.position + 1});
+        } else {
+            this.state.position = -1;
+            this.props.history.push('/Location/ListRestaurants/NotFound');
+        }
     }
   };
 
   render() {
-    if (this.state.position != -1) {
-      let data = this.props.location.state;
-      console.log("data below");
-      console.log(data);
-      const restaurants = data.restaurants;
-      return (
-        <Route path="/Location/ListRestaurants">
-          <div className="App-header">
-            <Card
-              restaurant={restaurants[this.state.position]}
-              onDislike={this.nextRestaurant}
-              onLike={() => {
-                this.state.match = restaurants[this.state.position];
-                this.state.position = -1;
-                this.props.history.push("/Location/ListRestaurants/Found");
-              }}
-            />
-          </div>
-        </Route>
-      );
-    }
-    return (
-      <Switch>
-        <Route path="/Location/ListRestaurants/Found">
-          <MatchFound restaurant={this.state.match} />
-        </Route>
-        <Route path="/Location/ListRestaurants/NotFound">
-          <NotFound />
-        </Route>
-      </Switch>
-    );
+        if (this.state.position != -1) {
+            let data = this.props.location.state;
+            const restaurants = data.restaurants;
+            return (
+                    <Route path="/Location/ListRestaurants">
+                        <div className="App-header">
+                            <Card
+                                restaurant={restaurants[this.state.position]}
+                                onDislike={this.nextRestaurant}
+                                onLike={this.onLike}
+                            />
+                        </div>
+                    </Route>
+            );
+        }
+        return (
+            <Switch>
+                <Route path="/Location/ListRestaurants/Found">
+                    <MatchFound restaurant={this.state.match}/>
+                </Route>
+                <Route path="/Location/ListRestaurants/NotFound">
+                    <NotFound/>
+                </Route>
+            </Switch>
+        )
   }
 }
 
