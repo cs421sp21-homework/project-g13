@@ -4,3 +4,4 @@
 .gradle/*
 /code/frontend/.eslintcache
 node_modules/*
+code/frontend/node_modules/*
