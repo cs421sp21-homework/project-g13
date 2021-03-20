@@ -14,6 +14,7 @@ const options = {
     credentials: true,
   },
 };
+
 const io = require("socket.io")(server, options);
 
 const PORT = 4000 || process.env.PORT;
