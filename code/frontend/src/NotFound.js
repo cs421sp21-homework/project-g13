@@ -3,12 +3,21 @@ import { withRouter } from "react-router-dom";
 import { Switch, Route } from "react-router";
 import React, { Component } from "react";
 import Home from "./Home"
+import ListRestaurant from "./ListRestaurant";
+import * as api from "./Api.js";
 
 class NotFound extends Component {
+    reload() {
+        //somehow fetch restaurants again
+        //can't fetch here bc can't pass back to parent component
+        //or very complicated and indirect through functions from parent
+        //which I don't know how to
+        this.props.history.push('/Location/ListRestaurants');
+    }
     render() {
         return(
             <Switch>
-                <Route path="/NotFound">
+                <Route path="/Location/ListRestaurants/NotFound">
                     <div className="App">
                         <header className="App-header">
                             <h1>No match found.</h1>
@@ -17,7 +26,7 @@ class NotFound extends Component {
                                 <input
                                     type="button"
                                     value="Yes"
-                                    onClick={() => this.props.history.push('/ListRestaurant')}
+                                    onClick={() => this.reload()}
                                 />
                                 <input
                                     type="button"
@@ -30,6 +39,9 @@ class NotFound extends Component {
                 </Route>
                 <Route exact path="/">
                     <Home/>
+                </Route>
+                <Route path="/Location/ListRestaurants">
+                    <ListRestaurant/>
                 </Route>
             </Switch>
         )

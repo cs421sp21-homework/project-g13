@@ -12,7 +12,7 @@ class Join extends Component {
     }
 
     join = () => {
-        this.setState({statusMessage: "Loading..."});
+        this.setState({statusMessage: "Connecting you to your group..."});
         if (this.state.groupID === "") {
             this.setState({statusMessage: "Please enter your Group ID."});
         } else {

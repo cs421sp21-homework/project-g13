@@ -51,9 +51,6 @@ class Home extends Component {
                 <Route path="/Host">
                     <Host/>
                 </Route>
-                <Route path="/ListRestaurants">
-                    <ListRestaurant/>
-                </Route>
                 <Route path="/Found">
                     <MatchFound/>
                 </Route>

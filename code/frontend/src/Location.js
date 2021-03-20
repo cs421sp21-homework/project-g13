@@ -49,7 +49,7 @@ class Location extends Component {
             });
           } else {
             this.setState({ restaurants: response });
-            this.props.history.push("/ListRestaurants", this.state);
+            this.props.history.push("/Location/ListRestaurants", this.state);
           }
         });
     }
@@ -58,7 +58,7 @@ class Location extends Component {
   render() {
     return (
       <Switch>
-        <Route path="/Location">
+        <Route exact path="/Location">
           <div className="App">
             <header className="App-header">
               <form>
@@ -109,7 +109,7 @@ class Location extends Component {
             </body>
           </div>
         </Route>
-        <Route path="/ListRestaurants">
+        <Route path="/Location/ListRestaurants">
           <ListRestaurant restaurants={this.state.restaurants} />
         </Route>
         <Route path="/Groups">

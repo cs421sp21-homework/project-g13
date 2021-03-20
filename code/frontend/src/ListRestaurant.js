@@ -11,6 +11,7 @@ import NotFound from "./NotFound"
 class ListRestaurant extends Component {
     state = {
         position: 0,
+        match: null,
     }
 
     nextRestaurant = () => {
@@ -18,34 +19,43 @@ class ListRestaurant extends Component {
             this.state.position + 1 < this.props.restaurants.length) {
             this.setState({position: this.state.position + 1});
         } else {
-            this.props.history.push('NotFound')
+            this.state.position = -1;
+            this.props.history.push('/Location/ListRestaurants/NotFound')
         }
     }
 
+
+
   render() {
-    let data = this.props.location.state;
-
-    const restaurants = data.restaurants;
-
-    return (
-        <Switch>
-            <Route path="/ListRestaurants">
-                <div className="App-header">
-                    <Card
-                        restaurant={restaurants[this.state.position]}
-                        onDislike={this.nextRestaurant}
-                        onLike = {() => this.props.history.push('/Found')}
-                    />
-                </div>
-            </Route>
-            <Route path="/Found">
-                <MatchFound/>
-            </Route>
-            <Route path="/NotFound">
-                <NotFound/>
-            </Route>
-        </Switch>
-    );
+        if (this.state.position != -1) {
+            let data = this.props.location.state;
+            const restaurants = data.restaurants;
+            return (
+                    <Route path="/Location/ListRestaurants">
+                        <div className="App-header">
+                            <Card
+                                restaurant={restaurants[this.state.position]}
+                                onDislike={this.nextRestaurant}
+                                onLike={() => {
+                                    this.state.match = restaurants[this.state.position];
+                                    this.state.position = -1;
+                                    this.props.history.push('/Location/ListRestaurants/Found');
+                                }}
+                            />
+                        </div>
+                    </Route>
+            );
+        }
+        return (
+            <Switch>
+                <Route path="/Location/ListRestaurants/Found">
+                    <MatchFound restaurant={this.state.match}/>
+                </Route>
+                <Route path="/Location/ListRestaurants/NotFound">
+                    <NotFound/>
+                </Route>
+            </Switch>
+        )
   }
 }
 
