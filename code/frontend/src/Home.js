@@ -5,7 +5,6 @@ import { withRouter } from "react-router-dom";
 import Location from './Location'
 import Join from './Join'
 import Host from './Host'
-import ListRestaurant from './ListRestaurant';
 import MatchFound from './MatchFound';
 
 

@@ -44,7 +44,6 @@ class Location extends Component {
     ) {
       this.setState({ statusMessage: "Please enter all required fields." });
     } else {
-      
       var locationString = `${this.state.address} ${this.state.suiteNum} 
       ${this.state.city} ${this.state.state} ${this.state.zipcode}`;
       
@@ -70,7 +69,10 @@ class Location extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="/Location">
+        <Route path="/Location/ListRestaurants">
+          <ListRestaurant restaurants={this.state.restaurants} />
+        </Route>
+        <Route path="/Location">
           <div className="App">
             <header className="App-header">
               <form>
@@ -120,9 +122,6 @@ class Location extends Component {
               <button>Create a Group</button>
             </body>
           </div>
-        </Route>
-        <Route path="/Location/ListRestaurants">
-          <ListRestaurant restaurants={this.state.restaurants} />
         </Route>
         <Route path="/Groups">
           <GroupPage />
