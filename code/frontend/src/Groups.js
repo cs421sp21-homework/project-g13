@@ -28,7 +28,7 @@ const roomsMap = new Map();
 
 Room.set_emitReadySignalFunc((room) => {
   console.log("emit ready");
-  io.to(room).emit("ready");
+  io.to(room).emit("ready", true);
   //io.to(room).emit("message", {message: "ready"});
 });
   

@@ -10,6 +10,11 @@ import MatchFound from './MatchFound';
 
 
 class Home extends Component {
+    constructor(props) {
+        super(props);
+        sessionStorage.clear();
+    }
+
     nextPath(path) {
         this.props.history.push(path);
     }

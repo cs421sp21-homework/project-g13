@@ -17,6 +17,8 @@ class Join extends Component {
             this.setState({statusMessage: "Please enter your Group ID."});
         } else {
             //connect to group
+            sessionStorage.setItem("roomId", this.state.groupID);
+            sessionStorage.setItem("isHost", false);
         }
     }
 

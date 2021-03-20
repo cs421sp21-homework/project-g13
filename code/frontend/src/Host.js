@@ -19,8 +19,7 @@ class Host extends Component {
         });
 
         this.socket.on("ready", (data) => {
-            
-            
+            this.onReady(data);
         });
 
         this.socket.on("message", (data) => {
