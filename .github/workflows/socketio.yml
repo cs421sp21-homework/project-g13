@@ -3,7 +3,7 @@ name: Deploy socket.io to Heroku
 on:
   push:
     branches:
-      - main
+      - group-ui
     paths:
       - "code/socketio/**"
       - ".github/workflows/socket.yml"
