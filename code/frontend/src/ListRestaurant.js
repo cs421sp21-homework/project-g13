@@ -24,7 +24,7 @@ class ListRestaurant extends Component {
             this.socket = io("http://localhost:4000", {
             withCredentials: true,
             });
-            this.socket.on("match_found", (data) => onMatchFound(data));
+            this.socket.on("match_found", (data) => this.onMatchFound(data));
             this.room = roomId;
             console.log(this.room);
             this.socket.emit("join_room", this.room);
@@ -51,11 +51,11 @@ class ListRestaurant extends Component {
     }
 
     onLike() {
+        let data = this.props.location.state;
+        const restaurants = data.restaurants;
         if (this.isGroup) {
-            let data = this.props.location.state;
-            const restaurants = data.restaurants;
             this.socket.emit("vote",  {room: this.room, restaurantId: restaurants[this.state.position].id});
-            nextRestaurant();
+            this.nextRestaurant();
         } else {
             this.state.match = restaurants[this.state.position];
             this.state.position = -1;
@@ -72,7 +72,6 @@ class ListRestaurant extends Component {
             this.props.history.push('/Location/ListRestaurants/NotFound');
         }
     }
-  };
 
   render() {
         if (this.state.position != -1) {
