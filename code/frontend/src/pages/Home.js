@@ -5,7 +5,10 @@ import { withRouter } from "react-router-dom";
 import Location from './Location'
 import Join from './Join'
 import Host from './Host'
-import MatchFound from './MatchFound';
+//import MatchFound from './MatchFound';
+import Signup from "../Signup";
+import Navbar from "../components/Navbar/Navbar.js"
+
 
 
 class Home extends Component {
@@ -22,6 +25,7 @@ class Home extends Component {
         return(
             <Switch>
                 <Route exact path="/">
+                    <Navbar/>
                     <div className='App'>
                         <header className='App-header'>
                             <form>
@@ -55,8 +59,8 @@ class Home extends Component {
                 <Route path="/Host/:groupLocation?">
                     <Host/>
                 </Route>
-                <Route path="/Found">
-                    <MatchFound/>
+                <Route path="/Login">
+                    <Signup/>
                 </Route>
             </Switch>
         )
