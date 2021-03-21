@@ -90,62 +90,76 @@ public class Server {
         });
 
         get("/api/users", (req, res) -> {
-            List<User> users = userDao.readAll();
+            System.out.println(1);
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET");
+            res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
+            List<User> users = userDao.readAll();
             return gson.toJson(users);
         });
 
         get("/api/groups", (req, res) -> {
-            List<Group> groups = groupDao.readAllGroups();
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET");
+            res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
+            List<Group> groups = groupDao.readAllGroups();
             return gson.toJson(groups);
         });
 
         get("/api/users/:uname", (req, res) -> {
-            String uname = req.params("uname");
-            User user = userDao.read(uname);
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET");
+            res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
+            String uname = req.params("uname");
+            User user = userDao.read(uname);
             return gson.toJson(user);
         });
 
+
         get("/api/groups/:id", (req, res) -> {
-            int id = Integer.parseInt(req.params("id"));
-            List<User> users = userDao.readAllInGroup(id);
-            res.header("Content-Type", "application/json");
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET");
+            res.header("Content-Type", "application/json");
+            int id = Integer.parseInt(req.params("id"));
+            List<User> users = userDao.readAllInGroup(id);
             return gson.toJson(users);
         });
 
         post("/api/users", (req, res) -> {
-            User user = gson.fromJson(req.body(), User.class);
-            userDao.create(user.getUserName(), user.getPword(), user.getLoc(), user.getGroup_ID());
-            res.header("Content-Type", "application/json");
+            System.out.println(req.headers());
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "POST");
+            res.header("Access-Control-Allow-Methods", "GET");
+            res.header("Content-Type", "application/json");
+            User user = gson.fromJson(req.body(), User.class);
+            userDao.create(user.getUserName(), user.getPword(), user.getLoc(), user.getGroup_ID());
             return gson.toJson(user);
         });
 
         post("/api/groups", (req, res) -> {
-            Group group = groupDao.createGroup();
-            res.header("Content-Type", "application/json");
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "POST");
+            res.header("Content-Type", "application/json");
+            Group group = groupDao.createGroup();
             return gson.toJson(group);
         });
 
         delete("/api/users/:uname", (req, res) -> {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "DELETE");
+            res.header("Content-Type", "application/json");
             String uname = req.params("uname");
             User user = userDao.delete(uname);
-            res.header("Content-Type", "application/json");
             return gson.toJson(user);
         });
 
+        options("/*", (req, res)-> {
+            System.out.println(req.headers());
+            res.header("Access-Control-Allow-Origin", "*");
+            return "OK";
+        });
     }
 }
