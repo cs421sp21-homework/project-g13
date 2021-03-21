@@ -8,6 +8,7 @@ const socketio = require("socket.io");
 
 const server = require("http").createServer();
 const options = {
+  transports: ['websocket', 'polling', 'flashsocket'],
   cors: {
     origin: "https://chicken-tinder-13.herokuapp.com",
     credentials: true,
