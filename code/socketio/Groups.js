@@ -11,7 +11,6 @@ const options = {
   transports: ['websocket', 'polling', 'flashsocket'],
   cors: {
     origin: "*",
-    credentials: true,
   },
 };
 
