@@ -92,7 +92,7 @@ cd cs421sp21-homework/project-g13/code/backend
 To deploy the frontend:
 
 ```shell
-cd cs421sp21-homework/project-g13/code/backend
+cd cs421sp21-homework/project-g13/code/frontend
 git push heroku main
 ```
 
@@ -127,22 +127,22 @@ If the api is external, link to api documentation. If not describe your api incl
 ## Database
 
 PostgreSQL 13 on Heroku
-  - Create a free account [here](https://signup.heroku.com/dc)
-  - Install the Heroku Command Link [here](https://devcenter.heroku.com/articles/heroku-cli)
-  - Enter these commands (filling in the name of your app):
-    ```shell
-    heroku git:remote -a your-app
-    heroku addons:create heroku-postgresql
-    heroku pg:credentials:url DATABASE
-    ```
-  - Add these dependencies to build.gradle:
-      ```shell
-    implementation 'org.postgresql:postgresql:42.2.10'
-    implementation 'org.sql2o:sql2o:1.6.0'
-    ```
-  - Now, you should be able to update the database using Java Data Access Objects
-  - If you want to work directly with the database, then enter this command in the terminal:
-    ```shell
-    heroku pg:psql
-    ```
 
+- Create a free account [here](https://signup.heroku.com/dc)
+- Install the Heroku Command Link [here](https://devcenter.heroku.com/articles/heroku-cli)
+- Enter these commands (filling in the name of your app):
+  ```shell
+  heroku git:remote -a your-app
+  heroku addons:create heroku-postgresql
+  heroku pg:credentials:url DATABASE
+  ```
+- Add these dependencies to build.gradle:
+  ```shell
+  implementation 'org.postgresql:postgresql:42.2.10'
+  implementation 'org.sql2o:sql2o:1.6.0'
+  ```
+- Now, you should be able to update the database using Java Data Access Objects
+- If you want to work directly with the database, then enter this command in the terminal:
+  ```shell
+  heroku pg:psql
+  ```
