@@ -1,0 +1,19 @@
+name: Deploy socket.io to Heroku
+
+on:
+  push:
+    branches:
+      - group-ui
+    paths:
+      - "code/socketio/**"
+      - ".github/workflows/socketio.yml"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Add socketio remote origin
+        run: git remote add heroku-socketio https://heroku:${{ secrets.HEROKU_API_TOKEN }}@git.heroku.com/${{ secrets.HEROKU_SOCKETIO_APP_NAME }}.git
+      - name: Deploy socketio to Heroku
+        run: git push heroku-socketio `git subtree split --prefix code/socketio main`:refs/heads/main --force

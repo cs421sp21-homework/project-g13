@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router";
+import { Route, Switch, useParams } from "react-router";
 import { withRouter } from "react-router-dom";
 import ListRestaurant from "./ListRestaurant.js";
-import * as api from "./Api.js"
+import * as api from "../api/Api.js";
 
-class App extends Component {
+class Location extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,10 +13,16 @@ class App extends Component {
       city: "",
       state: "",
       zipcode: "",
-      radius: 25,
+      radius: 5,
       restaurants: [],
-      statusMessage: "",
     };
+  }
+
+  componentDidMount() {
+    console.log("opened set location page");
+    this.returnTo = this.props.match.params.returnTo;
+    console.log(this.returnTo);
+    //this.setState({ statusMessage: this.returnTo });
   }
 
   myChangeHandler = (event) => {
@@ -36,8 +42,8 @@ class App extends Component {
       this.setState({statusMessage: "Error: Search radius must be a number."});
       return false;
     }
-    if (this.state.radius > 25) {
-      this.setState({statusMessage: "Error: Maximum search radius is 25 miles."});
+    if (this.state.radius > 24.85) {
+      this.setState({statusMessage: "Error: Maximum search radius is 24.85 miles."});
       return false;
     }
     if (this.state.radius <= 0) {
@@ -47,35 +53,39 @@ class App extends Component {
     return true;
   }
 
-  milesToMeters = (miles) => {
-    return Math.round(miles * 1609.34);
-  }
-
   submit = () => {
-    this.setState({statusMessage: "Loading..."});
+    this.setState({ statusMessage: "Loading..." });
     if (this.validInput()) {
-      api.getRestaurants(`${this.state.address} ${this.state.suiteNum} 
-        ${this.state.city} ${this.state.state} ${this.state.zipcode}`,
-          this.milesToMeters(this.state.radius))
-          .then((response) => {
-            if (response[0] === "err") {
-              this.setState({statusMessage: "Error: Location not recognized by Yelp."});
-            } else if (response.length === 0) {
-              this.setState({statusMessage: "Error: No results found. Try broadening your search radius."});
-            } else {
-              this.setState({restaurants: response});
-              this.props.history.push("/ListRestaurants", this.state);
-            }
-          });
+      var locationString = `${this.state.address} ${this.state.suiteNum} 
+      ${this.state.city} ${this.state.state} ${this.state.zipcode}`;
+      //var radiusString = `${this.state.radius}`;
+      
+      if (this.returnTo !== undefined && this.returnTo !== "") {
+        this.props.history.push("/Host/"+locationString);
+      } else {
+        api
+        .getRestaurants(locationString)
+        .then((response) => {
+          if (response[0] === "err") {
+            this.setState({
+              statusMessage: "Error: Location not recognized by Yelp.",
+            });
+          } else {
+            this.setState({ restaurants: response });
+            this.props.history.push("/Location/ListRestaurants", this.state);
+          }
+        });
+      }
     }
-  }
-
-
+  };
 
   render() {
     return (
       <Switch>
-        <Route exact path="/">
+        <Route path="/Location/ListRestaurants">
+          <ListRestaurant restaurants={this.state.restaurants} />
+        </Route>
+        <Route path="/Location">
           <div className="App">
             <header className="App-header">
               <form>
@@ -115,33 +125,29 @@ class App extends Component {
                 <input
                     type="number"
                     name="radius"
-                    max={25}
+                    max={24.85}
                     min={0.5}
                     step={0.5}
-                    defaultValue={25}
+                    defaultValue={5}
                     onChange={this.myChangeHandler}
                 />
                 miles
+                <br/>
                 <input
                   type="button"
                   value="Submit"
-                  onClick={() => {this.submit()}}
+                  onClick={() => {
+                    this.submit();
+                  }}
                 />
               </form>
-              <div className="status">
-                {this.state.statusMessage}
-              </div>
+              <div className="status">{this.state.statusMessage}</div>
             </header>
           </div>
-        </Route>
-        <Route path="/ListRestaurants">
-          <ListRestaurant
-              restaurants={this.state.restaurants}
-          />
         </Route>
       </Switch>
     );
   }
 }
 
-export default withRouter(App);
+export default withRouter(Location);

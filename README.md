@@ -124,4 +124,23 @@ If the api is external, link to api documentation. If not describe your api incl
 
 ## Database
 
-We didn't implement a database for iteration 1. We do not currently store restaurant or user information in a database yet as our goals for this iteration were to connect to the Yelp API and display restaurants close to the user based off their location input. Iteration 2 will involve developing a database to store user information.
+PostgreSQL 13 on Heroku
+  - Create a free account [here](https://signup.heroku.com/dc)
+  - Install the Heroku Command Link [here](https://devcenter.heroku.com/articles/heroku-cli)
+  - Enter these commands (filling in the name of your app):
+    ```shell
+    heroku git:remote -a your-app
+    heroku addons:create heroku-postgresql
+    heroku pg:credentials:url DATABASE
+    ```
+  - Add these dependencies to build.gradle:
+      ```shell
+    implementation 'org.postgresql:postgresql:42.2.10'
+    implementation 'org.sql2o:sql2o:1.6.0'
+    ```
+  - Now, you should be able to update the database using Java Data Access Objects
+  - If you want to work directly with the database, then enter this command in the terminal:
+    ```shell
+    heroku pg:psql
+    ```
+

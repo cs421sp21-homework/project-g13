@@ -217,6 +217,9 @@ public class Sql2oGroupDao implements GroupDao {
                     .addParameter("gid", group.getGroup_id())
                     .executeUpdate();
 
+            // emptying the object (propagating the delete through database and POJO)
+            group.getMembers().clear();
+
             // temporary until groups can be neatly return from database
             // also might be difficult since it was just deleted (cannot be accessed in database)
             return group;

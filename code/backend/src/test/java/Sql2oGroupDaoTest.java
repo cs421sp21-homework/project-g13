@@ -8,6 +8,8 @@ import model.User;
 import model.Group;
 
 import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
@@ -18,8 +20,6 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static util.Database.getSql2o;
-
 public class Sql2oGroupDaoTest {
 
     private static Sql2o sql2o;
@@ -29,8 +29,15 @@ public class Sql2oGroupDaoTest {
 
     @BeforeAll
     static void connectToDatabase() throws URISyntaxException {
+        // using test database (in backend app)
+        URI dbUri = new URI("postgres://ntclafskylmibg:bc37662392ee4ca4f1c46d0ded963f7d32f96e9c8a04c3b0b3efd3f138775ef0@ec2-54-90-13-87.compute-1.amazonaws.com:5432/d41ch405o2l0a2");
 
-        sql2o = getSql2o();
+        String username = dbUri.getUserInfo().split(":")[0];
+        String password = dbUri.getUserInfo().split(":")[1];
+        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':'
+                + dbUri.getPort() + dbUri.getPath() + "?sslmode=require";
+
+        sql2o = new Sql2o(dbUrl, username, password);
     }
 
     @BeforeAll
@@ -116,7 +123,11 @@ public class Sql2oGroupDaoTest {
     void createGroup() {
 
         Group g1 = groupDao.createGroup();
-        //Assertions.assertEquals(u1, u2);
+
+        assertEquals(g1.getGroup_id(), 2);
+
+        List<User> users = groupDao.readMembers(2);
+        assertTrue(g1.getMembers().isEmpty());
     }
 
     @Test
@@ -125,6 +136,12 @@ public class Sql2oGroupDaoTest {
         Group g1 = groupDao.createGroup();
         User u1 = userDao.read("kfeatherstonef");
         groupDao.addMember(g1, u1);
+
+        assertEquals(u1.getGroup_ID(), g1.getGroup_id());
+        assertEquals(g1.getMembers().size(), 1);
+
+        User addedUser = g1.getMembers().get(0);
+        assertEquals(addedUser.getUserName(), "kfeatherstonef");
     }
 
     @Test
@@ -137,6 +154,9 @@ public class Sql2oGroupDaoTest {
         groupDao.addMember(g1, u2);
 
         groupDao.removeMember(g1, u2);
+        assertEquals(g1.getMembers().size(), 1);
+        assertEquals(g1.getMembers().indexOf(u2), -1);
+
     }
 
     @Test
@@ -149,6 +169,29 @@ public class Sql2oGroupDaoTest {
         groupDao.addMember(g1, u2);
 
         groupDao.deleteGroup(g1);
+
+        assertEquals(g1.getMembers().size(), 0);
+
+        // users should have group ID of 1 (solo)
+        // not removed from user table so still in database
+        assertEquals(u1.getGroup_ID(), 1);
+        assertEquals(u2.getGroup_ID(), 1);
+
     }
+
+    /*
+    @Test
+    @DisplayName("read all groups from table")
+    void readAllGroups() {
+        Group g1 = groupDao.createGroup();
+        User u1 = userDao.read("kfeatherstonef");
+        User u2 = userDao.read("beastbrookd");
+        groupDao.addMember(g1, u1);
+        groupDao.addMember(g1, u2);
+
+        groupDao.readAllGroups();
+    }
+
+     */
 
 }
