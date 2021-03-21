@@ -5,7 +5,7 @@ Leader: Shanelle Cao
 When2Meet: [click here](https://www.when2meet.com/?11286799-FBW9N)
 
 # OO Design
-![UML Diagram for iteration 2](assets/uml-diagram-iteration2.png)
+![UML Diagram for iteration 2](assets/uml-diagram-updated-iteration2.png)
 
 # Wireframe & Use-case
 
