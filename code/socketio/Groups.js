@@ -5,7 +5,6 @@ const app = express();
 const cors = require("cors");
 app.use(cors());
 const socketio = require("socket.io");
-const { uuid } = require("uuidv4");
 
 const server = require("http").createServer();
 const options = {
@@ -32,14 +31,13 @@ Room.set_emitReadySignalFunc((room) => {
   io.to(room).emit("ready", true);
   //io.to(room).emit("message", {message: "ready"});
 });
-  
 
 Room.emitRestaurantsFunc = function (room, data) {
   io.to(room).emit("get_restaurants", data);
-}
+};
 
 io.on("connection", function (socket) {
-  socket.emit("message", {message: "welcome to Food-Tinder"});
+  socket.emit("message", { message: "welcome to Food-Tinder" });
 
   socket.on("create_room", (room) => {
     console.log("create room" + room);
@@ -118,10 +116,10 @@ io.on("connection", function (socket) {
     io.to(data).emit("start-event");
   });
 
-  socket.on("disconnecting", ()=> {
+  socket.on("disconnecting", () => {
     console.log("client " + socket.id + " is disconnecting");
     var rooms = socket.rooms;
-    rooms.forEach(element => {
+    rooms.forEach((element) => {
       if (roomsMap.has(element)) {
         const room = roomsMap.get(element);
         room.memberLeft();
@@ -130,7 +128,6 @@ io.on("connection", function (socket) {
       }
     });
   });
-
 });
 
 server.listen(PORT, function () {
