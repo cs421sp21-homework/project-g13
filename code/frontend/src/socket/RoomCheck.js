@@ -1,4 +1,4 @@
-import "./App.css";
+import "../App.css";
 import { withRouter } from "react-router-dom";
 import React, { Component, useEffect, useState } from "react";
 import io from "socket.io-client";

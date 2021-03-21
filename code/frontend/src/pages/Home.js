@@ -1,4 +1,4 @@
-import "./App.css"
+import "../App.css"
 import React, { Component } from "react";
 import { Switch, Route } from "react-router";
 import { withRouter } from "react-router-dom";

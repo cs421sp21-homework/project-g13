@@ -1,4 +1,4 @@
-import "./App.css";
+import "../App.css";
 import React, { Component } from "react";
 import { Switch, Route, generatePath } from "react-router";
 import { withRouter } from "react-router-dom";
@@ -208,6 +208,7 @@ class Host extends Component {
                   type="button"
                   value="Set Group Location"
                   onClick={() => this.setLocation()}
+                  disabled={this._isHost}
                 />
                 <br />
                 <input

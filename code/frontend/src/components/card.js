@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import NewCard from 'react-bootstrap/Card';
 import Slideshow from './Slideshow.js';
-import "./App.css";
+import "../App.css";
 
 class Card extends Component {
 

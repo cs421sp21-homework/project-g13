@@ -1,10 +1,10 @@
-import "./App.css";
+import "../App.css";
 import { withRouter } from "react-router-dom";
 import { Switch, Route } from "react-router";
 import React, { Component } from "react";
 import Home from "./Home"
 import ListRestaurant from "./ListRestaurant";
-import * as api from "./Api.js";
+import * as api from "../api/Api.js";
 
 class NotFound extends Component {
     

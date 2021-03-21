@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Route, Switch, useParams } from "react-router";
 import { withRouter } from "react-router-dom";
 import ListRestaurant from "./ListRestaurant.js";
-import * as api from "./Api.js";
+import * as api from "../api/Api.js";
 
 class Location extends Component {
   constructor(props) {
@@ -58,6 +58,7 @@ class Location extends Component {
     if (this.validInput()) {
       var locationString = `${this.state.address} ${this.state.suiteNum} 
       ${this.state.city} ${this.state.state} ${this.state.zipcode}`;
+      //var radiusString = `${this.state.radius}`;
       
       if (this.returnTo !== undefined && this.returnTo !== "") {
         this.props.history.push("/Host/"+locationString);

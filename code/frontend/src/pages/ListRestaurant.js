@@ -1,9 +1,9 @@
-import "./App.css";
+import "../App.css";
 import { withRouter } from "react-router-dom";
 import { Switch, Route } from "react-router";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Card from "./card.js";
+import Card from "../components/card.js";
 import MatchFound from "./MatchFound";
 import NotFound from "./NotFound";
 import io from "socket.io-client";

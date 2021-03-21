@@ -1,10 +1,10 @@
-import "./App.css";
+import "../App.css";
 import { withRouter } from "react-router-dom";
 import { Switch, Route } from "react-router";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import NewCard from "react-bootstrap/Card";
-import Slideshow from "./Slideshow";
+import Slideshow from "../components/Slideshow";
 import Home from "./Home";
 
 class MatchFound extends Component {
