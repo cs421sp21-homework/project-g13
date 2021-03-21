@@ -8,6 +8,7 @@
     "bootstrap": "^4.6.0",
     "cors": "^2.8.5",
     "jquery": "^3.6.0",
+    "mobx": "^6.1.8",
     "mobx-react": "^7.1.0",
     "popper.js": "^1.16.1",
     "prop-types": "^15.7.2",
