@@ -5,7 +5,7 @@ When2Meet: [click here](https://www.when2meet.com/?11139749-jH8B8)
 
 # OO Design
 
-![Update 1: UML Diagram](assets/UML-Diagram-Iteration-1-Update.png)
+![Update 1: UML Diagram](assets/uml-diagram-iteration1-update.png)
 
 # Wireframe & Use-case
 
