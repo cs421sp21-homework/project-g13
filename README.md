@@ -108,9 +108,9 @@ Currently, the only configuration a user can enter while using the project is th
 
 ## Tests
 
-We currently do not have any tests written for the backend for iteration one.
-
 For the frontend, we have tests using PropTypes to ensure that variables have the proper types, which would throw an error if certain variables recieved types they weren't expecting.
+
+For the backend, we have multiple tests for DAOs using JUnit to ensure that users and groups are modified properly (ensuring that POJOs are appropriately updated to reflect database)
 
 ## Style guide
 
