@@ -5,8 +5,7 @@ import { withRouter } from "react-router-dom";
 import Location from './Location'
 import Join from './Join'
 import Host from './Host'
-//import MatchFound from './MatchFound';
-import Signup from "../Signup";
+import Signup from "./Signup";
 import Navbar from "../components/Navbar/Navbar.js"
 
 

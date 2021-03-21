@@ -58,13 +58,13 @@ class Location extends Component {
     if (this.validInput()) {
       var locationString = `${this.state.address} ${this.state.suiteNum} 
       ${this.state.city} ${this.state.state} ${this.state.zipcode}`;
-      //var radiusString = `${this.state.radius}`;
+      var radiusString = `${this.state.radius}`;
       
       if (this.returnTo !== undefined && this.returnTo !== "") {
-        this.props.history.push("/Host/"+locationString);
+        this.props.history.push("/Host/"+locationString+radiusString);
       } else {
         api
-        .getRestaurants(locationString)
+        .getRestaurants(locationString,radiusString)
         .then((response) => {
           if (response[0] === "err") {
             this.setState({
