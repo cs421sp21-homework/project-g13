@@ -21,7 +21,7 @@ class ListRestaurant extends Component {
     var roomId = sessionStorage.getItem("roomId");
     if (this.isGroup && roomId != null) {
       //start socket.io
-      this.socket = io("http://localhost:4000", {
+      this.socket = io("http://chicken-tinder-13-socketio.herokuapp.com", {
         withCredentials: true,
       });
       this.socket.on("match_found", (data) => this.onMatchFound(data));
@@ -45,12 +45,11 @@ class ListRestaurant extends Component {
           break;
         }
       }
+
+      this.state.match = restaurants[this.state.position];
+      this.state.position = -1;
+      this.props.history.push("/Location/ListRestaurants/Found");
     }
-  }
-
-  onLike() {
-
-
   }
 
   nextRestaurant = () => {

@@ -9,7 +9,7 @@ class Host extends Component {
   constructor(props) {
     super(props);
     this._isMounted = false;
-    this._isHost = false;
+    this._isNotHost = false;
     this.id = Host.id;
     Host.id++;
     this.pendingSendLocation = false;
@@ -53,15 +53,17 @@ class Host extends Component {
       this.createRoom(roomId);
       sessionStorage.setItem("isHost", "true");
       sessionStorage.setItem("roomId", roomId);
+      isHost = true;
     } else {
       console.log(roomId);
       this.joinRoom(roomId);
-      this._isHost = true;
     }
+    this._isNotHost = (isHost != null && isHost === true) ? false : true;
 
+    const initalLocation = (this._isNotHost) ?  "Host sets location" : "Not Set";
     this.state = {
       roomId: roomId,
-      location: "Not Set",
+      location: initalLocation,
       canNotStart: true,
       status: "Not Ready",
       numMembers: 1,
@@ -208,7 +210,7 @@ class Host extends Component {
                   type="button"
                   value="Set Group Location"
                   onClick={() => this.setLocation()}
-                  disabled={this._isHost}
+                  disabled={this._isNotHost}
                 />
                 <br />
                 <input

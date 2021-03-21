@@ -15,7 +15,7 @@ class Join extends Component {
   }
 
   componentDidMount() {
-    this.state.socket = io("http://localhost:4000", {
+    this.state.socket = io("http://chicken-tinder-13-socketio.herokuapp.com", {
       withCredentials: true,
     });
   }
