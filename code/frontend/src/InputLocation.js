@@ -2,6 +2,7 @@ import { Component } from "react";
 import * as api from "./Api";
 import {withRouter} from "react-router-dom";
 import PropTypes from "prop-types";
+import Navbar from "./components/Navbar/Navbar";
 
 class InputLocation extends Component {
     state = {
@@ -66,6 +67,7 @@ class InputLocation extends Component {
     render() {
         return (
             <div className="App">
+                <Navbar />
                 <header className="App-header">
                     <form>
                         <h1>Please enter your Location:</h1>

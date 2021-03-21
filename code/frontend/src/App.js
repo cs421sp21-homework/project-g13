@@ -4,6 +4,8 @@ import { withRouter } from "react-router-dom";
 import ListRestaurant from "./ListRestaurant.js";
 import InputLocation from "./InputLocation.js";
 import * as api from "./Api.js"
+import UserStore from "./stores/UserStore";
+import Signup from "./Signup";
 
 class App extends Component {
     state = {
@@ -41,20 +43,23 @@ class App extends Component {
                   onSubmit = {this.setRestaurants}
               />
           </Route>
-        <Route exact path="/group">
-            <button onClick={() => {
+          <Route exact path="/group">
+              <button onClick={() => {
                 const id = prompt("Enter group id:");
                 this.getFromGroupID(id);
-            }}>Join a group</button>
-          <InputLocation
+              }}>Join a group</button>
+              <InputLocation
               onSubmit = {this.createGroup}
-          />
-        </Route>
-        <Route path="/ListRestaurants">
-          <ListRestaurant
-              restaurants={this.state.restaurants}
-          />
-        </Route>
+              />
+          </Route>
+          <Route path="/ListRestaurants">
+              <ListRestaurant
+                  restaurants={this.state.restaurants}
+              />
+          </Route>
+          <Route path="/Login">
+              <Signup />
+          </Route>
       </Switch>
     );
   }
