@@ -11,6 +11,7 @@ const options = {
   transports: ['websocket', 'polling', 'flashsocket'],
   cors: {
     origin: ["localhost:3000", "http://chicken-tinder-13.herokuapp.com", "https://chicken-tinder-13.herokuapp.com"],
+    credentials: true,
   },
 };
 
