@@ -10,7 +10,7 @@ const server = require("http").createServer();
 const options = {
   transports: ['websocket', 'polling', 'flashsocket'],
   cors: {
-    origin: "*",
+    origin: ["localhost:3000", "http://chicken-tinder-13.herokuapp.com", "https://chicken-tinder-13.herokuapp.com"],
   },
 };
 
