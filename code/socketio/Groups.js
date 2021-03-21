@@ -7,28 +7,14 @@ app.use(cors());
 const socketio = require("socket.io");
 
 const server = require("http").createServer();
-/*const options = {
+const options = {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "*",
     credentials: true,
   },
-  cors: {
-    origin: "https://chicken-tinder-13.herokuapp.com",
-    credentials: true,
-  },
-  cors: {
-    origin: "http://chicken-tinder-13.herokuapp.com",
-    credentials: true,
-  },
-};*/
+};
 
-app.all('/', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
- });
-
-const io = require("socket.io")(server);
+const io = require("socket.io")(server, options);
 
 const PORT = process.env.PORT || 4000;
 
