@@ -73,8 +73,9 @@ the location of search and start the swiping session. Once the host presses Star
 in the group, and a match found page will be shown once everyone in the group votes like for the same restaurant.
 Or else, a no match found page will be shown after 20 restaurants have passed. Currently, the start again function when
 match no found is not fully implemented as we need to figure out how to re-fetch restaurants without prompting users
-to enter their address again. Originally in this iteration we also
-set out to implement a login system, where a user can create an account and save their name to be displayed in groups.
+to enter their address again. The group functionality also only runs locally as we are still working on Heroku deployment
+for socket.io. Originally in this iteration we also set out to implement a login system, where a user can create an account
+and save their name to be displayed in groups.
 However, due to time constraints this part of the user story couldn't be fully implemented, with only a database setup,
 which was also a concern we had in the beginning of this iteration. Overall, this iteration was mildly stressful,
 as we struggled with figuring out React routing and data passing, and completing all the user stories planned for this
