@@ -58,7 +58,7 @@ class Host extends Component {
       console.log(roomId);
       this.joinRoom(roomId);
     }
-    this._isNotHost = (isHost != null && isHost === true) ? false : true;
+    this._isNotHost = (isHost != null && (isHost === true || isHost === "true")) ? false : true;
 
     const initalLocation = (this._isNotHost) ?  "Host sets location" : "Not Set";
     this.state = {
