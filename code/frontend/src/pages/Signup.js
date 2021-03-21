@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import UserStore from "./stores/UserStore";
+import UserStore from "../stores/UserStore";
 import LoginForm from "./components/Login/LoginForm";
 import InputField from "./components/Login/InputField";
 import SubmitButton from "./components/Login/SubmitButton";
