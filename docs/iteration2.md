@@ -62,22 +62,21 @@ When2Meet: [click here](https://www.when2meet.com/?11286799-FBW9N)
 # Retrospective
 
 For this iteration we finished off what was left from iteration 1, which was implementing the like and
-dislike functions for individual users when swiping. We also aim to implement group features where users could
+dislike functions for individual users when swiping. We also aimed to implement group features where users could
 join or host groups with friends. The entire swiping process for individual users now runs smoothly, where upon
 pressing Start they are redirected to enter their address, then restaurants are shown one by one if the user presses
 dislike. Once the like button is pressed they will be redirected to the match found page, showing them the restaurant
 they've picked. Also, if the user browsed 20 restaurants and didn't like any of them, they will be redirected to the
-no match found page and asked if they would like to start again. By using socket.io, users can also join/host groups.
+no match found page and asked if they would like to start again. The group functionalities are achieved using socket.io.
 If a user hosts a group, group ID will be generated and others can use that ID to join the group. Only the host can set
 the location of search and start the swiping session. Once the host presses Start, the swiping process begins for everyone
 in the group, and a match found page will be shown once everyone in the group votes like for the same restaurant.
-Or else, a no match found page will be shown after 20 restaurants have passed. Currently, the start again function when
-match no found is not fully implemented as we need to figure out how to re-fetch restaurants without prompting users
-to enter their address again. The group functionality also only runs locally as we are still working on Heroku deployment
-for socket.io. Originally in this iteration we also set out to implement a login system, where a user can create an account
-and save their name to be displayed in groups.
-However, due to time constraints this part of the user story couldn't be fully implemented, with only a database setup,
-which was also a concern we had in the beginning of this iteration. Overall, this iteration was mildly stressful,
-as we struggled with figuring out React routing and data passing, and completing all the user stories planned for this
-iteration, which was the longest out of all iterations. For the next iteration to work smoother, we need to complete
-the remaining tasks from this iteration fast and start on the user stories for the next iteration earlier.
+Or else, a no match found page will be shown after 20 restaurants have passed. Currently, the start again function when no
+match is found is not fully implemented as we need to figure out how to re-fetch restaurants without prompting users
+to enter their address again. Originally for this iteration we also set out to implement a login system, where a user can
+create an account and save their name to be displayed in groups.
+However, due to time constraints this part of the user story couldn't be fully implemented, which was a concern we had in
+the beginning of this iteration that there are too many user stories to fulfill. Overall, this iteration was mildly challenging,
+as we struggled with React routing and data passing, and trying to complete all user stories planned.
+For the next iteration to work smoother, we need to complete the remaining tasks from this iteration fast and start on the user
+stories for the next iteration earlier.
