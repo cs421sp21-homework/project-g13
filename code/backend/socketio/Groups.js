@@ -117,6 +117,16 @@ io.on("connection", function (socket) {
     io.to(data).emit("start-event");
   });
 
+  //when a client wants to get a room id
+  socket.on("get_room_id", () => {
+    var roomId = generateRoomId();
+    while (roomsMap.has(roomId)) {
+      roomId = generateRoomId();
+    }
+    socket.emit("room_id", roomId);
+  });
+
+
   socket.on("disconnecting", () => {
     console.log("client " + socket.id + " is disconnecting");
     var rooms = socket.rooms;
@@ -134,3 +144,11 @@ io.on("connection", function (socket) {
 server.listen(PORT, function () {
   console.log(`listening on port ${PORT}`);
 });
+
+function generateRoomId() {
+  var roomId = "" + Math.floor(Math.random() * 10000 + 1);
+  while (roomId.length < 5) {
+    roomId = '0' + roomId;
+  }
+  return roomId;
+}
