@@ -6,7 +6,7 @@ When2Meet:
 
 # OO Design
 
-![UML Diagram for iteration 2](assets/uml-diagram-updated-iteration2.png)
+![UML Diagram for iteration 2](assets/iteration3uml.png)
 
 # Wireframe & Use-case
 
