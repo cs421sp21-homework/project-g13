@@ -119,3 +119,73 @@ For iteration 2:
 
 [Server]->[BusinessSearchResponse]
 ```
+For iteration 3:
+```
+//restaurants
+[Server|static: -getHerokuAssignedPort(); static: getUserDao(): UserDao; static: getGroupDao(): GroupDao]
+
+[YelpService|static: getRestaurantsByLocation(location: string): RestaurantSearchResponse; static: getRestaurantWithDetail(id: string): Restaurant; static: getRestaurantReviews(id: string): ReviewSearchResponse]
+
+[Restaurant| -id: string; -alias: string; -name: string; -image_url: string; -is_closed: Boolean; -url: string; -review_count: Integer; -categories: List Category; rating: Double; -coordinates: Coordinates; -transactions: List Transactions;-price: string;-location: Location; -phone: string; -display_phone: string; -distance: Double]
+
+[Category| -alias: string; -title: string]
+
+[Coordinates| -latitude: Double; -longitude: Double]
+
+[Location|-address1: string; -address2: string; -address3: string; city: string; -zip_code: string; -country: string; -state: string; display_address: List String]
+
+[Transactions (enum)|+static transactions(value: string): Transactions |value: string]
+
+[RestaurantSearchResponse|-total: int; -business: List BusinessSearch]
+
+[Review|-text: string; -rating: int]
+
+[ReviewSearchResponse|-total: int; -reviews: List Review]
+
+//users/groups
+
+[User|-location: string; -id: int; -username: string; -tempFilters: TempFilters; -permFilters: PermFilters; -categoryPrefs: Map String/Double]
+
+[Group|-id: int; -name: string; -members: List User]
+
+[TempFilters|-maxDistance: Double; -minRating: Double]
+
+[PermFilters|-vegan: boolean; -glutenFree: boolean; -seafoodAllergy: -boolean]
+
+[(interface) UserDao|+create(userName: String, password: String, location: String, groupID: int): User; +create(userName: String, password: String, location: String, permFilters: PermFilters): User; +read(userName: String): User; +readAll(): List User; +updateGroupID(user: User, groupID: int): User; +delete(userName: String); +updateTempFilters(tempFilters: TempFilters): User; +likeRestaurant(user: User, restaurant: Restaurant); +dislikeRestaurant(user: User, restaurant: Restaurant); +restaurantCompatibility(user: User, restaurant: Restaurant): Double; +recommendRestaurants(user: User, limit: int): List Restaurant]
+
+[(interface) GroupDao|+createGroup(name: String); +createGroup(group: Group); +readMembers(id: int): List User; +addMember(group: Group, user: User): int; +removeMember(group: Group, user: User): int; +readAllGroups(): List Group; +updateGroupName(id: int, name: String): Group; +deleteGroup(group: Group): Group]
+
+//relationships
+
+[Group]->[User]
+
+[User]->[PermFilters]
+[User]->[TempFilters]
+
+[(interface) UserDao]->[Sql2oUserDao]
+
+[(interface) GroupDao]->[Sql2oGroupDao]
+
+[Restaurant]->[Category]
+
+[Restaurant]->[Transactions (enum)]
+
+[Restaurant]->[Coordinates]
+
+[Restaurant]->[Review]
+
+[Restaurant]->[Location]
+
+[YelpService]->[Restaurant]
+
+[Server]->[Restaurant]
+
+[ReviewSearchResponse] -> [Review]
+
+[RestaurantSearchResponse] -> [Restaurant]
+
+[(interface) UserDao] -> [User]
+[(interface) GroupDao] -> [User]
+[(interface) GroupDao] -> [Group]
+
