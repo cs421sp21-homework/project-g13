@@ -10,7 +10,7 @@ const server = require("http").createServer();
 const options = {
   transports: ['websocket', 'polling', 'flashsocket'],
   cors: {
-    origin: ["localhost:3000", "http://chicken-tinder-13.herokuapp.com", "https://chicken-tinder-13.herokuapp.com"],
+    origin: ["http://localhost:3000", "http://chicken-tinder-13.herokuapp.com", "https://chicken-tinder-13.herokuapp.com"],
     credentials: true,
   },
 };
@@ -118,12 +118,21 @@ io.on("connection", function (socket) {
   });
 
   //when a client wants to get a room id
-  socket.on("get_room_id", () => {
+  socket.on("create_room_and_get_id", () => {
     var roomId = generateRoomId();
     while (roomsMap.has(roomId)) {
       roomId = generateRoomId();
     }
+    roomsMap.set(roomId, new Room(roomId, 1));
+    socket.join(roomId);
     socket.emit("room_id", roomId);
+  });
+
+  //when a client wants to check if a room exists
+  socket.on("room_exists", (roomId) =>  {
+    console.log("client " + socket.id + " is checking if room " + roomId + " exists");
+    const doesExist = roomsMap.has(roomId);
+    socket.emit("room_exists", {roomId: roomId, exists: doesExist});
   });
 
 
