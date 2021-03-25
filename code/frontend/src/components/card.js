@@ -55,7 +55,9 @@ class Card extends Component {
           <NewCard.Text style={{ fontSize: "2vh" }}>
             {restaurantLocation}
           </NewCard.Text>
-          <NewCard.Subtitle>{webUrl}</NewCard.Subtitle>
+          <NewCard.Subtitle>
+            <a href={webUrl}>Website</a>
+          </NewCard.Subtitle>
           <div className="like-dislike-container">
             <button
               className="like-dislike-button float-left red"
