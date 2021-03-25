@@ -1,8 +1,8 @@
 # Teamwork
 
-Leader:
+Leader: Eric
 
-When2Meet:
+When2Meet: https://www.when2meet.com/?11448617-rF5xs
 
 # OO Design
 
