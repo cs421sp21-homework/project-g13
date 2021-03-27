@@ -40,7 +40,7 @@ class Group extends Component {
         this.isFinished = false;
 
         //socket.io stuff
-        this.socket = io("localhost:4000", {
+        this.socket = io("https://chicken-tinder-13-socketio.herokuapp.com", {
             withCredentials: true,
           });
 
