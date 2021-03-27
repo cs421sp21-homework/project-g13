@@ -5,6 +5,8 @@ import { withRouter } from "react-router-dom";
 import Join from "../components/Join.js"
 import Host from "../components/Host.js"
 import SetLocation from "../components/SetLocation.js"
+import MatchFound from "../components/MatchFound.js"
+import Card from "../components/card.js"
 import io from "socket.io-client";
 
 //Contains join page, host page
@@ -24,13 +26,18 @@ class Group extends Component {
             location: initalLocation,
             numMembers: 1,
             canStartSwipingEvent: false,
+            currentRestaurantIndex: 0,
         }
-        this.test = this.test.bind(this);
         this.onJoinRoom = this.onJoinRoom.bind(this);
         this.onSetLocation = this.onSetLocation.bind(this);
         this.openSetLocation = this.openSetLocation.bind(this);
+        this.onBackFromSetLocation = this.onBackFromSetLocation.bind(this);
+        this.startSwipingEvent = this.startSwipingEvent.bind(this);
+        this.onDislikeRestaurant = this.onDislikeRestaurant.bind(this);
+        this.onLikeRestaurant = this.onLikeRestaurant.bind(this);
 
         this.restaurants = [];
+        this.isFinished = false;
 
         //socket.io stuff
         this.socket = io("localhost:4000", {
@@ -48,13 +55,14 @@ class Group extends Component {
         this.socket.on("room_size_changed", (data) => this.onReceiveRoomSizeChanged(data));
 
         this.socket.on("get_restaurants", (data) => this.onReceiveGetRestaurants(data));
-    }
 
-    test(message) {
-        console.log("yay!");
-        this.setState({message: "beef"});
-        console.log(this.state);
-        //console.log("message:" + this.state.message);
+        this.socket.on("ready", (data) => this.onReceiveReady(data));
+
+        this.socket.on("start_event", () => this.startSwipingEvent());
+
+        this.socket.on("match_found", (data) => this.onReceiveMatchFound(data));
+
+        this.socket.on("finished", () => this.onReceiveFinished());
     }
 
     onJoinRoom(room) {
@@ -72,18 +80,55 @@ class Group extends Component {
     }
 
     startSwipingEvent() {
-
+        console.log("start swiping event");
+        if (this.state.isHost) {
+            this.socket.emit("start_event", this.state.roomId);
+        }
+        if (this.state.page !== "show_restaurant" && this.state.canStartSwipingEvent) {
+            this.setState({page: "show_restaurant", currentRestaurantIndex: 0});
+        }
     }
 
     onSetLocation(data) {
-        this.socket.emit("set_location", {room: this.state.roomId, location: data.location});
+        this.socket.emit("set_location", {room: this.state.roomId, location: data.location, radius: data.radius});
         this.setState({page: "host", location: data.location, message: "Waiting to receive data from server...", canStartSwipingEvent: false});
+    }
+
+    onBackFromSetLocation() {
+        this.setState({page: "host"});
+    }
+
+    onDislikeRestaurant() {
+        if (this.state.currentRestaurantIndex + 1 < this.restaurants.length) {
+            this.setState({currentRestaurantIndex: this.state.currentRestaurantIndex+1});
+        } else if (!this.isFinished) {
+            //go to waiting page
+            this.socket.emit("finished", this.state.roomId);
+            this.setState({page: "waiting"});
+        } else {
+            //go to no match found page
+            this.setState({page: "no_match_found"});
+        }
+    }
+
+    onLikeRestaurant() {
+        this.socket.emit("vote", {room: this.state.roomId, restaurantId: this.restaurants[this.state.currentRestaurantIndex].id});
+        this.onDislikeRestaurant();
+    }
+
+    onTryAgain() {
+        /*if (this.state.isHost) {
+            this.setState({page: "host"});
+        } else {
+            this.setState({page: "join"});
+        }*/
+        location.reload();
     }
 
     render() {
         const page = this.state.page;
-        console.log("message:" + this.state.message);
-        console.log(this.state);
+        //console.log("message:" + this.state.message);
+        //console.log(this.state);
         return (
             <div>
             { page === "join" &&
@@ -93,12 +138,58 @@ class Group extends Component {
                 <Host setLocation={this.openSetLocation} startSwipingEvent={this.startSwipingEvent} 
                         isHost={this.state.isHost} roomId={this.state.roomId} location={this.state.location}
                         numMembers={this.state.numMembers} status={this.state.message} 
-                        canStartSwipingEvent={this.state.canStartSwipingEvent}
+                        canStartSwipingEvent={this.state.isHost && this.state.canStartSwipingEvent}
                 />
             }
 
             { page === "set_location" &&
-                <SetLocation onSubmit={this.onSetLocation} />
+                <SetLocation onSubmit={this.onSetLocation} onBack={this.onBackFromSetLocation} />
+            }
+
+            { page === "show_restaurant" && 
+                <div className="App-header">
+                <Card
+                  restaurant={this.restaurants[this.state.currentRestaurantIndex]}
+                  onDislike={this.onDislikeRestaurant}
+                  onLike={this.onLikeRestaurant}
+                />
+                </div>
+            }
+
+            { page === "match_found" &&
+                <MatchFound  restaurant={this.restaurants[this.state.currentRestaurantIndex]} 
+                onDone={() => this.props.history.push("/")} />
+            }
+
+            { page === "no_match_found" &&
+                <div className="App">
+                <header className="App-header">
+                    <h1>No match found.</h1>
+                    <h2>Try again?</h2>
+                    <form>
+                        <input
+                            type="button"
+                            value="Yes"
+                            onClick={() => this.onTryAgain()}
+                        />
+                        <input
+                            type="button"
+                            value="No"
+                            onClick={() => this.props.history.push("/")}
+                        />
+                    </form>
+                </header>
+                </div>
+            }
+
+            { page === "waiting" && 
+                <div className="App">
+                <header className="App-header">
+                  <div>
+                    <h1> Waiting for other members to finish... </h1>
+                    </div>
+                </header>
+                </div>
             }
 
             </div>
@@ -144,9 +235,10 @@ class Group extends Component {
     onReceiveGetRestaurants(restaurants) {
         console.log("got restaurant data");
         var message = "";
+        console.log(restaurants);
         try {
-            this.restaurants = JSON.parse(data);
-            //console.log(this.restaurants);
+            this.restaurants = JSON.parse(restaurants);
+            console.log(this.restaurants);
 
             if (this.restaurants.length > 0) {
                 if (this.restaurants[0] === "err") {
@@ -160,11 +252,42 @@ class Group extends Component {
             }
 
         } catch (err) {
-            message = "Received invalid restaurant data";
+            message = "Could not parse restaurant data";
         }
 
         this.setState({message: message, canStartSwipingEvent: false});
-    } 
+    }
+    
+    onReceiveReady(data) {
+        console.log("recieved ready event");
+        //console.log(this._isMounted);
+        console.log("data: " + data);
+        if (data) {
+          this.setState({ canStartSwipingEvent: data, message: "Ready" });
+        } else {
+          this.setState({ canStartSwipingEvent: data });
+        }
+    }
+
+    onReceiveMatchFound(restaurant) {
+        if (restaurant != null && restaurant !== "") {
+            //search for restaurant with same id
+      
+            for (var i = 0; i < this.restaurants.length; i++) {
+              if (this.restaurants[i] != null && this.restaurants[i].id === restaurant) {
+                this.state.currentRestaurantIndex = i;
+                break;
+              }
+            }
+      
+            this.setState({page: "match_found"});
+          }
+    }
+
+    onReceiveFinished() {
+        //go to no match found page
+        this.setState({page: "no_match_found"});
+    }
 
     onReceiveMessage(data) {
         console.log(data);

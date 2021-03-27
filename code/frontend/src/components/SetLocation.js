@@ -108,6 +108,11 @@ export default class SetLocation extends Component {
                     this.submit();
                   }}
                 />
+                <input 
+                  type="button"
+                  value="Back"
+                  onClick={this.props.onBack}
+                />
               </form>
               <div className="status">{this.state.statusMessage}</div>
             </header>
