@@ -4,6 +4,7 @@ import { Switch, Route, generatePath } from "react-router";
 import { withRouter } from "react-router-dom";
 import io from "socket.io-client";
 import ListRestaurant from "./ListRestaurant";
+import * as api from "../api/Api.js"
 
 class Host extends Component {
   constructor(props) {
@@ -46,19 +47,23 @@ class Host extends Component {
       this.onStartEvent();
     });
 
-    var isHost = sessionStorage.getItem("isHost");
-    var roomId = sessionStorage.getItem("roomId");
+    let isHost = sessionStorage.getItem("isHost");
+    let roomId = sessionStorage.getItem("roomId");
     if (isHost === null && roomId === null) {
-      roomId = "" + Math.floor(Math.random() * 1000 + 1);
-      this.createRoom(roomId);
-      sessionStorage.setItem("isHost", "true");
-      sessionStorage.setItem("roomId", roomId);
       isHost = true;
+      sessionStorage.setItem("isHost", "true");
+      api.postGroup().then((response) => {
+        console.log(response);
+        roomId = "" + response.group_id;
+        this.createRoom(roomId);
+        sessionStorage.setItem("roomId", roomId);
+        this.setState({roomId: roomId});
+      });
     } else {
       console.log(roomId);
       this.joinRoom(roomId);
     }
-    this._isNotHost = (isHost != null && (isHost === true || isHost === "true")) ? false : true;
+    this._isNotHost = (!(isHost != null && (isHost === true || isHost === "true")));
 
     const initalLocation = (this._isNotHost) ?  "Host sets location" : "Not Set";
     this.state = {
@@ -155,7 +160,6 @@ class Host extends Component {
 
     this.socket.emit("start-event", this.state.roomId);
     this.props.history.push("/Location/ListRestaurants", this.state);
-    return;
   }
 
   setLocation() {
