@@ -16,11 +16,12 @@ class Group extends Component {
         const isHost = (this.props.isHost == null) ? true : this.props.isHost;
         const initalLocation = (isHost) ?  "Not Set" : "Host sets location"; 
         const initialPage = (isHost) ? "host" : "join";
+        const initialStatus = (isHost) ? "Please set the location" : "";
         //console.log(isHost);
         //console.log(this.props.isHost);
         this.state = {
             page: initialPage,
-            message: "hi",
+            message: initialStatus,
             isHost: isHost,
             roomId: "Waiting for server...",
             location: initalLocation,
@@ -252,7 +253,7 @@ class Group extends Component {
             }
 
         } catch (err) {
-            message = "Could not parse restaurant data";
+            message = "Could not parse restaurant data. Please try another location.";
         }
 
         this.setState({message: message, canStartSwipingEvent: false});
