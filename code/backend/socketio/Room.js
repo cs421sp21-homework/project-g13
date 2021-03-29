@@ -36,8 +36,11 @@ class Room {
         //number of people inside
         this.size = size;
 
-        //stores votes for restaurants
-        this.restaurantVotes = new Map();
+        //stores yes votes for restaurants
+        this.restaurantYesVotes = new Map();
+
+        //stores no votes for restaurants
+        this.restaurantNoVotes = new Map();
 
         //stores restaurants
         this.restaurants = [];
@@ -96,21 +99,33 @@ class Room {
         }
     }
 
-    addVote(restaurantId) {
-        var votes = 1;
+    addYesVote(restaurantId) {
+        let votes = 1;
         if ((restaurantId !== null && restaurantId !== "")) {
-            if (this.restaurantVotes.has(restaurantId)) {
-                votes = this.restaurantVotes.get(restaurantId);
+            if (this.restaurantYesVotes.has(restaurantId)) {
+                votes = this.restaurantYesVotes.get(restaurantId);
                 votes++;
             }
-            this.restaurantVotes.set(restaurantId, votes);
-            
+            this.restaurantYesVotes.set(restaurantId, votes);
             if (votes >= this.size) {
                 return true;
             }
         }
         return false;
     }
+
+    addNoVote(restaurantId) {
+        let votes = 1;
+        if ((restaurantId !== null && restaurantId !== "")) {
+            if (this.restaurantNoVotes.has(restaurantId)) {
+                votes = this.restaurantNoVotes.get(restaurantId);
+                votes++;
+            }
+            this.restaurantNoVotes.set(restaurantId, votes);
+        }
+    }
+
+
 
     receivedRestaurantData(memberId) {
         if (this.members.has(memberId)) {
@@ -178,7 +193,7 @@ class Room {
     }
 
     checkIfMatchFound() {
-        for (const entry of this.restaurantVotes.entries()) {
+        for (const entry of this.restaurantYesVotes.entries()) {
             //console.log("member " + key + ": " + value.finished);
             if (entry[1] >= this.size) {
                 //send the match found signal

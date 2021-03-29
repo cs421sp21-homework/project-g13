@@ -101,12 +101,21 @@ io.on("connection", function (socket) {
     }
   });
 
-  //when a client sends a vote
-  socket.on("vote", (data) => {
-    if (roomsMap.has(data.room)) {
-      if (roomsMap.get(data.room).addVote(data.restaurantId)) {
-        io.to(data.room).emit("match_found");
+  //when a client sends a yes vote
+  socket.on("yes_vote", (data) => {
+    const { room, restaurantId } = data;
+    if (roomsMap.has(room)) {
+      if (roomsMap.get(room).addYesVote(restaurantId)) {
+        io.to(room).emit("match_found", restaurantId);
       }
+    }
+  });
+
+  //when a client sends a no vote
+  socket.on("no_vote", (data) => {
+    const { room, restaurantId } = data;
+    if (roomsMap.has(room)) {
+      roomsMap.get(room).addNoVote(restaurantId);
     }
   });
 

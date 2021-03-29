@@ -75,10 +75,18 @@ class ListRestaurant extends Component {
           <div className="App-header">
             <Card
               restaurant={restaurants[this.state.position]}
-              onDislike={this.nextRestaurant}
+              onDislike={() => {
+                  if (this.isGroup != null && this.isGroup) {
+                      this.socket.emit("no_vote", {room: this.room, restaurantId: restaurants[this.state.position].id});
+                      this.nextRestaurant();
+                      console.log("voted for restaurant");
+                  } else {
+                      this.nextRestaurant();
+                  }
+              }}
               onLike={() => {
                 if (this.isGroup != null && this.isGroup) {
-                  this.socket.emit("vote", {room: this.room, restaurantId: restaurants[this.state.position].id});
+                  this.socket.emit("yes_vote", {room: this.room, restaurantId: restaurants[this.state.position].id});
                   this.nextRestaurant();
                   console.log("voted for restaurant");
                 } else {
@@ -86,7 +94,6 @@ class ListRestaurant extends Component {
                   this.state.position = -1;
                   this.props.history.push("/Location/ListRestaurants/Found");
                 }
-                
               }}
             />
           </div>

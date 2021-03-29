@@ -99,7 +99,7 @@ class Group extends Component {
         this.setState({page: "host"});
     }
 
-    onDislikeRestaurant() {
+    onVote() {
         if (this.state.currentRestaurantIndex + 1 < this.restaurants.length) {
             this.setState({currentRestaurantIndex: this.state.currentRestaurantIndex+1});
         } else if (!this.isFinished) {
@@ -113,8 +113,13 @@ class Group extends Component {
     }
 
     onLikeRestaurant() {
-        this.socket.emit("vote", {room: this.state.roomId, restaurantId: this.restaurants[this.state.currentRestaurantIndex].id});
-        this.onDislikeRestaurant();
+        this.socket.emit("yes_vote", {room: this.state.roomId, restaurantId: this.restaurants[this.state.currentRestaurantIndex].id});
+        this.onVote();
+    }
+
+    onDislikeRestaurant() {
+        this.socket.emit("no_vote", {room: this.state.roomId, restaurantId: this.restaurants[this.state.currentRestaurantIndex].id});
+        this.onVote();
     }
 
     onTryAgain() {
