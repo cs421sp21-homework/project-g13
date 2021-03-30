@@ -2,7 +2,7 @@
 
 Leader: Eric
 
-When2Meet: https://www.when2meet.com/?11499606-u1Umv
+When2Meet: https://www.when2meet.com/?11499666-d2ubT
 
 # OO Design
 
