@@ -7,6 +7,7 @@ import Host from "../components/Host.js"
 import SetLocation from "../components/SetLocation.js"
 import MatchFound from "../components/MatchFound.js"
 import Card from "../components/card.js"
+import NotFound from "./NotFound.js"
 import io from "socket.io-client";
 
 //Contains join page, host page
@@ -163,24 +164,7 @@ class Group extends Component {
             }
 
             { page === "no_match_found" &&
-                <div className="App">
-                <header className="App-header">
-                    <h1>No match found.</h1>
-                    <h2>Try again?</h2>
-                    <form>
-                        <input
-                            type="button"
-                            value="Yes"
-                            onClick={() => this.onTryAgain()}
-                        />
-                        <input
-                            type="button"
-                            value="No"
-                            onClick={() => this.props.history.push("/")}
-                        />
-                    </form>
-                </header>
-                </div>
+                <NotFound onTryAgain={() => this.onTryAgain()} />
             }
 
             { page === "waiting" && 

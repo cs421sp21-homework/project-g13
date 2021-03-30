@@ -20,7 +20,7 @@ class Card extends Component {
 
   render() {
     const { restaurant } = this.props;
-    const restaurantLocation = restaurant.location["address1"];
+    const restaurantLocation = (restaurant.location["address1"] == undefined) ? "" : restaurant.location["address1"];
     const cuisineType = restaurant.categories[0]["title"];
     const rating = restaurant.rating;
     const reviewCount = restaurant.review_count;
