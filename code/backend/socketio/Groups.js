@@ -51,6 +51,10 @@ Room.emitMatchFoundfunc = function (room, restaurantId) {
   }
 }
 
+Room.emitRecommendFunc = function(room, restaurantId) {
+  io.to(room).emit("recommend", restaurantId);
+}
+
 io.on("connection", function (socket) {
   socket.emit("message", { message: "welcome to Food-Tinder" });
 

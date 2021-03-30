@@ -1,3 +1,4 @@
+import * as rec from "./Recommend.js";
 var axios = require("axios");
 
 const BACKEND_URL = "https://chicken-tinder-13-backend.herokuapp.com"
@@ -42,6 +43,9 @@ class Room {
         //stores no votes for restaurants
         this.restaurantNoVotes = new Map();
 
+        //for convenience in looking up restaurant data
+        this.restaurantById = new Map();
+
         //stores restaurants
         this.restaurants = [];
 
@@ -61,6 +65,7 @@ class Room {
     static emitRestaurantsFunc;
     static emitFinishedFunc;
     static emitMatchFoundfunc;
+    static emitRecommendFunc;
 
     setLocation(location, radius) {
         if (location !== undefined && location !== "") {
@@ -125,8 +130,6 @@ class Room {
         }
     }
 
-
-
     receivedRestaurantData(memberId) {
         if (this.members.has(memberId)) {
             this.members.get(memberId).hasRestaurantData = true;
@@ -161,6 +164,9 @@ class Room {
                 this.restaurants.push(...response);
                 Room.emitRestaurantsFunc(this.name, JSON.stringify(this.restaurants));
             }
+        }
+        for (const restaurant in this.restaurants) {
+            this.restaurantById.set(restaurant.id);
         }
     }
 
@@ -202,6 +208,12 @@ class Room {
             }
         }
         return false;
+    }
+
+    getRec() {
+        const restaurantId = rec.recommendRestaurant(this.restaurantNoVotes,
+            this.restaurantNoVotes, this.restaurantById);
+        Room.emitRecommendFunc(restaurantId);
     }
 }
 
