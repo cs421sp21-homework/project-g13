@@ -13,6 +13,12 @@ export default class SetLocation extends Component {
     };
   }
 
+  setStatusMessage(message) {
+    if (message != null) {
+      this.setState({statusMessage: message});
+    }
+  }
+
   myChangeHandler = (event) => {
     event.preventDefault();
     this.setState({
@@ -42,7 +48,8 @@ export default class SetLocation extends Component {
   }
 
   submit = () => {
-    this.setState({ statusMessage: "Loading..." });
+    this.setState({ statusMessage: "Loading..."});
+    this.statusMessageChanged = true;
     if (this.validInput()) {
       var locationString = `${this.state.address} ${this.state.suiteNum} 
       ${this.state.city} ${this.state.state} ${this.state.zipcode}`;
