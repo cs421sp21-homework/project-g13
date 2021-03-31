@@ -8,10 +8,11 @@ const axiosConfig = {
 };
 
 
-async function getRestaurants(location, radius) {
+async function getRestaurants(location, radius, price, categories) {
     try {
         const response = await axios.get(
-            `${BACKEND_URL}/yelpsearch?query=${location}&radius=${radius}`
+            //`${BACKEND_URL}/yelpsearch?query=${location}&radius=${radius}`
+            `${BACKEND_URL}/yelpsearch_personal?query=${location}&radius=${radius}&price=${price}&categories=${categories}`
         );
         return response.data;
     } catch(err) {
