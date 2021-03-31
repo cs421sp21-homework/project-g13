@@ -228,7 +228,7 @@ class Room {
     }
 
     updateRestaurantsArray(member, restaurants) {
-        return rec.reorderArray(restaurants, member.votes);
+        return rec.reorderArray(restaurants, member.votes, this.restaurantById);
     }
 
     getRec() {

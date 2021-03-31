@@ -15,8 +15,9 @@ function recommendRestaurant(users, yesVotes, noVotes, restaurants) {
 
 //userVotes: Map restaurant id -> boolean
 //restaurantArray: simple array[] of restaurant objects
+//restaurantsById: Map restaurant id -> full restaurant object
 //keep in mind the user's position (size of userVotes)
-function reorderArray(restaurantArray, userVotes) {
+function reorderArray(restaurantArray, userVotes, restaurantsById) {
     //todo implement
     return restaurantArray;
 }
