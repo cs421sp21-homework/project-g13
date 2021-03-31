@@ -127,7 +127,7 @@ io.on("connection", function (socket) {
   socket.on("yes_vote", (data) => {
     const { room, restaurantId } = data;
     if (roomsMap.has(room)) {
-      if (roomsMap.get(room).addYesVote(restaurantId)) {
+      if (roomsMap.get(room).addYesVote(restaurantId, socket.id)) {
         io.to(room).emit("match_found", restaurantId);
       }
     }
@@ -137,7 +137,7 @@ io.on("connection", function (socket) {
   socket.on("no_vote", (data) => {
     const { room, restaurantId } = data;
     if (roomsMap.has(room)) {
-      roomsMap.get(room).addNoVote(restaurantId);
+      roomsMap.get(room).addNoVote(restaurantId, socket.id);
     }
   });
 

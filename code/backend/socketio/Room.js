@@ -81,7 +81,7 @@ class Room {
     //return true if we need to send restaurant data to client
     addMember(memberId) {
         this.size++;
-        this.members.set(memberId, {hasRestaurantData: false, finished: false});
+        this.members.set(memberId, {hasRestaurantData: false, finished: false, votes: new Map()});
         //emit not ready signal to room
         Room.emitReadySignalFunc(this.name, false);
 
@@ -104,7 +104,10 @@ class Room {
         }
     }
 
-    addYesVote(restaurantId) {
+    addYesVote(restaurantId, member) {
+        if (this.members.has(member)) {
+            this.members.get(member).votes.set(restaurantId, true);
+        }
         let votes = 1;
         if ((restaurantId !== null && restaurantId !== "")) {
             if (this.restaurantYesVotes.has(restaurantId)) {
@@ -119,7 +122,10 @@ class Room {
         return false;
     }
 
-    addNoVote(restaurantId) {
+    addNoVote(restaurantId, member) {
+        if (this.members.has(member)) {
+            this.members.get(member).votes.set(restaurantId, false);
+        }
         let votes = 1;
         if ((restaurantId !== null && restaurantId !== "")) {
             if (this.restaurantNoVotes.has(restaurantId)) {
@@ -221,10 +227,14 @@ class Room {
         }
     }
 
+    updateRestaurantsArray(member, restaurants) {
+        return rec.reorderArray(restaurants, member.votes);
+    }
+
     getRec() {
         this.initializeZeroVotes(this.restaurantYesVotes, this.restaurantNoVotes,
             this.restaurantById);
-        const restaurantId = rec.recommendRestaurant(this.restaurantYesVotes,
+        const restaurantId = rec.recommendRestaurant(this.members, this.restaurantYesVotes,
             this.restaurantNoVotes, this.restaurantById);
         Room.emitRecommendFunc(restaurantId);
     }

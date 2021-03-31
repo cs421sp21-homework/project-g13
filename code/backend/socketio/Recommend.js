@@ -1,13 +1,27 @@
 /*
-example: if a restaurant's id is 123 and the group has voted
-yes on it once and no on it twice, yesVotes.get(123) = 1,
-noVotes.get(123) = 2, and restaurants.get(123) returns the
+users is a map of objects with a field called votes.
+if a user's id is 555 and they voted yes on restaurant with id 123,
+users.get(555).votes.get(123) = true.
+
+if a restaurant's id is 123 and the group has voted
+yes on it once and no on it twice, yesVotes.get('123') = 1,
+noVotes.get('123') = 2, and restaurants.get('123') returns the
 full restaurant object.
  */
-function recommendRestaurant(yesVotes, noVotes, restaurants) {
+function recommendRestaurant(users, yesVotes, noVotes, restaurants) {
     //todo implement
     return 0;
 }
+
+//userVotes: Map restaurant id -> boolean
+//restaurantArray: simple array[] of restaurant objects
+//keep in mind the user's position (size of userVotes)
+function reorderArray(restaurantArray, userVotes) {
+    //todo implement
+    return restaurantArray;
+}
+
+
 
 //returns a map of the % of yes votes by category
 function getAllCategoryPcts(yesVotes, noVotes, restaurants) {
@@ -38,4 +52,4 @@ function getCategoryPct(category, yesVotes, noVotes, restaurants) {
     return (posVotes === 0 ? 0 : posVotes / (posVotes + negVotes));
 }
 
-export {recommendRestaurant};
+export {recommendRestaurant, reorderArray};
