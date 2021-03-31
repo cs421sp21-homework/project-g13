@@ -210,8 +210,21 @@ class Room {
         return false;
     }
 
+    initializeZeroVotes(yesVotes, noVotes, restaurants) {
+        for (const entry in restaurants.entries()) {
+            if (!yesVotes.has(entry[0])) {
+                yesVotes.set(entry[0], 0);
+            }
+            if (!noVotes.has(entry[0])) {
+                noVotes.set(entry[0], 0);
+            }
+        }
+    }
+
     getRec() {
-        const restaurantId = rec.recommendRestaurant(this.restaurantNoVotes,
+        this.initializeZeroVotes(this.restaurantYesVotes, this.restaurantNoVotes,
+            this.restaurantById);
+        const restaurantId = rec.recommendRestaurant(this.restaurantYesVotes,
             this.restaurantNoVotes, this.restaurantById);
         Room.emitRecommendFunc(restaurantId);
     }
