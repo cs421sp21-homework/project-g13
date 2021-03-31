@@ -106,7 +106,7 @@ public class Server {
             catch(Exception e) { radius = 40000; }                // radius in meters thus 40 km
             try { radius = req.queryParams("price"); }
             catch(Exception e) { price = "$, $$"; }               // default to lower priced restaurants
-            try { radius = req.queryParams("categories"); }
+            try { radius = req.queryParams("categories"); }       // Order matters!
             catch(Exception e) { categories = "burgers, pizza"; } // default to burgers and pizza
 
             List<Restaurant> resp = YelpService.getRestaurantByLocationWithDetail(query, limit, radius, price, categories);
