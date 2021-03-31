@@ -121,19 +121,23 @@ For iteration 2:
 ```
 For iteration 3:
 ```
-[Group|-categoryPrefs: String/Double Map; -tempFilters: TempFilters; -permFilters: PermFilters]
+[Group|-restaurantVotes: List RestaurantVote;]
 
-[TempFilters|-maxDistance: Double; -minRating: Double]
+[PermFilters|-vegan: boolean; -glutenFree: boolean; -seafoodAllergy: boolean]
 
-[PermFilters|-vegan: boolean; -glutenFree: boolean; -seafoodAllergy: -boolean]
+[(interface) GroupDao|+likeRestaurant(group: Group, restaurant: Restaurant); +dislikeRestaurant(group: Group, restaurant: Restaurant); +recommendRestaurants(group: Group, limit: int): List Restaurant]
 
-[(interface) GroupDao|+likeRestaurant(group: Group, restaurant: Restaurant); +dislikeRestaurant(group: Group, restaurant: Restaurant); +restaurantCompatibility(group: Group, restaurant: Restaurant): Double; +recommendRestaurants(group: Group, limit: int): List Restaurant]
+[RestaurantVote|-restaurant: Restaurant; -yesVotes: int; -noVotes: int]
+
+[User|-permFilters: PermFilters;]
 
 //relationships
-
+[Group]->[User]
+[Group]->[RestaurantVote]
 [(interface) GroupDao]->[Group]
-[Group]->[PermFilters]
-[Group]->[TempFilters]
+[User]->[PermFilters]
+
+
 
 
 

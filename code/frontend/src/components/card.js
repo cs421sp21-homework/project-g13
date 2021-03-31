@@ -20,7 +20,7 @@ class Card extends Component {
 
   render() {
     const { restaurant } = this.props;
-    const restaurantLocation = restaurant.location["address1"];
+    const restaurantLocation = (restaurant.location["address1"] == undefined) ? "" : restaurant.location["address1"];
     const cuisineType = restaurant.categories[0]["title"];
     const rating = restaurant.rating;
     const reviewCount = restaurant.review_count;
@@ -55,7 +55,9 @@ class Card extends Component {
           <NewCard.Text style={{ fontSize: "2vh" }}>
             {restaurantLocation}
           </NewCard.Text>
-          <NewCard.Subtitle>{webUrl}</NewCard.Subtitle>
+          <NewCard.Subtitle>
+            <a href={webUrl}>Website</a>
+          </NewCard.Subtitle>
           <div className="like-dislike-container">
             <button
               className="like-dislike-button float-left red"

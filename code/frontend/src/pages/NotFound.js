@@ -8,22 +8,9 @@ import * as api from "../api/Api.js";
 
 class NotFound extends Component {
     
-    componentDidMount() {
-        sessionStorage.clear();
-    }
-    
-    
-    reload() {
-        //somehow fetch restaurants again
-        //can't fetch here bc can't pass back to parent component
-        //or very complicated and indirect through functions from parent
-        //which I don't know how to
-        this.props.history.push('/Location/ListRestaurants');
-    }
     render() {
+        const { history } = this.props;
         return(
-            <Switch>
-                <Route path="/Location/ListRestaurants/NotFound">
                     <div className="App">
                         <header className="App-header">
                             <h1>No match found.</h1>
@@ -32,26 +19,18 @@ class NotFound extends Component {
                                 <input
                                     type="button"
                                     value="Yes"
-                                    onClick={() => this.reload()}
+                                    onClick={this.props.onTryAgain}
                                 />
                                 <input
                                     type="button"
                                     value="No"
-                                    onClick={() => this.props.history.push("/")}
+                                    onClick={() => history.push("/")}
                                 />
                             </form>
                         </header>
                     </div>
-                </Route>
-                <Route exact path="/">
-                    <Home/>
-                </Route>
-                <Route path="/Location/ListRestaurants">
-                    <ListRestaurant/>
-                </Route>
-            </Switch>
         )
     }
 }
 
-export default withRouter(NotFound)
+export default withRouter(NotFound);

@@ -3,10 +3,10 @@ import React, { Component } from "react";
 import { Switch, Route } from "react-router";
 import { withRouter } from "react-router-dom";
 import Location from './Location'
-import Join from './Join'
-import Host from './Host'
 import Signup from "./Signup";
 import Navbar from "../components/Navbar/Navbar.js"
+import Group from './Group'
+import Individual from "./Individual";
 
 
 
@@ -31,7 +31,7 @@ class Home extends Component {
                                 <input
                                     type="button"
                                     value="Start"
-                                    onClick={() => this.nextPath('/Location')}
+                                    onClick={() => this.nextPath('/Individual')}
                                 />
                                 <br/>
                                 <input
@@ -53,13 +53,16 @@ class Home extends Component {
                     <Location/>
                 </Route>
                 <Route path="/Join">
-                    <Join/>
+                    <Group isHost={false} />
                 </Route>
                 <Route path="/Host/:groupLocation?">
-                    <Host/>
+                    <Group isHost={true} />
                 </Route>
                 <Route path="/Login">
                     <Signup/>
+                </Route>
+                <Route path="/Individual">
+                    <Individual />
                 </Route>
             </Switch>
         )

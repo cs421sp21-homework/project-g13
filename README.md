@@ -2,7 +2,11 @@
 
 Can't decide what to eat? Hop on Chicken Tinder by yourself or with friends for some recommendations!
 
-Deploy Link: https://chicken-tinder-13.herokuapp.com/
+Frontend Deploy Link: https://chicken-tinder-13.herokuapp.com/
+
+Backend Deploy Link: https://chicken-tinder-13-backend.herokuapp.com/
+
+Socket.io Deploy Link: https://chicken-tinder-13-socketio.herokuapp.com/
 
 **Advisors**
 
@@ -37,6 +41,7 @@ Set your directory to the frontend directory. Install all the dependencies for t
 
 - React 17
 - SparkJava 3
+- Socket.io 4
 
 ### Prerequisites
 

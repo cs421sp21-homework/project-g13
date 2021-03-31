@@ -51,3 +51,4 @@ recommendations based off those parameters as well as how you and your group swi
 - PostgreSQL for database persistence
 - SparkJava for backend
 - Heroku for deployment
+- Socket.io for group functionality
