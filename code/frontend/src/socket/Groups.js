@@ -57,6 +57,17 @@ io.on("connection", function (socket) {
     //io.to(room).emit("message", {message: "room location was set"});
   });
 
+  //set room's filters
+  socket.on("set_filters", (data) => {
+    const { room, filters } = data;
+    console.log(socket.id + " set search filters for room " + room);
+    if (roomsMap.has(room)) {
+      roomsMap.get(room).setFilters(filters);
+      io.to(room).emit("ready", false);
+    }
+    //io.to(room).emit("message", {message: "room filters were set"});
+  });
+
   socket.on("join_room", (roomId) => {
     console.log("client " + socket.id + " joined the room " + roomId);
     socket.join(roomId);
