@@ -18,6 +18,8 @@ class Individual extends Component {
       currentRestaurantIndex: 0,
     };
     this.restaurants = [];
+    this.location = "";
+    this.radius = 0;
     this.set_location_page = React.createRef();
 
     this.onDislikeRestaurant = this.onDislikeRestaurant.bind(this);
@@ -25,6 +27,8 @@ class Individual extends Component {
   }
 
   onSetLocation(location, radius) {
+    this.location = location;
+    this.radius = radius;
     api.getRestaurants(location, radius).then((response) => {
       if (response.length === 0 || response[0] === "err") {
         this.set_location_page.current.setStatusMessage("Error: Location not recognized by Yelp.");
@@ -48,9 +52,21 @@ class Individual extends Component {
     }
   }
 
-    onLikeRestaurant() {
-        this.setState({page: "match_found"});
-    }
+  onLikeRestaurant() {
+    this.setState({page: "match_found"});
+  }
+
+  onTryAgain() {
+    this.setState({statusMessage: "Waiting to obtain new restaurants...", page: "waiting"});
+    api.getRestaurants(this.location, this.radius).then((response) => {
+      if (response.length === 0 || response[0] === "err") {
+        this.setState({statusMessage: "Could not retrieve restaurants"});
+      } else {
+        this.restaurants = response;
+        this.setState({currentRestaurantIndex: 0, page: "show_restaurant"});
+      }
+    });
+  }
   
   render() {
     const page = this.state.page;
@@ -78,7 +94,25 @@ class Individual extends Component {
                 }
 
                 { page === "no_match_found" &&
-                    <NotFound onTryAgain={() => this.setState({currentRestaurantIndex: 0, page: "show_restaurant"})} />
+                    <NotFound onTryAgain={() => this.onTryAgain()} />
+                }
+
+                { page === "waiting" && 
+                  <div className="App">
+                  <header className="App-header">
+                    <div>
+                      <h1>{this.state.statusMessage}</h1>
+                      <form>
+                                <input
+                                    type="button"
+                                    value="Return Home"
+                                    onClick={() => this.props.history.push("/")}
+                                />
+                                <br/>
+                        </form>
+                    </div>
+                  </header>
+                  </div>
                 }
           </div>
     );

@@ -144,3 +144,61 @@ input[type="button"]:disabled {
 .red {
   color: red;
 }
+
+.filter-content {
+  font-size: calc(10px + 2vmin);
+  text-align: center;
+  color: white;
+  width: 80%;
+  min-height: 100vh;
+  margin: auto;
+}
+
+.filter-header {
+  padding-top: 2vmin;
+  font-size: 7vmin;
+  font-weight: bold;
+  margin: 0;
+}
+
+.filter-subheader {
+  font-size: 5vmin;
+  margin: 2vmin 0 0.8vmin 0;
+}
+
+.filter-dietary-restrictions {
+  font-size: 5vmin;
+  margin: 2vmin 0 0vmin 0;
+}
+
+.filter-checkbox {
+  margin: 0 2vw 0 0.8vw;
+}
+
+.filter-submit {
+  width: 30vmin;
+  color: white;
+  border-radius: 10%;
+  border: 0;
+}
+
+.filter-submit-container {
+  height: auto;
+  width: auto;
+  margin: auto;
+}
+
+.filter-submit {
+  min-height: 10vmin;
+  width: 50vmin !important;
+  font-size: 5vmin !important;
+  margin: 1vmin 0 2vmin 0;
+}
+
+.filter-dropdown {
+  font-size: 2vmin;
+}
+
+.app-background-color {
+  background-color: #282c34;
+}
