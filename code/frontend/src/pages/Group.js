@@ -14,6 +14,9 @@ import io from "socket.io-client";
 class Group extends Component {
     constructor(props) {
         super(props);
+
+        /*localStorage.ge
+
         const isHost = (this.props.isHost == null) ? true : this.props.isHost;
         const initalLocation = (isHost) ?  "Not Set" : "Host sets location"; 
         const initialPage = (isHost) ? "host" : "join";
@@ -29,7 +32,8 @@ class Group extends Component {
             numMembers: 1,
             canStartSwipingEvent: false,
             currentRestaurantIndex: 0,
-        }
+        }*/
+        this.setInitialData();
         this.onJoinRoom = this.onJoinRoom.bind(this);
         this.onSetLocation = this.onSetLocation.bind(this);
         this.openSetLocation = this.openSetLocation.bind(this);
@@ -42,7 +46,9 @@ class Group extends Component {
         this.isFinished = false;
 
         //socket.io stuff
-        this.socket = io("https://chicken-tinder-13-socketio.herokuapp.com", {
+        const useLocalSocketServer = true;
+        const socketServer = (useLocalSocketServer) ? "http://localhost:4000" : "https://chicken-tinder-13-socketio.herokuapp.com";
+        this.socket = io(socketServer, {
             withCredentials: true,
           });
 
@@ -177,6 +183,24 @@ class Group extends Component {
                 </div>
             }
 
+            { page === "waiting_to_join" && 
+                <div className="App">
+                <header className="App-header">
+                  <div>
+                    <h1> Waiting for host to create same group... </h1>
+                    <form>
+                                <input
+                                    type="button"
+                                    value="Return Home"
+                                    onClick={() => this.props.history.push("/")}
+                                />
+                                <br/>
+                        </form>
+                    </div>
+                </header>
+                </div>
+            }
+
             </div>
         )
     }
@@ -187,8 +211,17 @@ class Group extends Component {
     onSocketConnect() {
         //console.log(this.state);
         if (this.state.isHost != null && this.state.isHost === true) {
-            //send a request to the server to get the room id
-            this.socket.emit("create_room_and_get_id");
+            if (this.needsNewRoomId) {
+                //send a request to the server to get the room id
+                this.socket.emit("create_room_and_get_id");
+            } else {
+                this.socket.emit("create_room", this.state.roomId);
+            }
+        } else {
+            //join the room with the room id
+            if (!this.needsNewRoomId) {
+                this.socket.emit("room_exists", this.state.roomId);
+            }
         }
     }
 
@@ -196,6 +229,9 @@ class Group extends Component {
         //console.log("received signal");
         if (this.state.roomId === "Waiting for server...") {
             this.setState({roomId: roomId});
+            sessionStorage.setItem("roomId", this.state.roomId);
+            sessionStorage.setItem("isHost", "true");
+            console.log("session host " + sessionStorage.getItem("roomId"));
             //console.log("received room id");
         }
     }
@@ -207,8 +243,22 @@ class Group extends Component {
                 //join the room
                 this.socket.emit("join_room", data.roomId);
                 this.setState({roomId: data.roomId, message: "Not Ready", page: "host"});
+                sessionStorage.setItem("roomId", this.state.roomId);
+                sessionStorage.setItem("isHost", "false");
             } else {
                 this.setState({message: "This Room ID does not exist."});
+            }
+        } else if (this.state.page === "waiting_to_join") {
+            if (data.exists === true) {
+                this.socket.emit("join_room", data.roomId);
+                this.setState({roomId: data.roomId, message: "Not Ready", page: "host"});
+                sessionStorage.setItem("roomId", this.state.roomId);
+                sessionStorage.setItem("isHost", "false");
+            } else {
+                //send another request to check if the room exists
+                setTimeout(() => {
+                    this.socket.emit("room_exists", this.state.roomId);
+                }, 1000);
             }
         }
     }
@@ -276,6 +326,50 @@ class Group extends Component {
 
     onReceiveMessage(data) {
         console.log(data);
+    }
+
+    //check the local session if the user is a host
+    setInitialData() {
+        var isHost = sessionStorage.getItem("isHost");
+        console.log("session host " + isHost);
+        if (isHost == null) {
+            isHost = (this.props.isHost == null) ? true : this.props.isHost;
+        } else if (isHost === "true") {
+            isHost = true; 
+        } else {
+            isHost = false;
+        }
+
+        var roomId = sessionStorage.getItem("roomId");
+        console.log("session room " + roomId);
+        this.needsNewRoomId = (roomId == null) ? true : false;
+        if (roomId == null) {
+            roomId = "Waiting for server...";
+        }
+
+        var initialLocation;
+        var initialPage = (isHost) ? "host" : "join";
+        var initialStatus;
+        if (isHost) {
+            initialPage = "host";
+            initialLocation = "Not Set";
+            initialStatus = "Please set the location";
+        } else {
+            initialPage = (this.needsNewRoomId) ? "join" : "waiting_to_join";
+            initialStatus = "";
+            initialLocation = "Host sets location"; 
+        }
+
+        this.state = {
+            page: initialPage,
+            message: initialStatus,
+            isHost: isHost,
+            roomId: roomId,
+            location: initialLocation,
+            numMembers: 1,
+            canStartSwipingEvent: false,
+            currentRestaurantIndex: 0,
+        }
     }
 }
 

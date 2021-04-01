@@ -1,10 +1,20 @@
 import "../App.css";
 import React, { Component } from "react";
+import SetFilters from "../pages/SetFilters.js"
 
 export default class Host extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      page: "main",
+    }
+  }
 
   render() {
+    const page = this.state.page;
     return (
+      <div>
+        { page === "main" &&
           <div className="App">
             <header className="App-header">
               <div>
@@ -16,7 +26,14 @@ export default class Host extends Component {
                   type="button"
                   value="Set Group Location"
                   onClick={this.props.setLocation}
-                  disabled={!this.props.isHost}
+                  hidden={!this.props.isHost}
+                />
+                <br />
+                <input
+                  type="button"
+                  value="Set Filters"
+                  onClick={() => this.setState({page: "filters"})}
+                  hidden={!this.props.isHost}
                 />
                 <br />
                 <input
@@ -24,6 +41,7 @@ export default class Host extends Component {
                   value="Start"
                   onClick={this.props.startSwipingEvent}
                   disabled={!this.props.canStartSwipingEvent}
+                  hidden={!this.props.isHost}
                 />
               </form>
               <div>
@@ -34,6 +52,12 @@ export default class Host extends Component {
               </div>
             </header>
           </div>
+        }
+
+        { page === "filters" &&
+          <SetFilters onBack={() => this.setState({page: "main"})} />
+        }
+    </div>
     );
   }
 }
