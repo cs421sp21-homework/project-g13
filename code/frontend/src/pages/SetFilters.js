@@ -51,7 +51,7 @@ export default class SetFilters extends Component {
                     <div className="clearfix"></div>
                     <Dropdown placeholder='Rating' fluid multiple selection options={this.ratingOptions} className="filter-dropdown"/>
 
-                    <h2 className="float-left filter-subheader">Dietary Restrictions</h2>
+                    <h2 className="float-left filter-dietary-restrictions">Dietary Restrictions</h2>
                     <div className="clearfix"></div>
 
                     <div className="float-left">
