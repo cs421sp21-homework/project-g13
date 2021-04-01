@@ -20,7 +20,10 @@ class Card extends Component {
 
   render() {
     const { restaurant } = this.props;
-    const restaurantLocation = (restaurant.location["address1"] == undefined) ? "" : restaurant.location["address1"];
+    const restaurantLocation =
+      restaurant.location["address1"] == undefined
+        ? ""
+        : restaurant.location["address1"];
     const cuisineType = restaurant.categories[0]["title"];
     const rating = restaurant.rating;
     const reviewCount = restaurant.review_count;
@@ -38,11 +41,14 @@ class Card extends Component {
         reviews[i] = "";
       }
     }
+    let emptyListReviews = ["", "", ""];
+    let emptyListPhotos = ["", "", ""];
 
     return (
       <NewCard style={{ justify: "center" }}>
         <NewCard.Body>
-          <Slideshow photos={photos} reviews={reviews} />
+          <Slideshow photos={photos} reviews={emptyListReviews} isImg={true} />
+          <Slideshow photos={emptyListPhotos} reviews={reviews} />
           <NewCard.Title style={{ fontSize: "3vh" }}>
             {restaurant.name}
           </NewCard.Title>

@@ -4,51 +4,49 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 class Slideshow extends Component {
   render() {
-    const { photos, reviews } = this.props;
+    const { photos, reviews, isImg } = this.props;
 
-    return (
-      <Carousel>
-        <Carousel.Item>
-          <img
-            style={{ textAlign: "justify", width: 400 }}
-            src={photos[0]}
-            alt="First slide"
-          />
-
-          <Carousel.Caption>
-            <p style={{ color: "black", display: "block" }}>
-              {reviews[0]["text"]}
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            style={{ textAlign: "justify", width: 400 }}
-            src={photos[1]}
-            alt="Second slide"
-          />
-
-          <Carousel.Caption>
-            <p style={{ color: "black", display: "block" }}>
-              {reviews[1]["text"]}
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            style={{ textAlign: "justify", width: 400 }}
-            src={photos[2]}
-            alt="Third slide"
-          />
-
-          <Carousel.Caption>
-            <p style={{ color: "black", display: "block" }}>
-              {reviews[2]["text"]}
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
-    );
+    if (isImg) {
+      return (
+        <Carousel>
+          <Carousel.Item>
+            <img
+              style={{ textAlign: "justify", width: 400 }}
+              src={photos[0]}
+              //alt={reviews[0]["text"]}
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              style={{ textAlign: "justify", width: 400 }}
+              src={photos[1]}
+              //alt={reviews[1]["text"]}
+            />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              style={{ textAlign: "justify", width: 400 }}
+              src={photos[2]}
+              //alt={reviews[2]["text"]}
+            />
+          </Carousel.Item>
+        </Carousel>
+      );
+    } else {
+      return (
+        <Carousel>
+          <Carousel.Item>
+            <p style={{ textAlign: "center" }}> {reviews[0]["text"]}</p>
+          </Carousel.Item>
+          <Carousel.Item>
+            <p style={{ textAlign: "center" }}> {reviews[1]["text"]}</p>
+          </Carousel.Item>
+          <Carousel.Item>
+            <p style={{ textAlign: "center" }}> {reviews[2]["text"]}</p>
+          </Carousel.Item>
+        </Carousel>
+      );
+    }
   }
 }
 
