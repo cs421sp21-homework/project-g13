@@ -150,7 +150,7 @@ input[type="button"]:disabled {
   text-align: center;
   color: white;
   width: 80%;
-  height: 200vh;
+  min-height: 100vh;
   margin: auto;
 }
 
@@ -163,6 +163,12 @@ input[type="button"]:disabled {
 
 .filter-subheader {
   font-size: 5vmin;
+  margin: 2vmin 0 0.8vmin 0;
+}
+
+.filter-dietary-restrictions {
+  font-size: 5vmin;
+  margin: 2vmin 0 0vmin 0;
 }
 
 .filter-checkbox {
