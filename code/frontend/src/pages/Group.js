@@ -46,7 +46,7 @@ class Group extends Component {
         this.isFinished = false;
 
         //socket.io stuff
-        const useLocalSocketServer = true;
+        const useLocalSocketServer = false;
         const socketServer = (useLocalSocketServer) ? "http://localhost:4000" : "https://chicken-tinder-13-socketio.herokuapp.com";
         this.socket = io(socketServer, {
             withCredentials: true,
