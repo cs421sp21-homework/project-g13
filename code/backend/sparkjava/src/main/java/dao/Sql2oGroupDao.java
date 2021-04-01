@@ -5,8 +5,12 @@ import exceptions.DaoException;
 import model.User;
 import model.Group;
 
+import java.sql.Array;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.postgresql.jdbc.PgArray;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
@@ -29,8 +33,8 @@ public class Sql2oGroupDao implements GroupDao {
     @Override
     public Group createGroup(String name) throws DaoException {
         String sql = "WITH inserted AS ("
-                + "INSERT INTO group_info(group_name, member1, member2, member3, member4, member5, member6, member7, member8, member9, member10)"
-                + " VALUES(:gName, null, null, null, null, null, null, null, null, null, null) RETURNING *"
+                + "INSERT INTO group_info(name, memberIDs)"
+                + " VALUES(:gName, ARRAY [0]) RETURNING *"
                 + ") SELECT * FROM inserted;";
         try (Connection conn = sql2o.open()) {          // opening connection to database
             return conn.createQuery(sql)                // making proper SQL statement for execution
@@ -44,8 +48,8 @@ public class Sql2oGroupDao implements GroupDao {
     @Override
     public Group createGroup() throws DaoException {
         String sql = "WITH inserted AS ("
-                + "INSERT INTO group_info(member1, member2, member3, member4, member5, member6, member7, member8, member9, member10)"
-                + " VALUES(null, null, null, null, null, null, null, null, null, null) RETURNING *"
+                + "INSERT INTO group_info(name, memberIDs)"
+                + " VALUES('default', ARRAY [0]) RETURNING *"
                 + ") SELECT group_id FROM inserted;";
         try (Connection conn = sql2o.open()) {              // opening connection to database
             // attempt at returning group ID from database
@@ -65,12 +69,34 @@ public class Sql2oGroupDao implements GroupDao {
 
     @Override
     public List<User> readMembers(int id) throws DaoException {
-        String sql = "SELECT * FROM user_info WHERE group_id = :group_id;";
-        try (Connection conn = sql2o.open()) {          // opening connection to database
-            List<User> users = conn.createQuery(sql)    // making proper SQL statement for execution
-                    .addParameter("group_id", id) // allowing for varying group ID
-                    .executeAndFetch(User.class);       // executing SQL + getting list of Users via object mapper
-            //users.forEach((user) -> user.setCategories(getCategoriesFor(conn, user.getUserID())));
+        String sql = "SELECT ARRAY_TO_STRING(memberIDs, ',') FROM group_info WHERE group_id = :group_id;";
+        try (Connection conn = sql2o.open()) {            // opening connection to database
+            //List<PgArray> theUsers
+                   List<String> theUsers = conn.createQuery(sql) // making proper SQL statement for execution
+                    .addParameter("group_id", id)   // allowing for varying group ID
+                    .executeAndFetch(String.class);      // executing SQL + getting list of user IDs
+
+            // ^ returns a list but we only want the exact match (only returns one row anyway)
+            String[] userIDString = theUsers.get(0).split(",");
+            int[] userIDInt = new int[userIDString.length];
+            for (int i = 0; i < userIDString.length; i++) { // getting the ints from the comma separated string
+                userIDInt[i] = Integer.parseInt(userIDString[i]);
+            }
+
+            List<User> users = new ArrayList<>();
+            List<User> currUser = new ArrayList<>();
+            //Array userIDsHolder = (Array) theUsers.get(0).getArray();
+            //List userIDs = (List) userIDsHolder.getArray();
+
+            int numUserIDs = userIDInt.length;
+            for (int index = 0; index < numUserIDs; index++) {
+                sql = "SELECT * FROM user_info WHERE user_id = :uid;";
+                currUser = conn.createQuery(sql) // making proper SQL statement for execution
+                        .addParameter("uid", userIDInt[index])   // allowing for varying group ID
+                        .executeAndFetch(User.class);      // executing SQL + getting users one at a time
+                users.add(currUser.get(0));
+            }
+
             return users;
         } catch (Sql2oException ex) {
             throw new DaoException("Unable to read a group with group ID: " + id, ex);
@@ -98,10 +124,11 @@ public class Sql2oGroupDao implements GroupDao {
             groupSize = group.getMembers().size();
         }
 
-        groupSize++; // for new member
+        groupSize++; // for new member and because Postgres arrays begin index at 1
 
-        String sql = "UPDATE group_info SET member" + String.valueOf(groupSize) +
-                " = :user_id WHERE group_id = :group_id;";
+        String sql = "UPDATE group_info SET memberIDs = " +
+                "ARRAY_APPEND(memberIDs, CAST(:user_id AS BIGINT))" +
+                " WHERE group_id = :group_id;";
         try (Connection conn = sql2o.open()) {                           // opening connection to database
             //String userID =
             conn.createQuery(sql)                                        // making proper SQL statement for execution
@@ -119,6 +146,14 @@ public class Sql2oGroupDao implements GroupDao {
             // might change to get userID from group table and look for that user in user table
             user.setGroup_ID(group.getGroup_id());
             group.getMembers().add(user);
+
+            // removing 0 that was initially used to create array
+            sql = "UPDATE group_info SET memberIDs" +
+                    " = ARRAY_REMOVE(memberIDs, CAST(0 AS BIGINT)) WHERE group_id = :gid;";
+            conn.createQuery(sql)                                   // making proper SQL statement for execution
+                    .addParameter("gid", group.getGroup_id()) // allowing for varying group ID
+                    .executeUpdate();                               // executing SQL
+
             return user.getUser_ID();
         } catch (Sql2oException ex) {
             throw new DaoException("Unable to add member to group", ex);
@@ -132,18 +167,19 @@ public class Sql2oGroupDao implements GroupDao {
         // knowing which column to target
         List<User> groupMembers = group.getMembers();
         int memberNum = groupMembers.indexOf(user);
-        memberNum++; // since arrays begin at Zero
+        memberNum++; // since arrays begin at Zero and postgres array begin at 1
 
         /* if (memberNum == -1) {
             throw new DaoException("Unable to delete user: not found");
         } */
 
-        String sql = "UPDATE group_info SET member" + String.valueOf(memberNum) +
-                " = NULL WHERE member" + String.valueOf(memberNum) + " = :uid;";
+        String sql = "UPDATE group_info SET memberIDs" +
+                " = ARRAY_REMOVE(memberIDs, CAST(:uid AS BIGINT)) WHERE group_id = :gid;";
         try (Connection conn = sql2o.open()) {                    // opening connection to database
             //String userID =
             conn.createQuery(sql)                                 // making proper SQL statement for execution
                     .addParameter("uid", user.getUser_ID()) // allowing for varying user ID
+                    .addParameter("gid", group.getGroup_id()) // allowing for varying user ID
                     .executeUpdate();                             // executing SQL
 
             sql = "UPDATE user_info SET group_id = :gid WHERE username = :uName;";
@@ -162,6 +198,8 @@ public class Sql2oGroupDao implements GroupDao {
 
     }
 
+    //private readUserIDs(Connection conn, )
+
     @Override
     public List<Group> readAllGroups() throws DaoException {
         String sql = "SELECT * FROM group_info;";
@@ -169,8 +207,22 @@ public class Sql2oGroupDao implements GroupDao {
             List<Group> groups = conn.createQuery(sql)             // making proper SQL statement for execution
                                     .executeAndFetch(Group.class); // executing SQL + filling Group via object mapper
 
+            List<User> currUser = new ArrayList<>();
+
+            for (Group group : groups) {
+                List<Integer> userIDs = group.getMemberIDs();
+                for (int index = 0; index < userIDs.size(); index++) {
+                    sql = "SELECT * FROM user_info WHERE user_id ' :uid;";
+                    currUser = conn.createQuery(sql) // making proper SQL statement for execution
+                            .addParameter("uid", userIDs.get(index))   // allowing for varying group ID
+                            .executeAndFetch(User.class);      // executing SQL + getting users one at a time
+                    group.getMembers().add(currUser.get(0));
+                }
+            }
+
             // fancy line for filling each group with members from database (might change to get from group table instead of user table)
-            groups.forEach((group) -> group.setMembers(readMembers(conn, group.getGroup_id())));
+            //for (Group group : groups) {
+            //groups.forEach((group) -> group.setMembers(readMembers(conn, group.getGroup_id())));
             return groups;
         } catch (Sql2oException ex) {
             throw new DaoException("Unable to read groups from the database", ex);

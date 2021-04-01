@@ -76,7 +76,7 @@ public class Sql2oGroupDaoTest {
             conn.createQuery("DROP TABLE IF EXISTS user_info;").executeUpdate();
             conn.createQuery("DROP TABLE IF EXISTS group_info;").executeUpdate();
 
-            String sql = "CREATE TABLE group_info (" +
+            /* String sql = "CREATE TABLE group_info (" +
                     "group_id BIGSERIAL PRIMARY KEY," +
                     "member1 BIGINT," +
                     "member2 BIGINT," +
@@ -88,10 +88,16 @@ public class Sql2oGroupDaoTest {
                     "member8 BIGINT," +
                     "member9 BIGINT," +
                     "member10 BIGINT);";
+
+             */
+            String sql = "CREATE TABLE group_info (" +
+                    "group_id BIGSERIAL PRIMARY KEY," +
+                    "name VARCHAR(50)," +
+                    "memberIDs BIGINT []);";
             conn.createQuery(sql).executeUpdate();
 
-            sql = "insert into group_info(member1, member2, member3, member4, member5, member6, member7, member8, member9, member10) " +
-                    "values (null, null, null, null, null, null, null, null, null, null);";
+            sql = "insert into group_info(memberIDs) " +
+                    "values (ARRAY [0]);";
             conn.createQuery(sql).executeUpdate();
 
             sql = "CREATE TABLE user_info (" +
@@ -142,6 +148,9 @@ public class Sql2oGroupDaoTest {
 
         User addedUser = g1.getMembers().get(0);
         assertEquals(addedUser.getUserName(), "kfeatherstonef");
+
+        List<User> groupMembers = groupDao.readMembers(g1.getGroup_id());
+
     }
 
     @Test
