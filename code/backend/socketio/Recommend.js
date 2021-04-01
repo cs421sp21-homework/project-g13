@@ -9,8 +9,7 @@ noVotes.get('123') = 2, and restaurants.get('123') returns the
 full restaurant object.
  */
 function recommendRestaurant(users, yesVotes, noVotes, restaurants) {
-    //todo implement
-    return 0;
+  return 0;
 }
 
 //userVotes: Map restaurant id -> boolean
@@ -18,39 +17,38 @@ function recommendRestaurant(users, yesVotes, noVotes, restaurants) {
 //restaurantsById: Map restaurant id -> full restaurant object
 //keep in mind the user's position (size of userVotes)
 function reorderArray(restaurantArray, userVotes, restaurantsById) {
-    //todo implement
-    return restaurantArray;
+  //todo implement
+  return restaurantArray;
 }
-
-
 
 //returns a map of the % of yes votes by category
 function getAllCategoryPcts(yesVotes, noVotes, restaurants) {
-    let pcts = new Map();
-    for (const entry of restaurants.entries()) {
-        for (const cat of entry[1].categories) {
-            if (!pcts.has(cat.title)) {
-                pcts.set(cat.title, getCategoryPct(cat.title, yesVotes,
-                    noVotes, restaurants));
-            }
-        }
+  let pcts = new Map();
+  for (const entry of restaurants.entries()) {
+    for (const cat of entry[1].categories) {
+      if (!pcts.has(cat.title)) {
+        pcts.set(
+          cat.title,
+          getCategoryPct(cat.title, yesVotes, noVotes, restaurants)
+        );
+      }
     }
-    return pcts;
+  }
+  return pcts;
 }
-
 
 function getCategoryPct(category, yesVotes, noVotes, restaurants) {
-    let negVotes = 0;
-    let posVotes = 0;
-    for (const entry of restaurants.entries()) {
-        for (const cat of entry[1].categories) {
-            if (cat.title === category) {
-                negVotes += noVotes.get(entry[0]);
-                posVotes += yesVotes.get(entry[0]);
-            }
-        }
+  let negVotes = 0;
+  let posVotes = 0;
+  for (const entry of restaurants.entries()) {
+    for (const cat of entry[1].categories) {
+      if (cat.title === category) {
+        negVotes += noVotes.get(entry[0]);
+        posVotes += yesVotes.get(entry[0]);
+      }
     }
-    return (posVotes === 0 ? 0 : posVotes / (posVotes + negVotes));
+  }
+  return posVotes === 0 ? 0 : posVotes / (posVotes + negVotes);
 }
 
-export {recommendRestaurant, reorderArray};
+module.exports = { recommendRestaurant, reorderArray };
