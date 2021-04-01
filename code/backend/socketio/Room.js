@@ -1,3 +1,4 @@
+import * as rec from "./Recommend.js";
 var axios = require("axios");
 
 const BACKEND_URL = "https://chicken-tinder-13-backend.herokuapp.com"
@@ -36,8 +37,14 @@ class Room {
         //number of people inside
         this.size = size;
 
-        //stores votes for restaurants
-        this.restaurantVotes = new Map();
+        //stores yes votes for restaurants
+        this.restaurantYesVotes = new Map();
+
+        //stores no votes for restaurants
+        this.restaurantNoVotes = new Map();
+
+        //for convenience in looking up restaurant data
+        this.restaurantById = new Map();
 
         //stores restaurants
         this.restaurants = [];
@@ -58,6 +65,7 @@ class Room {
     static emitRestaurantsFunc;
     static emitFinishedFunc;
     static emitMatchFoundfunc;
+    static emitRecommendFunc;
 
     setLocation(location, radius) {
         if (location !== undefined && location !== "") {
@@ -73,7 +81,7 @@ class Room {
     //return true if we need to send restaurant data to client
     addMember(memberId) {
         this.size++;
-        this.members.set(memberId, {hasRestaurantData: false, finished: false});
+        this.members.set(memberId, {hasRestaurantData: false, finished: false, votes: new Map()});
         //emit not ready signal to room
         Room.emitReadySignalFunc(this.name, false);
 
@@ -96,20 +104,36 @@ class Room {
         }
     }
 
-    addVote(restaurantId) {
-        var votes = 1;
+    addYesVote(restaurantId, member) {
+        if (this.members.has(member)) {
+            this.members.get(member).votes.set(restaurantId, true);
+        }
+        let votes = 1;
         if ((restaurantId !== null && restaurantId !== "")) {
-            if (this.restaurantVotes.has(restaurantId)) {
-                votes = this.restaurantVotes.get(restaurantId);
+            if (this.restaurantYesVotes.has(restaurantId)) {
+                votes = this.restaurantYesVotes.get(restaurantId);
                 votes++;
             }
-            this.restaurantVotes.set(restaurantId, votes);
-            
+            this.restaurantYesVotes.set(restaurantId, votes);
             if (votes >= this.size) {
                 return true;
             }
         }
         return false;
+    }
+
+    addNoVote(restaurantId, member) {
+        if (this.members.has(member)) {
+            this.members.get(member).votes.set(restaurantId, false);
+        }
+        let votes = 1;
+        if ((restaurantId !== null && restaurantId !== "")) {
+            if (this.restaurantNoVotes.has(restaurantId)) {
+                votes = this.restaurantNoVotes.get(restaurantId);
+                votes++;
+            }
+            this.restaurantNoVotes.set(restaurantId, votes);
+        }
     }
 
     receivedRestaurantData(memberId) {
@@ -147,6 +171,9 @@ class Room {
                 Room.emitRestaurantsFunc(this.name, JSON.stringify(this.restaurants));
             }
         }
+        for (const restaurant in this.restaurants) {
+            this.restaurantById.set(restaurant.id);
+        }
     }
 
     getRestaurants() {
@@ -178,7 +205,7 @@ class Room {
     }
 
     checkIfMatchFound() {
-        for (const entry of this.restaurantVotes.entries()) {
+        for (const entry of this.restaurantYesVotes.entries()) {
             //console.log("member " + key + ": " + value.finished);
             if (entry[1] >= this.size) {
                 //send the match found signal
@@ -187,6 +214,29 @@ class Room {
             }
         }
         return false;
+    }
+
+    initializeZeroVotes(yesVotes, noVotes, restaurants) {
+        for (const entry in restaurants.entries()) {
+            if (!yesVotes.has(entry[0])) {
+                yesVotes.set(entry[0], 0);
+            }
+            if (!noVotes.has(entry[0])) {
+                noVotes.set(entry[0], 0);
+            }
+        }
+    }
+
+    updateRestaurantsArray(member, restaurants) {
+        return rec.reorderArray(restaurants, member.votes, this.restaurantById);
+    }
+
+    getRec() {
+        this.initializeZeroVotes(this.restaurantYesVotes, this.restaurantNoVotes,
+            this.restaurantById);
+        const restaurantId = rec.recommendRestaurant(this.members, this.restaurantYesVotes,
+            this.restaurantNoVotes, this.restaurantById);
+        Room.emitRecommendFunc(restaurantId);
     }
 }
 

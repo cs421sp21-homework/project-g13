@@ -51,6 +51,10 @@ Room.emitMatchFoundfunc = function (room, restaurantId) {
   }
 }
 
+Room.emitRecommendFunc = function(room, restaurantId) {
+  io.to(room).emit("recommend", restaurantId);
+}
+
 io.on("connection", function (socket) {
   socket.emit("message", { message: "welcome to Food-Tinder" });
 
@@ -119,13 +123,21 @@ io.on("connection", function (socket) {
     }
   });
 
-  //when a client sends a vote
-  socket.on("vote", (data) => {
+  //when a client sends a yes vote
+  socket.on("yes_vote", (data) => {
     const { room, restaurantId } = data;
     if (roomsMap.has(room)) {
-      if (roomsMap.get(room).addVote(restaurantId)) {
+      if (roomsMap.get(room).addYesVote(restaurantId, socket.id)) {
         io.to(room).emit("match_found", restaurantId);
       }
+    }
+  });
+
+  //when a client sends a no vote
+  socket.on("no_vote", (data) => {
+    const { room, restaurantId } = data;
+    if (roomsMap.has(room)) {
+      roomsMap.get(room).addNoVote(restaurantId, socket.id);
     }
   });
 
