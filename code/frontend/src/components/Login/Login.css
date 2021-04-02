@@ -1,16 +1,18 @@
-body, html, .signup, .container{
-    width: 100%;
-    height: 100%
+html, body, .signup {
+    height: 100vh;
+    width: 100vw;
+    background-color: #282c34;
 }
 .container{
     font-size: 28px;
-    color: #eae8e8;
+    color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #52545a;
+    background-color: #282c34;
 }
+
 .loginForm{
     box-sizing: border-box;
     width: 100%;
@@ -18,9 +20,11 @@ body, html, .signup, .container{
     padding-left: 20px;
     padding-right: 20px;
 }
+
 .inputField{
     padding-top: 16px;
 }
+
 .input{
     box-sizing: border-box;
     outline: none;
@@ -30,20 +34,10 @@ body, html, .signup, .container{
     width: 100%;
     padding: 12px;
     font-size: 14px;
-    background: rgba(255, 255, 255, 1);
+    background: white;
 }
+
 .submitButton{
     padding-top: 16px;
 }
-.btn{
-    width: 100%;
-    min-width: 280px;
-    color: #282c34;
-    padding: 12px;
-    font-size: 14px;
-    font-weight: bold;
-    border:solid 2px #444445;
-    border-radius: 4px;
-    background: #fff;
-    cursor: pointer;
-}
+
