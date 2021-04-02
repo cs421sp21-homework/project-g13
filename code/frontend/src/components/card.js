@@ -29,7 +29,7 @@ class Card extends Component {
     const reviewCount = restaurant.review_count;
     const webUrl = restaurant.url;
     const photos = restaurant.photos;
-    const reviews = restaurant.reviews;
+    let reviews = restaurant.reviews;
     if (reviews == undefined) {
       reviews = [];
       for (let i = 0; i < 3; i++) {

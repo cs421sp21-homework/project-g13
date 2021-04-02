@@ -236,7 +236,13 @@ class Room {
   }
 
   updateRestaurantsArray(member, restaurants) {
-    return rec.reorderArray(restaurants, member.votes, this.restaurantById);
+    return rec.reorderArray(
+      restaurants,
+      member.votes,
+      this.restaurantById,
+      this.restaurantYesVotes,
+      this.restaurantNoVotes
+    );
   }
 
   getRec() {
