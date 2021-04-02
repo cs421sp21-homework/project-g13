@@ -24,6 +24,7 @@ const socketMap = {};
 //import { emit } from "process";
 const Room = require("./Room.js");
 const e = require("cors");
+const { func } = require("prop-types");
 
 const roomsMap = new Map();
 
@@ -57,10 +58,15 @@ io.on("connection", function (socket) {
   socket.on("create_room", (room) => {
     console.log("create room" + room);
     socket.join(room);
-    var theRoom = new Room(room, 0)
-    theRoom.addMember(socket.id);
-    roomsMap.set(room, theRoom);
 
+    if (roomsMap.has(room)) {
+      roomsMap.get(room).addMember(socket.id);
+    } else {
+      var theRoom = new Room(room, 0)
+      theRoom.addMember(socket.id);
+      roomsMap.set(room, theRoom);
+    }
+    
     //io.to(room).emit("message", {message: "this is a test"});
   });
 
@@ -70,29 +76,12 @@ io.on("connection", function (socket) {
     console.log(socket.id + " sent location for room " + room);
     if (roomsMap.has(room)) {
       roomsMap.get(room).setLocation(location, radius);
-      //io.to(room).emit("ready", false);
     }
     //io.to(room).emit("message", {message: "room location was set"});
   });
 
   socket.on("join_room", (roomId) => {
-    console.log("client " + socket.id + " joined the room " + roomId);
-    socket.join(roomId);
-
-    var size = 0;
-    if (roomsMap.has(roomId)) {
-      const room = roomsMap.get(roomId);
-      if (room.addMember(socket.id)) {
-        var restaurants = room.getRestaurants();
-        io.to(roomId).emit("get_restaurants", JSON.stringify(restaurants));
-      }
-      size = room.size;
-    } else {
-      roomsMap.set(roomId, new Room(1));
-      size = 1;
-    }
-
-    io.to(roomId).emit("room_size_changed", size);
+    joinRoom(socket, roomId);
   });
 
   socket.on("message", (data) => {
@@ -197,4 +186,24 @@ function generateRoomId() {
     roomId = '0' + roomId;
   }
   return roomId;
+}
+
+function joinRoom(socket, roomId) {
+  console.log("client " + socket.id + " joined the room " + roomId);
+  socket.join(roomId);
+
+    var size = 0;
+    if (roomsMap.has(roomId)) {
+      const room = roomsMap.get(roomId);
+      if (room.addMember(socket.id)) {
+        var restaurants = room.getRestaurants();
+        io.to(roomId).emit("get_restaurants", JSON.stringify(restaurants));
+      }
+      size = room.size;
+    } else {
+      roomsMap.set(roomId, new Room(1));
+      size = 1;
+    }
+
+    io.to(roomId).emit("room_size_changed", size);
 }
