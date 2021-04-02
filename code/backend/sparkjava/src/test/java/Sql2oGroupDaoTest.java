@@ -105,12 +105,14 @@ public class Sql2oGroupDaoTest {
                     "username VARCHAR(50) NOT NULL," +
                     "pword VARCHAR(50) NOT NULL," +
                     "loc VARCHAR(100)," +
+                    "preferences VARCHAR(50) []," + // left as empty upon creation
                     "group_id BIGSERIAL REFERENCES group_info(group_id)," +
                     "UNIQUE(username)," +
                     "UNIQUE(pword));";
             conn.createQuery(sql).executeUpdate();
 
-            sql = "INSERT INTO user_info(username, pWord, loc, group_id) VALUES(:username, :pWord, :loc, :group_id);";
+            sql = "INSERT INTO user_info(username, pWord, loc, preferences, group_id) " +
+                    "VALUES(:username, :pWord, :loc, ARRAY['none'], :group_id);";
             for (User user : samples) {
                 conn.createQuery(sql).addParameter("username", user.getUserName())
                         .addParameter("pWord", user.getPword())
@@ -198,9 +200,21 @@ public class Sql2oGroupDaoTest {
         groupDao.addMember(g1, u1);
         groupDao.addMember(g1, u2);
 
-        groupDao.readAllGroups();
-    }
+        List<Group> groups = groupDao.readAllGroups();
+        assertEquals(groups.size(), 1);
 
-     */
+        Group groupOne = groups.get(0);
+        List<User> groupOneMembers = groups.get(0).getMembers();
+        assertEquals(groupOne.getMembers().size(), 2);
+
+        int userOneIndex = groupOneMembers.indexOf(u1);
+        int userTwoIndex = groupOneMembers.indexOf(u2);
+        assertEquals(groupOneMembers.get(userOneIndex), u1);
+        assertEquals(groupOneMembers.get(userTwoIndex), u2);
+
+    }
+    */
+
+
 
 }

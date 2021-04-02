@@ -26,13 +26,25 @@ public interface UserDao {
      * Create a user without group number.
      * Group number defaults to 1 since user is assumed solo.
      *
-     *  @param uName The user's username.
+     * @param uName The user's username.
      * @param pWord The user's password.
      * @param location The user's location.
      * @return The user object created.
      * @throws DaoException A generic exception for CRUD operations.
      */
     User create(String uName, String pWord, String location) throws DaoException;
+
+    /**
+     * Create a user without group number or location.
+     * Group number defaults to 1 since user is assumed solo.
+     * Location defaults to NULL
+     *
+     * @param uName The user's username.
+     * @param pWord The user's password.
+     * @return The user object created.
+     * @throws DaoException A generic exception for CRUD operations.
+     */
+    User create(String uName, String pWord) throws DaoException;
 
     /**
      * Get a user provided their username.
@@ -71,6 +83,28 @@ public interface UserDao {
      * @throws DaoException A generic exception for CRUD operations.
      */
     User updateGroupID(User user, int gid) throws DaoException;
+
+    /**
+     * Add to user's long-term preferences.
+     *
+     * @param user The user with the group name to be changed.
+     * @param pref The preference to be added.
+     * @return The user's updated preferences.
+     * @throws DaoException A generic exception for CRUD operations.
+     */
+    List<String> addPreference(User user, String pref) throws DaoException;
+
+    /**
+     * Remove a user's long-term preference.
+     *
+     * @param user The user with the group name to be changed.
+     * @param pref The preference to be removed.
+     * @return The user's updated preferences.
+     * @throws DaoException A generic exception for CRUD operations.
+     */
+    List<String> removePreference(User user, String pref) throws DaoException;
+
+
 
     /**
      * Delete user from database.

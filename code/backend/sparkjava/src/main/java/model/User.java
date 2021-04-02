@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 
     private String loc;
@@ -7,25 +10,32 @@ public class User {
     private String pword;
     private int user_ID;
     private int group_ID;
+    private List<String> preferencesList;
+    private String preferences;
 
     /**
      * Construct a User with no information.
      */
     public User() {
-        this.loc = "Not set!";
+        this.loc = null;
         this.userName = null;
         this.pword = null;
+        this.preferences = "";
+        this.preferencesList = null;
+        this.group_ID = 1;
     }
 
     /**
-     * Construct a User with regular information.
+     * Construct a User with regular information (no preferences).
      */
     public User(String uName, String pWord, String location, int gid) {
         this.userName = uName;
         this.pword = pWord;
         this.loc = location;
-        //this.userID = uid;
         this.group_ID = gid;
+        this.preferences = "";
+        this.preferencesList = null;
+
     }
 
     /**
@@ -107,6 +117,38 @@ public class User {
      * @return the user's group id.
      */
     public int getGroup_ID() { return this.group_ID; }
+
+    /**
+     * Set the user's long-term preferences AS A STRING.
+     *
+     * @param prefsList The user's preferences.
+     */
+    public void setPreferencesList(List<String> prefsList) {
+        this.preferencesList = prefsList;
+    }
+
+    /**
+     * Get user's long-term preferences AS A STRING.
+     *
+     * @return the user's preferences.
+     */
+    public List<String> getPreferencesList() { return this.preferencesList; }
+
+    /**
+     * Set the user's long-term preferences AS A LIST OF STRINGS.
+     *
+     * @param prefs The user's preferences.
+     */
+    public void setPreferences(String prefs) {
+        this.preferences = prefs;
+    }
+
+    /**
+     * Get user's long-term preferences AS A LIST OF STRINGS.
+     *
+     * @return the user's preferences.
+     */
+    public String getPreferences() { return this.preferences; }
 
     @Override
     public boolean equals(Object other) {

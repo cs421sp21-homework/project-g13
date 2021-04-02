@@ -32,6 +32,10 @@ class Sql2oUserDaoTest {
         //String testDatabaseUrl = System.getenv("TEST_DATABASE_URL");
         URI dbUri = new URI("postgres://gsyqpyihtezhlv:bd02af53d56a03f3776f24d1e445983c396c5168abf5074343f70f0cf51f7bbc@ec2-52-45-73-150.compute-1.amazonaws.com:5432/def52afl6sjeue");
 
+        // for updating the frontend for massive changes
+        //URI dbUri = new URI("postgres://cyjnmjdqsxpfky:1dc851cad799f5fb5a8cae9f2f9495e061adda1fd24b0c388bf771bb96a12ea1@ec2-52-71-161-140.compute-1.amazonaws.com:5432/d400u7n1i19g77");
+
+
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
         String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':'
@@ -79,20 +83,12 @@ class Sql2oUserDaoTest {
 
             String sql = "CREATE TABLE group_info (" +
                     "group_id BIGSERIAL PRIMARY KEY," +
-                    "member1 BIGINT," +
-                    "member2 BIGINT," +
-                    "member3 BIGINT," +
-                    "member4 BIGINT," +
-                    "member5 BIGINT," +
-                    "member6 BIGINT," +
-                    "member7 BIGINT," +
-                    "member8 BIGINT," +
-                    "member9 BIGINT," +
-                    "member10 BIGINT);";
+                    "name VARCHAR(50)," +
+                    "memberIDs BIGINT []);";
             conn.createQuery(sql).executeUpdate();
 
-            sql = "insert into group_info(member1, member2, member3, member4, member5, member6, member7, member8, member9, member10) " +
-                    "values (null, null, null, null, null, null, null, null, null, null);";
+            sql = "insert into group_info(memberIDs) " +
+                    "values (ARRAY [0]);";
             conn.createQuery(sql).executeUpdate();
 
             sql = "CREATE TABLE user_info (" +
@@ -100,12 +96,14 @@ class Sql2oUserDaoTest {
                     "username VARCHAR(50) NOT NULL," +
                     "pword VARCHAR(50) NOT NULL," +
                     "loc VARCHAR(100)," +
+                    "preferences VARCHAR(50) []," + // left as empty upon creation
                     "group_id BIGSERIAL REFERENCES group_info(group_id)," +
                     "UNIQUE(username)," +
                     "UNIQUE(pword));";
             conn.createQuery(sql).executeUpdate();
 
-            sql = "INSERT INTO user_info(username, pWord, loc, group_id) VALUES(:username, :pWord, :loc, :group_id);";
+            sql = "INSERT INTO user_info(username, pWord, loc, preferences, group_id) " +
+                    "VALUES(:username, :pWord, :loc, ARRAY['none'], :group_id);";
             for (User user : samples) {
                 conn.createQuery(sql).addParameter("username", user.getUserName())
                         .addParameter("pWord", user.getPword())
@@ -123,6 +121,22 @@ class Sql2oUserDaoTest {
     void createUser() {
         User u1 = new User("kpawnsford16", "w6HXK786uN", "3 Leroy Circle", 1);
         User u2 = userDao.create(u1.getUserName(), u1.getPword(), u1.getLoc(), u1.getGroup_ID());
+
+        assertEquals(u1.getUserName(), u2.getUserName());
+        assertEquals(u1.getLoc(), u2.getLoc());
+        assertEquals(u1.getPword(), u2.getPword());
+        assertEquals(u1.getGroup_ID(), u2.getGroup_ID());
+        // not testing same user ID because u1 has a default of zero while u2 has the actual user ID
+
+    }
+
+    @Test
+    @DisplayName("create works for username/password ONLY")
+    void createUserNamePass() {
+        User u1 = new User();
+        u1.setUserName("test");
+        u1.setPword("test");
+        User u2 = userDao.create(u1.getUserName(), u1.getPword());
 
         assertEquals(u1.getUserName(), u2.getUserName());
         assertEquals(u1.getLoc(), u2.getLoc());

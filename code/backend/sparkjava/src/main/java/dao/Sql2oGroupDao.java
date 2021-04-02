@@ -8,6 +8,7 @@ import model.Group;
 import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.postgresql.jdbc.PgArray;
@@ -60,7 +61,8 @@ public class Sql2oGroupDao implements GroupDao {
             Group group = new Group();
             int groupID = gid.intValue();
             group.setGroup_id(groupID);
-            group.setMembers(readMembers(conn, groupID)); // should be empty
+            List<User> members = readMembers(conn, groupID);
+            group.setMembers(members); // should be empty
             return group;
         } catch (Sql2oException ex) {
             throw new DaoException(ex.getMessage(), ex);
@@ -84,17 +86,29 @@ public class Sql2oGroupDao implements GroupDao {
             }
 
             List<User> users = new ArrayList<>();
-            List<User> currUser = new ArrayList<>();
+            User currUser;
             //Array userIDsHolder = (Array) theUsers.get(0).getArray();
             //List userIDs = (List) userIDsHolder.getArray();
 
             int numUserIDs = userIDInt.length;
-            for (int index = 0; index < numUserIDs; index++) {
-                sql = "SELECT * FROM user_info WHERE user_id = :uid;";
-                currUser = conn.createQuery(sql) // making proper SQL statement for execution
-                        .addParameter("uid", userIDInt[index])   // allowing for varying group ID
-                        .executeAndFetch(User.class);      // executing SQL + getting users one at a time
-                users.add(currUser.get(0));
+            if (numUserIDs == 1 && userIDInt[0] == 0) {
+                // do nothing because group was just created and no members have been added
+                // avoiding a NullPointerException
+            } else {
+                for (int index = 0; index < numUserIDs; index++) {
+                    sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), group_id " +
+                            "FROM user_info WHERE user_id = :uid;";
+                    currUser = conn.createQuery(sql) // making proper SQL statement for execution
+                            .addParameter("uid", userIDInt[index])   // allowing for varying group ID
+                            .addColumnMapping("ARRAY_TO_STRING", "preferences")
+                            .executeAndFetchFirst(User.class);      // executing SQL + getting users one at a time
+
+                    // finessing array from database into list in POJO
+                    String[] userPrefs = currUser.getPreferences().split(",");
+                    currUser.setPreferencesList(Arrays.asList(userPrefs));
+
+                    users.add(currUser);
+                }
             }
 
             return users;
@@ -106,10 +120,20 @@ public class Sql2oGroupDao implements GroupDao {
     // helper method to be used when resetting users' group IDs when deleting group
     //@Override
     private List<User> readMembers(Connection conn, int id) {
-        String sql = "SELECT * FROM user_info WHERE group_id = :group_id;";
-        return conn.createQuery(sql)
-                .addParameter("group_id", id)
-                .executeAndFetch(User.class);
+        String sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), group_id " +
+                     "FROM user_info WHERE group_id = :gid;";
+        List<User> users = conn.createQuery(sql)
+                            .addParameter("gid", id)
+                            .addColumnMapping("ARRAY_TO_STRING", "preferences")
+                            .executeAndFetch(User.class);
+
+        for (User user : users) {
+            // finessing array from database into list in POJO
+            String[] userPrefs = user.getPreferences().split(",");
+            user.setPreferencesList(Arrays.asList(userPrefs));
+        }
+
+        return users;
 
     }
 
@@ -202,20 +226,29 @@ public class Sql2oGroupDao implements GroupDao {
 
     @Override
     public List<Group> readAllGroups() throws DaoException {
-        String sql = "SELECT * FROM group_info;";
+        String sql = "SELECT group_id, ARRAY_TO_STRING(memberIDs, ',') FROM group_info;";
         try (Connection conn = sql2o.open()) {                     // opening connection to database
             List<Group> groups = conn.createQuery(sql)             // making proper SQL statement for execution
-                                    .executeAndFetch(Group.class); // executing SQL + filling Group via object mapper
+                                 .addColumnMapping("ARRAY_TO_STRING", "memberIDs")
+                                 .executeAndFetch(Group.class); // executing SQL + filling Group via object mapper
 
             List<User> currUser = new ArrayList<>();
 
             for (Group group : groups) {
-                List<Integer> userIDs = group.getMemberIDs();
-                for (int index = 0; index < userIDs.size(); index++) {
-                    sql = "SELECT * FROM user_info WHERE user_id ' :uid;";
+                String[] userIDString = groups.get(0).getMemberIDs().split(",");
+                //List<Integer> userIDs = group.getMemberIDs();
+                for (int index = 0; index < userIDString.length; index++) {
+                    sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), group_id " +
+                          "FROM user_info WHERE user_id = :uid;";
                     currUser = conn.createQuery(sql) // making proper SQL statement for execution
-                            .addParameter("uid", userIDs.get(index))   // allowing for varying group ID
+                            .addParameter("uid", Integer.parseInt(userIDString[index]))   // allowing for varying group ID
+                            .addColumnMapping("ARRAY_TO_STRING", "preferences")
                             .executeAndFetch(User.class);      // executing SQL + getting users one at a time
+
+                    // finessing array from database into list in POJO
+                    String[] userPrefs = currUser.get(0).getPreferences().split(",");
+                    currUser.get(0).setPreferencesList(Arrays.asList(userPrefs));
+
                     group.getMembers().add(currUser.get(0));
                 }
             }
