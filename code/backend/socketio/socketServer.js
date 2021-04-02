@@ -80,6 +80,16 @@ io.on("connection", function (socket) {
     //io.to(room).emit("message", {message: "room location was set"});
   });
 
+  //set room's filters
+  socket.on("set_filters", (data) => {
+    const { room, price, categories } = data;
+    console.log(socket.id + " sent filters for room " + room);
+    if (roomsMap.has(room)) {
+      roomsMap.get(room).setFilters(price, categories);
+    }
+    //io.to(room).emit("message", {message: "room location was set"});
+  });
+
   socket.on("join_room", (roomId) => {
     joinRoom(socket, roomId);
   });

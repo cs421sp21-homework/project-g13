@@ -20,7 +20,22 @@ async function getRestaurants(location, radius) {
     } catch(err) {
         return ["err"];
     }
+} 
+
+async function getRestaurantsFilters(location, radius, price, categories) {
+    try {
+        const response = await axios.get(
+            //`${BACKEND_URL}/yelpsearch?query=${location}&radius=${radius}`
+            `${BACKEND_URL}/yelpsearch_personal?query=${location}&radius=${radius}&price=${price}&categories=${categories}`
+        );
+        console.log("response");
+        console.log(response);
+        return response.data;
+    } catch(err) {
+        return ["err"];
+    }
 }
+
 
 class Room {
     //Need to store restaurants, location, and likes/dislikes
@@ -32,6 +47,12 @@ class Room {
         this.location = "";
 
         this.radius = 20000;
+
+        //the host's preferences
+        this.filters = [];
+
+        //the host's preferred price ($ -> 1 for API)
+        this.price = [];
 
         //number of people inside
         this.size = size;
@@ -66,8 +87,43 @@ class Room {
             this.radius = radius * 1609.34;
             this.received = 0;
             //console.log(this.name ) 
-            this.retreiveRestaurants();
+            this.retreiveRestaurantsNoFilters();
         }
+    }
+
+    setFilters(price, categories) {
+        var properPrice = "";
+        if (price !== undefined && price.length !== 0) {
+            // some fixing to allow for proper format for Yelp API (convert to string)
+            for (let index = 0; index < price.length; index++) {
+                if (price[index] == "$") {
+                    properPrice.concat("1,");
+                } else if (price[index] == "$$") {
+                    properPrice.concat("2,");
+                } else if (price[index] == "$$$") {
+                    properPrice.concat("3,");
+                } else if (price[index] == "$$$$") {
+                    properPrice.concat("4,");
+                }
+            }
+            this.price = properPrice;
+            
+            //console.log(this.name ) 
+            //this.retreiveRestaurants();
+        }
+
+        var properCategories = "";
+        if (categories !== undefined && categories !== 0) {
+            // some fixing to allow for proper format for Yelp API (convert to string)
+            for (let index = 0; index < categories.length; index++) {
+                properCategories.concat(categories[index]);
+            }
+        this.cateogries = properCategories;
+        
+        // fetching restaurants if both categories and prices have been sent
+        this.retreiveRestaurantsWithFilters();
+        }
+
     }
 
     //return true if we need to send restaurant data to client
@@ -133,7 +189,7 @@ class Room {
         }
     }
 
-    async retreiveRestaurants() {
+    async retreiveRestaurantsNoFilters() {
         console.log("retreiving restaurants...");
         console.log(this);
         if (this.restaurants.length < this.limit && this.location !== undefined && this.location !== "") {
@@ -146,6 +202,25 @@ class Room {
                 this.restaurants.push(...response);
                 Room.emitRestaurantsFunc(this.name, JSON.stringify(this.restaurants));
             }
+        }
+    }
+
+    async retreiveRestaurantsWithFilters() {
+        console.log("retreiving restaurants...");
+        console.log(this);
+        if (this.restaurants.length < this.limit && this.location !== undefined && this.location !== "") {
+            //console.log("here");
+            //console.log(this.radius);
+            if (this.price.length !== 0 && this.categories.length !== 0) {
+                const response = await getRestaurantsFilters(this.location, this.radius, this.price, this.categories);
+                //console.log(response);
+                if (response.length !== 0) {
+                    //console.log("here2");
+                    this.restaurants.push(...response);
+                    Room.emitRestaurantsFunc(this.name, JSON.stringify(this.restaurants));
+                }
+            }
+            
         }
     }
 
