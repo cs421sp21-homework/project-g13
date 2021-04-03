@@ -17,7 +17,7 @@ class Host extends Component {
     this.pendingCreate = false;
 
     //socket.io stuff
-    this.socket = io("https://chicken-tinder-13-socketio.herokuapp.com", {
+    this.socket = io("localhost:4000", {
       withCredentials: true,
     });
 

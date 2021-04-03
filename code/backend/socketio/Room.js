@@ -19,6 +19,7 @@ async function getRestaurants(location, radius) {
     console.log(response);
     return response.data;
   } catch (err) {
+    console.log(err);
     return ["err"];
   }
 }
@@ -179,9 +180,6 @@ class Room {
         Room.emitRestaurantsFunc(this.name, JSON.stringify(this.restaurants));
       }
     }
-    for (const restaurant in this.restaurants) {
-      this.restaurantById.set(restaurant.id);
-    }
   }
 
   getRestaurants() {
@@ -224,13 +222,13 @@ class Room {
     return false;
   }
 
-  initializeZeroVotes(yesVotes, noVotes, restaurants) {
-    for (const entry in restaurants.entries()) {
-      if (!yesVotes.has(entry[0])) {
-        yesVotes.set(entry[0], 0);
+  initializeZeroVotes() {
+    for (let i = 0; i < this.restaurants.length; i++) {
+      if (!this.restaurantYesVotes.has(this.restaurants[i].id)) {
+        this.restaurantYesVotes.set(this.restaurants[i].id, 0);
       }
-      if (!noVotes.has(entry[0])) {
-        noVotes.set(entry[0], 0);
+      if (!this.restaurantNoVotes.has(this.restaurants[i].id)) {
+        this.restaurantNoVotes.set(this.restaurants[i].id, 0);
       }
     }
   }
@@ -246,18 +244,17 @@ class Room {
   }
 
   getRec() {
-    this.initializeZeroVotes(
-      this.restaurantYesVotes,
-      this.restaurantNoVotes,
-      this.restaurantById
-    );
+    for (let i = 0; i < this.restaurants.length; i++) {
+      this.restaurantById.set(this.restaurants[i].id, this.restaurants[i]);
+    }
+    this.initializeZeroVotes();
     const restaurantId = rec.recommendRestaurant(
       this.members,
       this.restaurantYesVotes,
       this.restaurantNoVotes,
       this.restaurantById
     );
-    Room.emitRecommendFunc(restaurantId);
+    return restaurantId;
   }
 }
 

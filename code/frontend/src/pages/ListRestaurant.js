@@ -21,7 +21,7 @@ class ListRestaurant extends Component {
     var roomId = sessionStorage.getItem("roomId");
     if (this.isGroup && roomId != null) {
       //start socket.io
-      this.socket = io("https://chicken-tinder-13-socketio.herokuapp.com", {
+      this.socket = io("localhost:4000", {
         withCredentials: true,
       });
       this.socket.on("match_found", (data) => this.onMatchFound(data));
