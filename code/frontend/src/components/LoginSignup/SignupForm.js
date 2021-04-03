@@ -83,7 +83,9 @@ class SignupForm extends React.Component {
     render() {
         return (
             <div className="loginSignupForm">
-                Get started with us today! Create your account by filling out the information below.
+                Get started with us today!
+                <br/>
+                Create your account by filling out the information below.
                 <br/>
                 Username
                 <InputField type='text'

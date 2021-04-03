@@ -10,7 +10,31 @@ import Card from "../components/card.js"
 import NotFound from "./NotFound.js"
 import SetFilters from "./SetFilters.js"
 import io from "socket.io-client";
-import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+
+const styles = theme => ({
+    button: {
+        color: '#5a2c22',
+        backgroundColor: '#eca237',
+        borderColor: '#eca237',
+        boxShadow: 'none',
+        margin: theme.spacing(1),
+        width: 256,
+        height: 64,
+        fontSize: 24,
+        '&:hover': {
+            backgroundColor: '#f9b042',
+            borderColor: '#f9b042',
+            boxShadow: 'none',
+        },
+        '&:active': {
+            boxShadow: 'none',
+            backgroundColor: '#f9b042',
+            borderColor: '#f9b042',
+        },
+    },
+});
 
 //Contains join page, host page
 class Group extends Component {
@@ -53,7 +77,7 @@ class Group extends Component {
         this.isFinished = false;
 
         //socket.io stuff
-        const useLocalSocketServer = true;
+        const useLocalSocketServer = false;
         const socketServer = (useLocalSocketServer) ? "http://localhost:4000" : "https://chicken-tinder-13-socketio.herokuapp.com";
         this.socket = io(socketServer, {
             withCredentials: true,
@@ -83,10 +107,10 @@ class Group extends Component {
     onJoinRoom(room) {
         if (room == null || room === "") {
             this.setState({message: "Please enter a group ID"});
-        } else if (this.state.message !==  "Waiting for response from server...") {
+        } else if (this.state.message !==  "Joining...") {
             //check if group exists
             this.socket.emit("room_exists", room);
-            this.setState({message: "Waiting for response from server..."})
+            this.setState({message: "Joining..."})
         }
     }
 
@@ -106,7 +130,7 @@ class Group extends Component {
 
     onSetLocation(data) {
         this.socket.emit("set_location", {room: this.state.roomId, location: data.location, radius: data.radius});
-        this.setState({page: "host", location: data.location, message: "Waiting to receive data from server...", canStartSwipingEvent: false});
+        this.setState({page: "host", location: data.location, message: "Loading data...", canStartSwipingEvent: false});
     }
 
     onBackFromSetLocation() {
@@ -226,15 +250,17 @@ class Group extends Component {
                 <div className="App">
                 <header className="App-header">
                   <div>
-                    <h1> Waiting for host to create same group... </h1>
+                    <h1> Waiting for host to create the group... </h1>
                     <form>
-                                <input
-                                    type="button"
-                                    value="Return Home"
-                                    onClick={() => this.props.history.push("/")}
-                                />
-                                <br/>
-                        </form>
+                        <Button
+                            className={this.props.classes.button}
+                            onClick={() => this.props.history.push("/")}
+                            variant="contained"
+                            size='large'
+                        >
+                            Return Home
+                        </Button>
+                    </form>
                     </div>
                 </header>
                 </div>
@@ -295,7 +321,7 @@ class Group extends Component {
                 sessionStorage.setItem("roomId", this.state.roomId);
                 sessionStorage.setItem("isHost", "false");
             } else {
-                this.setState({message: "This Room ID does not exist."});
+                this.setState({message: "This Group ID does not exist."});
             }
         } else if (this.state.page === "waiting_to_join") {
             if (data.exists === true) {
@@ -444,4 +470,4 @@ class Group extends Component {
     }
 }
 
-export default withRouter(Group);
+export default withRouter((withStyles(styles)(Group)));

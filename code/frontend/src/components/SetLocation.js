@@ -9,14 +9,14 @@ const styles = theme => ({
       margin: theme.spacing(1),
     },
   },
-  button: {
+  submit: {
     color: '#522402',
     backgroundColor: '#eca237',
-    borderColor: '#eca237',
     boxShadow: 'none',
-    padding: '6px 12px',
-    border: '1px solid',
-    width: 112,
+    margin: theme.spacing(2),
+    width: 128,
+    height:48,
+    fontSize: 20,
     '&:hover': {
       backgroundColor: '#f9b042',
       borderColor: '#f9b042',
@@ -26,6 +26,25 @@ const styles = theme => ({
       boxShadow: 'none',
       backgroundColor: '#f9b042',
       borderColor: '#f9b042',
+    },
+  },
+  back: {
+    color: '#522402',
+    backgroundColor: '#f1d043',
+    boxShadow: 'none',
+    margin: theme.spacing(2),
+    width: 128,
+    height:48,
+    fontSize: 20,
+    '&:hover': {
+      backgroundColor: '#ffe03b',
+      borderColor: '#ffe03b',
+      boxShadow: 'none',
+    },
+    '&:active': {
+      boxShadow: 'none',
+      backgroundColor: '#ffe03b',
+      borderColor: '#ffe03b',
     },
   },
 });
@@ -166,7 +185,7 @@ class SetLocation extends Component {
                 miles
                 <br/>
                 <Button
-                    className={this.props.classes.button}
+                    className={this.props.classes.submit}
                     onClick={() => {
                       this.submit();
                     }}
@@ -176,7 +195,7 @@ class SetLocation extends Component {
                   Submit
                 </Button>
                 <Button
-                    className={this.props.classes.button}
+                    className={this.props.classes.back}
                     onClick={this.props.onBack}
                     variant="contained"
                     size='large'

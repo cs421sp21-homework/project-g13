@@ -6,6 +6,31 @@ import Card from "../components/card.js"
 import MatchFound from "../components/MatchFound.js"
 import NotFound from "./NotFound.js"
 import * as api from "../api/Api.js";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+
+const styles = theme => ({
+  button: {
+    color: '#5a2c22',
+    backgroundColor: '#eca237',
+    borderColor: '#eca237',
+    boxShadow: 'none',
+    margin: theme.spacing(1),
+    width: 256,
+    height: 64,
+    fontSize: 24,
+    '&:hover': {
+      backgroundColor: '#f9b042',
+      borderColor: '#f9b042',
+      boxShadow: 'none',
+    },
+    '&:active': {
+      boxShadow: 'none',
+      backgroundColor: '#f9b042',
+      borderColor: '#f9b042',
+    },
+  },
+});
 
 class Individual extends Component {
   constructor(props) {
@@ -103,13 +128,15 @@ class Individual extends Component {
                     <div>
                       <h1>{this.state.statusMessage}</h1>
                       <form>
-                                <input
-                                    type="button"
-                                    value="Return Home"
-                                    onClick={() => this.props.history.push("/")}
-                                />
-                                <br/>
-                        </form>
+                        <Button
+                            className={this.props.classes.button}
+                            onClick={() => this.props.history.push("/")}
+                            variant="contained"
+                            size='large'
+                        >
+                          Return Home
+                        </Button>
+                      </form>
                     </div>
                   </header>
                   </div>
@@ -119,4 +146,4 @@ class Individual extends Component {
   }
 }
 
-export default withRouter(Individual);
+export default withRouter((withStyles(styles)(Individual)));

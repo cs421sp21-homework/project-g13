@@ -3,8 +3,33 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import NewCard from "react-bootstrap/Card";
 import Slideshow from "../components/Slideshow";
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
-export default class MatchFound extends Component {
+const styles = theme => ({
+    button: {
+        color: '#5a2c22',
+        backgroundColor: '#d44f22',
+        borderColor: '#d44f22',
+        boxShadow: 'none',
+        margin: theme.spacing(2),
+        width: 192,
+        height: 56,
+        fontSize: 24,
+        '&:hover': {
+            backgroundColor: '#f9b042',
+            borderColor: '#f9b042',
+            boxShadow: 'none',
+        },
+        '&:active': {
+            boxShadow: 'none',
+            backgroundColor: '#f9b042',
+            borderColor: '#f9b042',
+        },
+    },
+});
+
+class MatchFound extends Component {
 
     render() {
         const {restaurant} = this.props;
@@ -15,6 +40,7 @@ export default class MatchFound extends Component {
         const webUrl = restaurant.url;
         const photos = restaurant.photos;
         const reviews = restaurant.reviews;
+        const {classes} = this.props;
 
         return(
                     <div className='App'>
@@ -40,17 +66,22 @@ export default class MatchFound extends Component {
                                 </NewCard.Body>
                             </NewCard>
                             <form>
-                                <input
-                                    type="button"
-                                    value="Done"
+                                <Button
+                                    className={classes.button}
                                     onClick={this.props.onDone}
-                                />
+                                    variant="contained"
+                                    size='large'
+                                >
+                                    Done
+                                </Button>
                             </form>
                         </header>
                     </div>
         )
     }
 }
+
+export default withStyles(styles)(MatchFound)
 
 MatchFound.propTypes = {
     restaurant: PropTypes.shape({
@@ -78,4 +109,5 @@ MatchFound.propTypes = {
             address1: PropTypes.string.isRequired,
         }).isRequired,
     }).isRequired,
+    classes: PropTypes.object.isRequired,
 };
