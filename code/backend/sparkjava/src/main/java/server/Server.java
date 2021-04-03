@@ -68,6 +68,7 @@ public class Server {
         } catch(Exception e) {
             return;
         }
+
         //Get restaurants endpoint
         get("/yelpsearch", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
@@ -83,6 +84,34 @@ public class Server {
             catch(Exception e) { radius = 40000; }
 
             List<Restaurant> resp = YelpService.getRestaurantByLocationWithDetail(query, limit, radius);
+            if (resp == null) res.status(404);
+            return gson.toJson(resp);
+        });
+
+        //Get personalized restaurants endpoint
+        get("/yelpsearch_personal", (req, res) -> {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "GET");
+            res.header("Content-Type", "application/json");
+            String query = req.queryParams("query");
+            int radius, limit;
+            String price, categories;
+
+            if (query == null) res.status(404);
+            try { limit = Integer.parseInt(req.queryParams("limit")); }
+            catch(Exception e) { limit = 20; }                    // default to getting 20 restaurants from Yelp
+            try { radius = Integer.parseInt(req.queryParams("radius")); }
+            catch(Exception e) { radius = 40000; }                // radius in meters thus 40 km
+            try { price = req.queryParams("price");
+                if (price.equals("")) {                          // if no price is entered
+                    price = "1,2,3,4";
+                }
+            }
+            catch(Exception e) { price = "1,2,3,4"; }                 // default to all prices
+            try { categories = req.queryParams("categories"); }       // Order matters!
+            catch(Exception e) { categories = ""; }                   // default to specific categories
+
+            List<Restaurant> resp = YelpService.getRestaurantsByFiltersWithDetail(query, limit, radius, price, categories);
             if (resp == null) res.status(404);
             return gson.toJson(resp);
         });
@@ -145,31 +174,34 @@ public class Server {
             return gson.toJson(group);
         });
 
-        post('/login', (req, res) => {
+        post("/login", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
             String username = req.params("username");
             String password = req.params("password");
             System.out.println(username);
+            return "Need some return statement";
         });
 
-        post('/logout', (req, res) => {
+        post("/logout", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
             String username = req.params("username");
             String password = req.params("password");
             System.out.println(username);
+            return "Need some return statement";
         });
 
-        post('/isLoggedIn', (req, res) => {
+        post("/isLoggedIn", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
             String username = req.params("username");
             String password = req.params("password");
             System.out.println(username);
+            return "Need some return statement";
         });
 
         delete("/api/users/:uname", (req, res) -> {

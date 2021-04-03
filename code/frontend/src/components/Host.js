@@ -5,16 +5,10 @@ import SetFilters from "../pages/SetFilters.js"
 export default class Host extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      page: "main",
-    }
   }
 
   render() {
-    const page = this.state.page;
     return (
-      <div>
-        { page === "main" &&
           <div className="App">
             <header className="App-header">
               <div>
@@ -32,7 +26,7 @@ export default class Host extends Component {
                 <input
                   type="button"
                   value="Set Filters"
-                  onClick={() => this.setState({page: "filters"})}
+                  onClick={this.props.openSetFilters}
                   hidden={!this.props.isHost}
                 />
                 <br />
@@ -52,12 +46,6 @@ export default class Host extends Component {
               </div>
             </header>
           </div>
-        }
-
-        { page === "filters" &&
-          <SetFilters onBack={() => this.setState({page: "main"})} />
-        }
-    </div>
     );
   }
 }

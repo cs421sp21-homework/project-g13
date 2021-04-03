@@ -8,7 +8,9 @@ import SetLocation from "../components/SetLocation.js"
 import MatchFound from "../components/MatchFound.js"
 import Card from "../components/card.js"
 import NotFound from "./NotFound.js"
+import SetFilters from "./SetFilters.js"
 import io from "socket.io-client";
+import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider";
 
 //Contains join page, host page
 class Group extends Component {
@@ -43,10 +45,15 @@ class Group extends Component {
         this.onLikeRestaurant = this.onLikeRestaurant.bind(this);
 
         this.restaurants = [];
+        this.filters = new Map();
+        this.filters.set("prices", []);
+        this.filters.set("ratings", []);
+        this.filters.set("cuisines", []);
+        this.filters.set("categories", []);
         this.isFinished = false;
 
         //socket.io stuff
-        const useLocalSocketServer = false;
+        const useLocalSocketServer = true;
         const socketServer = (useLocalSocketServer) ? "http://localhost:4000" : "https://chicken-tinder-13-socketio.herokuapp.com";
         this.socket = io(socketServer, {
             withCredentials: true,
@@ -107,6 +114,7 @@ class Group extends Component {
     }
 
     onDislikeRestaurant() {
+        console.log("restaurants length: " + this.restaurants.length);
         if (this.state.currentRestaurantIndex + 1 < this.restaurants.length) {
             this.setState({currentRestaurantIndex: this.state.currentRestaurantIndex+1});
         } else if (!this.isFinished) {
@@ -133,6 +141,36 @@ class Group extends Component {
         location.reload();
     }
 
+    onSetFilters() {
+        const categories = [...this.filters.get("cuisines")];
+        
+        const kosher = this.filters.get("kosher");
+        if (kosher != null && kosher === true) categories.push("kosher");
+
+        const vegan = this.filters.get("vegan");
+        if (vegan != null && vegan === true) categories.push("vegan");
+
+        const vegetarian = this.filters.get("vegetarian");
+        if (vegetarian != null && vegetarian === true) categories.push("vegetarian");
+
+        console.log("prices");
+        console.log(categories);
+
+        console.log("filters");
+        console.log(this.filters);
+
+        this.socket.emit("set_filters", {room: this.state.roomId, price: this.filters.get("prices"), categories: categories, 
+                ratings: this.filters.get("ratings"), });
+        
+        var message = "";
+        if (this.state.location !== "" && this.state.location !== "Not Set") {
+            message = "Waiting to receive data from server...";
+        } else {
+            message = "Please set your location.";
+        }
+        this.setState({page: "host", message: message, canStartSwipingEvent: false});
+    }
+
     render() {
         const page = this.state.page;
         //console.log("message:" + this.state.message);
@@ -147,6 +185,7 @@ class Group extends Component {
                         isHost={this.state.isHost} roomId={this.state.roomId} location={this.state.location}
                         numMembers={this.state.numMembers} status={this.state.message} 
                         canStartSwipingEvent={this.state.isHost && this.state.canStartSwipingEvent}
+                        openSetFilters={() => this.setState({page: "set_filters"})}
                 />
             }
 
@@ -201,10 +240,20 @@ class Group extends Component {
                 </div>
             }
 
+            { page === "set_filters" &&
+                <SetFilters onBack={() => this.setState({page: "host"})} 
+                            filters={this.filters} onSubmit={() => this.onSetFilters()}
+                />
+
+            }
+
             </div>
         )
     }
 
+    componentWillUnmount() {
+        this.socket.disconnect();
+    }
 
     //socket.io functions
 
@@ -369,6 +418,28 @@ class Group extends Component {
             numMembers: 1,
             canStartSwipingEvent: false,
             currentRestaurantIndex: 0,
+        }
+    }
+
+    filterRestaurants() {
+        const prices = this.filters.get("prices");
+        if (prices.length > 0) {
+            for (let i=0; i<this.restaurants.length; i++) {
+                const restaurant = this.restaurants[i];
+                var fits = false;
+                for (let j=0; j<prices.length; j++) {
+                    const desiredRating = prices[j];
+                    if (restaurant.rating >= desiredRating && restaurant <= desiredRating + 1) {
+                        fits = true;
+                        break;
+                    }
+                }
+
+                if (fits === false) {
+                    this.restaurants.splice(i, 1);
+                    i--;
+                }
+            }
         }
     }
 }

@@ -2,6 +2,11 @@
 .vscode/*
 .idea/*
 .gradle/*
-/code/frontend/.eslintcache
+/code/backend/.gradle/*
+/code/backend/sparkjava/.gradle/*
+/code/backend/sparkjava/build/*
+/code/backend/.idea/*
+/code/backend/sparkjava/.idea/*
 node_modules/*
 code/frontend/node_modules/*
+/code/frontend/.eslintcache

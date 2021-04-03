@@ -23,6 +23,14 @@ class Card extends Component {
     document.addEventListener("keyup", this.onKeyPressed.bind(this));
   }
 
+  checkArrayElements(array) {
+    for (let i=0; i<array.length; i++) {
+      if (array[0]=== undefined || array[0] == null) {
+        array[0] = "";
+      }
+    }
+  }
+
   render() {
     const { restaurant } = this.props;
     const restaurantLocation = (restaurant.location["address1"] == undefined) ? "" : restaurant.location["address1"];
@@ -30,8 +38,10 @@ class Card extends Component {
     const rating = restaurant.rating;
     const reviewCount = restaurant.review_count;
     const webUrl = restaurant.url;
-    const photos = restaurant.photos;
-    const reviews = restaurant.reviews;
+    const photos = (restaurant.photos === undefined) ? ["", "", ""] : restaurant.photos;
+
+    this.checkArrayElements(photos);
+    var reviews = restaurant.reviews;
     if (reviews == undefined) {
       reviews = [];
       for (let i = 0; i < 3; i++) {
