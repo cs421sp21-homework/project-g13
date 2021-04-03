@@ -50,16 +50,10 @@ const styles = theme => ({
 class Host extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      page: "main",
-    }
   }
 
   render() {
-    const page = this.state.page;
     return (
-      <div>
-        { page === "main" &&
           <div className="App">
             <header className="App-header">
               <div>
@@ -79,7 +73,7 @@ class Host extends Component {
                 <br/>
                 <Button
                     className={this.props.classes.button}
-                    onClick={() => this.setState({page: "filters"})}
+                    onClick={this.props.openSetFilters}
                     hidden={!this.props.isHost}
                     variant="contained"
                     size='large'
@@ -106,12 +100,6 @@ class Host extends Component {
               </div>
             </header>
           </div>
-        }
-
-        { page === "filters" &&
-          <SetFilters onBack={() => this.setState({page: "main"})} />
-        }
-    </div>
     );
   }
 }

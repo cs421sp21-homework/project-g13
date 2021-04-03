@@ -19,6 +19,17 @@ async function getRestaurants(location, radius) {
     }
 }
 
+async function getRestaurantsFilters(location, radius, price, categories) {
+    try {
+        const response = await axios.get(
+            `${BACKEND_URL}/yelpsearch_personal?query=${location}&radius=${radius}&price=${price}&categories=${categories}`
+        );
+        return response.data;
+    } catch(err) {
+        return ["err"];
+    }
+}
+
 async function postGroup() {
     const response = await axios.post(`${BACKEND_URL}/api/groups`);
     return response.data;
