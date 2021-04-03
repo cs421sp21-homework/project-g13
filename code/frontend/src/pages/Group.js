@@ -8,6 +8,7 @@ import SetLocation from "../components/SetLocation.js"
 import MatchFound from "../components/MatchFound.js"
 import Card from "../components/card.js"
 import NotFound from "./NotFound.js"
+import Recommend from "./Recommend.js"
 import io from "socket.io-client";
 
 //Contains join page, host page
@@ -29,6 +30,7 @@ class Group extends Component {
             numMembers: 1,
             canStartSwipingEvent: false,
             currentRestaurantIndex: 0,
+            recommendation: "No recommendation found",
         }
         this.onJoinRoom = this.onJoinRoom.bind(this);
         this.onSetLocation = this.onSetLocation.bind(this);
@@ -64,7 +66,7 @@ class Group extends Component {
 
         this.socket.on("match_found", (data) => this.onReceiveMatchFound(data));
 
-        this.socket.on("finished", () => this.onReceiveFinished());
+        this.socket.on("finished", (data) => this.onReceiveFinished(data));
     }
 
     onJoinRoom(room) {
@@ -169,7 +171,10 @@ class Group extends Component {
             }
 
             { page === "no_match_found" &&
-                <NotFound onTryAgain={() => this.onTryAgain()} />
+                <NotFound
+                    onTryAgain={() => this.onTryAgain()}
+                    rec = {this.state.recommendation}
+                />
             }
 
             { page === "waiting" && 
@@ -274,9 +279,9 @@ class Group extends Component {
           }
     }
 
-    onReceiveFinished() {
+    onReceiveFinished(data) {
         //go to no match found page
-        this.setState({page: "no_match_found"});
+        this.setState({recommendation: data, page: "no_match_found"});
     }
 
     onReceiveMessage(data) {

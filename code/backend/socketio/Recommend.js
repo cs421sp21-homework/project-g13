@@ -124,8 +124,10 @@ function recommendRestaurant(users, yesVotes, noVotes, restaurants) {
   console.log(idMap);
   let idSorted = Object.keys(idMap).sort((a, b) => idMap[b] - idMap[a]);
   let recommendedRest = idSorted.slice(0, 1);
-
-  return recommendedRest;
+  console.log(recommendedRest);
+  let iter = restaurants.values();
+  console.log(iter.next());
+  return iter.next();
 }
 
 //userVotes: Map restaurant id -> boolean
