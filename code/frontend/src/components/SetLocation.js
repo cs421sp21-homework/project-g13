@@ -12,11 +12,11 @@ const styles = theme => ({
   button: {
     color: '#522402',
     backgroundColor: '#eca237',
-    borderColor: '#eca237',
     boxShadow: 'none',
-    padding: '6px 12px',
-    border: '1px solid',
-    width: 112,
+    margin: theme.spacing(2),
+    width: 128,
+    height:48,
+    fontSize: 20,
     '&:hover': {
       backgroundColor: '#f9b042',
       borderColor: '#f9b042',

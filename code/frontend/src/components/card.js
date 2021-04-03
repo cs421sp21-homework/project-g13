@@ -7,7 +7,13 @@ import "../App.css";
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import NotInterestedIcon from '@material-ui/icons/NotInterested'
+import { withStyles } from "@material-ui/core/styles";
 
+const styles = theme => ({
+  button: {
+    margin: theme.spacing(2),
+  },
+});
 
 class Card extends Component {
   onKeyPressed(event) {
@@ -32,6 +38,7 @@ class Card extends Component {
     const webUrl = restaurant.url;
     const photos = restaurant.photos;
     const reviews = restaurant.reviews;
+    const {classes} = this.props;
     if (reviews == undefined) {
       reviews = [];
       for (let i = 0; i < 3; i++) {
@@ -65,7 +72,7 @@ class Card extends Component {
             <a href={webUrl}>Website</a>
           </NewCard.Subtitle>
           <div className="like-dislike-container">
-            <IconButton
+            <IconButton className={classes.button}
               onClick={this.props.onLike}
             >
               <FavoriteBorder
@@ -73,7 +80,7 @@ class Card extends Component {
                 color: "#fc4c4e"}}
               />
             </IconButton>
-            <IconButton
+            <IconButton className={classes.button}
               onClick={this.props.onDislike}
             >
               <NotInterestedIcon
@@ -87,7 +94,7 @@ class Card extends Component {
   }
 }
 
-export default Card;
+export default withStyles(styles)(Card);
 
 Card.propTypes = {
   restaurant: PropTypes.shape({
@@ -115,4 +122,5 @@ Card.propTypes = {
   }).isRequired,
   onDislike: PropTypes.func.isRequired,
   onLike: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 };

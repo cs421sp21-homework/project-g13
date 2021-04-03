@@ -7,6 +7,31 @@ import Login from "./Login";
 import Group from './Group'
 import Individual from "./Individual";
 import SetFilters from "./SetFilters.js"
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+
+const styles = theme => ({
+    button: {
+        color: '#5a2c22',
+        backgroundColor: '#d44f22',
+        borderColor: '#d44f22',
+        boxShadow: 'none',
+        margin: theme.spacing(2),
+        width: 256,
+        height: 64,
+        fontSize: 24,
+        '&:hover': {
+            backgroundColor: '#f9b042',
+            borderColor: '#f9b042',
+            boxShadow: 'none',
+        },
+        '&:active': {
+            boxShadow: 'none',
+            backgroundColor: '#f9b042',
+            borderColor: '#f9b042',
+        },
+    },
+});
 
 class Home extends Component {
     constructor(props) {
@@ -29,29 +54,41 @@ class Home extends Component {
                     <div className='App'>
                         <header className='App-header'>
                             <form>
-                                <input
-                                    type="button"
-                                    value="Sign up/Login"
+                                <Button
+                                    className={this.props.classes.button}
                                     onClick={() => this.nextPath('/Signup')}
-                                />
+                                    variant="contained"
+                                    size='large'
+                                >
+                                    Login/Sign up
+                                </Button>
                                 <br/>
-                                <input
-                                    type="button"
-                                    value="Start"
+                                <Button
+                                    className={this.props.classes.button}
                                     onClick={() => this.nextPath('/Individual')}
-                                />
+                                    variant="contained"
+                                    size='large'
+                                >
+                                    Start
+                                </Button>
                                 <br/>
-                                <input
-                                    type="button"
-                                    value="Join a Group"
+                                <Button
+                                    className={this.props.classes.button}
                                     onClick={() => this.nextPath('/Join')}
-                                />
+                                    variant="contained"
+                                    size='large'
+                                >
+                                    Join a Group
+                                </Button>
                                 <br/>
-                                <input
-                                    type="button"
-                                    value="Host a Group"
+                                <Button
+                                    className={this.props.classes.button}
                                     onClick={() => this.nextPath('/Host')}
-                                />
+                                    variant="contained"
+                                    size='large'
+                                >
+                                    Host a Group
+                                </Button>
                             </form>
                         </header>
                     </div>
@@ -79,4 +116,4 @@ class Home extends Component {
     }
 }
 
-export default withRouter(Home)
+export default withRouter((withStyles(styles)(Home)))

@@ -1,8 +1,54 @@
 import "../App.css";
 import React, { Component } from "react";
 import SetFilters from "../pages/SetFilters.js"
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
-export default class Host extends Component {
+const styles = theme => ({
+  button: {
+    color: '#5a2c22',
+    backgroundColor: '#eca237',
+    borderColor: '#eca237',
+    boxShadow: 'none',
+    margin: theme.spacing(1),
+    width: 256,
+    height: 72,
+    fontSize: 20,
+    '&:hover': {
+      backgroundColor: '#f9b042',
+      borderColor: '#f9b042',
+      boxShadow: 'none',
+    },
+    '&:active': {
+      boxShadow: 'none',
+      backgroundColor: '#f9b042',
+      borderColor: '#f9b042',
+    },
+  },
+  start: {
+    color: '#f1d043',
+    backgroundColor: '#d44f22',
+    borderColor: '#d44f22',
+    boxShadow: 'none',
+    margin: theme.spacing(1),
+    width: 256,
+    height: 72,
+    fontSize: 28,
+    '&:hover': {
+      color: '#f1d043',
+      backgroundColor: '#ec5f1a',
+      borderColor: '#ec5f1a',
+      boxShadow: 'none',
+    },
+    '&:active': {
+      boxShadow: 'none',
+      backgroundColor: '#ec5f1a',
+      borderColor: '#ec5f1a',
+    },
+  },
+});
+
+class Host extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,27 +68,36 @@ export default class Host extends Component {
                 <p> TODO: dynamically show group members as they join </p>
               </div>
               <form>
-                <input
-                  type="button"
-                  value="Set Group Location"
-                  onClick={this.props.setLocation}
-                  hidden={!this.props.isHost}
-                />
+                <Button
+                    className={this.props.classes.button}
+                    onClick={this.props.setLocation}
+                    hidden={!this.props.isHost}
+                    variant="contained"
+                    size='large'
+                >
+                  Set Group Location
+                </Button>
+                <br/>
+                <Button
+                    className={this.props.classes.button}
+                    onClick={() => this.setState({page: "filters"})}
+                    hidden={!this.props.isHost}
+                    variant="contained"
+                    size='large'
+                >
+                  Set Filters
+                </Button>
                 <br />
-                <input
-                  type="button"
-                  value="Set Filters"
-                  onClick={() => this.setState({page: "filters"})}
-                  hidden={!this.props.isHost}
-                />
-                <br />
-                <input
-                  type="button"
-                  value="Start"
-                  onClick={this.props.startSwipingEvent}
-                  disabled={!this.props.canStartSwipingEvent}
-                  hidden={!this.props.isHost}
-                />
+                <Button
+                    className={this.props.classes.start}
+                    onClick={this.props.startSwipingEvent}
+                    disabled={!this.props.canStartSwipingEvent}
+                    hidden={!this.props.isHost}
+                    variant="contained"
+                    size='large'
+                >
+                  Start!
+                </Button>
               </form>
               <div>
                 <h2> Group ID: {this.props.roomId}</h2>
@@ -61,3 +116,5 @@ export default class Host extends Component {
     );
   }
 }
+
+export default withStyles(styles)(Host)
