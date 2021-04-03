@@ -109,7 +109,7 @@ public class Server {
 
             List<Restaurant> resp = YelpService.getRestaurantsByFiltersWithDetail(query, limit, radius, price, categories);
             if (resp == null) res.status(404);
-            return gson.toJson(resp.getBusinesses());
+            return gson.toJson(resp);
         });
 
         get("/api/users", (req, res) -> {
