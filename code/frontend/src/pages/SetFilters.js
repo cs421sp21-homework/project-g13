@@ -3,9 +3,51 @@ import 'semantic-ui-css/semantic.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from "react";
 import { Dropdown } from 'semantic-ui-react'
-import Button from 'react-bootstrap/Button';
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
-export default class SetFilters extends Component {
+const styles = theme => ({
+    submit: {
+        color: '#522402',
+        backgroundColor: '#eca237',
+        boxShadow: 'none',
+        margin: theme.spacing(2),
+        width: 128,
+        height:48,
+        fontSize: 20,
+        '&:hover': {
+            backgroundColor: '#f9b042',
+            borderColor: '#f9b042',
+            boxShadow: 'none',
+        },
+        '&:active': {
+            boxShadow: 'none',
+            backgroundColor: '#f9b042',
+            borderColor: '#f9b042',
+        },
+    },
+    back: {
+        color: '#522402',
+        backgroundColor: '#f1d043',
+        boxShadow: 'none',
+        margin: theme.spacing(2),
+        width: 128,
+        height:48,
+        fontSize: 20,
+        '&:hover': {
+            backgroundColor: '#ffe03b',
+            borderColor: '#ffe03b',
+            boxShadow: 'none',
+        },
+        '&:active': {
+            boxShadow: 'none',
+            backgroundColor: '#ffe03b',
+            borderColor: '#ffe03b',
+        },
+    },
+});
+
+class SetFilters extends Component {
     constructor(props) {
         super(props);
         this.cuisineOptions = [
@@ -36,7 +78,7 @@ export default class SetFilters extends Component {
         return (
             <div className="app-background-color">
                 <div className="filter-content">
-                    <h1 className="filter-header">Let's narrow down your search!</h1>
+                    <h1 className="filter-header">Let's narrow down your search:</h1>
 
                     <h2 className="float-left filter-subheader">Cuisine</h2>
                     <div className="clearfix"></div>
@@ -72,18 +114,26 @@ export default class SetFilters extends Component {
 
                     <div className="clearfix"></div>
                     <br/>
-                    
-
-                    <div className="filter-submit-container">
-                        <Button variant="primary" className="filter-submit" onClick={this.props.onSubmit}>Submit</Button>{' '}
-                    </div>
-
-                    <div className="filter-submit-container">
-                        <Button variant="secondary filter-submit" onClick={this.props.onBack}>Back</Button>{' '}
-                    </div>
-
+                    <Button
+                        className={this.props.classes.submit}
+                        onClick={this.props.onSubmit}
+                        variant="contained"
+                        size='large'
+                    >
+                        Submit
+                    </Button>
+                    <Button
+                        className={this.props.classes.back}
+                        onClick={this.props.onBack}
+                        variant="contained"
+                        size='large'
+                    >
+                        Back
+                    </Button>
                 </div>
             </div>
         );
     }
 }
+
+export default withStyles(styles)(SetFilters)

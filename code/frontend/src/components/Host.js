@@ -35,7 +35,6 @@ const styles = theme => ({
     height: 72,
     fontSize: 28,
     '&:hover': {
-      color: '#f1d043',
       backgroundColor: '#ec5f1a',
       borderColor: '#ec5f1a',
       boxShadow: 'none',

@@ -1,22 +1,23 @@
 html, body, .signup {
     height: 100vh;
     width: 100vw;
-    background-color: #282c34;
+    background-color: #fdefb2;
 }
 .container{
     font-size: 28px;
-    color: white;
+    color: #d44f22;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #282c34;
+    padding-top: 8vmin;
+    background-color: #fdefb2;
 }
 
 .loginSignupForm{
     box-sizing: border-box;
     width: 100%;
-    max-width: 400px;
+    max-width: 600px;
     padding-left: 20px;
     padding-right: 20px;
 }

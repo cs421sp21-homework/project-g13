@@ -19,7 +19,7 @@ const styles = theme => ({
         margin: theme.spacing(2),
         width: 256,
         height: 64,
-        fontSize: 24,
+        fontSize: 22,
         '&:hover': {
             backgroundColor: '#f9b042',
             borderColor: '#f9b042',
@@ -60,7 +60,7 @@ class Home extends Component {
                                     variant="contained"
                                     size='large'
                                 >
-                                    Login/Sign up
+                                    Sign up/Login
                                 </Button>
                                 <br/>
                                 <Button

@@ -149,31 +149,34 @@ input[type="button"]:disabled {
 .filter-content {
   font-size: calc(10px + 2vmin);
   text-align: center;
-  color: white;
+  color: #d44f22;
+  font-family: monospace;
   width: 80%;
   min-height: 100vh;
   margin: auto;
 }
 
 .filter-header {
-  padding-top: 2vmin;
-  font-size: 7vmin;
-  font-weight: bold;
+  color: #d44f22;
+  font-family: monospace;
+  padding-top: 10vmin;
+  font-size: 5vmin;
   margin: 0;
 }
 
 .filter-subheader {
-  font-size: 5vmin;
+  font-size: 3vmin;
   margin: 2vmin 0 0.8vmin 0;
 }
 
 .filter-dietary-restrictions {
-  font-size: 5vmin;
+  font-size: 3vmin;
   margin: 2vmin 0 0vmin 0;
 }
 
 .filter-checkbox {
-  margin: 0 2vw 0 0.8vw;
+  font-size: 2.5vmin;
+  margin: 0 3vw 0 0.8vw;
 }
 
 .filter-submit {
@@ -201,5 +204,5 @@ input[type="button"]:disabled {
 }
 
 .app-background-color {
-  background-color: #282c34;
+  background-color: #fdefb2;
 }
