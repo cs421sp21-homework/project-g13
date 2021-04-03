@@ -3,6 +3,7 @@ package dao;
 import model.Group;
 import model.User;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -85,8 +86,16 @@ public class Sql2oUserDao implements UserDao {
                              .addColumnMapping("ARRAY_TO_STRING", "preferences")
                              .executeAndFetchFirst(User.class);  // executing SQL + using the object mapper to fill the fields
 
-            String[] userPrefs = currUser.getPreferences().split(",");
-            currUser.setPreferencesList(Arrays.asList(userPrefs));
+            if (!(currUser.getPreferences().equals(""))) { // would only be "" (no space like in constructor) if all preferences were removed
+                String[] userPrefs = currUser.getPreferences().split(",");
+                currUser.setPreferencesList(Arrays.asList(userPrefs));
+            } else {
+                // null lists are very bad elsewhere :-(
+                ArrayList<String> temp = new ArrayList<>();
+                temp.add("none");
+                currUser.setPreferencesList(temp);
+                this.addNonePreference(currUser.getUser_ID(), "none");
+            }
 
             return currUser;
 
@@ -156,6 +165,21 @@ public class Sql2oUserDao implements UserDao {
     }
 
     @Override
+    public void addNonePreference(int userID, String pref) throws DaoException {
+
+        String sql = "UPDATE user_info SET preferences = " +
+                "ARRAY_APPEND(preferences, CAST(:pref AS VARCHAR))" +
+                " WHERE user_id = :user_id;";
+        Connection conn = sql2o.open();                  // opening connection to database
+            //String userID =
+            conn.createQuery(sql)                            // making proper SQL statement for execution
+                    .addParameter("pref", pref)        // allowing for varying group ID
+                    .addParameter("user_id", userID)   // allowing for varying user ID
+                    .executeUpdate();                        // executing SQL
+
+    }
+
+    @Override
     public List<String> addPreference(User user, String pref) throws DaoException {
 
         String sql = "UPDATE user_info SET preferences = " +
@@ -168,9 +192,19 @@ public class Sql2oUserDao implements UserDao {
                     .addParameter("user_id", user.getUser_ID())    // allowing for varying user ID
                     .executeUpdate();                                    // executing SQL
 
-            // propagating database change to POJO
-            user.getPreferencesList().add(pref);
+            // propagating database change to POJO and avoiding UnsupportedOperationException
+            ArrayList<String> temp = new ArrayList<>(user.getPreferencesList());
+            temp.add(pref);
 
+            // removing "none" that was initially used to create array
+            sql = "UPDATE user_info SET preferences" +
+                    " = ARRAY_REMOVE(preferences, CAST('none' AS VARCHAR)) WHERE user_id = :uid;";
+            conn.createQuery(sql)                                   // making proper SQL statement for execution
+                    .addParameter("uid", user.getUser_ID())  // allowing for varying user ID
+                    .executeUpdate();
+            temp.remove("none");
+
+            user.setPreferencesList(temp);
             return user.getPreferencesList();
         } catch (Sql2oException ex) {
             throw new DaoException("Unable to add preference to: " + user.getUserName(), ex);
@@ -190,8 +224,10 @@ public class Sql2oUserDao implements UserDao {
                     .addParameter("pref", pref) // allowing for varying user ID
                     .executeUpdate();                             // executing SQL
 
-            // propagating database change to POJO
-            user.getPreferencesList().remove(pref);
+            // propagating database change to POJO and avoiding UnsupportedOperationException
+            ArrayList<String> temp = new ArrayList<>(user.getPreferencesList());
+            temp.remove(pref);
+            user.setPreferencesList(temp);
 
             return user.getPreferencesList();
         } catch (Sql2oException ex) {

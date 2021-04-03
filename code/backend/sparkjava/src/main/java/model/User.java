@@ -20,8 +20,8 @@ public class User {
         this.loc = null;
         this.userName = null;
         this.pword = null;
-        this.preferences = "";
-        this.preferencesList = null;
+        this.preferences = " ";
+        this.preferencesList = new ArrayList<>();
         this.group_ID = 1;
     }
 
@@ -33,8 +33,8 @@ public class User {
         this.pword = pWord;
         this.loc = location;
         this.group_ID = gid;
-        this.preferences = "";
-        this.preferencesList = null;
+        this.preferences = " ";
+        this.preferencesList = new ArrayList<>();
 
     }
 

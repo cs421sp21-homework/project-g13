@@ -187,4 +187,74 @@ class Sql2oUserDaoTest {
 
     }
 
+    @Test
+    @DisplayName("can add a preference to specific user")
+    void addPreference() {
+        User u1 = userDao.read("msoallb");
+
+        // only adding one at a time
+        userDao.addPreference(u1, "indpak");
+
+        User u2 = userDao.read("msoallb");
+        assertEquals(u2.getPreferencesList().size(), 1);
+        assertEquals(u2.getPreferencesList().get(0), "indpak");
+
+    }
+
+    @Test
+    @DisplayName("can add multiple preferences to specific user")
+    void addPreferences() {
+        User u1 = userDao.read("msoallb");
+
+        // only adding one at a time
+        userDao.addPreference(u1, "indpak");
+
+        User u2 = userDao.read("msoallb");
+
+        // only adding one at a time
+        userDao.addPreference(u1, "vegan");
+
+        User u3 = userDao.read("msoallb");
+
+        assertEquals(u3.getPreferencesList().size(), 2);
+        assertEquals(u3.getPreferencesList().get(0), "indpak");
+        assertEquals(u3.getPreferencesList().get(1), "vegan");
+
+    }
+
+    @Test
+    @DisplayName("can remove a preference from specific user")
+    void removePreference() {
+        User u1 = userDao.read("msoallb");
+
+        // only adding/removing one at a time
+        userDao.addPreference(u1, "indpak");
+        userDao.removePreference(u1, "indpak");
+
+        User u2 = userDao.read("msoallb");
+
+        assertEquals(u2.getPreferencesList().size(), 1);
+        assertEquals(u2.getPreferencesList().get(0), "none");
+
+    }
+
+    @Test
+    @DisplayName("can remove multiple preferences from specific user")
+    void removePreferences() {
+        User u1 = userDao.read("msoallb");
+
+        // only adding/removing one at a time
+        userDao.addPreference(u1, "indpak");
+        userDao.addPreference(u1, "kosher");
+
+        userDao.removePreference(u1, "indpak");
+        userDao.removePreference(u1, "kosher");
+
+        User u2 = userDao.read("msoallb");
+
+        assertEquals(u2.getPreferencesList().size(), 1);
+        assertEquals(u2.getPreferencesList().get(0), "none");
+
+    }
+
 }

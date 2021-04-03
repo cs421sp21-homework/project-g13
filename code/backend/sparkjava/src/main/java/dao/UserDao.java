@@ -95,6 +95,17 @@ public interface UserDao {
     List<String> addPreference(User user, String pref) throws DaoException;
 
     /**
+     * Helper function for recreating "empty" array with "none" if all preferences
+     * are removed via removePreference()
+     *
+     * @param userID User ID of user to have preferences modified
+     * @param pref The preference to be added ("none" is this case).
+     * @return The user's updated preferences.
+     * @throws DaoException A generic exception for CRUD operations.
+     */
+    void addNonePreference(int userID, String pref) throws DaoException;
+
+    /**
      * Remove a user's long-term preference.
      *
      * @param user The user with the group name to be changed.
