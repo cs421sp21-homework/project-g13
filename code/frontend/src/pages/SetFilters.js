@@ -5,7 +5,6 @@ import React, { Component } from "react";
 import { Dropdown } from 'semantic-ui-react'
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import { textChangeRangeIsUnchanged } from "typescript";
 
 const styles = theme => ({
     submit: {
