@@ -2,18 +2,15 @@ import "../App.css"
 import React, { Component } from "react";
 import { Switch, Route } from "react-router";
 import { withRouter } from "react-router-dom";
-import Location from './Location'
 import Signup from "./Signup";
-import Navbar from "../components/Navbar/Navbar.js"
+import Login from "./Login";
 import Group from './Group'
 import Individual from "./Individual";
-
-
+import SetFilters from "./SetFilters.js"
 
 class Home extends Component {
     constructor(props) {
         super(props);
-        sessionStorage.clear();
     }
 
     nextPath(path) {
@@ -21,13 +18,23 @@ class Home extends Component {
     }
 
     render() {
+        if (this.props.location.pathname !== "/Join" && this.props.location.pathname !== "/Host") {
+            sessionStorage.clear();
+            console.log("cleared");
+        }
+
         return(
             <Switch>
                 <Route exact path="/">
-                    <Navbar/>
                     <div className='App'>
                         <header className='App-header'>
                             <form>
+                                <input
+                                    type="button"
+                                    value="Sign up/Login"
+                                    onClick={() => this.nextPath('/Signup')}
+                                />
+                                <br/>
                                 <input
                                     type="button"
                                     value="Start"
@@ -49,20 +56,23 @@ class Home extends Component {
                         </header>
                     </div>
                 </Route>
-                <Route path="/Location/:returnTo?">
-                    <Location/>
-                </Route>
                 <Route path="/Join">
                     <Group isHost={false} />
                 </Route>
-                <Route path="/Host/:groupLocation?">
+                <Route path="/Host">
                     <Group isHost={true} />
                 </Route>
-                <Route path="/Login">
+                <Route path="/Signup">
                     <Signup/>
+                </Route>
+                <Route path="/Login">
+                    <Login/>
                 </Route>
                 <Route path="/Individual">
                     <Individual />
+                </Route>
+                <Route path="/Filter">
+                    <SetFilters />
                 </Route>
             </Switch>
         )
