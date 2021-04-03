@@ -57,10 +57,10 @@ class Room {
         this.radius = 20000;
 
         //the host's preferences
-        this.filters = [];
+        this.categories = "";
 
         //the host's preferred price ($ -> 1 for API)
-        this.price = [];
+        this.price = "";
 
         //host's prefered ratings 
         this.ratings = [];
@@ -110,7 +110,7 @@ class Room {
         }
     }
 
-    setFilters(price, categories) {
+    setFilters(price, categories, ratings) {
         console.log("price");
         console.log(price);
         console.log("categories");
@@ -152,6 +152,10 @@ class Room {
         
         console.log("Categories");
         console.log(this.categories);
+
+        if (ratings != undefined) {
+            this.ratings = ratings;
+        }
 
         this.restaurants = [];
         this.received = 0;
@@ -238,7 +242,7 @@ class Room {
             }
 
             console.log(this);
-            if (this.price.length !== 0 && this.categories.length !== 0) {
+            if (this.price.length !== 0 || this.categories.length !== 0 || this.ratings.length !== 0) {
                 response = await this.retreiveRestaurantsWithFilters(cancelToken);
             } else {
                 response = await this.retreiveRestaurantsNoFilters(cancelToken);
@@ -268,10 +272,10 @@ class Room {
         if (this.restaurants.length < this.limit && this.location !== undefined && this.location !== "") {
             //console.log("here");
             //console.log(this.radius);
-            if (this.price.length !== 0 && this.categories.length !== 0) {
-                return await getRestaurantsFilters(this.location, this.radius, this.price, this.categories, cancelTokenSource);
-                //console.log(response);
-            }
+            var response = await getRestaurantsFilters(this.location, this.radius, this.price, this.categories, cancelTokenSource);
+                console.log(response);
+                this.filterRestaurants(response);
+                return response;
             
         }
         return [];
@@ -317,21 +321,23 @@ class Room {
         return false;
     }
 
-    filterRestaurants() {
+    filterRestaurants(restaurants) {
         if (this.ratings.length > 0) {
-            for (let i=0; i<this.restaurants.length; i++) {
-                const restaurant = this.restaurants[i];
+            for (let i=0; i<restaurants.length; i++) {
+                const restaurant = restaurants[i];
                 var fits = false;
                 for (let j=0; j<this.ratings.length; j++) {
                     const desiredRating = this.ratings[j];
-                    if (restaurant.rating >= desiredRating && restaurant <= desiredRating + 1) {
+                    console.log("desired rating: " + desiredRating);
+                    if (restaurant.rating >= desiredRating && restaurant.rating < desiredRating + 1) {
+                        console.log("index: " + i); 
                         fits = true;
                         break;
                     }
                 }
 
                 if (fits === false) {
-                    this.restaurants.splice(i, 1);
+                    restaurants.splice(i, 1);
                     i--;
                 }
             }

@@ -11,7 +11,7 @@ export default class SetFilters extends Component {
         super(props);
         this.cuisineOptions = [
             { key: 'tradamerican', text: 'American (traditional)', value: 'tradamerican' },
-            { key: 'newamerican', text: 'American (traditional)', value: 'newamerican' },
+            { key: 'newamerican', text: 'American (new)', value: 'newamerican' },
             { key: 'mexican', text: 'Mexican', value: 'mexican' },
             { key: 'Chinese', text: 'Chinese', value: 'Chinese' },
             { key: 'Greek', text: 'Greek', value: 'Greek' },
@@ -49,7 +49,6 @@ export default class SetFilters extends Component {
                 kosher: (kosher == null) ? false : kosher,
                 vegan: (vegan == null) ? false : vegan,
                 vegetarian: (vegetarian == null) ? false : vegetarian,
-                lactose: (lactose == null) ? false : lactose,
             }
         } else {
             this.state = {
@@ -59,7 +58,6 @@ export default class SetFilters extends Component {
                 kosher: true,
                 vegan: false,
                 vegetarian: false,
-                lactose: false,
             }
         }
 
@@ -75,7 +73,7 @@ export default class SetFilters extends Component {
         this.props.filters.set("kosher", this.state.kosher);
         this.props.filters.set("vegan", this.state.vegan);
         this.props.filters.set("vegetarian", this.state.vegetarian);
-        this.props.filters.set("lactose", this.state.lactose);
+        //this.props.filters.set("lactose", this.state.lactose);
 
         this.props.onSubmit();
     }
@@ -133,9 +131,6 @@ export default class SetFilters extends Component {
                         <span>
                         <input type="checkbox" name="kosher" checked={this.state.kosher} onChange={this.checkboxChangeHander}/>
                         <label for="kosher" className="filter-checkbox">Kosher</label>
-
-                        <input type="checkbox" name="lactose" value={this.state.lactose} checked={this.state.lactose} onChange={this.checkboxChangeHander}/>
-                        <label for="lactose" className="filter-checkbox">Lactose Intolerant</label>
 
                         <input type="checkbox" name="vegetarian" value={this.state.vegetarian} checked={this.state.vegetarian} onChange={this.checkboxChangeHander}/>
                         <label for="vegetarian" className="filter-checkbox">Vegetarian</label>

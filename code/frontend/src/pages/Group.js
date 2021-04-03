@@ -47,6 +47,7 @@ class Group extends Component {
         this.restaurants = [];
         this.filters = new Map();
         this.filters.set("prices", []);
+        this.filters.set("ratings", []);
         this.filters.set("cuisines", []);
         this.filters.set("categories", []);
         this.isFinished = false;
@@ -152,19 +153,17 @@ class Group extends Component {
         const vegetarian = this.filters.get("vegetarian");
         if (vegetarian != null && vegetarian === true) categories.push("vegetarian");
 
-        const lactose = this.filters.get("lactose");
-        if (lactose != null && lactose === true) categories.push("lactose intolerant");
-
         console.log("prices");
         console.log(categories);
 
         console.log("filters");
         console.log(this.filters);
 
-        this.socket.emit("set_filters", {room: this.state.roomId, price: this.filters.get("prices"), categories: categories});
+        this.socket.emit("set_filters", {room: this.state.roomId, price: this.filters.get("prices"), categories: categories, 
+                ratings: this.filters.get("ratings"), });
         
         var message = "";
-        if (location !== "") {
+        if (this.state.location !== "" && this.state.location !== "Not Set") {
             message = "Waiting to receive data from server...";
         } else {
             message = "Please set your location.";
