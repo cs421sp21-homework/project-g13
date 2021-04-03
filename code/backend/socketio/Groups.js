@@ -39,8 +39,9 @@ Room.emitRestaurantsFunc = function (room, data) {
 };
 
 Room.emitFinishedFunc = function (room) {
-  console.log("Recommendation: " + roomsMap.get(room).getRec());
-  io.to(room).emit("finished");
+  let rec = roomsMap.get(room).getRec();
+  console.log("Recommendation: " + rec);
+  io.to(room).emit("finished", rec);
   console.log("sent finished signal to room " + room);
 };
 
