@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Switch, Route } from "react-router";
 import { withRouter } from "react-router-dom";
 import Signup from "./Signup";
+import Login from "./Login";
 import Group from './Group'
 import Individual from "./Individual";
 import SetFilters from "./SetFilters.js"
@@ -31,7 +32,7 @@ class Home extends Component {
                                 <input
                                     type="button"
                                     value="Sign up/Login"
-                                    onClick={() => this.nextPath('/Login')}
+                                    onClick={() => this.nextPath('/Signup')}
                                 />
                                 <br/>
                                 <input
@@ -61,8 +62,11 @@ class Home extends Component {
                 <Route path="/Host">
                     <Group isHost={true} />
                 </Route>
-                <Route path="/Login">
+                <Route path="/Signup">
                     <Signup/>
+                </Route>
+                <Route path="/Login">
+                    <Login/>
                 </Route>
                 <Route path="/Individual">
                     <Individual />

@@ -2,10 +2,10 @@ import "../App.css";
 import React from 'react';
 import { observer } from 'mobx-react';
 import UserStore from "../stores/UserStore";
-import SignupForm from "../components/LoginSignup/SignupForm";
+import LoginForm from "../components/LoginSignup/LoginForm";
 import '../components/LoginSignup/LoginSignup.css';
 
-class Signup extends React.Component {
+class Login extends React.Component {
 
     async componentDidMount() {
 
@@ -92,11 +92,11 @@ class Signup extends React.Component {
         return (
             <div className="signup">
                 <div className="container">
-                    <SignupForm />
+                    <LoginForm />
                 </div>
             </div>
         );
     }
 }
 
-export default new observer(Signup);
+export default new observer(Login);
