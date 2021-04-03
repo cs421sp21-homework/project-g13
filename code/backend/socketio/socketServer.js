@@ -83,6 +83,7 @@ io.on("connection", function (socket) {
   //set room's filters
   socket.on("set_filters", (data) => {
     const { room, price, categories } = data;
+    console.log("price");
     console.log(socket.id + " sent filters for room " + room);
     if (roomsMap.has(room)) {
       roomsMap.get(room).setFilters(price, categories);

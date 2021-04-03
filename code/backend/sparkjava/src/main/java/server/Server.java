@@ -104,14 +104,14 @@ public class Server {
             catch(Exception e) { limit = 20; }                    // default to getting 20 restaurants from Yelp
             try { radius = Integer.parseInt(req.queryParams("radius")); }
             catch(Exception e) { radius = 40000; }                // radius in meters thus 40 km
-            try { radius = req.queryParams("price"); }
+            try { price = req.queryParams("price"); }
             catch(Exception e) { price = "$, $$"; }               // default to lower priced restaurants
-            try { radius = req.queryParams("categories"); }       // Order matters!
+            try { categories = req.queryParams("categories"); }       // Order matters!
             catch(Exception e) { categories = "burgers, pizza"; } // default to burgers and pizza
 
-            List<Restaurant> resp = YelpService.getRestaurantByLocationWithDetail(query, limit, radius, price, categories);
+            model.yelp.RestaurantSearchResponse resp = YelpService.getRestaurantsWithUserInfo(query, limit, radius, price, categories);
             if (resp == null) res.status(404);
-            return gson.toJson(resp);
+            return gson.toJson(resp.getBusinesses());
         });
 
         get("/api/users", (req, res) -> {
