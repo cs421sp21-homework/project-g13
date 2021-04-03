@@ -13,13 +13,19 @@ function recommendRestaurant(users, yesVotes, noVotes, restaurants) {
   let catMap = new Map();
   let ratMap = new Map();
   let priceMap = new Map();
-  Object.keys(restaurants).map(function (key, index) {
+  //console.log("restaurants below");
+  //console.log(restaurants);
+  //Object.keys(restaurants).map(function (key, index) {
+  for (let key of restaurants.keys()) {
     let restaurantObj = restaurants.get(key);
     let rId = restaurantObj["id"];
     let rCategories = restaurantObj["categories"];
+    //console.log("categories below");
+    //console.log(rCategories);
     for (let i = 0; i < rCategories.length; i++) {
       rCategories[i] = rCategories[i]["alias"];
     }
+    //console.log(rCategories);
     let rRating = Math.floor(parseInt(restaurantObj["rating"]));
     let rPrice = restaurantObj["price"];
     if (rPrice === undefined) {
@@ -44,10 +50,12 @@ function recommendRestaurant(users, yesVotes, noVotes, restaurants) {
       priceMap[rPrice] = 0;
     }
     priceMap[rPrice] = priceMap[rPrice] + rWeight;
-  });
+  }
+  //});
 
   //Retrive top 3 categories from users
   let catSorted = Object.keys(catMap).sort((a, b) => catMap[b] - catMap[a]);
+
   let categoryProfile = catSorted.slice(0, 3);
 
   // Retrive the best rating
@@ -60,6 +68,11 @@ function recommendRestaurant(users, yesVotes, noVotes, restaurants) {
   );
   let priceProfile = priceSorted.slice(0, 1);
 
+  console.log("profiles below");
+  console.log(catSorted);
+  console.log(ratingProfile);
+  console.log(priceProfile);
+
   // Compute similarity score for each restaurant
 
   let idMap = new Map(); //keep track of similarity score for each restaurant, highest score gets returned!
@@ -67,25 +80,32 @@ function recommendRestaurant(users, yesVotes, noVotes, restaurants) {
   const catPoints = 10; // each similary category = 10 points
   const pricePoints = 5; // similar price range = 5 points
   const ratPoints = 3; // similar rating area = 3 points
-  Object.keys(restaurants).map(function (key, index) {
+  //Object.keys(restaurants).map(function (key, index) {
+  for (let key of restaurants.keys()) {
     if (idMap[key] === undefined) {
       idMap[key] = 0;
     }
 
     let tempRest = restaurants.get(key);
     let tempCategories = restaurants.get(key)["categories"];
-    for (let i = 0; i < rCategories.length; i++) {
-      tempCategories[i] = tempCategories[i]["alias"];
-    }
+
+    //for (let i = 0; i < tempCategories.length; i++) {
+    //  tempCategories[i] = tempCategories[i]["alias"];
+    //}
 
     for (let i = 0; i < categoryProfile.length; i++) {
       for (let j = 0; j < tempCategories.length; j++) {
+        if (categoryProfile[i] === tempCategories[j]) {
+          idMap[key] += catPoints;
+        }
+        /*
         idMap[key] +=
           catPoints *
           stringSimilarity.compareTwoStrings(
             categoryProfile[i],
             tempCategories[j]
           );
+          */
       }
     }
 
@@ -98,7 +118,10 @@ function recommendRestaurant(users, yesVotes, noVotes, restaurants) {
     ) {
       idMap[key] += ratPoints;
     }
-  });
+    //});
+  }
+  console.log("Map of IDs and points");
+  console.log(idMap);
   let idSorted = Object.keys(idMap).sort((a, b) => idMap[b] - idMap[a]);
   let recommendedRest = idSorted.slice(0, 1);
 
