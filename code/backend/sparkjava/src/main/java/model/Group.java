@@ -8,6 +8,7 @@ public class Group {
     private int group_id;
     private String name;
     private List<User> members;
+    private String memberIDs;
 
     /**
      * Construct group with placeholder values
@@ -16,6 +17,7 @@ public class Group {
         this.group_id = 0;
         this.name = null;
         this.members = null;
+        this.memberIDs = "";
     }
 
     /**
@@ -53,7 +55,7 @@ public class Group {
     /**
      * Set the group's members.
      *
-     * @param members The group's memebers.
+     * @param members The group's members.
      */
     public void setMembers(List<User> members) {
         this.members = members;
@@ -65,5 +67,21 @@ public class Group {
      * @return the group's group_id.
      */
     public List<User> getMembers() { return this.members; }
+
+    /**
+     * Set the group members' IDs.
+     *
+     * @param memIDs The members' user IDs.
+     */
+    public void setMemberIDs(String memIDs) {
+        this.memberIDs = memIDs;
+    }
+
+    /**
+     * Get group members' IDs.
+     *
+     * @return the members' user IDs.
+     */
+    public String getMemberIDs() { return this.memberIDs; }
 
 }

@@ -3,7 +3,10 @@
 .idea/*
 .gradle/*
 /code/backend/.gradle/*
-/code/backend/build/*
+/code/backend/sparkjava/.gradle/*
+/code/backend/sparkjava/build/*
+/code/backend/.idea/*
+/code/backend/sparkjava/.idea/*
 node_modules/*
 code/frontend/node_modules/*
 /code/frontend/.eslintcache
