@@ -2,7 +2,12 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import NewCard from "react-bootstrap/Card";
 import Slideshow from "./Slideshow.js";
+import Reviews from "./Reviews";
 import "../App.css";
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import NotInterestedIcon from '@material-ui/icons/NotInterested'
+
 
 class Card extends Component {
   onKeyPressed(event) {
@@ -42,7 +47,8 @@ class Card extends Component {
     return (
       <NewCard style={{ justify: "center" }}>
         <NewCard.Body>
-          <Slideshow photos={photos} reviews={reviews} />
+          <Slideshow photos={photos}/>
+          <Reviews reviews={reviews}/>
           <NewCard.Title style={{ fontSize: "3vh" }}>
             {restaurant.name}
           </NewCard.Title>
@@ -59,18 +65,21 @@ class Card extends Component {
             <a href={webUrl}>Website</a>
           </NewCard.Subtitle>
           <div className="like-dislike-container">
-            <button
-              className="like-dislike-button float-left red"
+            <IconButton
               onClick={this.props.onLike}
             >
-              <i className="fas fa-heart" />
-            </button>
-            <button
-              className="like-dislike-button float-right"
+              <FavoriteBorder
+                style={{fontSize:64,
+                color: "#fc4c4e"}}
+              />
+            </IconButton>
+            <IconButton
               onClick={this.props.onDislike}
             >
-              <i className="fas fa-times" />
-            </button>
+              <NotInterestedIcon
+                  style={{fontSize:64}}
+              />
+            </IconButton>
           </div>
         </NewCard.Body>
       </NewCard>
