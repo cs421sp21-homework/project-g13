@@ -62,13 +62,13 @@ public class YelpService {
      * @param limit of the number of restaurants to get
      * @param radius meters around location to get restaurants from
      * @param price usual money range of dishes as restaurant (EX: "1,2" would be $ or $$)
-     * @param types the kind of restaurant it is (EX: "vegan, indpak" would be Vegan or Indian)
+     * @param categories the kind of restaurant it is (EX: "vegan, indpak" would be Vegan or Indian)
      * @return RestaurantSearchResponse which contains the restaurants and the number of results
      *
      * Example tested in Postman: https://api.yelp.com/v3/businesses/search?location=3400 N. Charles Street, Baltimore, MD, 21218&term=food&limit=10&radius=6000&price=1,2&categories=vegan
      *
      */
-    public static RestaurantSearchResponse getRestaurantsWithUserInfo(String location, int limit, int radius, String price, String types) {
+    public static RestaurantSearchResponse getRestaurantsWithFilters(String location, int limit, int radius, String price, String categories) {
         HttpResponse<JsonNode> response = Unirest.get(BASE_ENDPOINT+"/search")
                 .header(AUTHORIZATION, BEARER + " " + KEY)
                 .queryString("location", location)
@@ -76,11 +76,25 @@ public class YelpService {
                 .queryString("radius", radius)
                 .queryString("term", "food")
                 .queryString("price", price)
-                .queryString("categories", types)
+                .queryString("categories", categories)
                 .asJson();
         Gson gson = new Gson();
         return  gson.fromJson(response.getBody().toString(),
                 RestaurantSearchResponse.class);
+    }
+
+    /**
+     * Get up to a specified number of restaurants with full details in a specified radius of a location
+     * @param location to get restaurants from
+     * @param limit maximum number of restuarants to get
+     * @param radius meters around location to get restaurants from
+     * @param price usual money range of dishes as restaurant (EX: "1,2" would be $ or $$)
+     * @param categories the kind of restaurant it is (EX: "vegan, indpak" would be Vegan or Indian)
+     * @return List<Restaurant> containing the restaurants
+     */
+    public static List<Restaurant> getRestaurantsByFiltersWithDetail(String location, int limit, int radius, String price, String categories) {
+        RestaurantSearchResponse response = getRestaurantsWithFilters(location, limit, radius, price, categories);
+        return getRestaurantsWithDetail(response);
     }
 
     /**
@@ -123,7 +137,7 @@ public class YelpService {
     }
 
     /**
-     * Get upto a specified number of restaurants with full details in a specified radius of a location
+     * Get up to a specified number of restaurants with full details in a specified radius of a location
      * @param location to get restaurants from
      * @param limit maximum number of restuarants to get
      * @param radius meters around location to get restaurants from
