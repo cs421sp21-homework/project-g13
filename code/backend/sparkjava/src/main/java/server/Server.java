@@ -102,7 +102,11 @@ public class Server {
             catch(Exception e) { limit = 20; }                    // default to getting 20 restaurants from Yelp
             try { radius = Integer.parseInt(req.queryParams("radius")); }
             catch(Exception e) { radius = 40000; }                // radius in meters thus 40 km
-            try { price = req.queryParams("price"); }
+            try { price = req.queryParams("price");
+                if (price.equals("")) {                          // if no price is entered
+                    price = "1,2,3,4";
+                }
+            }
             catch(Exception e) { price = "1,2,3,4"; }                 // default to all prices
             try { categories = req.queryParams("categories"); }       // Order matters!
             catch(Exception e) { categories = ""; }                   // default to specific categories
