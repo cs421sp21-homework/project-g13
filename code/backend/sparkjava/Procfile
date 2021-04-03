@@ -1,1 +1,1 @@
-web: java -jar build/libs/ChickenTinderBackend-0.0.2.jar
+web: java -jar sparkjava/build/libs/ChickenTinderBackend-0.0.2.jar
