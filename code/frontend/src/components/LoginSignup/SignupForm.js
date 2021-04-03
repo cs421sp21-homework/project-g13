@@ -52,7 +52,7 @@ class SignupForm extends React.Component {
         })
 
         try{
-            let res = await fetch('/isLoggedIn', {
+            let res = await fetch('/signup', {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json',

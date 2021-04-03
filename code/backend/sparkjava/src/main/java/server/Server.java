@@ -49,8 +49,6 @@ public class Server {
         }
     }
 
-
-
     public static void main(String[] args) {
 
         port(getHerokuAssignedPort());
@@ -145,6 +143,33 @@ public class Server {
             res.header("Content-Type", "application/json");
             Group group = groupDao.createGroup();
             return gson.toJson(group);
+        });
+
+        post('/login', (req, res) => {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "POST");
+            res.header("Content-Type", "application/json");
+            String username = req.params("username");
+            String password = req.params("password");
+            System.out.println(username);
+        });
+
+        post('/logout', (req, res) => {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "POST");
+            res.header("Content-Type", "application/json");
+            String username = req.params("username");
+            String password = req.params("password");
+            System.out.println(username);
+        });
+
+        post('/isLoggedIn', (req, res) => {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "POST");
+            res.header("Content-Type", "application/json");
+            String username = req.params("username");
+            String password = req.params("password");
+            System.out.println(username);
         });
 
         delete("/api/users/:uname", (req, res) -> {
