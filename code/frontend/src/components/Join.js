@@ -1,11 +1,6 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router";
 import {withStyles} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-//import { withRouter } from "react-router-dom";
-//import io from "socket.io-client";
-//import Host from "./Host.js";
 
 const styles = theme => ({
     textField: {
