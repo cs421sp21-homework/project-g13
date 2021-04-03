@@ -14,12 +14,6 @@ class Slideshow extends Component {
             src={photos[0]}
             alt="First slide"
           />
-
-          <Carousel.Caption>
-            <p style={{ color: "black", display: "block" }}>
-              {reviews[0]["text"]}
-            </p>
-          </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <img
@@ -27,12 +21,6 @@ class Slideshow extends Component {
             src={photos[1]}
             alt="Second slide"
           />
-
-          <Carousel.Caption>
-            <p style={{ color: "black", display: "block" }}>
-              {reviews[1]["text"]}
-            </p>
-          </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <img
@@ -40,12 +28,6 @@ class Slideshow extends Component {
             src={photos[2]}
             alt="Third slide"
           />
-
-          <Carousel.Caption>
-            <p style={{ color: "black", display: "block" }}>
-              {reviews[2]["text"]}
-            </p>
-          </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
     );
