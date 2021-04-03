@@ -1,7 +1,10 @@
 package dao;
 
+import model.Group;
 import model.User;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import exceptions.DaoException;
@@ -19,7 +22,7 @@ public class Sql2oUserDao implements UserDao {
      *
      * @param sql2o A Sql2o object is injected as a dependency;
      *   it is assumed sql2o is connected to a database that contains a table called
-     *   "user_info" with five columns: "user_id" / "username" / "pword" / "location" / "group_id".
+     *   "user_info" with six columns: "user_id" / "username" / "pword" / "location" / "preferences" / "group_id".
      */
     public Sql2oUserDao(Sql2o sql2o) {
         this.sql2o = sql2o;
@@ -45,7 +48,7 @@ public class Sql2oUserDao implements UserDao {
     @Override
     public User create(String uName, String pWord, String location) throws DaoException {
         String sql = "WITH inserted AS ("
-                + "INSERT INTO user_info(username, pWord, group_id, loc) VALUES(:userName, :pword, NULL, :loc) RETURNING *"
+                + "INSERT INTO user_info(username, pWord, group_id, loc) VALUES(:userName, :pword, 1, :loc) RETURNING *"
                 + ") SELECT * FROM inserted;";
         try (Connection conn = sql2o.open()) {             // opening connection to database
             return conn.createQuery(sql)                   // making proper SQL statement for execution
@@ -59,12 +62,43 @@ public class Sql2oUserDao implements UserDao {
     }
 
     @Override
+    public User create(String uName, String pWord) throws DaoException {
+        String sql = "WITH inserted AS ("
+                + "INSERT INTO user_info(username, pWord, group_id, loc) VALUES(:userName, :pword, 1, NULL) RETURNING *"
+                + ") SELECT * FROM inserted;";
+        try (Connection conn = sql2o.open()) {             // opening connection to database
+            return conn.createQuery(sql)                   // making proper SQL statement for execution
+                    .addParameter("userName", uName) // allowing for varying username
+                    .addParameter("pword", pWord)    // allowing for varying password
+                    .executeAndFetchFirst(User.class);     // executing SQL + using the object mapper to fill the fields
+        } catch (Sql2oException ex) {
+            throw new DaoException(ex.getMessage(), ex);
+        }
+    }
+
+    @Override
     public User read(String uName) throws DaoException {
-        String sql = "SELECT * FROM user_info WHERE username = :uName;";
+        String sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), group_id " +
+                     "FROM user_info WHERE username = :uName;";
         try (Connection conn = sql2o.open()) {          // opening connection to database
-            return conn.createQuery(sql)                // making proper SQL statement for execution
-                    .addParameter("uName", uName) // allowing for varying username
-                    .executeAndFetchFirst(User.class);  // executing SQL + using the object mapper to fill the fields
+            User currUser = conn.createQuery(sql)                // making proper SQL statement for execution
+                             .addParameter("uName", uName) // allowing for varying username
+                             .addColumnMapping("ARRAY_TO_STRING", "preferences")
+                             .executeAndFetchFirst(User.class);  // executing SQL + using the object mapper to fill the fields
+
+            if (!(currUser.getPreferences().equals(""))) { // would only be "" (no space like in constructor) if all preferences were removed
+                String[] userPrefs = currUser.getPreferences().split(",");
+                currUser.setPreferencesList(Arrays.asList(userPrefs));
+            } else {
+                // null lists are very bad elsewhere :-(
+                ArrayList<String> temp = new ArrayList<>();
+                temp.add("none");
+                currUser.setPreferencesList(temp);
+                this.addNonePreference(currUser.getUser_ID(), "none");
+            }
+
+            return currUser;
+
         } catch (Sql2oException ex) {
             throw new DaoException("Unable to read a user with username " + uName, ex);
         }
@@ -73,10 +107,21 @@ public class Sql2oUserDao implements UserDao {
 
     @Override
     public List<User> readAll() throws DaoException {
-        String sql = "SELECT * FROM user_info;";
+        String sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), group_id " +
+                     "FROM user_info;";
         try (Connection conn = sql2o.open()) {    // opening connection to database
-            return conn.createQuery(sql)          // making proper SQL statement for execution
-                    .executeAndFetch(User.class); // executing SQL + using the object mapper to fill the fields
+            List<User> users = conn.createQuery(sql)          // making proper SQL statement for execution
+                               .addColumnMapping("ARRAY_TO_STRING", "preferences")
+                               .executeAndFetch(User.class); // executing SQL + using the object mapper to fill the fields
+
+            for (User user : users) {
+                // finessing array from database into list in POJO
+                String[] userPrefs = user.getPreferences().split(",");
+                user.setPreferencesList(Arrays.asList(userPrefs));
+            }
+
+            return users;
+
         } catch (Sql2oException ex) {
             throw new DaoException("Unable to read users from the database", ex);
         }
@@ -84,11 +129,21 @@ public class Sql2oUserDao implements UserDao {
 
     @Override
     public List<User> readAllInGroup(int gid) throws DaoException {
-        String sql = "SELECT * FROM user_info WHERE group_id = :groupID;";
+        String sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), group_id " +
+                     "FROM user_info WHERE group_id = :groupID;";
         try (Connection conn = sql2o.open()) {          // opening connection to database
-            return conn.createQuery(sql)                // making proper SQL statement for execution
-                    .addParameter("groupID", gid) // allowing for varying group ID
-                    .executeAndFetch(User.class);       // executing SQL + using the object mapper to fill the fields
+            List<User> users = conn.createQuery(sql)                // making proper SQL statement for execution
+                                .addParameter("groupID", gid) // allowing for varying group ID
+                                .executeAndFetch(User.class);       // executing SQL + using the object mapper to fill the fields
+
+            for (User user : users) {
+                // finessing array from database into list in POJO
+                String[] userPrefs = user.getPreferences().split(",");
+                user.setPreferencesList(Arrays.asList(userPrefs));
+            }
+
+            return users;
+
         } catch (Sql2oException ex) {
             throw new DaoException("Unable to read group members from the database", ex);
         }
@@ -107,6 +162,78 @@ public class Sql2oUserDao implements UserDao {
         } catch (Sql2oException ex) {
             throw new DaoException("Unable to update the group ID", ex);
         }
+    }
+
+    @Override
+    public void addNonePreference(int userID, String pref) throws DaoException {
+
+        String sql = "UPDATE user_info SET preferences = " +
+                "ARRAY_APPEND(preferences, CAST(:pref AS VARCHAR))" +
+                " WHERE user_id = :user_id;";
+        Connection conn = sql2o.open();                  // opening connection to database
+            //String userID =
+            conn.createQuery(sql)                            // making proper SQL statement for execution
+                    .addParameter("pref", pref)        // allowing for varying group ID
+                    .addParameter("user_id", userID)   // allowing for varying user ID
+                    .executeUpdate();                        // executing SQL
+
+    }
+
+    @Override
+    public List<String> addPreference(User user, String pref) throws DaoException {
+
+        String sql = "UPDATE user_info SET preferences = " +
+                "ARRAY_APPEND(preferences, CAST(:pref AS VARCHAR))" +
+                " WHERE user_id = :user_id;";
+        try (Connection conn = sql2o.open()) {                           // opening connection to database
+            //String userID =
+            conn.createQuery(sql)                                        // making proper SQL statement for execution
+                    .addParameter("pref", pref) // allowing for varying group ID
+                    .addParameter("user_id", user.getUser_ID())    // allowing for varying user ID
+                    .executeUpdate();                                    // executing SQL
+
+            // propagating database change to POJO and avoiding UnsupportedOperationException
+            ArrayList<String> temp = new ArrayList<>(user.getPreferencesList());
+            temp.add(pref);
+
+            // removing "none" that was initially used to create array
+            sql = "UPDATE user_info SET preferences" +
+                    " = ARRAY_REMOVE(preferences, CAST('none' AS VARCHAR)) WHERE user_id = :uid;";
+            conn.createQuery(sql)                                   // making proper SQL statement for execution
+                    .addParameter("uid", user.getUser_ID())  // allowing for varying user ID
+                    .executeUpdate();
+            temp.remove("none");
+
+            user.setPreferencesList(temp);
+            return user.getPreferencesList();
+        } catch (Sql2oException ex) {
+            throw new DaoException("Unable to add preference to: " + user.getUserName(), ex);
+        }
+
+    }
+
+    @Override
+    public List<String> removePreference(User user, String pref) throws DaoException {
+
+        String sql = "UPDATE user_info SET preferences" +
+                " = ARRAY_REMOVE(preferences, CAST(:pref AS VARCHAR)) WHERE user_id = :uid;";
+        try (Connection conn = sql2o.open()) {                    // opening connection to database
+            //String userID =
+            conn.createQuery(sql)                                 // making proper SQL statement for execution
+                    .addParameter("uid", user.getUser_ID()) // allowing for varying user ID
+                    .addParameter("pref", pref) // allowing for varying user ID
+                    .executeUpdate();                             // executing SQL
+
+            // propagating database change to POJO and avoiding UnsupportedOperationException
+            ArrayList<String> temp = new ArrayList<>(user.getPreferencesList());
+            temp.remove(pref);
+            user.setPreferencesList(temp);
+
+            return user.getPreferencesList();
+        } catch (Sql2oException ex) {
+            throw new DaoException("Unable to remove preference to:  " + user.getUserName(), ex);
+        }
+
     }
 
     @Override
