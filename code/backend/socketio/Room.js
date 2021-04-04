@@ -64,7 +64,7 @@ class Room {
     //the host's preferred price ($ -> 1 for API)
     this.price = "";
 
-    //host's prefered ratings 
+    //host's preferred ratings
     this.ratings = [];
 
     //number of people inside
@@ -85,7 +85,6 @@ class Room {
     //is ready when everyone connected has restaurant data
     this.ready = false;
 
-<<<<<<< HEAD
     //map of member id to ready status
     this.members = new Map();
 
@@ -94,30 +93,12 @@ class Room {
 
     //did the group start the swiping event
     this.started = false;
-  }
-  static emitReadySignalFunc;
-  static emitRestaurantsFunc;
-  static emitFinishedFunc;
-  static emitMatchFoundfunc;
-  static emitRecommendFunc;
 
-  setLocation(location, radius) {
-    if (location !== undefined && location !== "") {
-      this.restaurants = [];
-      this.location = location;
-      this.radius = radius * 1609.34;
-      this.received = 0;
-      //console.log(this.name )
-      this.retreiveRestaurants();
-=======
-        //did the group start the swiping event
-        this.started = false;
+    //async requests
+    this.currentRequestId = 0;
 
-        //async requests
-        this.currentRequestId = 0;
-
-        //cancelation tokens
-        this.cancelationTokens = [];
+    //cancellation tokens
+    this.cancelationTokens = [];
     }
     static emitReadySignalFunc;
     static emitRestaurantsFunc;
@@ -187,9 +168,7 @@ class Room {
         this.restaurants = [];
         this.received = 0;
         this.retrieveRestaurants();
->>>>>>> main
     }
-  }
 
   //return true if we need to send restaurant data to client
   addMember(memberId) {
@@ -263,14 +242,17 @@ class Room {
     }
   }
 
-<<<<<<< HEAD
   memberFinished(memberId) {
-    if (this.members.has(memberId)) {
-      this.members.get(memberId).finished = true;
-      if (this.checkIfEveryMemberIsFinished() === true) {
-        if (this.checkIfMatchFound() === false) {
-          Room.emitFinishedFunc(this.name);
-=======
+      if (this.members.has(memberId)) {
+          this.members.get(memberId).finished = true;
+          if (this.checkIfEveryMemberIsFinished() === true) {
+              if (this.checkIfMatchFound() === false) {
+                  Room.emitFinishedFunc(this.name);
+              }
+          }
+      }
+  }
+
     async retrieveRestaurants() {
         if (this.location !== undefined && this.location !== "") {
             //check if prices and categories are not zero-length
@@ -300,31 +282,9 @@ class Room {
                 this.restaurants.push(...response);
                 Room.emitRestaurantsFunc(this.name, JSON.stringify(this.restaurants));
             }
->>>>>>> main
         }
       }
-    }
-  }
 
-<<<<<<< HEAD
-  async retreiveRestaurants() {
-    console.log("retreiving restaurants...");
-    console.log(this);
-    if (
-      this.restaurants.length < this.limit &&
-      this.location !== undefined &&
-      this.location !== ""
-    ) {
-      //console.log("here");
-      //console.log(this.radius);
-      const response = await getRestaurants(this.location, this.radius);
-      //console.log(response);
-      if (response.length !== 0) {
-        //console.log("here2");
-        this.restaurants.push(...response);
-        Room.emitRestaurantsFunc(this.name, JSON.stringify(this.restaurants));
-      }
-=======
     async retreiveRestaurantsNoFilters(cancelTokenSource) {
         console.log("retreiving restaurants with no filters...");
         //console.log(this);
@@ -351,13 +311,8 @@ class Room {
 
     getRestaurants() {
         return this.restaurants;
->>>>>>> main
     }
-  }
 
-  getRestaurants() {
-    return this.restaurants;
-  }
 
   static set_emitReadySignalFunc(func) {
     Room.emitReadySignalFunc = func;
@@ -447,10 +402,8 @@ class Room {
       resArr.push(entry[0]);
       votesArr.push(entry[1]);
     }
-<<<<<<< HEAD
     return {restaurants: resArr, votes: votesArr}
   }
-=======
 
     filterRestaurants(restaurants) {
         if (this.ratings.length > 0) {
@@ -474,7 +427,6 @@ class Room {
             }
         }
     }
->>>>>>> main
 }
 
 module.exports = Room;

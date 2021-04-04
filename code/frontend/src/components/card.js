@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import NewCard from "react-bootstrap/Card";
 import Slideshow from "./Slideshow.js";
-import Reviews from "./Reviews";
 import "../App.css";
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
@@ -38,63 +37,52 @@ class Card extends Component {
   }
 
   render() {
-    const { restaurant } = this.props;
-    const restaurantLocation =
-      restaurant.location["address1"] == undefined
-        ? ""
-        : restaurant.location["address1"];
-    const cuisineType = restaurant.categories[0]["title"];
-    const rating = restaurant.rating;
-    const reviewCount = restaurant.review_count;
-    const webUrl = restaurant.url;
-<<<<<<< HEAD
-    const photos = restaurant.photos;
-    let reviews = restaurant.reviews;
-=======
-    const photos = (restaurant.photos === undefined) ? ["", "", ""] : restaurant.photos;
-    const {classes} = this.props;
-    this.checkArrayElements(photos);
-    var reviews = restaurant.reviews;
->>>>>>> main
-    if (reviews == undefined) {
-      reviews = [];
+      const { restaurant } = this.props;
+      const { classes } = this.props;
+      const restaurantLocation =
+          restaurant.location["address1"] == undefined
+              ? ""
+              : restaurant.location["address1"];
+      const cuisineType = restaurant.categories[0]["title"];
+      const rating = restaurant.rating;
+      const reviewCount = restaurant.review_count;
+      const webUrl = restaurant.url;
+      const photos = restaurant.photos;
+      let reviews = restaurant.reviews;
+      if (reviews == undefined) {
+          reviews = [];
+          for (let i = 0; i < 3; i++) {
+              reviews[i] = "";
+          }
+      }
       for (let i = 0; i < 3; i++) {
-        reviews[i] = "";
+          if (reviews[i] == undefined) {
+              reviews[i] = "";
+          }
       }
-    }
-    for (let i = 0; i < 3; i++) {
-      if (reviews[i] == undefined) {
-        reviews[i] = "";
-      }
-    }
-    let emptyListReviews = ["", "", ""];
-    let emptyListPhotos = ["", "", ""];
+      let emptyListReviews = ["", "", ""];
+      let emptyListPhotos = ["", "", ""];
 
-    return (
-      <NewCard style={{ justify: "center" }}>
-        <NewCard.Body>
-<<<<<<< HEAD
-          <Slideshow photos={photos} reviews={emptyListReviews} isImg={true} />
-          <Slideshow photos={emptyListPhotos} reviews={reviews} />
-=======
-          <Slideshow photos={photos}/>
-          <Reviews reviews={reviews}/>
->>>>>>> main
-          <NewCard.Title style={{ fontSize: "3vh" }}>
-            {restaurant.name}
-          </NewCard.Title>
-          <NewCard.Subtitle style={{ fontSize: "2vh" }}>
-            {cuisineType} {restaurant.price}
-          </NewCard.Subtitle>
-          <NewCard.Text style={{ fontSize: "2vh" }}>
-            {rating} stars from {reviewCount} reviews
-          </NewCard.Text>
-          <NewCard.Text style={{ fontSize: "2vh" }}>
-            {restaurantLocation}
-          </NewCard.Text>
-          <NewCard.Subtitle>
-            <a href={webUrl}>Website</a>
-          </NewCard.Subtitle>
+      return (
+          <NewCard style={{ justify: "center" }}>
+              <NewCard.Body>
+                  <Slideshow photos={photos} reviews={emptyListReviews} isImg={true} />
+                  <Slideshow photos={emptyListPhotos} reviews={reviews} />
+                  <NewCard.Title style={{ fontSize: "3vh" }}>
+                      {restaurant.name}
+                  </NewCard.Title>
+                  <NewCard.Subtitle style={{ fontSize: "2vh" }}>
+                      {cuisineType} {restaurant.price}
+                  </NewCard.Subtitle>
+                  <NewCard.Text style={{ fontSize: "2vh" }}>
+                      {rating} stars from {reviewCount} reviews
+                  </NewCard.Text>
+                  <NewCard.Text style={{ fontSize: "2vh" }}>
+                      {restaurantLocation}
+                  </NewCard.Text>
+                  <NewCard.Subtitle>
+                      <a href={webUrl}>Website</a>
+                  </NewCard.Subtitle>
           <div className="like-dislike-container">
             <IconButton className={classes.button}
               onClick={this.props.onLike}

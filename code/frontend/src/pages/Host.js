@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { Switch, Route, generatePath } from "react-router";
 import { withRouter } from "react-router-dom";
 import io from "socket.io-client";
-import ListRestaurant from "./ListRestaurant";
 
 class Host extends Component {
   constructor(props) {
