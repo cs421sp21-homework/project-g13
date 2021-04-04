@@ -6,40 +6,18 @@ When2Meet: https://www.when2meet.com/?11499666-d2ubT
 
 # OO Design
 
-![UML Diagram for iteration 2](assets/iteration3uml.png)
+![UML Diagram for iteration 3](assets/iteration3uml.png)
 
 # Wireframe & Use-case
 
-![Wireframe](assets/iteration3_wireframe.png)
+![Wireframe](assets/iteration3_updated_wireframe.png)
 
 **Use Case: Receiving assistance in choosing a restaurant**
 
-1. The user opens the application.
-2. The user will be presented with a sign-in/up page, view (1).
-   - If they already made an account with us, the user will click on the "Sign in with Gmail" button.
-     - The user will enter their e-mail and Google will handle the rest of the sign-in process, view (2).
-   - Otherwise, they will click on the “Sign up” button.
-     - Then, the user will enter their email such that an account is created, view (2).
-3. The user will be presented with a page to insert their preferences, view (3)
-   - For each preference, the user can select all that apply to help filter their results
-4. The user will be presented with the "Start" page, view (4).
-   - If they want to choose by themselves, the user will click on “Start”.
-   - If they want to join a group, the user will click on the “Join a group” button.
-     - The user will enter a group ID which represents a specific group to join, view (5).
-     - The user is presented with a “Waiting…” screen until the host begins the selection process, view (6).
-   - If they want to host a group, the user will click on the “Host a group” button.
-     - The user will set the group’s location by clicking on the “Set Group Location” button.
-     - The user will wait for people to join and click the “Start” button once everyone has joined, view (8).
-5. The user will be presented with a place to enter their location, view (9).
-6. The user/ will be presented with a "Restaurant option" page, view (10).
-7. The user will click on "Yes" if they find the option appealing, or on "No" if they find it unappealing.
-   - If the user clicks on "Yes", a new "Restaurant option" page will be presented.
-8. If the user swipes right, the "Match found" page, view (11), will be presented.
-   - The user will click on the "Done" button and be returned to the "Start" page.
-9. If the user/group is unable to find a match after swiping through 10 restaurants, then a “No Match Found” screen is displayed.
-   - If not in a group, then the user is presented with a recommendation, view (12).
-   - If in a group, then the group is presented with a recommendation and a leaderboard of restaurants to show how people voted for each one, view (13).
-10. The user will click “Yes” or "No" if they want to swipe through another collection of restaurants or end the swiping process.
+1. The user will set their preferences for the swiping event using the "Set Filters" button from the "start" page, view (1).
+2. The user will select their preferences, such as Cuisine Type or Price, to help filter their results, view (2).
+3. If an individual user could not find an exact match based on their preferences, they will be presented with a recommnded restaurant and the option to try again, view (3).
+4. If a group could not find an exact match, then they will be presented with a recommended restaurant, option to try again, and a leaderboard of restaurants to see how people generally voted, view (4).
 
 # Iteration Backlog
 
