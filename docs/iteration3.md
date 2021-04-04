@@ -50,12 +50,12 @@ When2Meet: https://www.when2meet.com/?11499666-d2ubT
 
 # Tasks
 
-- creating and working on the recommendation algorithm (this is beyond CRUD)
-- recommending a restaurant if no match was found (frontend? I guess we can "call" the recommendation algorithm)
-- showing the top choices of restaurants (involves socket.io, frontend)
-- storing permanent user preferences in the backend (involves database and backend)
-- allowing the user to store and access permanent preferences in the frontend (UI stuff/React)
-- adding filters when searching for restaurants in the backend (involves backend and Yelp API)
-- adding UI for filtering restaurants (frontend/UI)
+- creating and working on the recommendation algorithm (this is beyond CRUD) -> Nathaniel
+- recommending a restaurant if no match was found (frontend? I guess we can "call" the recommendation algorithm) -> Eric
+- showing the top choices of restaurants (involves socket.io, frontend) -> Shanelle
+- storing permanent user preferences in the backend (involves database and backend) -> Siqi
+- allowing the user to store and access permanent preferences in the frontend (UI stuff/React) -> Siqi
+- adding filters when searching for restaurants in the backend (involves backend and Yelp API) -> Daniel
+- adding UI for filtering restaurants (frontend/UI) -> Abdullah
 
 # Retrospective
