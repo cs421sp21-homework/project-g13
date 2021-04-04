@@ -441,6 +441,21 @@ class Group extends Component {
     }
   }
 
+    onReceiveFinished(data) {
+        //go to no match found page
+        console.log("data");
+        console.log(data);
+        console.log("topVotes in Groups.js")
+        console.log(data.topVotes);
+        console.log("rec");
+        console.log(data.rec);
+        this.setState({ recommendation: data.rec, topVotes: data.topVotes, page: "no_match_found" });
+    }
+
+    onReceiveMessage(data) {
+        console.log(data);
+    }
+
     //check the local session if the user is a host
     setInitialData() {
         var isHost = sessionStorage.getItem("isHost");
