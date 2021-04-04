@@ -262,7 +262,7 @@ class Room {
     for (let i = 0; i < this.restaurants.length; i++) {
       let id = this.restaurants[i].id;
       let votes = this.restaurantYesVotes.get(id);
-      if (votes/this.size > 0.5) {
+      if (votes/this.size >= 0.5) {
         topChoices.set(id, votes);
       }
     }
