@@ -68,15 +68,15 @@ First, we clone the git repository, so we can access all the files easily and ma
 To build the backend:
 
 ```shell
-cd cs421sp21-homework/project-g13/code/backend
+cd cs421sp21-homework/project-g13/code/backend/sparkjava
 ./gradlew build build
 ```
 
 To build the frontend:
 
 ```shell
-cd cs421sp21-homework/project-g13/code/socketio
-node Groups.js
+cd cs421sp21-homework/project-g13/code/backend/socketio
+node socketServer.js
 cd cs421sp21-homework/project-g13/code/frontend
 npm run start
 ```
@@ -90,7 +90,7 @@ These are some instructions in order to deploy the backend or the frontend to he
 To deploy the backend:
 
 ```shell
-cd cs421sp21-homework/project-g13/code/backend
+cd cs421sp21-homework/project-g13/code/backend/sparkjava
 ./gradlew deployHeroku
 ```
 
