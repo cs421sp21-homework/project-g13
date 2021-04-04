@@ -61,7 +61,7 @@ class MatchFound extends Component {
                                         {restaurantLocation}
                                     </NewCard.Text>
                                     <NewCard.Subtitle>
-                                        {webUrl}
+                                    <a href={webUrl}>Website</a>
                                     </NewCard.Subtitle>
                                 </NewCard.Body>
                             </NewCard>
