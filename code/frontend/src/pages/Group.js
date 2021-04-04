@@ -31,6 +31,7 @@ class Group extends Component {
       canStartSwipingEvent: false,
       currentRestaurantIndex: 0,
       recommendation: "No recommendation found",
+      topVotes: "No votes found"
     };
     this.onJoinRoom = this.onJoinRoom.bind(this);
     this.onSetLocation = this.onSetLocation.bind(this);
@@ -210,6 +211,7 @@ class Group extends Component {
           <NotFound
             onTryAgain={() => this.onTryAgain()}
             rec={this.state.recommendation}
+            topVotes={this.state.topVotes}
           />
         )}
 
@@ -321,7 +323,9 @@ class Group extends Component {
 
   onReceiveFinished(data) {
     //go to no match found page
-    this.setState({ recommendation: data, page: "no_match_found" });
+    console.log("topVotes in Groups.js")
+    console.log(data.topVotes);
+    this.setState({ recommendation: data.rec, topVotes: data.topVotes, page: "no_match_found" });
   }
 
   onReceiveMessage(data) {

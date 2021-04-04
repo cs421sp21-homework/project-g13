@@ -10,11 +10,26 @@ import Slideshow from "../components/Slideshow";
 
 
 class NotFound extends Component {
-    
+
+    displayLeaderboard(topVotes) {
+        let display = new Array();
+        for (const entry of topVotes.entries()) {
+            display.add(<div>
+                <a href={topVotes[0].url}>{topVotes[0].name}</a>
+                <p>Number of votes: {topVotes[1]}</p>
+            </div>);
+        }
+        return display;
+    }
+
     render() {
         const { history } = this.props;
         const restaurant = this.props.rec.value;
+        const topVotes = this.props.topVotes;
+        console.log("rec");
         console.log(restaurant);
+        console.log("votes");
+        console.log(topVotes);
         const restaurantLocation = restaurant.location["address1"];
         const cuisineType = restaurant.categories[0]['title'];
         const rating = restaurant.rating;
@@ -47,7 +62,7 @@ class NotFound extends Component {
                                 </NewCard.Body>
                             </NewCard>
                             <h2>Leaderboard</h2>
-
+                            {this.displayLeaderboard(topVotes)}
                             <h2>Try again?</h2>
                             <form>
                                 <input

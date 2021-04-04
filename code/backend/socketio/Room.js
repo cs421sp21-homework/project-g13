@@ -262,8 +262,8 @@ class Room {
     for (let i = 0; i < this.restaurants.length; i++) {
       let id = this.restaurants[i].id;
       let votes = this.restaurantYesVotes.get(id);
-      if (votes/this.size >= 0.5) {
-        topChoices.set(id, votes);
+      if ((votes/this.size) >= 0.5) {
+        topChoices.set(this.restaurantById.get(id), votes);
       }
     }
     var sorted = new Map([...topChoices.entries()].sort((a,b)=> b[1] - a[1]));
