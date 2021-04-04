@@ -40,7 +40,13 @@ Room.emitRestaurantsFunc = function (room, data) {
 };
 
 Room.emitFinishedFunc = function (room) {
-  io.to(room).emit("finished");
+  let rec = roomsMap.get(room).getRec();
+  let topVotes = roomsMap.get(room).getTopVotes();
+  console.log("Recommendation: ");
+  console.log(rec);
+  console.log("votes");
+  console.log(topVotes);
+  io.to(room).emit("finished", {rec: rec, topVotes: topVotes});
   console.log("sent finished signal to room " + room);
 };
 
@@ -50,6 +56,10 @@ Room.emitMatchFoundfunc = function (room, restaurantId) {
       io.to(room).emit("match_found", restaurantId);
     }
   }
+}
+
+Room.emitRecommendFunc = function(room, restaurantId) {
+  io.to(room).emit("recommend", restaurantId);
 }
 
 io.on("connection", function (socket) {
@@ -119,13 +129,21 @@ io.on("connection", function (socket) {
     }
   });
 
-  //when a client sends a vote
-  socket.on("vote", (data) => {
+  //when a client sends a yes vote
+  socket.on("yes_vote", (data) => {
     const { room, restaurantId } = data;
     if (roomsMap.has(room)) {
-      if (roomsMap.get(room).addVote(restaurantId)) {
+      if (roomsMap.get(room).addYesVote(restaurantId, socket.id)) {
         io.to(room).emit("match_found", restaurantId);
       }
+    }
+  });
+
+  //when a client sends a no vote
+  socket.on("no_vote", (data) => {
+    const { room, restaurantId } = data;
+    if (roomsMap.has(room)) {
+      roomsMap.get(room).addNoVote(restaurantId, socket.id);
     }
   });
 

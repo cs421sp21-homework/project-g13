@@ -1,12 +1,13 @@
-import "../App.css"
+import "../App.css";
 import React, { Component } from "react";
 import { Switch, Route } from "react-router";
 import { withRouter } from "react-router-dom";
-import Join from "../components/Join.js"
-import Host from "../components/Host.js"
-import SetLocation from "../components/SetLocation.js"
-import MatchFound from "../components/MatchFound.js"
-import Card from "../components/card.js"
+import Join from "../components/Join.js";
+import Host from "../components/Host.js";
+import SetLocation from "../components/SetLocation.js";
+import MatchFound from "../components/MatchFound.js";
+import Card from "../components/card.js";
+import NotFoundRec from "./NotFoundRec.js";
 import NotFound from "./NotFound.js"
 import SetFilters from "./SetFilters.js"
 import io from "socket.io-client";
@@ -113,6 +114,7 @@ class Group extends Component {
             this.setState({message: "Joining..."})
         }
     }
+  
 
     openSetLocation() {
         this.setState({page: "set_location"});
@@ -133,10 +135,6 @@ class Group extends Component {
         this.setState({page: "host", location: data.location, message: "Loading data...", canStartSwipingEvent: false});
     }
 
-    onBackFromSetLocation() {
-        this.setState({page: "host"});
-    }
-
     onDislikeRestaurant() {
         console.log("restaurants length: " + this.restaurants.length);
         if (this.state.currentRestaurantIndex + 1 < this.restaurants.length) {
@@ -150,14 +148,59 @@ class Group extends Component {
             this.setState({page: "no_match_found"});
         }
     }
+  
 
-    onLikeRestaurant() {
-        this.socket.emit("vote", {room: this.state.roomId, restaurantId: this.restaurants[this.state.currentRestaurantIndex].id});
-        this.onDislikeRestaurant();
+  onSetLocation(data) {
+    this.socket.emit("set_location", {
+      room: this.state.roomId,
+      location: data.location,
+      radius: data.radius,
+    });
+    this.setState({
+      page: "host",
+      location: data.location,
+      message: "Waiting to receive data from server...",
+      canStartSwipingEvent: false,
+    });
+  }
+
+  onBackFromSetLocation() {
+    this.setState({ page: "host" });
+  }
+
+  onVote() {
+    if (this.state.currentRestaurantIndex + 1 < this.restaurants.length) {
+      this.setState({
+        currentRestaurantIndex: this.state.currentRestaurantIndex + 1,
+      });
+    } else if (!this.isFinished) {
+      //go to waiting page
+      this.socket.emit("finished", this.state.roomId);
+      this.setState({ page: "waiting" });
+    } else {
+      //go to no match found page
+      this.setState({ page: "no_match_found" });
     }
+  }
 
-    onTryAgain() {
-        /*if (this.state.isHost) {
+  onLikeRestaurant() {
+    this.socket.emit("yes_vote", {
+      room: this.state.roomId,
+      restaurantId: this.restaurants[this.state.currentRestaurantIndex].id,
+    });
+    this.onVote();
+  }
+
+  onDislikeRestaurant() {
+    this.socket.emit("no_vote", {
+      room: this.state.roomId,
+      restaurantId: this.restaurants[this.state.currentRestaurantIndex].id,
+    });
+    this.onVote();
+  }
+
+  onTryAgain() {
+    /*if (this.state.isHost) {
             this.setState({page: "host"});
         } else {
             this.setState({page: "join"});
@@ -276,6 +319,7 @@ class Group extends Component {
             </div>
         )
     }
+  
 
     componentWillUnmount() {
         this.socket.disconnect();
@@ -367,41 +411,35 @@ class Group extends Component {
 
         this.setState({message: message, canStartSwipingEvent: false});
     }
-    
-    onReceiveReady(data) {
-        console.log("recieved ready event");
-        //console.log(this._isMounted);
-        console.log("data: " + data);
-        if (data) {
-          this.setState({ canStartSwipingEvent: data, message: "Ready" });
-        } else {
-          this.setState({ canStartSwipingEvent: data });
+
+  onReceiveReady(data) {
+    console.log("recieved ready event");
+    //console.log(this._isMounted);
+    console.log("data: " + data);
+    if (data) {
+      this.setState({ canStartSwipingEvent: data, message: "Ready" });
+    } else {
+      this.setState({ canStartSwipingEvent: data });
+    }
+  }
+
+  onReceiveMatchFound(restaurant) {
+    if (restaurant != null && restaurant !== "") {
+      //search for restaurant with same id
+
+      for (var i = 0; i < this.restaurants.length; i++) {
+        if (
+          this.restaurants[i] != null &&
+          this.restaurants[i].id === restaurant
+        ) {
+          this.state.currentRestaurantIndex = i;
+          break;
         }
-    }
+      }
 
-    onReceiveMatchFound(restaurant) {
-        if (restaurant != null && restaurant !== "") {
-            //search for restaurant with same id
-      
-            for (var i = 0; i < this.restaurants.length; i++) {
-              if (this.restaurants[i] != null && this.restaurants[i].id === restaurant) {
-                this.state.currentRestaurantIndex = i;
-                break;
-              }
-            }
-      
-            this.setState({page: "match_found"});
-          }
+      this.setState({ page: "match_found" });
     }
-
-    onReceiveFinished() {
-        //go to no match found page
-        this.setState({page: "no_match_found"});
-    }
-
-    onReceiveMessage(data) {
-        console.log(data);
-    }
+  }
 
     //check the local session if the user is a host
     setInitialData() {

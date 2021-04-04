@@ -1,14 +1,15 @@
+//import * as rec from "./Recommend.js";
+var rec = require("./Recommend");
 var axios = require("axios");
 const { setTheUsername } = require("whatwg-url");
 
-const BACKEND_URL = "https://chicken-tinder-13-backend.herokuapp.com"
+const BACKEND_URL = "https://chicken-tinder-13-backend.herokuapp.com";
 const axiosConfig = {
-    headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-        "Access-Control-Allow-Origin": "*",
-    }
+  headers: {
+    "Content-Type": "application/json;charset=UTF-8",
+    "Access-Control-Allow-Origin": "*",
+  },
 };
-
 
 async function getRestaurants(location, radius, cancelTokenSource) {
     try {
@@ -41,48 +42,74 @@ async function getRestaurantsFilters(location, radius, price, categories, cancel
     } catch(err) {
         return ["err"];
     }
+
 }
 
 
 class Room {
-    //Need to store restaurants, location, and likes/dislikes
-    constructor(name, size) {
-        //room name
-        this.name = name;
+  //Need to store restaurants, location, and likes/dislikes
+  constructor(name, size) {
+    //room name
+    this.name = name;
 
-        //the host's location
-        this.location = "";
+    //the host's location
+    this.location = "";
 
-        //default radius
-        this.radius = 20000;
+    //default radius
+    this.radius = 20000;
 
-        //the host's preferences
-        this.categories = "";
+    //the host's preferences
+    this.categories = "";
 
-        //the host's preferred price ($ -> 1 for API)
-        this.price = "";
+    //the host's preferred price ($ -> 1 for API)
+    this.price = "";
 
-        //host's prefered ratings 
-        this.ratings = [];
+    //host's prefered ratings 
+    this.ratings = [];
 
-        //number of people inside
-        this.size = size;
+    //number of people inside
+    this.size = size;
 
-        //stores votes for restaurants
-        this.restaurantVotes = new Map();
+    //stores yes votes for restaurants
+    this.restaurantYesVotes = new Map();
 
-        //stores restaurants
-        this.restaurants = [];
+    //stores no votes for restaurants
+    this.restaurantNoVotes = new Map();
 
-        //is ready when everyone connected has restaurant data
-        this.ready = false;
+    //for convenience in looking up restaurant data
+    this.restaurantById = new Map();
 
-        //map of member id to ready status
-        this.members = new Map();
+    //stores restaurants
+    this.restaurants = [];
 
-        //maximum number of restaurants
-        this.limit = 20;
+    //is ready when everyone connected has restaurant data
+    this.ready = false;
 
+<<<<<<< HEAD
+    //map of member id to ready status
+    this.members = new Map();
+
+    //maximum number of restaurants
+    this.limit = 20;
+
+    //did the group start the swiping event
+    this.started = false;
+  }
+  static emitReadySignalFunc;
+  static emitRestaurantsFunc;
+  static emitFinishedFunc;
+  static emitMatchFoundfunc;
+  static emitRecommendFunc;
+
+  setLocation(location, radius) {
+    if (location !== undefined && location !== "") {
+      this.restaurants = [];
+      this.location = location;
+      this.radius = radius * 1609.34;
+      this.received = 0;
+      //console.log(this.name )
+      this.retreiveRestaurants();
+=======
         //did the group start the swiping event
         this.started = false;
 
@@ -160,71 +187,90 @@ class Room {
         this.restaurants = [];
         this.received = 0;
         this.retrieveRestaurants();
+>>>>>>> main
     }
+  }
 
-    //return true if we need to send restaurant data to client
-    addMember(memberId) {
-        this.size++;
-        this.members.set(memberId, {hasRestaurantData: false, finished: false});
-        //emit not ready signal to room
-        Room.emitReadySignalFunc(this.name, false);
+  //return true if we need to send restaurant data to client
+  addMember(memberId) {
+    this.size++;
+    this.members.set(memberId, {
+      hasRestaurantData: false,
+      finished: false,
+      votes: new Map(),
+    });
+    //emit not ready signal to room
+    Room.emitReadySignalFunc(this.name, false);
 
-        if (this.restaurants.length > 0) {
-            //send restaurant data to client
-            return true;
-        }
+    if (this.restaurants.length > 0) {
+      //send restaurant data to client
+      return true;
     }
+  }
 
-    memberLeft(memberId) {
-        this.size--;
-        if (this.members.has(memberId)) {
-            this.members.delete(memberId);
-            if (this.checkIfEveryMemberIsReady()) {
-                Room.emitReadySignalFunc(this.name, true);
-            }
-            if (this.checkIfEveryMemberIsFinished()) {
-                Room.emitFinishedFunc(this.name);
-            }
-        }
+  memberLeft(memberId) {
+    this.size--;
+    if (this.members.has(memberId)) {
+      this.members.delete(memberId);
+      if (this.checkIfEveryMemberIsReady()) {
+        Room.emitReadySignalFunc(this.name, true);
+      }
+      if (this.checkIfEveryMemberIsFinished()) {
+        Room.emitFinishedFunc(this.name);
+      }
     }
+  }
 
-    addVote(restaurantId) {
-        var votes = 1;
-        if ((restaurantId !== null && restaurantId !== "")) {
-            if (this.restaurantVotes.has(restaurantId)) {
-                votes = this.restaurantVotes.get(restaurantId);
-                votes++;
-            }
-            this.restaurantVotes.set(restaurantId, votes);
-            
-            if (votes >= this.size) {
-                return true;
-            }
-        }
-        return false;
+  addYesVote(restaurantId, member) {
+    if (this.members.has(member)) {
+      this.members.get(member).votes.set(restaurantId, true);
     }
-
-    receivedRestaurantData(memberId) {
-        if (this.members.has(memberId)) {
-            this.members.get(memberId).hasRestaurantData = true;
-            console.log(this.members.get(memberId).hasRestaurantData);
-            if (this.checkIfEveryMemberIsReady() === true) {
-                Room.emitReadySignalFunc(this.name, true);
-            }
-        }
+    let votes = 1;
+    if (restaurantId !== null && restaurantId !== "") {
+      if (this.restaurantYesVotes.has(restaurantId)) {
+        votes = this.restaurantYesVotes.get(restaurantId);
+        votes++;
+      }
+      this.restaurantYesVotes.set(restaurantId, votes);
+      if (votes >= this.size) {
+        return true;
+      }
     }
+    return false;
+  }
 
-    memberFinished(memberId) {
-        if (this.members.has(memberId)) {
-            this.members.get(memberId).finished = true;
-            if (this.checkIfEveryMemberIsFinished() === true) {
-                if (this.checkIfMatchFound() === false) {
-                    Room.emitFinishedFunc(this.name);
-                }
-            }
-        }
+  addNoVote(restaurantId, member) {
+    if (this.members.has(member)) {
+      this.members.get(member).votes.set(restaurantId, false);
     }
+    let votes = 1;
+    if (restaurantId !== null && restaurantId !== "") {
+      if (this.restaurantNoVotes.has(restaurantId)) {
+        votes = this.restaurantNoVotes.get(restaurantId);
+        votes++;
+      }
+      this.restaurantNoVotes.set(restaurantId, votes);
+    }
+  }
 
+  receivedRestaurantData(memberId) {
+    if (this.members.has(memberId)) {
+      this.members.get(memberId).hasRestaurantData = true;
+      console.log(this.members.get(memberId).hasRestaurantData);
+      if (this.checkIfEveryMemberIsReady() === true) {
+        Room.emitReadySignalFunc(this.name, true);
+      }
+    }
+  }
+
+<<<<<<< HEAD
+  memberFinished(memberId) {
+    if (this.members.has(memberId)) {
+      this.members.get(memberId).finished = true;
+      if (this.checkIfEveryMemberIsFinished() === true) {
+        if (this.checkIfMatchFound() === false) {
+          Room.emitFinishedFunc(this.name);
+=======
     async retrieveRestaurants() {
         if (this.location !== undefined && this.location !== "") {
             //check if prices and categories are not zero-length
@@ -254,9 +300,31 @@ class Room {
                 this.restaurants.push(...response);
                 Room.emitRestaurantsFunc(this.name, JSON.stringify(this.restaurants));
             }
+>>>>>>> main
         }
+      }
     }
+  }
 
+<<<<<<< HEAD
+  async retreiveRestaurants() {
+    console.log("retreiving restaurants...");
+    console.log(this);
+    if (
+      this.restaurants.length < this.limit &&
+      this.location !== undefined &&
+      this.location !== ""
+    ) {
+      //console.log("here");
+      //console.log(this.radius);
+      const response = await getRestaurants(this.location, this.radius);
+      //console.log(response);
+      if (response.length !== 0) {
+        //console.log("here2");
+        this.restaurants.push(...response);
+        Room.emitRestaurantsFunc(this.name, JSON.stringify(this.restaurants));
+      }
+=======
     async retreiveRestaurantsNoFilters(cancelTokenSource) {
         console.log("retreiving restaurants with no filters...");
         //console.log(this);
@@ -283,43 +351,106 @@ class Room {
 
     getRestaurants() {
         return this.restaurants;
+>>>>>>> main
     }
+  }
 
-    static set_emitReadySignalFunc(func) {
-        Room.emitReadySignalFunc = func;
-    }
+  getRestaurants() {
+    return this.restaurants;
+  }
 
-    checkIfEveryMemberIsReady() {
-        for (const entry of this.members.entries()) {
-            //console.log("member " + key + ": " + value.hasRestaurantData);
-            if (entry[1].hasRestaurantData === false) {
-                return false;
-            }
-        }
-        return true;
-    }
+  static set_emitReadySignalFunc(func) {
+    Room.emitReadySignalFunc = func;
+  }
 
-    checkIfEveryMemberIsFinished() {
-       for (const entry of this.members.entries()) {
-            //console.log("member " + key + ": " + value.finished);
-            if (entry[1].finished === false) {
-                return false;
-            }
-       }
-        return true;
-    }
-
-    checkIfMatchFound() {
-        for (const entry of this.restaurantVotes.entries()) {
-            //console.log("member " + key + ": " + value.finished);
-            if (entry[1] >= this.size) {
-                //send the match found signal
-                Room.emitMatchFoundfunc(this.name, entry[0])
-                return true;
-            }
-        }
+  checkIfEveryMemberIsReady() {
+    for (const entry of this.members.entries()) {
+      //console.log("member " + key + ": " + value.hasRestaurantData);
+      if (entry[1].hasRestaurantData === false) {
         return false;
+      }
     }
+    return true;
+  }
+
+  checkIfEveryMemberIsFinished() {
+    for (const entry of this.members.entries()) {
+      //console.log("member " + key + ": " + value.finished);
+      if (entry[1].finished === false) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  checkIfMatchFound() {
+    for (const entry of this.restaurantYesVotes.entries()) {
+      //console.log("member " + key + ": " + value.finished);
+      if (entry[1] >= this.size) {
+        //send the match found signal
+        Room.emitMatchFoundfunc(this.name, entry[0]);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  initializeZeroVotes() {
+    for (let i = 0; i < this.restaurants.length; i++) {
+      if (!this.restaurantYesVotes.has(this.restaurants[i].id)) {
+        this.restaurantYesVotes.set(this.restaurants[i].id, 0);
+      }
+      if (!this.restaurantNoVotes.has(this.restaurants[i].id)) {
+        this.restaurantNoVotes.set(this.restaurants[i].id, 0);
+      }
+    }
+  }
+
+  updateRestaurantsArray(member, restaurants) {
+    return rec.reorderArray(
+      restaurants,
+      member.votes,
+      this.restaurantById,
+      this.restaurantYesVotes,
+      this.restaurantNoVotes
+    );
+  }
+
+  getRec() {
+    for (let i = 0; i < this.restaurants.length; i++) {
+      this.restaurantById.set(this.restaurants[i].id, this.restaurants[i]);
+    }
+    this.initializeZeroVotes();
+    const restaurantId = rec.recommendRestaurant(
+      this.members,
+      this.restaurantYesVotes,
+      this.restaurantNoVotes,
+      this.restaurantById
+    )[0];
+    return this.restaurantById.get(restaurantId);
+  }
+
+  getTopVotes() {
+    var topChoices = new Map();
+    for (let i = 0; i < this.restaurants.length; i++) {
+      let id = this.restaurants[i].id;
+      let votes = this.restaurantYesVotes.get(id);
+      if ((votes/this.size) >= 0.5) {
+        topChoices.set(this.restaurantById.get(id), votes);
+      }
+    }
+    var sorted = new Map([...topChoices.entries()].sort((a,b)=> b[1] - a[1]));
+    console.log(sorted);
+    let resArr = new Array();
+    let votesArr= new Array();
+    for(const entry of sorted.entries()) {
+      resArr.push(entry[0]);
+      votesArr.push(entry[1]);
+    }
+<<<<<<< HEAD
+    return {restaurants: resArr, votes: votesArr}
+  }
+=======
 
     filterRestaurants(restaurants) {
         if (this.ratings.length > 0) {
@@ -343,6 +474,7 @@ class Room {
             }
         }
     }
+>>>>>>> main
 }
 
 module.exports = Room;

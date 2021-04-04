@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Card from "../components/card.js";
 import MatchFound from "./MatchFound";
-import NotFound from "./NotFound";
+import NotFoundRec from "./NotFoundRec";
 import io from "socket.io-client";
 
 class ListRestaurant extends Component {
@@ -21,7 +21,7 @@ class ListRestaurant extends Component {
     var roomId = sessionStorage.getItem("roomId");
     if (this.isGroup && roomId != null) {
       //start socket.io
-      this.socket = io("https://chicken-tinder-13-socketio.herokuapp.com", {
+      this.socket = io("localhost:4000", {
         withCredentials: true,
       });
       this.socket.on("match_found", (data) => this.onMatchFound(data));
@@ -62,7 +62,7 @@ class ListRestaurant extends Component {
       this.setState({ position: this.state.position + 1 });
     } else {
       this.state.position = -1;
-      this.props.history.push("/Location/ListRestaurants/NotFound");
+      this.props.history.push("/Location/ListRestaurants/NotFoundRec");
     }
   }
 
@@ -75,10 +75,18 @@ class ListRestaurant extends Component {
           <div className="App-header">
             <Card
               restaurant={restaurants[this.state.position]}
-              onDislike={this.nextRestaurant}
+              onDislike={() => {
+                  if (this.isGroup != null && this.isGroup) {
+                      this.socket.emit("no_vote", {room: this.room, restaurantId: restaurants[this.state.position].id});
+                      this.nextRestaurant();
+                      console.log("voted for restaurant");
+                  } else {
+                      this.nextRestaurant();
+                  }
+              }}
               onLike={() => {
                 if (this.isGroup != null && this.isGroup) {
-                  this.socket.emit("vote", {room: this.room, restaurantId: restaurants[this.state.position].id});
+                  this.socket.emit("yes_vote", {room: this.room, restaurantId: restaurants[this.state.position].id});
                   this.nextRestaurant();
                   console.log("voted for restaurant");
                 } else {
@@ -86,7 +94,6 @@ class ListRestaurant extends Component {
                   this.state.position = -1;
                   this.props.history.push("/Location/ListRestaurants/Found");
                 }
-                
               }}
             />
           </div>
@@ -98,8 +105,8 @@ class ListRestaurant extends Component {
         <Route path="/Location/ListRestaurants/Found">
           <MatchFound restaurant={this.state.match} />
         </Route>
-        <Route path="/Location/ListRestaurants/NotFound">
-          <NotFound />
+        <Route path="/Location/ListRestaurants/NotFoundRec">
+          <NotFoundRec />
         </Route>
       </Switch>
     );

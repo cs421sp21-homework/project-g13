@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 class Slideshow extends Component {
   render() {
-    const { photos, reviews } = this.props;
+    const { photos, reviews, isImg } = this.props;
 
     return (
       <Carousel>
