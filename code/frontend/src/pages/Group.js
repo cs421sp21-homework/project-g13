@@ -41,6 +41,24 @@ const styles = theme => ({
 class Group extends Component {
     constructor(props) {
         super(props);
+        const isHost = this.props.isHost == null ? true : this.props.isHost;
+        const initalLocation = isHost ? "Not Set" : "Host sets location";
+        const initialPage = isHost ? "host" : "join";
+        const initialStatus = isHost ? "Please set the location" : "";
+        //console.log(isHost);
+        //console.log(this.props.isHost);
+        this.state = {
+            page: initialPage,
+            message: initialStatus,
+            isHost: isHost,
+            roomId: "Waiting for server...",
+            location: initalLocation,
+            numMembers: 1,
+            canStartSwipingEvent: false,
+            currentRestaurantIndex: 0,
+            recommendation: "No recommendation found",
+            topVotes: "No votes found"
+        };
 
         /*localStorage.ge
 
@@ -102,7 +120,7 @@ class Group extends Component {
 
         this.socket.on("match_found", (data) => this.onReceiveMatchFound(data));
 
-        this.socket.on("finished", () => this.onReceiveFinished());
+        this.socket.on("finished", (data) => this.onReceiveFinished(data));
     }
 
     onJoinRoom(room) {
