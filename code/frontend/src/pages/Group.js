@@ -8,7 +8,7 @@ import SetLocation from "../components/SetLocation.js"
 import MatchFound from "../components/MatchFound.js"
 import Card from "../components/card.js"
 import NotFound from "./NotFound.js"
-import Recommend from "./Recommend.js"
+import Recommend from "../components/Recommend.js"
 import io from "socket.io-client";
 
 //Contains join page, host page

@@ -46,6 +46,8 @@ class NotFound extends Component {
                                     </NewCard.Subtitle>
                                 </NewCard.Body>
                             </NewCard>
+                            <h2>Leaderboard</h2>
+
                             <h2>Try again?</h2>
                             <form>
                                 <input
