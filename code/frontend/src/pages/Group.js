@@ -294,7 +294,11 @@ class Group extends Component {
             }
 
             { page === "no_match_found" &&
-                <NotFound onTryAgain={() => this.onTryAgain()} />
+                <NotFoundRec
+                    onTryAgain={() => this.onTryAgain()}
+                    rec={this.state.recommendation}
+                    topVotes={this.state.topVotes}
+                />
             }
 
             { page === "waiting" && 
