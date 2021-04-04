@@ -41,7 +41,8 @@ Room.emitRestaurantsFunc = function (room, data) {
 Room.emitFinishedFunc = function (room) {
   let rec = roomsMap.get(room).getRec();
   let topVotes = roomsMap.get(room).getTopVotes();
-  console.log("Recommendation: " + rec);
+  console.log("Recommendation: ");
+  console.log(rec);
   console.log("votes");
   console.log(topVotes);
   io.to(room).emit("finished", {rec: rec, topVotes: topVotes});

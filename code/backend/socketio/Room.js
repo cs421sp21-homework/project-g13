@@ -268,7 +268,13 @@ class Room {
     }
     var sorted = new Map([...topChoices.entries()].sort((a,b)=> b[1] - a[1]));
     console.log(sorted);
-    return sorted
+    let resArr = new Array();
+    let votesArr= new Array();
+    for(const entry of sorted.entries()) {
+      resArr.push(entry[0]);
+      votesArr.push(entry[1]);
+    }
+    return {restaurants: resArr, votes: votesArr}
   }
 }
 

@@ -7,8 +7,8 @@ import Host from "../components/Host.js";
 import SetLocation from "../components/SetLocation.js";
 import MatchFound from "../components/MatchFound.js";
 import Card from "../components/card.js";
-import NotFound from "./NotFound.js";
-//import Recommend from "./Recommend.js"
+import NotFoundRec from "./NotFoundRec.js";
+import NotFound from "./NotFound.js"
 import io from "socket.io-client";
 
 //Contains join page, host page
@@ -208,7 +208,7 @@ class Group extends Component {
         )}
 
         {page === "no_match_found" && (
-          <NotFound
+          <NotFoundRec
             onTryAgain={() => this.onTryAgain()}
             rec={this.state.recommendation}
             topVotes={this.state.topVotes}
@@ -323,8 +323,12 @@ class Group extends Component {
 
   onReceiveFinished(data) {
     //go to no match found page
+    console.log("data");
+    console.log(data);
     console.log("topVotes in Groups.js")
     console.log(data.topVotes);
+    console.log("rec");
+    console.log(data.rec);
     this.setState({ recommendation: data.rec, topVotes: data.topVotes, page: "no_match_found" });
   }
 

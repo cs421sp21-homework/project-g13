@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import SetLocation from "../components/SetLocation.js"
 import Card from "../components/card.js"
 import MatchFound from "../components/MatchFound.js"
-import NotFound from "./NotFound.js"
+import NotFound from "./NotFoundRec.js"
 import * as api from "../api/Api.js";
 
 class Individual extends Component {

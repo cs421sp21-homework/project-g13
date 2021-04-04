@@ -5,7 +5,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Card from "../components/card.js";
 import MatchFound from "./MatchFound";
-import NotFound from "./NotFound";
+import NotFoundRec from "./NotFoundRec";
 import io from "socket.io-client";
 
 class ListRestaurant extends Component {
@@ -62,7 +62,7 @@ class ListRestaurant extends Component {
       this.setState({ position: this.state.position + 1 });
     } else {
       this.state.position = -1;
-      this.props.history.push("/Location/ListRestaurants/NotFound");
+      this.props.history.push("/Location/ListRestaurants/NotFoundRec");
     }
   }
 
@@ -105,8 +105,8 @@ class ListRestaurant extends Component {
         <Route path="/Location/ListRestaurants/Found">
           <MatchFound restaurant={this.state.match} />
         </Route>
-        <Route path="/Location/ListRestaurants/NotFound">
-          <NotFound />
+        <Route path="/Location/ListRestaurants/NotFoundRec">
+          <NotFoundRec />
         </Route>
       </Switch>
     );

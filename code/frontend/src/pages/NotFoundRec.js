@@ -9,14 +9,14 @@ import NewCard from "react-bootstrap/Card";
 import Slideshow from "../components/Slideshow";
 
 
-class NotFound extends Component {
+class NotFoundRec extends Component {
 
-    displayLeaderboard(topVotes) {
+    displayLeaderboard(topRes, topVotes) {
         let display = new Array();
-        for (const entry of topVotes.entries()) {
-            display.add(<div>
-                <a href={topVotes[0].url}>{topVotes[0].name}</a>
-                <p>Number of votes: {topVotes[1]}</p>
+        for (let i = 0; i < topRes.length; i++) {
+            display.push(<div>
+                <a href={topRes[i].url}>{topRes[i].name}</a>
+                <p>Number of votes: {topVotes[i]}</p>
             </div>);
         }
         return display;
@@ -24,11 +24,13 @@ class NotFound extends Component {
 
     render() {
         const { history } = this.props;
-        const restaurant = this.props.rec.value;
-        const topVotes = this.props.topVotes;
+        const restaurant = this.props.rec;
+        const topRes = this.props.topVotes.restaurants;
+        const topVotes = this.props.topVotes.votes;
         console.log("rec");
         console.log(restaurant);
         console.log("votes");
+        console.log(topRes);
         console.log(topVotes);
         const restaurantLocation = restaurant.location["address1"];
         const cuisineType = restaurant.categories[0]['title'];
@@ -62,7 +64,7 @@ class NotFound extends Component {
                                 </NewCard.Body>
                             </NewCard>
                             <h2>Leaderboard</h2>
-                            {this.displayLeaderboard(topVotes)}
+                            {this.displayLeaderboard(topRes, topVotes)}
                             <h2>Try again?</h2>
                             <form>
                                 <input
@@ -82,4 +84,4 @@ class NotFound extends Component {
     }
 }
 
-export default withRouter(NotFound);
+export default withRouter(NotFoundRec);
