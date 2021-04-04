@@ -253,8 +253,8 @@ class Room {
       this.restaurantYesVotes,
       this.restaurantNoVotes,
       this.restaurantById
-    );
-    return restaurantId;
+    )[0];
+    return this.restaurantById.get(restaurantId);
   }
 }
 

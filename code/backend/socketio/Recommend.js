@@ -64,7 +64,7 @@ function recommendRestaurant(users, yesVotes, noVotes, restaurants) {
 
   // Retrieve the best price
   let priceSorted = Object.keys(priceMap).sort(
-    (a, b) => priceMap[b] - priceMap[a]
+      (a, b) => priceMap[b] - priceMap[a]
   );
   let priceProfile = priceSorted.slice(0, 1);
 
@@ -113,8 +113,8 @@ function recommendRestaurant(users, yesVotes, noVotes, restaurants) {
       idMap[key] += pricePoints;
     }
     if (
-      Math.floor(parseInt(tempRest["rating"])) ===
-      Math.floor(parseInt(ratingProfile[0]))
+        Math.floor(parseInt(tempRest["rating"])) ===
+        Math.floor(parseInt(ratingProfile[0]))
     ) {
       idMap[key] += ratPoints;
     }
@@ -124,10 +124,8 @@ function recommendRestaurant(users, yesVotes, noVotes, restaurants) {
   console.log(idMap);
   let idSorted = Object.keys(idMap).sort((a, b) => idMap[b] - idMap[a]);
   let recommendedRest = idSorted.slice(0, 1);
-  console.log(recommendedRest);
-  let iter = restaurants.values();
-  console.log(iter.next());
-  return iter.next();
+
+  return recommendedRest;
 }
 
 //userVotes: Map restaurant id -> boolean

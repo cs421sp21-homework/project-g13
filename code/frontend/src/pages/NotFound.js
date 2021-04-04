@@ -13,7 +13,7 @@ class NotFound extends Component {
     
     render() {
         const { history } = this.props;
-        const restaurant = this.props.rec.value;
+        const restaurant = this.props.rec;
         console.log(restaurant);
         const restaurantLocation = restaurant.location["address1"];
         const cuisineType = restaurant.categories[0]['title'];
