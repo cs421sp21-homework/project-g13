@@ -257,7 +257,7 @@ class Room {
     return restaurantId;
   }
 
-  getTopThree() {
+  getTopVotes() {
     var topChoices = new Map();
     for (let i = 0; i < this.restaurants.length; i++) {
       let id = this.restaurants[i].id;
