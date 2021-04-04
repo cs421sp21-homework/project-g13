@@ -146,11 +146,10 @@ input[type="button"]:disabled {
   color: red;
 }
 
-<<<<<<< HEAD
 .carousel-indicators li {
   visibility: hidden;
 }
-=======
+
 .filter-content {
   font-size: calc(10px + 2vmin);
   text-align: center;
@@ -211,4 +210,4 @@ input[type="button"]:disabled {
 .app-background-color {
   background-color: #fdefb2;
 }
->>>>>>> main
+

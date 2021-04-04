@@ -2,7 +2,7 @@
   "name": "main",
   "version": "1.0.0",
   "description": "",
-  "main": "Groups.js",
+  "main": "socketServer.js",
   "dependencies": {
     "axios": "^0.21.0",
     "bootstrap": "^4.6.0",
@@ -26,7 +26,7 @@
     "axios": "^0.21.1"
   },
   "scripts": {
-    "start": "node Groups.js"
+    "start": "node socketServer.js"
   },
   "author": "",
   "license": "ISC",
