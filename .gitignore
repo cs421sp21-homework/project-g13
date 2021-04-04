@@ -7,6 +7,7 @@
 /code/backend/sparkjava/build/*
 /code/backend/.idea/*
 /code/backend/sparkjava/.idea/*
+/code/backend/socketio/node_modules/*
 node_modules/*
 code/frontend/node_modules/*
 /code/frontend/.eslintcache
