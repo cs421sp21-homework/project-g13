@@ -1,10 +1,9 @@
+import "../App.css";
 import React from 'react';
 import { observer } from 'mobx-react';
 import UserStore from "../stores/UserStore";
-import LoginForm from "../components/Login/LoginForm";
-import InputField from "../components/Login/InputField";
-import SubmitButton from "../components/Login/SubmitButton";
-import '../components/Login/Login.css';
+import SignupForm from "../components/LoginSignup/SignupForm";
+import '../components/LoginSignup/LoginSignup.css';
 
 class Signup extends React.Component {
 
@@ -93,7 +92,7 @@ class Signup extends React.Component {
         return (
             <div className="signup">
                 <div className="container">
-                    <LoginForm />
+                    <SignupForm />
                 </div>
             </div>
         );

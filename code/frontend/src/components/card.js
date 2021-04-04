@@ -2,7 +2,18 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import NewCard from "react-bootstrap/Card";
 import Slideshow from "./Slideshow.js";
+import Reviews from "./Reviews";
 import "../App.css";
+import IconButton from '@material-ui/core/IconButton';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import NotInterestedIcon from '@material-ui/icons/NotInterested'
+import { withStyles } from "@material-ui/core/styles";
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing(2),
+  },
+});
 
 class Card extends Component {
   onKeyPressed(event) {
@@ -18,6 +29,14 @@ class Card extends Component {
     document.addEventListener("keyup", this.onKeyPressed.bind(this));
   }
 
+  checkArrayElements(array) {
+    for (let i=0; i<array.length; i++) {
+      if (array[0]=== undefined || array[0] == null) {
+        array[0] = "";
+      }
+    }
+  }
+
   render() {
     const { restaurant } = this.props;
     const restaurantLocation =
@@ -28,8 +47,15 @@ class Card extends Component {
     const rating = restaurant.rating;
     const reviewCount = restaurant.review_count;
     const webUrl = restaurant.url;
+<<<<<<< HEAD
     const photos = restaurant.photos;
     let reviews = restaurant.reviews;
+=======
+    const photos = (restaurant.photos === undefined) ? ["", "", ""] : restaurant.photos;
+    const {classes} = this.props;
+    this.checkArrayElements(photos);
+    var reviews = restaurant.reviews;
+>>>>>>> main
     if (reviews == undefined) {
       reviews = [];
       for (let i = 0; i < 3; i++) {
@@ -47,8 +73,13 @@ class Card extends Component {
     return (
       <NewCard style={{ justify: "center" }}>
         <NewCard.Body>
+<<<<<<< HEAD
           <Slideshow photos={photos} reviews={emptyListReviews} isImg={true} />
           <Slideshow photos={emptyListPhotos} reviews={reviews} />
+=======
+          <Slideshow photos={photos}/>
+          <Reviews reviews={reviews}/>
+>>>>>>> main
           <NewCard.Title style={{ fontSize: "3vh" }}>
             {restaurant.name}
           </NewCard.Title>
@@ -65,18 +96,21 @@ class Card extends Component {
             <a href={webUrl}>Website</a>
           </NewCard.Subtitle>
           <div className="like-dislike-container">
-            <button
-              className="like-dislike-button float-left red"
+            <IconButton className={classes.button}
               onClick={this.props.onLike}
             >
-              <i className="fas fa-heart" />
-            </button>
-            <button
-              className="like-dislike-button float-right"
+              <FavoriteBorder
+                style={{fontSize:64,
+                color: "#fc4c4e"}}
+              />
+            </IconButton>
+            <IconButton className={classes.button}
               onClick={this.props.onDislike}
             >
-              <i className="fas fa-times" />
-            </button>
+              <NotInterestedIcon
+                  style={{fontSize:64}}
+              />
+            </IconButton>
           </div>
         </NewCard.Body>
       </NewCard>
@@ -84,7 +118,7 @@ class Card extends Component {
   }
 }
 
-export default Card;
+export default withStyles(styles)(Card);
 
 Card.propTypes = {
   restaurant: PropTypes.shape({
@@ -112,4 +146,5 @@ Card.propTypes = {
   }).isRequired,
   onDislike: PropTypes.func.isRequired,
   onLike: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
 };

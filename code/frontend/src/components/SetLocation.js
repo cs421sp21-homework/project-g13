@@ -1,6 +1,55 @@
 import React, { Component } from "react";
+import Button from "@material-ui/core/Button"
+import TextField from "@material-ui/core/TextField";
+import { withStyles } from "@material-ui/core/styles";
 
-export default class SetLocation extends Component {
+const styles = theme => ({
+  textField: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+    },
+  },
+  submit: {
+    color: '#522402',
+    backgroundColor: '#eca237',
+    boxShadow: 'none',
+    margin: theme.spacing(2),
+    width: 128,
+    height:48,
+    fontSize: 20,
+    '&:hover': {
+      backgroundColor: '#f9b042',
+      borderColor: '#f9b042',
+      boxShadow: 'none',
+    },
+    '&:active': {
+      boxShadow: 'none',
+      backgroundColor: '#f9b042',
+      borderColor: '#f9b042',
+    },
+  },
+  back: {
+    color: '#522402',
+    backgroundColor: '#f1d043',
+    boxShadow: 'none',
+    margin: theme.spacing(2),
+    width: 128,
+    height:48,
+    fontSize: 20,
+    '&:hover': {
+      backgroundColor: '#ffe03b',
+      borderColor: '#ffe03b',
+      boxShadow: 'none',
+    },
+    '&:active': {
+      boxShadow: 'none',
+      backgroundColor: '#ffe03b',
+      borderColor: '#ffe03b',
+    },
+  },
+});
+
+class SetLocation extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,7 +97,7 @@ export default class SetLocation extends Component {
   }
 
   submit = () => {
-    this.setState({ statusMessage: "Loading..."});
+    this.setState({ statusMessage: "Fetching restaurants..."});
     this.statusMessageChanged = true;
     if (this.validInput()) {
       var locationString = `${this.state.address} ${this.state.suiteNum} 
@@ -59,44 +108,71 @@ export default class SetLocation extends Component {
     }
   };
 
+  sliderChange = (event, newValue) => {
+    this.state.radius = newValue;
+  };
+
+  sliderBlur = (value) => {
+    if (value < 0) {
+      this.state.radius = 0;
+    } else if (value > 24.85) {
+      this.state.radius = 24.85;
+    }
+  };
+
   render() {
     return (
           <div className="App">
             <header className="App-header">
-              <form>
+              <form className={this.props.classes.textField}>
                 <h1>Please enter your Location:</h1>
-                <input
-                  type="text"
-                  name="address"
-                  placeholder="Address"
-                  onChange={this.myChangeHandler}
+                <TextField
+                    required
+                    id="address"
+                    label="Address"
+                    variant="outlined"
+                    fullWidth
+                    name="address"
+                    onChange={this.myChangeHandler}
                 />
-                <input
-                  type="text"
-                  name="suiteNum"
-                  placeholder="Suite Number (optional)"
-                  onChange={this.myChangeHandler}
+                <TextField
+                    id="suiteNum"
+                    label="Suite Number"
+                    variant="outlined"
+                    fullWidth
+                    name="address"
+                    onChange={this.myChangeHandler}
                 />
-                <input
-                  type="text"
-                  name="city"
-                  placeholder="City"
-                  onChange={this.myChangeHandler}
+                <TextField
+                    required
+                    id="city"
+                    label="City"
+                    variant="outlined"
+                    fullWidth
+                    name="city"
+                    onChange={this.myChangeHandler}
                 />
-                <input
-                  type="text"
-                  name="state"
-                  placeholder="State"
-                  onChange={this.myChangeHandler}
+                <TextField
+                    required
+                    id="state"
+                    label="State"
+                    variant="outlined"
+                    fullWidth
+                    name="state"
+                    onChange={this.myChangeHandler}
                 />
-                <input
-                  type="text"
-                  name="zipcode"
-                  placeholder="Zip Code"
-                  onChange={this.myChangeHandler}
+                <TextField
+                    required
+                    id="zip"
+                    label="Zip Code"
+                    variant="outlined"
+                    helperText="* are required fields"
+                    fullWidth
+                    name="zipcode"
+                    onChange={this.myChangeHandler}
                 />
                 <br/>
-                <h1>Search for restaurants within: </h1>
+                <h2>Search for restaurants within: </h2>
                 <input
                     type="number"
                     name="radius"
@@ -108,18 +184,24 @@ export default class SetLocation extends Component {
                 />
                 miles
                 <br/>
-                <input
-                  type="button"
-                  value="Submit"
-                  onClick={() => {
-                    this.submit();
-                  }}
-                />
-                <input 
-                  type="button"
-                  value="Back"
-                  onClick={this.props.onBack}
-                />
+                <Button
+                    className={this.props.classes.submit}
+                    onClick={() => {
+                      this.submit();
+                    }}
+                    variant="contained"
+                    size='large'
+                >
+                  Submit
+                </Button>
+                <Button
+                    className={this.props.classes.back}
+                    onClick={this.props.onBack}
+                    variant="contained"
+                    size='large'
+                >
+                  Back
+                </Button>
               </form>
               <div className="status">{this.state.statusMessage}</div>
             </header>
@@ -127,3 +209,5 @@ export default class SetLocation extends Component {
     );
   }
 }
+
+export default withStyles(styles)(SetLocation);

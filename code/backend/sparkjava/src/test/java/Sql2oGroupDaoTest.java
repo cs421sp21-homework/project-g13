@@ -30,7 +30,7 @@ public class Sql2oGroupDaoTest {
     @BeforeAll
     static void connectToDatabase() throws URISyntaxException {
         // using test database (in backend app)
-        URI dbUri = new URI("postgres://ntclafskylmibg:bc37662392ee4ca4f1c46d0ded963f7d32f96e9c8a04c3b0b3efd3f138775ef0@ec2-54-90-13-87.compute-1.amazonaws.com:5432/d41ch405o2l0a2");
+        URI dbUri = new URI("postgres://gsyqpyihtezhlv:bd02af53d56a03f3776f24d1e445983c396c5168abf5074343f70f0cf51f7bbc@ec2-52-45-73-150.compute-1.amazonaws.com:5432/def52afl6sjeue");
 
         String username = dbUri.getUserInfo().split(":")[0];
         String password = dbUri.getUserInfo().split(":")[1];
@@ -76,7 +76,7 @@ public class Sql2oGroupDaoTest {
             conn.createQuery("DROP TABLE IF EXISTS user_info;").executeUpdate();
             conn.createQuery("DROP TABLE IF EXISTS group_info;").executeUpdate();
 
-            String sql = "CREATE TABLE group_info (" +
+            /* String sql = "CREATE TABLE group_info (" +
                     "group_id BIGSERIAL PRIMARY KEY," +
                     "member1 BIGINT," +
                     "member2 BIGINT," +
@@ -88,10 +88,16 @@ public class Sql2oGroupDaoTest {
                     "member8 BIGINT," +
                     "member9 BIGINT," +
                     "member10 BIGINT);";
+
+             */
+            String sql = "CREATE TABLE group_info (" +
+                    "group_id BIGSERIAL PRIMARY KEY," +
+                    "name VARCHAR(50)," +
+                    "memberIDs BIGINT []);";
             conn.createQuery(sql).executeUpdate();
 
-            sql = "insert into group_info(member1, member2, member3, member4, member5, member6, member7, member8, member9, member10) " +
-                    "values (null, null, null, null, null, null, null, null, null, null);";
+            sql = "insert into group_info(memberIDs) " +
+                    "values (ARRAY [0]);";
             conn.createQuery(sql).executeUpdate();
 
             sql = "CREATE TABLE user_info (" +
@@ -99,12 +105,14 @@ public class Sql2oGroupDaoTest {
                     "username VARCHAR(50) NOT NULL," +
                     "pword VARCHAR(50) NOT NULL," +
                     "loc VARCHAR(100)," +
+                    "preferences VARCHAR(50) []," + // left as empty upon creation
                     "group_id BIGSERIAL REFERENCES group_info(group_id)," +
                     "UNIQUE(username)," +
                     "UNIQUE(pword));";
             conn.createQuery(sql).executeUpdate();
 
-            sql = "INSERT INTO user_info(username, pWord, loc, group_id) VALUES(:username, :pWord, :loc, :group_id);";
+            sql = "INSERT INTO user_info(username, pWord, loc, preferences, group_id) " +
+                    "VALUES(:username, :pWord, :loc, ARRAY['none'], :group_id);";
             for (User user : samples) {
                 conn.createQuery(sql).addParameter("username", user.getUserName())
                         .addParameter("pWord", user.getPword())
@@ -142,6 +150,9 @@ public class Sql2oGroupDaoTest {
 
         User addedUser = g1.getMembers().get(0);
         assertEquals(addedUser.getUserName(), "kfeatherstonef");
+
+        List<User> groupMembers = groupDao.readMembers(g1.getGroup_id());
+
     }
 
     @Test
@@ -189,9 +200,21 @@ public class Sql2oGroupDaoTest {
         groupDao.addMember(g1, u1);
         groupDao.addMember(g1, u2);
 
-        groupDao.readAllGroups();
-    }
+        List<Group> groups = groupDao.readAllGroups();
+        assertEquals(groups.size(), 1);
 
-     */
+        Group groupOne = groups.get(0);
+        List<User> groupOneMembers = groups.get(0).getMembers();
+        assertEquals(groupOne.getMembers().size(), 2);
+
+        int userOneIndex = groupOneMembers.indexOf(u1);
+        int userTwoIndex = groupOneMembers.indexOf(u2);
+        assertEquals(groupOneMembers.get(userOneIndex), u1);
+        assertEquals(groupOneMembers.get(userTwoIndex), u2);
+
+    }
+    */
+
+
 
 }

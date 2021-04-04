@@ -2,18 +2,40 @@ import "../App.css"
 import React, { Component } from "react";
 import { Switch, Route } from "react-router";
 import { withRouter } from "react-router-dom";
-import Location from './Location'
 import Signup from "./Signup";
-import Navbar from "../components/Navbar/Navbar.js"
+import Login from "./Login";
 import Group from './Group'
 import Individual from "./Individual";
+import SetFilters from "./SetFilters.js"
+import { withStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 
-
+const styles = theme => ({
+    button: {
+        color: '#5a2c22',
+        backgroundColor: '#d44f22',
+        borderColor: '#d44f22',
+        boxShadow: 'none',
+        margin: theme.spacing(2),
+        width: 256,
+        height: 64,
+        fontSize: 22,
+        '&:hover': {
+            backgroundColor: '#f9b042',
+            borderColor: '#f9b042',
+            boxShadow: 'none',
+        },
+        '&:active': {
+            boxShadow: 'none',
+            backgroundColor: '#f9b042',
+            borderColor: '#f9b042',
+        },
+    },
+});
 
 class Home extends Component {
     constructor(props) {
         super(props);
-        sessionStorage.clear();
     }
 
     nextPath(path) {
@@ -21,52 +43,77 @@ class Home extends Component {
     }
 
     render() {
+        if (this.props.location.pathname !== "/Join" && this.props.location.pathname !== "/Host") {
+            sessionStorage.clear();
+            console.log("cleared");
+        }
+
         return(
             <Switch>
                 <Route exact path="/">
-                    <Navbar/>
                     <div className='App'>
                         <header className='App-header'>
                             <form>
-                                <input
-                                    type="button"
-                                    value="Start"
+                                <Button
+                                    className={this.props.classes.button}
+                                    onClick={() => this.nextPath('/Signup')}
+                                    variant="contained"
+                                    size='large'
+                                >
+                                    Sign up/Login
+                                </Button>
+                                <br/>
+                                <Button
+                                    className={this.props.classes.button}
                                     onClick={() => this.nextPath('/Individual')}
-                                />
+                                    variant="contained"
+                                    size='large'
+                                >
+                                    Start
+                                </Button>
                                 <br/>
-                                <input
-                                    type="button"
-                                    value="Join a Group"
+                                <Button
+                                    className={this.props.classes.button}
                                     onClick={() => this.nextPath('/Join')}
-                                />
+                                    variant="contained"
+                                    size='large'
+                                >
+                                    Join a Group
+                                </Button>
                                 <br/>
-                                <input
-                                    type="button"
-                                    value="Host a Group"
+                                <Button
+                                    className={this.props.classes.button}
                                     onClick={() => this.nextPath('/Host')}
-                                />
+                                    variant="contained"
+                                    size='large'
+                                >
+                                    Host a Group
+                                </Button>
                             </form>
                         </header>
                     </div>
                 </Route>
-                <Route path="/Location/:returnTo?">
-                    <Location/>
-                </Route>
                 <Route path="/Join">
                     <Group isHost={false} />
                 </Route>
-                <Route path="/Host/:groupLocation?">
+                <Route path="/Host">
                     <Group isHost={true} />
                 </Route>
-                <Route path="/Login">
+                <Route path="/Signup">
                     <Signup/>
+                </Route>
+                <Route path="/Login">
+                    <Login/>
                 </Route>
                 <Route path="/Individual">
                     <Individual />
+                </Route>
+                <Route path="/Filter">
+                    <SetFilters />
                 </Route>
             </Switch>
         )
     }
 }
 
-export default withRouter(Home)
+export default withRouter((withStyles(styles)(Home)))

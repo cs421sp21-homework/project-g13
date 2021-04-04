@@ -111,6 +111,8 @@ After iteration 1, we have deployed version 0.1.0
 
 After iteration 2, we have deployed version 0.2.0
 
+After iteration 3, we have deployed version 0.3.0
+
 ## Configuration
 
 Currently, the only configuration a user can enter while using the project is that of the individual consumer. They open the application and the only thing they can currently do is input a location and, upon submitting that location, they can click through some close-by restaurants.

@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import ListRestaurant from "./ListRestaurant.js";
 import * as api from "../api/Api.js";
 
+
 class Location extends Component {
   constructor(props) {
     super(props);
