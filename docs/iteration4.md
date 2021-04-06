@@ -4,7 +4,7 @@ Leader: Daniel
 
 When2Meet: https://www.when2meet.com/?11547411-ZFkfy
 
-##Past Meetings
+## Past Meetings
 
 Monday, April 5 @ 8pm EDT
 - Members Attended: Nathaniel, Eric, Shanelle, Daniel
