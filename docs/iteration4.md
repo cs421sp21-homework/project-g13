@@ -6,7 +6,7 @@ When2Meet: https://www.when2meet.com/?11547411-ZFkfy
 
 ## Past Meetings
 
-Monday, April 5 @ 8pm EDT
+Monday, April 5 @ 8:30 pm EDT
 - Members Attended: Nathaniel, Eric, Shanelle, Daniel
 
 # OO Design
@@ -42,7 +42,7 @@ No change from last iteration.
 - Pulling different restaurants when Individual clicks "Try Again" -> Shanelle
 - Storing/Acessing user's permanent preferences in the frontend -> Shanelle
 - Fix sizing/organization of elements in restaurant card -> Shanelle
-- Moving styling from <header> to <body> -> Shanelle
+- Moving styling from "<header>" to "<body>" -> Shanelle
 
 - Storing user's permanent preferences in backend -> Daniel
 - Implementing login system -> Daniel
