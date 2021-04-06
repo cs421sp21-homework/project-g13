@@ -5,7 +5,7 @@ Leader: Daniel
 When2Meet: https://www.when2meet.com/?11547411-ZFkfy
 
 ## Meetings
-Our meeting time is Monday, 8pm
+Our meeting time is Monday, 8:30pm
 
 ### Past Meetings
 
