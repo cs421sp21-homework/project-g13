@@ -6,7 +6,7 @@ When2Meet: https://www.when2meet.com/?11547411-ZFkfy
 
 # OO Design
 
-![UML Diagram for iteration 4]()
+![UML Diagram for iteration 4](assets/iteration-4-uml.png)
 
 # Wireframe & Use-case
 
