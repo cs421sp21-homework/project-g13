@@ -31,7 +31,7 @@ No change from last iteration.
 # Tasks
 
 - Update wireframe -> Daniel
- - Show updated views of the applicaton
+  - Show updated views of the applicaton
 
 - Update UML Diagram -> Nathaniel
   - Show classes & fields that accurately reflect the backend design
