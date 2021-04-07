@@ -20,7 +20,7 @@ Monday, April 5 @ 8:30 pm EDT
 
 ![UML Diagram for iteration 4](assets/iteration4_wireframe.png)
 
-**Use Case: Cumulative functionality of app**
+**Use Case: Cumulative Functionality of App**
 
 1. The user opens the application.
 2. The user will be presented with the "Start" page, view (1).
@@ -51,7 +51,7 @@ Monday, April 5 @ 8:30 pm EDT
 
 # Iteration Backlog
 
-- As a user, I would like to create an account and login so that my information can be saved.
+- [Fixing/polishing user stories from iterations 1-4](roadmap.md)
 
 # Tasks
 
