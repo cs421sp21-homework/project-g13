@@ -74,7 +74,7 @@ Monday, April 5 @ 8:30 pm EDT
 
 - Notifying group members when host leaves ([#56](https://github.com/cs421sp21-homework/project-g13/issues/56), Nathaniel) :black_square_button:
 - Fixing "property alias undefined" error for group recommendations ([#72](https://github.com/cs421sp21-homework/project-g13/issues/72), Nathaniel) :black_square_button:
-- Implement recommendation algorithm for individuals using existing group implementation ([#78](https://github.com/cs421sp21-homework/project-g13/issues/78), Nathaniel) :black_square_button:
+- Implement recommendation algorithm for individuals using existing group implementation ([#78](https://github.com/cs421sp21-homework/project-g13/issues/78), Nathaniel) :white_check_mark:
 - Fix truncated reviews by adding "read more" links to the restaurant's reviews page ([#96](https://github.com/cs421sp21-homework/project-g13/issues/96), Nathaniel) :black_square_button:
 - Fix restaurant images not showing MatchFound.js ([#97](https://github.com/cs421sp21-homework/project-g13/issues/97), Nathaniel) :black_square_button:
 
