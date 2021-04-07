@@ -18,11 +18,34 @@ Monday, April 5 @ 8:30 pm EDT
 
 # Wireframe & Use-case
 
-No change from last iteration.
+![UML Diagram for iteration 4](assets/iteration4_wireframe.png)
 
-**Use Case: Receiving assistance in choosing a restaurant**
+**Use Case: Cumulative functionality of app**
 
-No change from last iteration.
+1. The user opens the application.
+2. The user will be presented with a sign-in/up page, view (1).
+    - If they already made an account with us, the user will click on the "Sign in with Gmail" button.
+      - The user will enter their e-mail and Google will handle the rest of the sign-in process, view (2).
+    - Otherwise, they will click on the “Sign up” button.
+      - Then, the user will enter their email such that an account is created, view (2).
+3. The user will be presented with the "Start" page, view (3).
+    - If they want to choose by themselves, the user will click on “Start”.
+    - If they want to join a group, the user will click on the “Join a group” button.
+      - The user will enter a group ID which represents a specific group to join, view (4).
+      - The user is presented with a “Waiting…” screen until the host begins the selection process, view (5).
+    - If they want to host a group, the user will click on the “Host a group” button.
+      - The user will set the group’s location by clicking on the “Set Group Location” button.
+      - The user will wait for people to join and click the “Start” button once everyone has joined, view (7).
+4. The user will be presented with a place to enter their location, view (8).
+5. The user/ will be presented with a "Restaurant option" page, view (9).
+6. The user will click on "Yes" if they find the option appealing, or on "No" if they find it unappealing.
+    - If the user clicks on "Yes", a new "Restaurant option" page will be presented.
+7. If the user swipes right, the "Match found" page, view (10), will be presented.
+      - The user will click on the "Done" button and be returned to the "Start" page.
+8. If the user/group is unable to find a match after swiping through 10 restaurants, then a “No Match Found” screen is displayed.
+    - If not in a group, then the user is presented with a recommendation, view (11).
+    - If in a group, then the group is presented with a recommendation and a leaderboard of restaurants to show how people voted for each one, view (12).
+9. The user will click “Yes” or "No" if they want to swipe through another collection of restaurants or end the swiping process.
 
 # Iteration Backlog
 
@@ -40,44 +63,44 @@ No change from last iteration.
   - Add RestaurantVote class
 
 
-- Showing restaurant images on MatchFound.js and NotFound.js pages ([#73](https://github.com/cs421sp21-homework/project-g13/issues/73), Abdullah)
-- Fixing errors for undefined address values in Individual swiping event ([#58](https://github.com/cs421sp21-homework/project-g13/issues/58), Abdullah)
-- Add "Set Filters" button for individuals ([#79](https://github.com/cs421sp21-homework/project-g13/issues/79), Abdullah)
-- Add previous image/next image buttons when swiping through restaurants ([#98](https://github.com/cs421sp21-homework/project-g13/issues/98), Abdullah)
-- Make the APIs in Server.java follow a try-catch structure as shown in Module 5 ([#99](https://github.com/cs421sp21-homework/project-g13/issues/99), Abdullah)
+- Showing restaurant images on MatchFound.js and NotFound.js pages ([#73](https://github.com/cs421sp21-homework/project-g13/issues/73), Abdullah) :black_square_button:
+- Fixing errors for undefined address values in Individual swiping event ([#58](https://github.com/cs421sp21-homework/project-g13/issues/58), Abdullah) :black_square_button:
+- Add "Set Filters" button for individuals ([#79](https://github.com/cs421sp21-homework/project-g13/issues/79), Abdullah) :black_square_button:
+- Add previous image/next image buttons when swiping through restaurants ([#98](https://github.com/cs421sp21-homework/project-g13/issues/98), Abdullah) :black_square_button:
+- Make the APIs in Server.java follow a try-catch structure as shown in Module 5 ([#99](https://github.com/cs421sp21-homework/project-g13/issues/99), Abdullah) :black_square_button:
 
-- Notifying group members when host leaves ([#56](https://github.com/cs421sp21-homework/project-g13/issues/56), Nathaniel)
-- Fixing "property alias undefined" error for group recommendations ([#72](https://github.com/cs421sp21-homework/project-g13/issues/72), Nathaniel)
-- Implement recommendation algorithm for individuals using existing group implementation ([#78](https://github.com/cs421sp21-homework/project-g13/issues/78), Nathaniel)
-- Fix truncated reviews by adding "read more" links to the restaurant's reviews page ([#96](https://github.com/cs421sp21-homework/project-g13/issues/96), Nathaniel)
-- Fix restaurant images not showing MatchFound.js ([#97](https://github.com/cs421sp21-homework/project-g13/issues/97), Nathaniel)
+- Notifying group members when host leaves ([#56](https://github.com/cs421sp21-homework/project-g13/issues/56), Nathaniel) :black_square_button:
+- Fixing "property alias undefined" error for group recommendations ([#72](https://github.com/cs421sp21-homework/project-g13/issues/72), Nathaniel) :black_square_button:
+- Implement recommendation algorithm for individuals using existing group implementation ([#78](https://github.com/cs421sp21-homework/project-g13/issues/78), Nathaniel) :black_square_button:
+- Fix truncated reviews by adding "read more" links to the restaurant's reviews page ([#96](https://github.com/cs421sp21-homework/project-g13/issues/96), Nathaniel) :black_square_button:
+- Fix restaurant images not showing MatchFound.js ([#97](https://github.com/cs421sp21-homework/project-g13/issues/97), Nathaniel) :black_square_button:
 
-- Pulling different restaurants when Individual clicks "Try Again" ([#62](https://github.com/cs421sp21-homework/project-g13/issues/62), Shanelle)
-- UI for acessing user's permanent preferences in the frontend ([#95](https://github.com/cs421sp21-homework/project-g13/issues/95), Shanelle)
-- Fix sizing/organization of elements in restaurant card ([#80](https://github.com/cs421sp21-homework/project-g13/issues/80), Shanelle)
-- Moving styling from "header" to "body" ([#76](https://github.com/cs421sp21-homework/project-g13/issues/76), Shanelle)
-- Rearrange the restaurant leaderboard in NotFoundRec.js so the user can easily see it ([#48](https://github.com/cs421sp21-homework/project-g13/issues/48), Shanelle)
+- Pulling different restaurants when Individual clicks "Try Again" ([#62](https://github.com/cs421sp21-homework/project-g13/issues/62), Shanelle) :black_square_button:
+- UI for acessing user's permanent preferences in the frontend ([#95](https://github.com/cs421sp21-homework/project-g13/issues/95), Shanelle) :black_square_button:
+- Fix sizing/organization of elements in restaurant card ([#80](https://github.com/cs421sp21-homework/project-g13/issues/80), Shanelle) :black_square_button:
+- Moving styling from "header" to "body" ([#76](https://github.com/cs421sp21-homework/project-g13/issues/76), Shanelle) :black_square_button:
+- Rearrange the restaurant leaderboard in NotFoundRec.js so the user can easily see it ([#48](https://github.com/cs421sp21-homework/project-g13/issues/48), Shanelle) :black_square_button:
 
-- Saving group's location for "Try Again" button ([#74](https://github.com/cs421sp21-homework/project-g13/issues/74), Eric)
-- Fixing Match Found errors when member closes out of swiping event window during the event ([#71](https://github.com/cs421sp21-homework/project-g13/issues/71), Eric)
-- When a user leaves without pressing "Try Again", the page breaks for everyone ([#81](https://github.com/cs421sp21-homework/project-g13/issues/81), Eric)
-- Prevent like/dislike buttons and other text/objects on the restaurant card from overlapping ([#94](https://github.com/cs421sp21-homework/project-g13/issues/94), Eric)
-- Create a test class for Server.java 
-    - Write unit tests on APIs ([#93](https://github.com/cs421sp21-homework/project-g13/issues/93), Eric)
-    - Write Postman tests on APIs ([#92](https://github.com/cs421sp21-homework/project-g13/issues/92), Daniel)
+- Saving group's location for "Try Again" button ([#74](https://github.com/cs421sp21-homework/project-g13/issues/74), Eric) :black_square_button:
+- Fixing Match Found errors when member closes out of swiping event window during the event ([#71](https://github.com/cs421sp21-homework/project-g13/issues/71), Eric) :black_square_button:
+- When a user leaves without pressing "Try Again", the page breaks for everyone ([#81](https://github.com/cs421sp21-homework/project-g13/issues/81), Eric) :black_square_button:
+- Prevent like/dislike buttons and other text/objects on the restaurant card from overlapping ([#94](https://github.com/cs421sp21-homework/project-g13/issues/94), Eric) :black_square_button:
+- Create a test class for Server.java :black_square_button:
+    - Write unit tests on APIs ([#93](https://github.com/cs421sp21-homework/project-g13/issues/93), Eric) :black_square_button:
+    - Write Postman tests on APIs ([#92](https://github.com/cs421sp21-homework/project-g13/issues/92), Daniel) :black_square_button:
     
-- Storing user's permanent preferences in backend 
-  - Create column in database for the preferences ([#90](https://github.com/cs421sp21-homework/project-g13/issues/90), Daniel)
-  - Create DAO objects for accessing/modfying them ([#91](https://github.com/cs421sp21-homework/project-g13/issues/91), Daniel)
-- Implementing login system
-  - Show an error message if the backend server is down ([#83](https://github.com/cs421sp21-homework/project-g13/issues/83), Daniel)
-  - Fix error "Signup.js:14 POST http://localhost:3000/isLoggedIn 404 (Not Found)" ([#84](https://github.com/cs421sp21-homework/project-g13/issues/84), Daniel)
-  - Connecting frontend to database with user credentials ([#85](https://github.com/cs421sp21-homework/project-g13/issues/85), Daniel)
-- Record an individual's swipes in backend ([#77](https://github.com/cs421sp21-homework/project-g13/issues/77), Daniel)
-- Remove 'backend/build' from git ([#86](https://github.com/cs421sp21-homework/project-g13/issues/86), Daniel)
-    - add to .gitignore ([#87](https://github.com/cs421sp21-homework/project-g13/issues/87), Daniel)
-- Creating & integrating custom exceptions for backend server ([#89](https://github.com/cs421sp21-homework/project-g13/issues/89), Daniel)
-  - Throw HTTP error codes including non-404 errors (make the error codes accurately reflect the error) ([#88](https://github.com/cs421sp21-homework/project-g13/issues/88), Daniel)
+- Storing user's permanent preferences in backend :black_square_button:
+  - Create column in database for the preferences ([#90](https://github.com/cs421sp21-homework/project-g13/issues/90), Daniel) :black_square_button:
+  - Create DAO objects for accessing/modfying them ([#91](https://github.com/cs421sp21-homework/project-g13/issues/91), Daniel) :black_square_button:
+- Implementing login system :black_square_button:
+  - Show an error message if the backend server is down ([#83](https://github.com/cs421sp21-homework/project-g13/issues/83), Daniel) :black_square_button:
+  - Fix error "Signup.js:14 POST http://localhost:3000/isLoggedIn 404 (Not Found)" ([#84](https://github.com/cs421sp21-homework/project-g13/issues/84), Daniel) :black_square_button:
+  - Connecting frontend to database with user credentials ([#85](https://github.com/cs421sp21-homework/project-g13/issues/85), Daniel) :black_square_button:
+- Record an individual's swipes in backend ([#77](https://github.com/cs421sp21-homework/project-g13/issues/77), Daniel) :black_square_button:
+- Remove 'backend/build' from git ([#86](https://github.com/cs421sp21-homework/project-g13/issues/86), Daniel) :black_square_button:
+    - add to .gitignore ([#87](https://github.com/cs421sp21-homework/project-g13/issues/87), Daniel) :black_square_button:
+- Creating & integrating custom exceptions for backend server ([#89](https://github.com/cs421sp21-homework/project-g13/issues/89), Daniel) :black_square_button:
+  - Throw HTTP error codes including non-404 errors (make the error codes accurately reflect the error) ([#88](https://github.com/cs421sp21-homework/project-g13/issues/88), Daniel) :black_square_button:
 
 # Retrospective
 
