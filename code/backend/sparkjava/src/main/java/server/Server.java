@@ -75,15 +75,17 @@ public class Server {
             res.header("Access-Control-Allow-Methods", "GET");
             res.header("Content-Type", "application/json");
             String query = req.queryParams("query");
-            int radius, limit;
+            int radius, limit, offset;
 
             if (query == null) res.status(404);
             try { limit = Integer.parseInt(req.queryParams("limit")); }
             catch(Exception e) { limit = 20; }
             try { radius = Integer.parseInt(req.queryParams("radius")); }
             catch(Exception e) { radius = 40000; }
+            try { offset = Integer.parseInt(req.queryParams("offset")); }
+            catch(Exception e) { offset = 0; }
 
-            List<Restaurant> resp = YelpService.getRestaurantByLocationWithDetail(query, limit, radius);
+            List<Restaurant> resp = YelpService.getRestaurantByLocationWithDetail(query, limit, radius, offset);
             if (resp == null) res.status(404);
             return gson.toJson(resp);
         });
@@ -94,7 +96,7 @@ public class Server {
             res.header("Access-Control-Allow-Methods", "GET");
             res.header("Content-Type", "application/json");
             String query = req.queryParams("query");
-            int radius, limit;
+            int radius, limit, offset;
             String price, categories;
 
             if (query == null) res.status(404);
@@ -102,6 +104,8 @@ public class Server {
             catch(Exception e) { limit = 20; }                    // default to getting 20 restaurants from Yelp
             try { radius = Integer.parseInt(req.queryParams("radius")); }
             catch(Exception e) { radius = 40000; }                // radius in meters thus 40 km
+            try { offset = Integer.parseInt(req.queryParams("offset")); }
+            catch(Exception e) { offset = 0; }
             try { price = req.queryParams("price");
                 if (price.equals("")) {                          // if no price is entered
                     price = "1,2,3,4";
@@ -111,7 +115,7 @@ public class Server {
             try { categories = req.queryParams("categories"); }       // Order matters!
             catch(Exception e) { categories = ""; }                   // default to specific categories
 
-            List<Restaurant> resp = YelpService.getRestaurantsByFiltersWithDetail(query, limit, radius, price, categories);
+            List<Restaurant> resp = YelpService.getRestaurantsByFiltersWithDetail(query, limit, radius, offset, price, categories);
             if (resp == null) res.status(404);
             return gson.toJson(resp);
         });
