@@ -70,6 +70,7 @@ Monday, April 5 @ 8:30 pm EDT
 - Add "Set Filters" button for individuals ([#79](https://github.com/cs421sp21-homework/project-g13/issues/79), Abdullah) :black_square_button:
 - Add previous image/next image buttons when swiping through restaurants ([#98](https://github.com/cs421sp21-homework/project-g13/issues/98), Abdullah) :black_square_button:
 - Make the APIs in Server.java follow a try-catch structure as shown in Module 5 ([#99](https://github.com/cs421sp21-homework/project-g13/issues/99), Abdullah) :black_square_button:
+- Remove 'backend/build' from git ([#86](https://github.com/cs421sp21-homework/project-g13/issues/86), Abdullah) :white_check_mark:
 
 - Notifying group members when host leaves ([#56](https://github.com/cs421sp21-homework/project-g13/issues/56), Nathaniel) :black_square_button:
 - Fixing "property alias undefined" error for group recommendations ([#72](https://github.com/cs421sp21-homework/project-g13/issues/72), Nathaniel) :black_square_button:
@@ -99,8 +100,7 @@ Monday, April 5 @ 8:30 pm EDT
   - Fix error "Signup.js:14 POST http://localhost:3000/isLoggedIn 404 (Not Found)" ([#84](https://github.com/cs421sp21-homework/project-g13/issues/84), Daniel) :black_square_button:
   - Connecting frontend to database with user credentials ([#85](https://github.com/cs421sp21-homework/project-g13/issues/85), Daniel) :black_square_button:
 - Record an individual's swipes in backend ([#77](https://github.com/cs421sp21-homework/project-g13/issues/77), Daniel) :black_square_button:
-- Remove 'backend/build' from git ([#86](https://github.com/cs421sp21-homework/project-g13/issues/86), Daniel) :black_square_button:
-    - add to .gitignore ([#87](https://github.com/cs421sp21-homework/project-g13/issues/87), Daniel) :black_square_button:
+- Add 'backend/build' to .gitignore ([#87](https://github.com/cs421sp21-homework/project-g13/issues/87), Daniel) :black_square_button:
 - Creating & integrating custom exceptions for backend server ([#89](https://github.com/cs421sp21-homework/project-g13/issues/89), Daniel) :black_square_button:
   - Throw HTTP error codes including non-404 errors (make the error codes accurately reflect the error) ([#88](https://github.com/cs421sp21-homework/project-g13/issues/88), Daniel) :black_square_button:
 
