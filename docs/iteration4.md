@@ -23,29 +23,31 @@ Monday, April 5 @ 8:30 pm EDT
 **Use Case: Cumulative functionality of app**
 
 1. The user opens the application.
-2. The user will be presented with a sign-in/up page, view (1).
-    - If they already made an account with us, the user will click on the "Sign in with Gmail" button.
-      - The user will enter their e-mail and Google will handle the rest of the sign-in process, view (2).
-    - Otherwise, they will click on the “Sign up” button.
-      - Then, the user will enter their email such that an account is created, view (2).
-3. The user will be presented with the "Start" page, view (3).
-    - If they want to choose by themselves, the user will click on “Start”.
-    - If they want to join a group, the user will click on the “Join a group” button.
-      - The user will enter a group ID which represents a specific group to join, view (4).
-      - The user is presented with a “Waiting…” screen until the host begins the selection process, view (5).
-    - If they want to host a group, the user will click on the “Host a group” button.
-      - The user will set the group’s location by clicking on the “Set Group Location” button.
-      - The user will wait for people to join and click the “Start” button once everyone has joined, view (7).
-4. The user will be presented with a place to enter their location, view (8).
-5. The user/ will be presented with a "Restaurant option" page, view (9).
-6. The user will click on "Yes" if they find the option appealing, or on "No" if they find it unappealing.
-    - If the user clicks on "Yes", a new "Restaurant option" page will be presented.
-7. If the user swipes right, the "Match found" page, view (10), will be presented.
-      - The user will click on the "Done" button and be returned to the "Start" page.
-8. If the user/group is unable to find a match after swiping through 10 restaurants, then a “No Match Found” screen is displayed.
-    - If not in a group, then the user is presented with a recommendation, view (11).
-    - If in a group, then the group is presented with a recommendation and a leaderboard of restaurants to show how people voted for each one, view (12).
-9. The user will click “Yes” or "No" if they want to swipe through another collection of restaurants or end the swiping process.
+2. The user will be presented with the "Start" page, view (1).
+3. If the user wants to sign-in or create an account, they will click on the "Sign Up/Login" button.
+    - The user will enter a username and password to create an account, view (2).
+    - If the user has as account, they will enter their credentials in view (3).
+4. If they want to begin swiping by themselves, the user will click on “Start”.
+    - They will be presented with buttons for setting locations/preferences and starting the event, view (4).
+5. If they want to join a group, the user will click on the “Join a group” button.
+    - The user will enter a group ID which represents a specific group to join, view (8).
+    - The user is presented with a “Waiting…” screen until the host begins the selection process, view (9).
+6. If they want to host a group, the user will click on the “Host a group” button.
+    - The user will set the group’s location/preferences by clicking on the “Set Group Location”/"Set Filters" buttons, view (7).
+    - The user will wait for people to join and click the “Start” button once everyone has joined, view (7).
+7. By clicking on the "Set Location" button, the user will be able to enter their address and desired search radius, view (5).
+8. By clicking on the "Set Filters" button, the user will be able to set their preferences, view (6).
+9. Once the swiping event begins, the user will be presented with potential restaurants, view (10).
+10. The user will click on "Heart" if they find the option appealing, or "X" if they find it unappealing.
+    - If an individual user presses the "X" button, then another restaurant will be presented, view (10).
+    - If an individual user presses the "Heart" button, the "Match found" page will be presented, view (14).
+      - The user will click on the "Done" button and be returned to the "Start" page, view (1).
+11. If a user in a group presses the "Heart" button, they will continue selecting restaurants until a match is found/recommended to the group.
+12. If some group members finish before others, then they are presented with a "Waiting..." screen, view (11).
+13. If the user/group is unable to find a match after swiping through 10 restaurants, then a “No Match Found” screen is displayed.
+    - If not in a group, then the user is presented with a recommendation, view (12).
+    - If in a group, then the group is presented with a recommendation and a leaderboard of restaurants to show how people voted for each one, view (13).
+14. The user will click “Yes” or "No" if they want to swipe through another collection of restaurants or end the swiping process.
 
 # Iteration Backlog
 
