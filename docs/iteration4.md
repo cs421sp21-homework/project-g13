@@ -39,47 +39,45 @@ No change from last iteration.
   - Remove restaurantVotes in Group class
   - Add RestaurantVote class
 
-- Creating & integrating custom exceptions into the backend 
-  - Throw HTTP error codes including non-404 errors (make the error codes accurately reflect the error)
 
-- Fix restaurant images not showing on the match found page
+- Showing restaurant images on MatchFound.js and NotFound.js pages (#73, Abdullah)
+- Fixing errors for undefined address values in Individual swiping event (#58, Abdullah)
+- Add "Set Filters" button for individuals (#79, Abdullah)
+- Add previous image/next image buttons when swiping through restaurants (#98, Abdullah)
+- Make the APIs in Server.java follow a try-catch structure as shown in Module 5 (#99, Abdullah)
 
-- Fix truncated reviews and next to the review, add "read more" links to the restaurant's reviews page 
+- Notifying group members when host leaves (#56, Nathaniel)
+- Fixing "property alias undefined" error for group recommendations (#72, Nathaniel)
+- Implement recommendation algorithm for individuals using existing group implementation (#78, Nathaniel)
+- Fix truncated reviews by adding "read more" links to the restaurant's reviews page (#96, Nathaniel)
+- Fix restaurant images not showing MatchFound.js (#97, Nathaniel)
 
-- Prevent like/dislike buttons and other text/objects on the restaurant card from overlaping
+- Pulling different restaurants when Individual clicks "Try Again" (#62, Shanelle)
+- UI for acessing user's permanent preferences in the frontend (#48, Shanelle)
+- Fix sizing/organization of elements in restaurant card (#80, Shanelle)
+- Moving styling from "header" to "body" (#76, Shanelle)
+- Rearrange the restaurant leaderboard in NotFoundRec.js so the user can easily see it (#48, Shanelle)
 
-- Fix missing previous image/next image buttons
-
-- Rearrange the restaurant leaderboard on the match found page so the user can easily see it
-
-- Remove 'backend/build' from git
-
-- Create a test class for Server.java
-
-- Make the APIs in the backend follow a try-catch structure as shown in Module 5
-
-- Saving group's location for "Try Again" button -> Eric
-- Fixing Match Found errors when member closes out of swiping event window during the event -> Eric
-- When a user leaves without pressing "Try Again", the page breaks for everyone -> Eric
-
-- Showing restaurant images/reviews on "Match Found" and "Not Found" pages -> Abdullah
-- Fixing errors for undefined address values in Individual swiping event -> Abdullah
-- Add "Set Filters" button for individuals -> Abdullah
-
-- Notifying group members when host leaves -> Nathaniel
-- Fixing "property alias undefined" error for group recommendations -> Nathaniel
-- Fix recommendation algorithm for individuals -> Nathaniel
-
-- Pulling different restaurants when Individual clicks "Try Again" -> Shanelle
-- Storing/Acessing user's permanent preferences in the frontend -> Shanelle
-- Fix sizing/organization of elements in restaurant card -> Shanelle
-- Moving styling from "<header>" to "<body>" -> Shanelle
-
-- Storing user's permanent preferences in backend -> Daniel
-- Implementing login system -> Daniel
-  - Show an error message if the backend server is down
-  - Fix error "Signup.js:14 POST http://localhost:3000/isLoggedIn 404 (Not Found)"
-- Record an individual's swipes in backend -> Daniel
+- Saving group's location for "Try Again" button (#74, Eric)
+- Fixing Match Found errors when member closes out of swiping event window during the event (#71, Eric)
+- When a user leaves without pressing "Try Again", the page breaks for everyone (#81, Eric)
+- Prevent like/dislike buttons and other text/objects on the restaurant card from overlapping (#94, Eric)
+- Create a test class for Server.java 
+    - Write unit tests on APIs (#93, Eric)
+    - Write Postman tests on APIs (#92, Daniel)
+    
+- Storing user's permanent preferences in backend 
+  - Create column in database for the preferences (#90, Daniel)
+  - Create DAO objects for accessing/modfying them (#91, Daniel)
+- Implementing login system
+  - Show an error message if the backend server is down (#83, Daniel)
+  - Fix error "Signup.js:14 POST http://localhost:3000/isLoggedIn 404 (Not Found)" (#84, Daniel)
+  - Connecting frontend to database with user credentials (#85, Daniel)
+- Record an individual's swipes in backend (#77, Daniel)
+- Remove 'backend/build' from git (#86, Daniel)
+    - add to .gitignore (#87, Daniel)
+- Creating & integrating custom exceptions for backend server (#89, Daniel)
+  - Throw HTTP error codes including non-404 errors (make the error codes accurately reflect the error) (#88, Daniel)
 
 # Retrospective
 
