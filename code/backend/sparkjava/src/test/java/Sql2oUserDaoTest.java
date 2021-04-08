@@ -168,7 +168,7 @@ class Sql2oUserDaoTest {
     @Test
     @DisplayName("can get list of group members")
     void getListOfUsers() {
-        // not really a test, just seeing if it can work with errors
+        // not really a test, just seeing if it can work without errors
         List<User> users = userDao.readAll();
 
         assertEquals(users.size(), 21);
@@ -203,7 +203,7 @@ class Sql2oUserDaoTest {
 
     @Test
     @DisplayName("can add multiple preferences to specific user")
-    void addPreferences() {
+    void addMultiplePreferences() {
         User u1 = userDao.read("msoallb");
 
         // only adding one at a time
@@ -240,7 +240,7 @@ class Sql2oUserDaoTest {
 
     @Test
     @DisplayName("can remove multiple preferences from specific user")
-    void removePreferences() {
+    void removeMultiplePreferences() {
         User u1 = userDao.read("msoallb");
 
         // only adding/removing one at a time
