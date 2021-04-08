@@ -174,6 +174,7 @@ class Group extends Component {
       room: this.state.roomId,
       location: data.location,
       radius: data.radius,
+      offset: this.state.offset,
     });
     this.setState({
       page: "host",
@@ -224,8 +225,11 @@ class Group extends Component {
         } else {
             this.setState({page: "join"});
         }*/
-      this.setState({offset: (this.state.offset + 1) % 50});
-      location.reload();
+      this.setState({page: (this.state.isHost) ? "host" : "join"});
+      if (this.state.isHost) {
+          this.state.offset = (this.state.offset + 20) % 1000;
+          this.onSetLocation({radius: this.state.radius, location: this.state.location});
+      }
     }
 
     onSetFilters() {
@@ -260,6 +264,7 @@ class Group extends Component {
 
     render() {
         const page = this.state.page;
+        const isHost = this.state.isHost;
         //console.log("message:" + this.state.message);
         //console.log(this.state);
         return (
@@ -297,6 +302,7 @@ class Group extends Component {
 
             { page === "no_match_found" &&
                 <NotFoundRec
+                    tryAgainVisible={this.state.isHost}
                     onTryAgain={() => this.onTryAgain()}
                     rec={this.state.recommendation}
                     topVotes={this.state.topVotes}
@@ -343,7 +349,6 @@ class Group extends Component {
             </div>
         )
     }
-  
 
     componentWillUnmount() {
         this.socket.disconnect();
@@ -515,6 +520,7 @@ class Group extends Component {
             numMembers: 1,
             canStartSwipingEvent: false,
             currentRestaurantIndex: 0,
+            offset: 0,
         }
     }
 
