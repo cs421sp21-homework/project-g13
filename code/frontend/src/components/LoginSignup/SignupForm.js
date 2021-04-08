@@ -102,7 +102,7 @@ class SignupForm extends React.Component {
                 Confirm Password
                 <InputField type='password'
                             placeholder='Password'
-                            value={this.state.password ? this.state.password : ''}
+                            value={this.state.confirmPwd ? this.state.confirmPwd : ''}
                             onChange={ (val) => this.validatePwd('confirmPwd', val) }
                 />
                 <SubmitButton text='Sign up'
