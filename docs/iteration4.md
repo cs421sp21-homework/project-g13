@@ -55,10 +55,10 @@ Monday, April 5 @ 8:30 pm EDT
 
 # Tasks
 
-- Update wireframe -> Daniel
+- Update wireframe -> Daniel :white_check_mark:
   - Show updated views of the applicaton
 
-- Update UML Diagram -> Nathaniel
+- Update UML Diagram -> Nathaniel :white_check_mark:
   - Show classes & fields that accurately reflect the backend design
   - Change User.permFilters to User.preferenceList
   - Remove restaurantVotes in Group class
