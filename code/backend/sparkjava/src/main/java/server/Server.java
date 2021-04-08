@@ -149,7 +149,6 @@ public class Server {
             return gson.toJson(user);
         });
 
-
         get("/api/groups/:id", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET");
