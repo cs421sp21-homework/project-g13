@@ -57,7 +57,8 @@ class Group extends Component {
             canStartSwipingEvent: false,
             currentRestaurantIndex: 0,
             recommendation: "No recommendation found",
-            topVotes: "No votes found"
+            topVotes: "No votes found",
+            offset: 0,
         };
 
         /*localStorage.ge
@@ -149,7 +150,7 @@ class Group extends Component {
     }
 
     onSetLocation(data) {
-        this.socket.emit("set_location", {room: this.state.roomId, location: data.location, radius: data.radius});
+        this.socket.emit("set_location", {room: this.state.roomId, location: data.location, radius: data.radius, offset: this.state.offset});
         this.setState({page: "host", location: data.location, message: "Loading data...", canStartSwipingEvent: false});
     }
 
@@ -223,7 +224,8 @@ class Group extends Component {
         } else {
             this.setState({page: "join"});
         }*/
-        location.reload();
+      this.setState({offset: (this.state.offset + 1) % 50});
+      location.reload();
     }
 
     onSetFilters() {
@@ -465,12 +467,6 @@ class Group extends Component {
 
     onReceiveFinished(data) {
         //go to no match found page
-        console.log("data");
-        console.log(data);
-        console.log("topVotes in Groups.js")
-        console.log(data.topVotes);
-        console.log("rec");
-        console.log(data.rec);
         this.setState({ recommendation: data.rec, topVotes: data.topVotes, page: "no_match_found" });
     }
 

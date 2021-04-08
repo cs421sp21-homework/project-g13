@@ -42,10 +42,6 @@ Room.emitRestaurantsFunc = function (room, data) {
 Room.emitFinishedFunc = function (room) {
   let rec = roomsMap.get(room).getRec();
   let topVotes = roomsMap.get(room).getTopVotes();
-  console.log("Recommendation: ");
-  console.log(rec);
-  console.log("votes");
-  console.log(topVotes);
   io.to(room).emit("finished", {rec: rec, topVotes: topVotes});
   console.log("sent finished signal to room " + room);
 };
@@ -82,10 +78,10 @@ io.on("connection", function (socket) {
 
   //set room location
   socket.on("set_location", (data) => {
-    const { room, location, radius } = data;
+    const { room, location, radius, offset } = data;
     console.log(socket.id + " sent location for room " + room);
     if (roomsMap.has(room)) {
-      roomsMap.get(room).setLocation(location, radius);
+      roomsMap.get(room).setLocation(location, radius, offset);
     }
     //io.to(room).emit("message", {message: "room location was set"});
   });
