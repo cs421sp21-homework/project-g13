@@ -7,6 +7,7 @@ class Slideshow extends Component {
         const { photos, reviews, isImg } = this.props;
         const next = <i class="fas fa-chevron-right"></i>;
         const prev = <i class="fas fa-chevron-left"></i>;
+        //console.log("is img: " + isImg);
 
         if (isImg) {
             return (
