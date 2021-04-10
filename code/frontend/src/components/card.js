@@ -15,17 +15,25 @@ const styles = theme => ({
 });
 
 class Card extends Component {
+  constructor(props) {
+    super(props);
+    this.cardType = (this.props.cardType === undefined || this.props.cardType === null) ? "regular" : this.props.cardType;
+  }
+
+
   onKeyPressed(event) {
-    if (event.key === "ArrowLeft") {
+    if (event.key === "ArrowLeft" && this.cardType === "regular") {
       this.props.onLike();
     }
-    if (event.key === "ArrowRight") {
+    if (event.key === "ArrowRight" && this.cardType === "regular") {
       this.props.onDislike();
     }
   }
 
   componentDidMount() {
-    document.addEventListener("keyup", this.onKeyPressed.bind(this));
+    if (this.cardType === "regular") {
+      document.addEventListener("keyup", this.onKeyPressed.bind(this));
+    }
   }
 
   checkArrayElements(array) {
@@ -37,6 +45,8 @@ class Card extends Component {
   }
 
   render() {
+      const cardType = this.cardType;
+
       const { restaurant } = this.props;
       const { classes } = this.props;
       const restaurantLocation =
@@ -64,7 +74,7 @@ class Card extends Component {
       let emptyListPhotos = ["", "", ""];
 
       return (
-          <NewCard style={{ justify: "center" }}>
+          <NewCard style={{ justify: "center", overflow: "hidden", backgroundColor: "transparent", border: 0 }}>
               <NewCard.Body>
                   <Slideshow photos={photos} reviews={emptyListReviews} isImg={true} />
                   <Slideshow photos={emptyListPhotos} reviews={reviews} />
@@ -83,23 +93,26 @@ class Card extends Component {
                   <NewCard.Subtitle>
                       <a href={webUrl}>Website</a>
                   </NewCard.Subtitle>
-          <div className="like-dislike-container">
-            <IconButton className={classes.button}
-              onClick={this.props.onLike}
-            >
-              <FavoriteBorder
-                style={{fontSize:64,
-                color: "#fc4c4e"}}
-              />
-            </IconButton>
-            <IconButton className={classes.button}
-              onClick={this.props.onDislike}
-            >
-              <NotInterestedIcon
-                  style={{fontSize:64}}
-              />
-            </IconButton>
-          </div>
+
+                  { cardType === "regular" &&
+                    <div className="like-dislike-container">
+                    <IconButton className={classes.button}
+                      onClick={this.props.onLike}
+                    >
+                      <FavoriteBorder
+                        style={{fontSize:64,
+                        color: "#fc4c4e"}}
+                      />
+                    </IconButton>
+                    <IconButton className={classes.button}
+                      onClick={this.props.onDislike}
+                    >
+                      <NotInterestedIcon
+                          style={{fontSize:64}}
+                      />
+                    </IconButton>
+                  </div>
+                  }
         </NewCard.Body>
       </NewCard>
     );

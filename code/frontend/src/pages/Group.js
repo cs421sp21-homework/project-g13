@@ -59,26 +59,8 @@ class Group extends Component {
             recommendation: "No recommendation found",
             topVotes: "No votes found"
         };
-
-        /*localStorage.ge
-
-        const isHost = (this.props.isHost == null) ? true : this.props.isHost;
-        const initalLocation = (isHost) ?  "Not Set" : "Host sets location"; 
-        const initialPage = (isHost) ? "host" : "join";
-        const initialStatus = (isHost) ? "Please set the location" : "";
-        //console.log(isHost);
-        //console.log(this.props.isHost);
-        this.state = {
-            page: initialPage,
-            message: initialStatus,
-            isHost: isHost,
-            roomId: "Waiting for server...",
-            location: initalLocation,
-            numMembers: 1,
-            canStartSwipingEvent: false,
-            currentRestaurantIndex: 0,
-        }*/
         this.setInitialData();
+        
         this.onJoinRoom = this.onJoinRoom.bind(this);
         this.onSetLocation = this.onSetLocation.bind(this);
         this.openSetLocation = this.openSetLocation.bind(this);
@@ -206,7 +188,10 @@ class Group extends Component {
       room: this.state.roomId,
       restaurantId: this.restaurants[this.state.currentRestaurantIndex].id,
     });
-    this.onVote();
+    if (this.state.numMembers !== 1) {
+        this.onVote();
+    }
+    
   }
 
   onDislikeRestaurant() {
@@ -284,6 +269,7 @@ class Group extends Component {
                   restaurant={this.restaurants[this.state.currentRestaurantIndex]}
                   onDislike={this.onDislikeRestaurant}
                   onLike={this.onLikeRestaurant}
+                  cardType="regular"
                 />
                 </div>
             }
@@ -411,7 +397,7 @@ class Group extends Component {
     onReceiveGetRestaurants(restaurants) {
         console.log("got restaurant data");
         var message = "";
-        console.log(restaurants);
+        //console.log(restaurants);
         try {
             this.restaurants = JSON.parse(restaurants);
             console.log(this.restaurants);
