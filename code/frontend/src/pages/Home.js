@@ -9,7 +9,8 @@ import Individual from "./Individual";
 import SetFilters from "./SetFilters.js"
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
+//blue BFD7EA
 const styles = theme => ({
     button: {
         color: '#5a2c22',
@@ -17,7 +18,7 @@ const styles = theme => ({
         borderColor: '#d44f22',
         boxShadow: 'none',
         margin: theme.spacing(2),
-        width: 256,
+        width: 300,
         height: 64,
         fontSize: 22,
         '&:hover': {
@@ -63,14 +64,21 @@ class Home extends Component {
                                     Sign up/Login
                                 </Button>
                                 <br/>
-                                <Button
+                                <OverlayTrigger key="right" placement="right" overlay={
+                                    <Tooltip id="tooltip-right">
+                                    Play by yourself or host a group
+                                    </Tooltip>
+                                }>
+                                    <Button
                                     className={this.props.classes.button}
-                                    onClick={() => this.nextPath('/Individual')}
+                                    onClick={() => this.nextPath('/Host')}
                                     variant="contained"
                                     size='large'
                                 >
-                                    Start
+                                    Start/Host Group
                                 </Button>
+
+                                </OverlayTrigger>
                                 <br/>
                                 <Button
                                     className={this.props.classes.button}
@@ -79,15 +87,6 @@ class Home extends Component {
                                     size='large'
                                 >
                                     Join a Group
-                                </Button>
-                                <br/>
-                                <Button
-                                    className={this.props.classes.button}
-                                    onClick={() => this.nextPath('/Host')}
-                                    variant="contained"
-                                    size='large'
-                                >
-                                    Host a Group
                                 </Button>
                             </form>
                         </header>

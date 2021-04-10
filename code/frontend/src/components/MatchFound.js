@@ -5,11 +5,12 @@ import NewCard from "react-bootstrap/Card";
 import Slideshow from "../components/Slideshow";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import Card from "./card.js"
 
 const styles = theme => ({
     button: {
-        color: '#5a2c22',
-        backgroundColor: '#d44f22',
+        color: '#0A0903',
+        backgroundColor: '#FDEFB1',
         borderColor: '#d44f22',
         boxShadow: 'none',
         margin: theme.spacing(2),
@@ -32,39 +33,13 @@ const styles = theme => ({
 class MatchFound extends Component {
 
     render() {
-        const {restaurant} = this.props;
-        const restaurantLocation = restaurant.location["address1"];
-        const cuisineType = restaurant.categories[0]['title'];
-        const rating = restaurant.rating;
-        const reviewCount = restaurant.review_count;
-        const webUrl = restaurant.url;
-        const photos = restaurant.photos;
-        const reviews = restaurant.reviews;
-        const {classes} = this.props;
+        const {restaurant, classes} = this.props;
 
         return(
                     <div className='App'>
                         <header className='App-header'>
                             <h1> Match Found!</h1>
-                            <NewCard style = {{justify: 'center'}}>
-                                <NewCard.Body>
-                                    <Slideshow
-                                        photos = {photos}
-                                        reviews = {reviews}
-                                    />
-                                    <NewCard.Title style = {{fontSize: '3vh'}}>{restaurant.name}</NewCard.Title>
-                                    <NewCard.Subtitle style = {{fontSize: '2vh'}}>{cuisineType} {restaurant.price}</NewCard.Subtitle>
-                                    <NewCard.Text style = {{fontSize: '2vh'}}>
-                                        {rating} from {reviewCount} reviews
-                                    </NewCard.Text>
-                                    <NewCard.Text style = {{fontSize: '2vh'}}>
-                                        {restaurantLocation}
-                                    </NewCard.Text>
-                                    <NewCard.Subtitle>
-                                    <a href={webUrl}>Website</a>
-                                    </NewCard.Subtitle>
-                                </NewCard.Body>
-                            </NewCard>
+                            <Card cardType="match_found" restaurant={restaurant} ></Card>
                             <form>
                                 <Button
                                     className={classes.button}

@@ -211,3 +211,13 @@ input[type="button"]:disabled {
   background-color: #fdefb2;
 }
 
+
+.carousel-control-next {
+  color: black !important;
+  right: -7% !important;
+}
+
+.carousel-control-prev {
+  color: black !important;
+  left: -7% !important;
+}
