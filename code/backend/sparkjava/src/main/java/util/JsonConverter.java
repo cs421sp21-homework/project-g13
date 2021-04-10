@@ -17,4 +17,8 @@ public class JsonConverter {
         if (result == null) throw new JsonConvertException("JSON conversion result is null.", null);
         return result;
     }
+
+    public <T> T fromJson(String json, Class<T> classOf) {
+        return gson.fromJson(json, classOf);
+    }
 }

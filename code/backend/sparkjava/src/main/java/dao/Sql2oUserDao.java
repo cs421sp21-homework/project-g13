@@ -41,7 +41,7 @@ public class Sql2oUserDao implements UserDao {
                     .addParameter("loc", location)    // allowing for varying location
                     .executeAndFetchFirst(User.class);      // executing SQL + using the object mapper to fill the fields
         } catch (Sql2oException ex) {
-            throw new DaoException(ex.getMessage(), ex);
+            throw new DaoException("Unable to create user", ex);
         }
     }
 
@@ -57,7 +57,7 @@ public class Sql2oUserDao implements UserDao {
                     .addParameter("loc", location)   // allowing for varying location
                     .executeAndFetchFirst(User.class);     // executing SQL + using the object mapper to fill the fields
         } catch (Sql2oException ex) {
-            throw new DaoException(ex.getMessage(), ex);
+            throw new DaoException("Unable to create user", ex);
         }
     }
 
@@ -72,7 +72,7 @@ public class Sql2oUserDao implements UserDao {
                     .addParameter("pword", pWord)    // allowing for varying password
                     .executeAndFetchFirst(User.class);     // executing SQL + using the object mapper to fill the fields
         } catch (Sql2oException ex) {
-            throw new DaoException(ex.getMessage(), ex);
+            throw new DaoException("Unable to create user", ex);
         }
     }
 
@@ -170,12 +170,15 @@ public class Sql2oUserDao implements UserDao {
         String sql = "UPDATE user_info SET preferences = " +
                 "ARRAY_APPEND(preferences, CAST(:pref AS VARCHAR))" +
                 " WHERE user_id = :user_id;";
-        Connection conn = sql2o.open();                  // opening connection to database
+        try (Connection conn = sql2o.open()) {                  // opening connection to database
             //String userID =
             conn.createQuery(sql)                            // making proper SQL statement for execution
                     .addParameter("pref", pref)        // allowing for varying group ID
                     .addParameter("user_id", userID)   // allowing for varying user ID
                     .executeUpdate();                        // executing SQL
+        } catch (Sql2oException ex) {
+            throw new DaoException("Unable to set preference to none for: " + userID, ex);
+        }
 
     }
 

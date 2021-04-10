@@ -24,6 +24,7 @@ class NotFoundRec extends Component {
         const restaurant = this.props.rec;
         const topRes = this.props.topVotes.restaurants;
         const topVotes = this.props.topVotes.votes;
+        const tryAgainVisible = this.props.tryAgainVisible;
         console.log("rec");
         console.log(restaurant);
         console.log("votes");
@@ -37,6 +38,9 @@ class NotFoundRec extends Component {
                             <Card cardType="no_match_found" restaurant={restaurant}></Card>
                             <h2>Leaderboard</h2>
                             {this.displayLeaderboard(topRes, topVotes)}
+                        </header>
+                        { tryAgainVisible &&
+                        <div>
                             <h2>Try again?</h2>
                             <form>
                                 <input
@@ -50,8 +54,11 @@ class NotFoundRec extends Component {
                                     onClick={() => history.push("/")}
                                 />
                             </form>
-                        </header>
+                        </div>
+                        }
                     </div>
+
+
         )
     }
 }

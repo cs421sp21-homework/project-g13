@@ -43,12 +43,13 @@ public class YelpService {
      * @param radius meters around location to get restaurants from
      * @return RestaurantSearchResponse which contains the restaurants and the number of results
      */
-    public static RestaurantSearchResponse getRestaurantsByLocation(String location, int limit, int radius) {
+    public static RestaurantSearchResponse getRestaurantsByLocation(String location, int limit, int radius, int offset) {
         HttpResponse<JsonNode> response = Unirest.get(BASE_ENDPOINT+"/search")
                 .header(AUTHORIZATION, BEARER + " " + KEY)
                 .queryString("location", location)
                 .queryString("limit", limit)
                 .queryString("radius", radius)
+                .queryString("offset", offset)
                 .queryString("term", "food")
                 .asJson();
         Gson gson = new Gson();
@@ -68,12 +69,13 @@ public class YelpService {
      * Example tested in Postman: https://api.yelp.com/v3/businesses/search?location=3400 N. Charles Street, Baltimore, MD, 21218&term=food&limit=10&radius=6000&price=1,2&categories=vegan
      *
      */
-    public static RestaurantSearchResponse getRestaurantsWithFilters(String location, int limit, int radius, String price, String categories) {
+    public static RestaurantSearchResponse getRestaurantsWithFilters(String location, int limit, int radius, int offset, String price, String categories) {
         HttpResponse<JsonNode> response = Unirest.get(BASE_ENDPOINT+"/search")
                 .header(AUTHORIZATION, BEARER + " " + KEY)
                 .queryString("location", location)
                 .queryString("limit", limit)
                 .queryString("radius", radius)
+                .queryString("offset", offset)
                 .queryString("term", "food")
                 .queryString("price", price)
                 .queryString("categories", categories)
@@ -92,8 +94,8 @@ public class YelpService {
      * @param categories the kind of restaurant it is (EX: "vegan, indpak" would be Vegan or Indian)
      * @return List<Restaurant> containing the restaurants
      */
-    public static List<Restaurant> getRestaurantsByFiltersWithDetail(String location, int limit, int radius, String price, String categories) {
-        RestaurantSearchResponse response = getRestaurantsWithFilters(location, limit, radius, price, categories);
+    public static List<Restaurant> getRestaurantsByFiltersWithDetail(String location, int limit, int radius, int offset, String price, String categories) {
+        RestaurantSearchResponse response = getRestaurantsWithFilters(location, limit, radius, offset, price, categories);
         return getRestaurantsWithDetail(response);
     }
 
@@ -143,8 +145,8 @@ public class YelpService {
      * @param radius meters around location to get restaurants from
      * @return List<Restaurant> containing the restaurants
      */
-    public static List<Restaurant> getRestaurantByLocationWithDetail(String location, int limit, int radius) {
-        RestaurantSearchResponse response = getRestaurantsByLocation(location, limit, radius);
+    public static List<Restaurant> getRestaurantByLocationWithDetail(String location, int limit, int radius, int offset) {
+        RestaurantSearchResponse response = getRestaurantsByLocation(location, limit, radius, offset);
         return getRestaurantsWithDetail(response);
     }
 

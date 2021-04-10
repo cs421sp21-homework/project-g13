@@ -11,10 +11,10 @@ const axiosConfig = {
   },
 };
 
-async function getRestaurants(location, radius, cancelTokenSource) {
+async function getRestaurants(location, radius, offset, cancelTokenSource) {
     try {
         const response = await axios.get(
-            `${BACKEND_URL}/yelpsearch?query=${location}&radius=${radius}`,
+            `${BACKEND_URL}/yelpsearch?query=${location}&radius=${radius}&offset=${offset}`,
             {
                 cancelToken: cancelTokenSource.token,
             }
@@ -27,11 +27,11 @@ async function getRestaurants(location, radius, cancelTokenSource) {
     }
 } 
 
-async function getRestaurantsFilters(location, radius, price, categories, cancelTokenSource) {
+async function getRestaurantsFilters(location, radius, offset, price, categories, cancelTokenSource) {
     try {
         const response = await axios.get(
             //`${BACKEND_URL}/yelpsearch?query=${location}&radius=${radius}`
-            `${BACKEND_URL}/yelpsearch_personal?query=${location}&radius=${radius}&price=${price}&categories=${categories}`,
+            `${BACKEND_URL}/yelpsearch_personal?query=${location}&radius=${radius}&offset=${offset}&price=${price}&categories=${categories}`,
             {
                 cancelToken: cancelTokenSource.token,
             }
@@ -91,6 +91,9 @@ class Room {
     //maximum number of restaurants
     this.limit = 20;
 
+    //how many times you've tried again
+    this.offset = 0;
+
     //did the group start the swiping event
     this.started = false;
 
@@ -105,11 +108,12 @@ class Room {
     static emitFinishedFunc;
     static emitMatchFoundfunc;
 
-    setLocation(location, radius) {
+    setLocation(location, radius, offset) {
         if (location !== undefined && location !== "") {
             this.restaurants = [];
             this.location = location
             this.radius = radius * 1609.34;
+            this.offset = offset;
             this.received = 0;
             //console.log(this.name ) 
             this.ready = false;
@@ -289,7 +293,7 @@ class Room {
         console.log("retreiving restaurants with no filters...");
         //console.log(this);
         if (this.restaurants.length < this.limit && this.location !== undefined && this.location !== "") {
-            return await getRestaurants(this.location, this.radius, cancelTokenSource);
+            return await getRestaurants(this.location, this.radius, this.offset, cancelTokenSource);
         }
         return [];
     }
@@ -300,7 +304,7 @@ class Room {
         if (this.restaurants.length < this.limit && this.location !== undefined && this.location !== "") {
             //console.log("here");
             //console.log(this.radius);
-            var response = await getRestaurantsFilters(this.location, this.radius, this.price, this.categories, cancelTokenSource);
+            var response = await getRestaurantsFilters(this.location, this.radius, this.offset, this.price, this.categories, cancelTokenSource);
                 console.log(response);
                 this.filterRestaurants(response);
                 return response;

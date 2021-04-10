@@ -119,21 +119,26 @@ public class Sql2oGroupDao implements GroupDao {
 
     // helper method to be used when resetting users' group IDs when deleting group
     //@Override
-    private List<User> readMembers(Connection conn, int id) {
+    private List<User> readMembers(Connection conn, int id) throws DaoException {
         String sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), group_id " +
                      "FROM user_info WHERE group_id = :gid;";
-        List<User> users = conn.createQuery(sql)
-                            .addParameter("gid", id)
-                            .addColumnMapping("ARRAY_TO_STRING", "preferences")
-                            .executeAndFetch(User.class);
+        try {
+            List<User> users = conn.createQuery(sql)
+                    .addParameter("gid", id)
+                    .addColumnMapping("ARRAY_TO_STRING", "preferences")
+                    .executeAndFetch(User.class);
 
-        for (User user : users) {
-            // finessing array from database into list in POJO
-            String[] userPrefs = user.getPreferences().split(",");
-            user.setPreferencesList(Arrays.asList(userPrefs));
+            for (User user : users) {
+                // finessing array from database into list in POJO
+                String[] userPrefs = user.getPreferences().split(",");
+                user.setPreferencesList(Arrays.asList(userPrefs));
+            }
+
+            return users;
+
+        } catch (Sql2oException ex) {
+            throw new DaoException("unable to read group members", ex);
         }
-
-        return users;
 
     }
 
