@@ -65,10 +65,10 @@ Monday, April 5 @ 8:30 pm EDT
   - Add RestaurantVote class
 
 
-- Showing restaurant images on MatchFound.js and NotFound.js pages ([#73](https://github.com/cs421sp21-homework/project-g13/issues/73), Abdullah) :black_square_button:
+- Showing restaurant images on MatchFound.js and NotFound.js pages ([#73](https://github.com/cs421sp21-homework/project-g13/issues/73), Abdullah) :white_check_mark:
 - Fixing errors for undefined address values in Individual swiping event ([#58](https://github.com/cs421sp21-homework/project-g13/issues/58), Abdullah) :black_square_button:
-- Add "Set Filters" button for individuals ([#79](https://github.com/cs421sp21-homework/project-g13/issues/79), Abdullah) :black_square_button:
-- Add previous image/next image buttons when swiping through restaurants ([#98](https://github.com/cs421sp21-homework/project-g13/issues/98), Abdullah) :black_square_button:
+- Add "Set Filters" button for individuals ([#79](https://github.com/cs421sp21-homework/project-g13/issues/79), Abdullah) :white_check_mark:
+- Add previous image/next image buttons when swiping through restaurants ([#98](https://github.com/cs421sp21-homework/project-g13/issues/98), Abdullah) :white_check_mark:
 - Make the APIs in Server.java follow a try-catch structure as shown in Module 5 ([#99](https://github.com/cs421sp21-homework/project-g13/issues/99), Abdullah) :black_square_button:
 - Remove 'backend/build' from git ([#86](https://github.com/cs421sp21-homework/project-g13/issues/86), Abdullah) :white_check_mark:
 
