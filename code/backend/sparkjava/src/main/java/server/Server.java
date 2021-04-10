@@ -10,6 +10,7 @@ import model.Group;
 import dao.GroupDao;
 import dao.UserDao;
 import org.sql2o.Sql2o;
+import util.JsonConverter;
 import util.YelpService;
 import util.Database;
 
@@ -57,7 +58,7 @@ public class Server {
         //Set Yelp API key
         YelpService.setKey("JFIfCtXa51vEZE94eMQNCCwcZOOTbalEY7ZTP-KD_crZlGXR3Antcdqr9Vdr7xpMLtL5isLGRccvkbhYgQ1rIlHuvGPEtlHPdVedJX6kSXP0W3wK1TTOkXWGjR9BYHYx");
 
-        Gson gson = new Gson();
+        JsonConverter gson = new JsonConverter();
 
         UserDao userDao;
         GroupDao groupDao;
@@ -77,15 +78,20 @@ public class Server {
             String query = req.queryParams("query");
             int radius, limit;
 
-            if (query == null) res.status(404);
+            if (query == null) res.status(400);
             try { limit = Integer.parseInt(req.queryParams("limit")); }
             catch(Exception e) { limit = 20; }
             try { radius = Integer.parseInt(req.queryParams("radius")); }
             catch(Exception e) { radius = 40000; }
 
-            List<Restaurant> resp = YelpService.getRestaurantByLocationWithDetail(query, limit, radius);
-            if (resp == null) res.status(404);
-            return gson.toJson(resp);
+            try {
+                List<Restaurant> resp = YelpService.getRestaurantByLocationWithDetail(query, limit, radius);
+                return gson.toJson(resp);
+            } catch (Exception e) {
+                res.status(500);
+                return null;
+            }
+
         });
 
         //Get personalized restaurants endpoint
@@ -97,7 +103,7 @@ public class Server {
             int radius, limit;
             String price, categories;
 
-            if (query == null) res.status(404);
+            if (query == null) res.status(400);
             try { limit = Integer.parseInt(req.queryParams("limit")); }
             catch(Exception e) { limit = 20; }                    // default to getting 20 restaurants from Yelp
             try { radius = Integer.parseInt(req.queryParams("radius")); }
@@ -111,9 +117,15 @@ public class Server {
             try { categories = req.queryParams("categories"); }       // Order matters!
             catch(Exception e) { categories = ""; }                   // default to specific categories
 
-            List<Restaurant> resp = YelpService.getRestaurantsByFiltersWithDetail(query, limit, radius, price, categories);
-            if (resp == null) res.status(404);
-            return gson.toJson(resp);
+            try {
+                List<Restaurant> resp = YelpService.getRestaurantsByFiltersWithDetail(query, limit, radius, price, categories);
+                return gson.toJson(resp);
+            } catch (Exception e) {
+                res.status(500);
+                return null;
+            }
+
+
         });
 
         get("/api/users", (req, res) -> {
@@ -122,8 +134,15 @@ public class Server {
             res.header("Access-Control-Allow-Methods", "GET");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
-            List<User> users = userDao.readAll();
-            return gson.toJson(users);
+
+            try {
+                List<User> users = userDao.readAll();
+                return gson.toJson(users);
+            } catch (Exception e) {
+                res.status(500);
+                return null;
+            }
+
         });
 
         get("/api/groups", (req, res) -> {
@@ -131,8 +150,14 @@ public class Server {
             res.header("Access-Control-Allow-Methods", "GET");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
-            List<Group> groups = groupDao.readAllGroups();
-            return gson.toJson(groups);
+
+            try {
+                List<Group> groups = groupDao.readAllGroups();
+                return gson.toJson(groups);
+            } catch (Exception e) {
+                res.status(500);
+            }
+
         });
 
         get("/api/users/:uname", (req, res) -> {
@@ -140,9 +165,14 @@ public class Server {
             res.header("Access-Control-Allow-Methods", "GET");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
-            String uname = req.params("uname");
-            User user = userDao.read(uname);
-            return gson.toJson(user);
+
+            try {
+                String uname = req.params("uname");
+                User user = userDao.read(uname);
+                return gson.toJson(user);
+            } catch (Exception e) {
+
+            }
         });
 
 
@@ -150,9 +180,14 @@ public class Server {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET");
             res.header("Content-Type", "application/json");
-            int id = Integer.parseInt(req.params("id"));
-            List<User> users = userDao.readAllInGroup(id);
-            return gson.toJson(users);
+
+            try {
+                int id = Integer.parseInt(req.params("id"));
+                List<User> users = userDao.readAllInGroup(id);
+                return gson.toJson(users);
+            } catch (Exception e) {
+
+            }
         });
 
         post("/api/users", (req, res) -> {
@@ -161,27 +196,43 @@ public class Server {
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Access-Control-Allow-Methods", "GET");
             res.header("Content-Type", "application/json");
-            User user = gson.fromJson(req.body(), User.class);
-            userDao.create(user.getUserName(), user.getPword(), user.getLoc(), user.getGroup_ID());
-            return gson.toJson(user);
+
+            try {
+                User user = gson.fromJson(req.body(), User.class);
+                userDao.create(user.getUserName(), user.getPword(), user.getLoc(), user.getGroup_ID());
+                return gson.toJson(user);
+            } catch (Exception e) {
+
+            }
         });
 
         post("/api/groups", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
-            Group group = groupDao.createGroup();
-            return gson.toJson(group);
+
+            try {
+                Group group = groupDao.createGroup();
+                return gson.toJson(group);
+            } catch (Exception e) {
+
+            }
+
         });
 
         post("/login", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
-            String username = req.params("username");
-            String password = req.params("password");
-            System.out.println(username);
-            return "Need some return statement";
+
+            try {
+                String username = req.params("username");
+                String password = req.params("password");
+                System.out.println(username);
+                return "Need some return statement";
+            } catch (Exception e) {
+
+            }
         });
 
         post("/logout", (req, res) -> {
