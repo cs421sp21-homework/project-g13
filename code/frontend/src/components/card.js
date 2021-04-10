@@ -44,40 +44,68 @@ class Card extends Component {
     }
   }
 
+  checkUndefinedOrNull(restaurant) {
+    //console.log("restaurant");
+    //console.log(restaurant);
+    if (restaurant === undefined || restaurant === null) {
+      return this.getBlankRestaurant();
+    } else {
+      if (restaurant.name === undefined || restaurant.name === null) restaurant.name = ""; 
+      if (restaurant.price === undefined || restaurant.price === null) restaurant.price = ""; 
+      if (restaurant.rating === undefined || restaurant.rating === null) restaurant.rating = ""; 
+      if (restaurant.review_count === undefined || restaurant.review_count === null) restaurant.review_count = ""; 
+      if (restaurant.url === undefined || restaurant.url === null) restaurant.url = ""; 
+
+      if (restaurant.location === undefined || restaurant.location === null) restaurant.location = {address1: ""}; 
+      if (restaurant.location["address1"] === undefined || restaurant.location["address1"] === null) restaurant.location = {address1: ""};  
+
+      if (restaurant.categories === undefined || restaurant.categories === null) restaurant.categories = [{title: ""}];
+      if (restaurant.categories[0] === undefined || restaurant.categories[0] === null) restaurant.categories[0] = {title: ""};
+      if (restaurant.categories[0]["title"] === undefined || restaurant.categories[0]["title"] === null) restaurant.categories[0] = {title: ""};
+
+      if (restaurant.photos === undefined || restaurant.photos === null) restaurant.photos = ["", "", ""];
+      if (restaurant.reviews === undefined || restaurant.reviews === null) restaurant.reviews = [{text: ""}, {text: ""}, {text: ""}];
+      for (var i=0; i<3; i++) {
+        if (restaurant.photos[i] === undefined || restaurant.photos[i] === null) restaurant.photos[i] = "";
+        if (restaurant.reviews[i] === undefined || restaurant.reviews[i] === null) restaurant.reviews[i] = {text: ""};
+        if (restaurant.reviews[i]["text"] === undefined || restaurant.reviews[i]["text"] === null) restaurant.reviews[i] = {text: ""};
+      }
+      return restaurant;
+    }
+  }
+
+  getBlankRestaurant() {
+    return {
+      name: "",
+      location: {address1: ""},
+      categories: [{title: ""}],
+      price: "",
+      rating: "",
+      review_count: "",
+      url: "",
+      photos: ["", "", ""],
+      reviews: [{text: ""}, {text: ""}, {text: ""}],
+    }
+  }
+
   render() {
       const cardType = this.cardType;
 
-      const { restaurant } = this.props;
-      const { classes } = this.props;
-      const restaurantLocation =
-          restaurant.location["address1"] == undefined
-              ? ""
-              : restaurant.location["address1"];
+      var { restaurant, classes } = this.props;
+      restaurant = this.checkUndefinedOrNull(restaurant);
+      const restaurantLocation = restaurant.location["address1"];
       const cuisineType = restaurant.categories[0]["title"];
       const rating = restaurant.rating;
       const reviewCount = restaurant.review_count;
       const webUrl = restaurant.url;
       const photos = restaurant.photos;
       let reviews = restaurant.reviews;
-      if (reviews == undefined) {
-          reviews = [];
-          for (let i = 0; i < 3; i++) {
-              reviews[i] = "";
-          }
-      }
-      for (let i = 0; i < 3; i++) {
-          if (reviews[i] == undefined) {
-              reviews[i] = "";
-          }
-      }
-      let emptyListReviews = ["", "", ""];
-      let emptyListPhotos = ["", "", ""];
 
       return (
           <NewCard style={{ justify: "center", overflow: "hidden", backgroundColor: "transparent", border: 0 }}>
               <NewCard.Body>
-                  <Slideshow photos={photos} reviews={emptyListReviews} isImg={true} />
-                  <Slideshow photos={emptyListPhotos} reviews={reviews} />
+                  <Slideshow photos={photos} isImg={true} />
+                  <Slideshow reviews={reviews} isImg={false} />
                   <NewCard.Title style={{ fontSize: "3vh" }}>
                       {restaurant.name}
                   </NewCard.Title>

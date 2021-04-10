@@ -30,13 +30,6 @@ class NotFoundRec extends Component {
         console.log("votes");
         console.log(topRes);
         console.log(topVotes);
-        const restaurantLocation = restaurant.location["address1"];
-        const cuisineType = restaurant.categories[0]['title'];
-        const rating = restaurant.rating;
-        const reviewCount = restaurant.review_count;
-        const webUrl = restaurant.url;
-        const photos = restaurant.photos;
-        const reviews = restaurant.reviews;
         return(
                     <div className="App">
                         <header className="App-header">
