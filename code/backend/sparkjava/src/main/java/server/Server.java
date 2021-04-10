@@ -306,6 +306,12 @@ public class Server {
         });
     }
 
+    /**
+     * Prints an error message for an exception to standard output along with the path name.
+     * Useful for logging errors.
+     * @param path the endpoint where the exception occurred
+     * @param e the exception that occurred
+     */
     private static void printErrorOccurredInPath(String path, Exception e) {
         System.out.print("An exception occurred in path: ");
         System.out.println(path);
