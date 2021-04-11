@@ -2,6 +2,7 @@ package server;
 
 import dao.Sql2oUserDao;
 import dao.Sql2oGroupDao;
+import exceptions.ApiError;
 import model.yelp.Restaurant;
 import model.User;
 import model.Group;
@@ -65,7 +66,7 @@ public class Server {
             userDao = getUserDao();
             groupDao = getGroupDao();
         } catch(Exception e) {
-            return;
+            throw new ApiError(e.getMessage(), 500);
         }
 
         //Get restaurants endpoint
@@ -90,9 +91,7 @@ public class Server {
                 List<Restaurant> resp = YelpService.getRestaurantByLocationWithDetail(query, limit, radius, offset);
                 return gson.toJson(resp);
             } catch (Exception e) {
-                res.status(500);
-                printErrorOccurredInPath("/yelpsearch", e);
-                return null;
+                throw new ApiError(e.getMessage(), 500);
             }
         });
 
@@ -126,9 +125,7 @@ public class Server {
                 List<Restaurant> resp = YelpService.getRestaurantsByFiltersWithDetail(query, limit, offset, radius, price, categories);
                 return gson.toJson(resp);
             } catch (Exception e) {
-                res.status(500);
-                printErrorOccurredInPath("/yelpsearch_personal", e);
-                return null;
+                throw new ApiError(e.getMessage(), 500);
             }
         });
 
@@ -143,9 +140,7 @@ public class Server {
                 List<User> users = userDao.readAll();
                 return gson.toJson(users);
             } catch (Exception e) {
-                res.status(500);
-                printErrorOccurredInPath("/api/users", e);
-                return null;
+                throw new ApiError(e.getMessage(), 500);
             }
 
         });
@@ -160,9 +155,7 @@ public class Server {
                 List<Group> groups = groupDao.readAllGroups();
                 return gson.toJson(groups);
             } catch (Exception e) {
-                res.status(500);
-                printErrorOccurredInPath("/api/groups", e);
-                return null;
+                throw new ApiError(e.getMessage(), 500);
             }
 
         });
@@ -178,9 +171,7 @@ public class Server {
                 User user = userDao.read(uname);
                 return gson.toJson(user);
             } catch (Exception e) {
-                res.status(500);
-                printErrorOccurredInPath("/api/users/:uname", e);
-                return null;
+                throw new ApiError(e.getMessage(), 500);
             }
         });
 
@@ -194,9 +185,7 @@ public class Server {
                 List<User> users = userDao.readAllInGroup(id);
                 return gson.toJson(users);
             } catch (Exception e) {
-                res.status(500);
-                printErrorOccurredInPath("/api/groups/:id", e);
-                return null;
+                throw new ApiError(e.getMessage(), 500);
             }
         });
 
@@ -212,9 +201,7 @@ public class Server {
                 userDao.create(user.getUserName(), user.getPword(), user.getLoc(), user.getGroup_ID());
                 return gson.toJson(user);
             } catch (Exception e) {
-                res.status(500);
-                printErrorOccurredInPath("/api/users", e);
-                return null;
+                throw new ApiError(e.getMessage(), 500);
             }
         });
 
@@ -227,9 +214,7 @@ public class Server {
                 Group group = groupDao.createGroup();
                 return gson.toJson(group);
             } catch (Exception e) {
-                res.status(500);
-                printErrorOccurredInPath("/api/groups", e);
-                return null;
+                throw new ApiError(e.getMessage(), 500);
             }
 
         });
@@ -245,9 +230,7 @@ public class Server {
                 System.out.println(username);
                 return "Need some return statement";
             } catch (Exception e) {
-                res.status(500);
-                printErrorOccurredInPath("/login", e);
-                return null;
+                throw new ApiError(e.getMessage(), 500);
             }
         });
 
@@ -262,9 +245,7 @@ public class Server {
                 System.out.println(username);
                 return "Need some return statement";
             } catch (Exception e) {
-                res.status(500);
-                printErrorOccurredInPath("/logout", e);
-                return null;
+                throw new ApiError(e.getMessage(), 500);
             }
         });
 
@@ -278,9 +259,7 @@ public class Server {
                 System.out.println(username);
                 return "Need some return statement";
             } catch (Exception e) {
-                res.status(500);
-                printErrorOccurredInPath("/isLoggedIn", e);
-                return null;
+                throw new ApiError(e.getMessage(), 500);
             }
         });
 
@@ -293,9 +272,7 @@ public class Server {
                 User user = userDao.delete(uname);
                 return gson.toJson(user);
             } catch (Exception e) {
-                res.status(500);
-                printErrorOccurredInPath("/api/users/:uname", e);
-                return null;
+                throw new ApiError(e.getMessage(), 500);
             }
         });
 
@@ -303,6 +280,11 @@ public class Server {
             System.out.println(req.headers());
             res.header("Access-Control-Allow-Origin", "*");
             return "OK";
+        });
+
+        exception(ApiError.class, (exception, request, response) -> {
+            printErrorOccurredInPath(request.pathInfo(), exception);
+            response.status(exception.getStatus());
         });
     }
 
