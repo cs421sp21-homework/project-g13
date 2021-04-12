@@ -1,15 +1,15 @@
 package server;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import dao.Sql2oUserDao;
 import dao.Sql2oGroupDao;
+import exceptions.ApiError;
 import model.yelp.Restaurant;
 import model.User;
 import model.Group;
 import dao.GroupDao;
 import dao.UserDao;
 import org.sql2o.Sql2o;
+import util.JsonConverter;
 import util.YelpService;
 import util.Database;
 
@@ -57,7 +57,7 @@ public class Server {
         //Set Yelp API key
         YelpService.setKey("JFIfCtXa51vEZE94eMQNCCwcZOOTbalEY7ZTP-KD_crZlGXR3Antcdqr9Vdr7xpMLtL5isLGRccvkbhYgQ1rIlHuvGPEtlHPdVedJX6kSXP0W3wK1TTOkXWGjR9BYHYx");
 
-        Gson gson = new Gson();
+        JsonConverter gson = new JsonConverter();
 
         UserDao userDao;
         GroupDao groupDao;
@@ -66,7 +66,7 @@ public class Server {
             userDao = getUserDao();
             groupDao = getGroupDao();
         } catch(Exception e) {
-            return;
+            throw new ApiError(e.getMessage(), 500);
         }
 
         //Get restaurants endpoint
@@ -74,20 +74,25 @@ public class Server {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET");
             res.header("Content-Type", "application/json");
-            String query = req.queryParams("query");
-            int radius, limit, offset;
 
-            if (query == null) res.status(404);
-            try { limit = Integer.parseInt(req.queryParams("limit")); }
-            catch(Exception e) { limit = 20; }
-            try { radius = Integer.parseInt(req.queryParams("radius")); }
-            catch(Exception e) { radius = 40000; }
-            try { offset = Integer.parseInt(req.queryParams("offset")); }
-            catch(Exception e) { offset = 0; }
+            try {
+                String query = req.queryParams("query");
+                if (query == null) res.status(400);
+                int radius, limit, offset;
 
-            List<Restaurant> resp = YelpService.getRestaurantByLocationWithDetail(query, limit, radius, offset);
-            if (resp == null) res.status(404);
-            return gson.toJson(resp);
+
+                try { limit = Integer.parseInt(req.queryParams("limit")); }
+                catch(Exception e) { limit = 20; }
+                try { radius = Integer.parseInt(req.queryParams("radius")); }
+                catch(Exception e) { radius = 40000; }
+                try { offset = Integer.parseInt(req.queryParams("offset")); }
+                catch(Exception e) { offset = 0; }
+
+                List<Restaurant> resp = YelpService.getRestaurantByLocationWithDetail(query, limit, radius, offset);
+                return gson.toJson(resp);
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
         });
 
         //Get personalized restaurants endpoint
@@ -95,29 +100,33 @@ public class Server {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET");
             res.header("Content-Type", "application/json");
-            String query = req.queryParams("query");
-            int radius, limit, offset;
-            String price, categories;
 
-            if (query == null) res.status(404);
-            try { limit = Integer.parseInt(req.queryParams("limit")); }
-            catch(Exception e) { limit = 20; }                    // default to getting 20 restaurants from Yelp
-            try { radius = Integer.parseInt(req.queryParams("radius")); }
-            catch(Exception e) { radius = 40000; }                // radius in meters thus 40 km
-            try { offset = Integer.parseInt(req.queryParams("offset")); }
-            catch(Exception e) { offset = 0; }
-            try { price = req.queryParams("price");
-                if (price.equals("")) {                          // if no price is entered
-                    price = "1,2,3,4";
+            try {
+                String query = req.queryParams("query");
+                int radius, limit, offset;
+                String price, categories;
+
+                if (query == null) res.status(400);
+                try { limit = Integer.parseInt(req.queryParams("limit")); }
+                catch(Exception e) { limit = 20; }                    // default to getting 20 restaurants from Yelp
+                try { radius = Integer.parseInt(req.queryParams("radius")); }
+                catch(Exception e) { radius = 40000; }                // radius in meters thus 40 km
+                try { offset = Integer.parseInt(req.queryParams("offset")); }
+                catch(Exception e) { offset = 0; }
+                try { price = req.queryParams("price");
+                    if (price.equals("")) {                          // if no price is entered
+                        price = "1,2,3,4";
+                    }
                 }
-            }
-            catch(Exception e) { price = "1,2,3,4"; }                 // default to all prices
-            try { categories = req.queryParams("categories"); }       // Order matters!
-            catch(Exception e) { categories = ""; }                   // default to specific categories
+                catch(Exception e) { price = "1,2,3,4"; }                 // default to all prices
+                try { categories = req.queryParams("categories"); }       // Order matters!
+                catch(Exception e) { categories = ""; }                   // default to specific categories
 
-            List<Restaurant> resp = YelpService.getRestaurantsByFiltersWithDetail(query, limit, radius, offset, price, categories);
-            if (resp == null) res.status(404);
-            return gson.toJson(resp);
+                List<Restaurant> resp = YelpService.getRestaurantsByFiltersWithDetail(query, limit, offset, radius, price, categories);
+                return gson.toJson(resp);
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
         });
 
         get("/api/users", (req, res) -> {
@@ -126,8 +135,14 @@ public class Server {
             res.header("Access-Control-Allow-Methods", "GET");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
-            List<User> users = userDao.readAll();
-            return gson.toJson(users);
+
+            try {
+                List<User> users = userDao.readAll();
+                return gson.toJson(users);
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
+
         });
 
         get("/api/groups", (req, res) -> {
@@ -135,8 +150,14 @@ public class Server {
             res.header("Access-Control-Allow-Methods", "GET");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
-            List<Group> groups = groupDao.readAllGroups();
-            return gson.toJson(groups);
+
+            try {
+                List<Group> groups = groupDao.readAllGroups();
+                return gson.toJson(groups);
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
+
         });
 
         get("/api/users/:uname", (req, res) -> {
@@ -144,19 +165,28 @@ public class Server {
             res.header("Access-Control-Allow-Methods", "GET");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
-            String uname = req.params("uname");
-            User user = userDao.read(uname);
-            return gson.toJson(user);
-        });
 
+            try {
+                String uname = req.params("uname");
+                User user = userDao.read(uname);
+                return gson.toJson(user);
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
+        });
 
         get("/api/groups/:id", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET");
             res.header("Content-Type", "application/json");
-            int id = Integer.parseInt(req.params("id"));
-            List<User> users = userDao.readAllInGroup(id);
-            return gson.toJson(users);
+
+            try {
+                int id = Integer.parseInt(req.params("id"));
+                List<User> users = userDao.readAllInGroup(id);
+                return gson.toJson(users);
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
         });
 
         post("/api/users", (req, res) -> {
@@ -165,17 +195,28 @@ public class Server {
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Access-Control-Allow-Methods", "GET");
             res.header("Content-Type", "application/json");
-            User user = gson.fromJson(req.body(), User.class);
-            userDao.create(user.getUserName(), user.getPword(), user.getLoc(), user.getGroup_ID());
-            return gson.toJson(user);
+
+            try {
+                User user = gson.fromJson(req.body(), User.class);
+                userDao.create(user.getUserName(), user.getPword(), user.getLoc(), user.getGroup_ID());
+                return gson.toJson(user);
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
         });
 
         post("/api/groups", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
-            Group group = groupDao.createGroup();
-            return gson.toJson(group);
+
+            try {
+                Group group = groupDao.createGroup();
+                return gson.toJson(group);
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
+
         });
 
         post("/signup", (req, res) -> {
@@ -194,44 +235,63 @@ public class Server {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
-            String username = req.params("username");
-            String password = req.params("password");
 
-            String loginSuccess = "fail";
-            User user = userDao.read(username);
-            if (user.getPword().equals(password)) {
-                loginSuccess = "pass";
+            try {
+                String username = req.params("username");
+                String password = req.params("password");
+
+                String loginSuccess = "fail";
+                User user = userDao.read(username);
+                if (user.getPword().equals(password)) {
+                    loginSuccess = "pass";
+                }
+
+                return gson.toJson(loginSuccess);
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
             }
-            return gson.toJson(loginSuccess);
         });
 
         post("/logout", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
-            String username = req.params("username");
-            String password = req.params("password");
-            System.out.println(username);
-            return "Need some return statement";
+
+            try {
+                String username = req.params("username");
+                String password = req.params("password");
+                System.out.println(username);
+                return "Need some return statement";
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
         });
 
         post("/isLoggedIn", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
-            String username = req.params("username");
-            String password = req.params("password");
-            System.out.println(username);
-            return "Need some return statement";
+            try {
+                String username = req.params("username");
+                String password = req.params("password");
+                System.out.println(username);
+                return "Need some return statement";
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
         });
 
         delete("/api/users/:uname", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "DELETE");
             res.header("Content-Type", "application/json");
-            String uname = req.params("uname");
-            User user = userDao.delete(uname);
-            return gson.toJson(user);
+            try {
+                String uname = req.params("uname");
+                User user = userDao.delete(uname);
+                return gson.toJson(user);
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
         });
 
         options("/*", (req, res)-> {
@@ -239,5 +299,23 @@ public class Server {
             res.header("Access-Control-Allow-Origin", "*");
             return "OK";
         });
+
+        exception(ApiError.class, (exception, request, response) -> {
+            printErrorOccurredInPath(request.pathInfo(), exception);
+            response.status(exception.getStatus());
+        });
+    }
+
+    /**
+     * Prints an error message for an exception to standard output along with the path name.
+     * Useful for logging errors.
+     * @param path the endpoint where the exception occurred
+     * @param e the exception that occurred
+     */
+    private static void printErrorOccurredInPath(String path, Exception e) {
+        System.out.print("An exception occurred in path: ");
+        System.out.println(path);
+        System.out.print("Exception message: ");
+        System.out.println(e.getMessage());
     }
 }
