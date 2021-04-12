@@ -58,7 +58,7 @@ class MatchFound extends Component {
                         </header>
                     </div>
                 </Route>
-                <Route excat path="/">
+                <Route exact path="/">
                     <Home/>
                 </Route>
             </Switch>

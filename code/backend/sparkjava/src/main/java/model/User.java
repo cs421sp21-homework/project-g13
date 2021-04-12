@@ -17,9 +17,9 @@ public class User {
      * Construct a User with no information.
      */
     public User() {
-        this.loc = null;
         this.userName = null;
         this.pword = null;
+        this.loc = null;
         this.preferences = " ";
         this.preferencesList = new ArrayList<>();
         this.group_ID = 1;

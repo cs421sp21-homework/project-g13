@@ -178,14 +178,31 @@ public class Server {
             return gson.toJson(group);
         });
 
+        post("/signup", (req, res) -> {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "POST");
+            res.header("Content-Type", "application/json");
+            String username = req.params("username");
+            String password = req.params("password");
+            User newUser = userDao.create(username, password);
+
+            //System.out.println(username);
+            return gson.toJson(newUser);
+        });
+
         post("/login", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
             String username = req.params("username");
             String password = req.params("password");
-            System.out.println(username);
-            return "Need some return statement";
+
+            String loginSuccess = "fail";
+            User user = userDao.read(username);
+            if (user.getPword().equals(password)) {
+                loginSuccess = "pass";
+            }
+            return gson.toJson(loginSuccess);
         });
 
         post("/logout", (req, res) -> {

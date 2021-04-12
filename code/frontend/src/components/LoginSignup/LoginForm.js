@@ -1,7 +1,10 @@
 import React from 'react';
+import { Switch, Route } from "react-router";
 import InputField from "./InputField";
 import SubmitButton from "./SubmitButton";
 import UserStore from "../../stores/UserStore";
+import Home from "../../pages/Home";
+
 
 class LoginForm extends React.Component {
 
@@ -58,10 +61,15 @@ class LoginForm extends React.Component {
 
             let result = await res.json();
             if(result && result.success) {
-                UserStore.isLoggedIn = true;
-                UserStore.username = result.username;
-            }
-            else if(result && result.success === false) {
+                const loginSuccess = new String((JSON.parse(result))["toString"]); // getting the return string from Java routing method
+                const pass = new String("pass");
+                //const fail = new String("fail");
+                if (loginSuccess.valueOf() === pass.valueOf()) {
+                    UserStore.isLoggedIn = true;
+                    UserStore.username = result.username;
+                    this.props.history.push("/"); // going back to Home page
+                } 
+            } else if(result && result.success === false) {
                 this.resetForm();
                 alert(result.msg);
             }
@@ -74,23 +82,28 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <div className="loginSignupForm">
-                Log in
-                <InputField type='text'
-                            placeholder='Username'
-                            value={this.state.username ? this.state.username : ''}
-                            onChange={ (val) => this.setInputValue('username', val) }
-                />
-                <InputField type='password'
-                            placeholder='Password'
-                            value={this.state.password ? this.state.password : ''}
-                            onChange={ (val) => this.setInputValue('password', val) }
-                />
-                <SubmitButton text='Login'
-                              disabled={this.state.buttonDisabled}
-                              onClick={ () => this.doLogin() }
-                />
-            </div>
+            <Switch>
+                <Route path="/Login">
+                    <div className="loginSignupForm">
+                        Log in
+                        <InputField type='text'
+                                    placeholder='Username'
+                                    value={this.state.username ? this.state.username : ''}
+                                    onChange={ (val) => this.setInputValue('username', val) }
+                        />
+                        <InputField type='password'
+                                    placeholder='Password'
+                                    value={this.state.password ? this.state.password : ''}
+                                    onChange={ (val) => this.setInputValue('password', val) }
+                        />
+                        <SubmitButton text='Login'
+                                    disabled={this.state.buttonDisabled}
+                                    onClick={ () => this.doLogin() }
+                        />
+                    </div>
+                </Route>
+                <Route path="/"><Home/></Route>
+            </Switch>
         );
     }
 }
