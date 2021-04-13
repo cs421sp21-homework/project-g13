@@ -12,6 +12,9 @@ Our meeting time is Monday, 8:30pm
 Monday, April 5 @ 8:30 pm EDT
 - Members Attended: Nathaniel, Eric, Shanelle, Daniel
 
+Monday, April 12 @ 8:30 pm EDT
+- Members Attended: Nathaniel, Eric, Daniel
+
 # OO Design
 
 ![UML Diagram for iteration 4](assets/iteration-4-uml.png)
