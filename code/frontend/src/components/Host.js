@@ -58,7 +58,6 @@ class Host extends Component {
             <header className="App-header">
               <div>
                 <h1> Waiting for people to join... </h1>
-                <p> TODO: dynamically show group members as they join </p>
               </div>
               <form>
                 <Button

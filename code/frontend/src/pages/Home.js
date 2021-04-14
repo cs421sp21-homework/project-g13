@@ -1,4 +1,4 @@
-import "../App.css"
+//import "../App.css"
 import React, { Component } from "react";
 import { Switch, Route } from "react-router";
 import { withRouter } from "react-router-dom";
@@ -10,29 +10,7 @@ import SetFilters from "./SetFilters.js"
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
-//blue BFD7EA
-const styles = theme => ({
-    button: {
-        color: '#5a2c22',
-        backgroundColor: '#d44f22',
-        borderColor: '#d44f22',
-        boxShadow: 'none',
-        margin: theme.spacing(2),
-        width: 300,
-        height: 64,
-        fontSize: 22,
-        '&:hover': {
-            backgroundColor: '#f9b042',
-            borderColor: '#f9b042',
-            boxShadow: 'none',
-        },
-        '&:active': {
-            boxShadow: 'none',
-            backgroundColor: '#f9b042',
-            borderColor: '#f9b042',
-        },
-    },
-});
+import AppNavbar from "../components/NavBar.js";
 
 class Home extends Component {
     constructor(props) {
@@ -50,69 +28,35 @@ class Home extends Component {
         }
 
         return(
-            <Switch>
-                <Route exact path="/">
                     <div className='App'>
-                        <header className='App-header'>
-                            <form>
-                                <Button
-                                    className={this.props.classes.button}
-                                    onClick={() => this.nextPath('/Signup')}
-                                    variant="contained"
-                                    size='large'
-                                >
-                                    Sign up/Login
-                                </Button>
-                                <br/>
-                                <OverlayTrigger key="right" placement="right" overlay={
-                                    <Tooltip id="tooltip-right">
-                                    Play by yourself or host a group
-                                    </Tooltip>
-                                }>
-                                    <Button
-                                    className={this.props.classes.button}
-                                    onClick={() => this.nextPath('/Host')}
-                                    variant="contained"
-                                    size='large'
-                                >
-                                    Start/Host Group
-                                </Button>
+                        <h1 className="home-main-text">Can't decide what to eat?</h1>
+                        <h2 className="home-secondary-text">We'll help you!</h2>
+                        <OverlayTrigger
+                            key="left"
+                            placement="left"
+                            overlay={
+                                <Tooltip id={`tooltip-left`} className="home-tooltip">
+                                Find what to eat by yourself or with friends
+                                </Tooltip>
+                                 }>
+                            <button type="button" class="btn btn-outline-primary home-button" onClick={() => this.props.history.push("/Host")}>Start</button>
+                        </OverlayTrigger>
 
-                                </OverlayTrigger>
-                                <br/>
-                                <Button
-                                    className={this.props.classes.button}
-                                    onClick={() => this.nextPath('/Join')}
-                                    variant="contained"
-                                    size='large'
-                                >
-                                    Join a Group
-                                </Button>
-                            </form>
-                        </header>
+                        <OverlayTrigger
+                            key="right"
+                            placement="right"
+                            overlay={
+                                <Tooltip id={`tooltip-right`} className="home-tooltip">
+                                Join a room with friends
+                                </Tooltip>
+                                 }>
+                            <button type="button" class="btn btn-outline-secondary home-button" onClick={() => this.props.history.push("/Join")}>Join</button>
+                        </OverlayTrigger>
+                        
+                        
                     </div>
-                </Route>
-                <Route path="/Join">
-                    <Group isHost={false} />
-                </Route>
-                <Route path="/Host">
-                    <Group isHost={true} />
-                </Route>
-                <Route path="/Signup">
-                    <Signup/>
-                </Route>
-                <Route path="/Login">
-                    <Login/>
-                </Route>
-                <Route path="/Individual">
-                    <Individual />
-                </Route>
-                <Route path="/Filter">
-                    <SetFilters />
-                </Route>
-            </Switch>
         )
     }
 }
 
-export default withRouter((withStyles(styles)(Home)))
+export default withRouter(Home);
