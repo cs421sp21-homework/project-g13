@@ -194,6 +194,18 @@ class Room {
   memberLeft(memberId) {
     this.size--;
     if (this.members.has(memberId)) {
+      //update restaurantYes/NoVotes
+      for (let i = 0; i < this.restaurants.length; i++) {
+        if (this.members.get(memberId).votes.has(this.restaurants[i])) {
+          if (this.members.get(memberId).votes.get(this.restaurants[i])) {
+            this.restaurantYesVotes.set(this.restaurants[i],
+              this.restaurantYesVotes.get(this.restaurants[i]) - 1);
+          } else {
+            this.restaurantNoVotes.set(this.restaurants[i],
+              this.restaurantNoVotes.get(this.restaurants[i]) - 1);
+          }
+        }
+      }
       this.members.delete(memberId);
       if (this.checkIfEveryMemberIsReady()) {
         Room.emitReadySignalFunc(this.name, true);
@@ -202,6 +214,7 @@ class Room {
         Room.emitFinishedFunc(this.name);
       }
     }
+    this.checkIfMatchFound();
   }
 
   addYesVote(restaurantId, member) {

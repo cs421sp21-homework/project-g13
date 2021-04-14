@@ -48,7 +48,7 @@ Room.emitFinishedFunc = function (room) {
 
 Room.emitMatchFoundfunc = function (room, restaurantId) {
   if (roomsMap.has(room)) {
-    if (roomsMap.get(room).addVote(restaurantId)) {
+    if (roomsMap.get(room).addYesVote(restaurantId)) {
       io.to(room).emit("match_found", restaurantId);
     }
   }
