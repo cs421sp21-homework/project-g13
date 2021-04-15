@@ -95,7 +95,7 @@ Monday, April 12 @ 8:30 pm EDT
     - Write unit tests on APIs ([#93](https://github.com/cs421sp21-homework/project-g13/issues/93), Eric) :black_square_button:
     - Write Postman tests on APIs ([#92](https://github.com/cs421sp21-homework/project-g13/issues/92), Daniel) :black_square_button:
     
-- Storing user's permanent preferences in backend :black_square_button:
+- Storing user's permanent preferences in backend :white_check_mark:
   - Create column in database for the preferences ([#90](https://github.com/cs421sp21-homework/project-g13/issues/90), Daniel) :white_check_mark:
   - Create DAO methods for accessing/modfying them ([#91](https://github.com/cs421sp21-homework/project-g13/issues/91), Daniel) :white_check_mark:
 - Implementing login system :white_check_mark:
