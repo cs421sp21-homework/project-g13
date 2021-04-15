@@ -98,10 +98,10 @@ Monday, April 12 @ 8:30 pm EDT
 - Storing user's permanent preferences in backend :black_square_button:
   - Create column in database for the preferences ([#90](https://github.com/cs421sp21-homework/project-g13/issues/90), Daniel) :white_check_mark:
   - Create DAO methods for accessing/modfying them ([#91](https://github.com/cs421sp21-homework/project-g13/issues/91), Daniel) :white_check_mark:
-- Implementing login system :black_square_button:
+- Implementing login system :white_check_mark:
   - Show an error message if the backend server is down ([#83](https://github.com/cs421sp21-homework/project-g13/issues/83), Daniel) :black_square_button:
-  - Fix error "Signup.js:14 POST http://localhost:3000/isLoggedIn 404 (Not Found)" ([#84](https://github.com/cs421sp21-homework/project-g13/issues/84), Daniel) :black_square_button:
-  - Connecting frontend to database with user credentials ([#85](https://github.com/cs421sp21-homework/project-g13/issues/85), Daniel) :black_square_button:
+  - Fix error "Signup.js:14 POST http://localhost:3000/isLoggedIn 404 (Not Found)" ([#84](https://github.com/cs421sp21-homework/project-g13/issues/84), Daniel) :white_check_mark:
+  - Connecting frontend to database with user credentials ([#85](https://github.com/cs421sp21-homework/project-g13/issues/85), Daniel) :white_check_mark:
 - Record an individual's swipes in backend ([#77](https://github.com/cs421sp21-homework/project-g13/issues/77), Daniel) :black_square_button:
 - Add 'backend/build' to .gitignore ([#87](https://github.com/cs421sp21-homework/project-g13/issues/87), Daniel) :white_check_mark:
 - Creating & integrating custom exceptions for backend server ([#89](https://github.com/cs421sp21-homework/project-g13/issues/89), Daniel) :black_square_button:
