@@ -1,16 +1,19 @@
 package server;
 
+import com.google.gson.JsonObject;
 import dao.Sql2oUserDao;
 import dao.Sql2oGroupDao;
 import exceptions.ApiError;
 import model.yelp.Restaurant;
 import model.User;
+import model.RouteUser;
 import model.Group;
 import dao.GroupDao;
 import dao.UserDao;
 import org.sql2o.Sql2o;
 import util.JsonConverter;
 import util.YelpService;
+import util.StatusMessage;
 import util.Database;
 
 import java.net.URISyntaxException;
@@ -28,7 +31,7 @@ public class Server {
             return Integer.parseInt(herokuPort);
         }
         //return default port if heroku-port isn't set (i.e. on localhost)
-        return 4567;
+        return 4568;
     }
 
     private static UserDao getUserDao() throws Exception {
@@ -223,9 +226,11 @@ public class Server {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
-            String username = req.params("username");
-            String password = req.params("password");
-            User newUser = userDao.create(username, password);
+            RouteUser fetchedUser = gson.fromJson(req.body(), RouteUser.class);
+            //String username = req.params("username");
+            //String password = req.params("password");
+            // implementation kinda depends on "Guest" not being a username
+            User newUser = userDao.create(fetchedUser.getUsername(), fetchedUser.getPassword());
 
             //System.out.println(username);
             return gson.toJson(newUser);
@@ -237,16 +242,24 @@ public class Server {
             res.header("Content-Type", "application/json");
 
             try {
-                String username = req.params("username");
-                String password = req.params("password");
+                RouteUser userCredentials = gson.fromJson(req.body(), RouteUser.class);
+                StatusMessage loginMsg = new StatusMessage();
+                //User newUser = userDao.create(fetchedUser.getUsername(), fetchedUser.getPassword());
 
-                String loginSuccess = "fail";
-                User user = userDao.read(username);
-                if (user.getPword().equals(password)) {
-                    loginSuccess = "pass";
-                }
+                loginMsg.setMessage("fail");
+                User user = userDao.read(userCredentials.getUsername());
+                // handle error if not found
+                //if (user.getUserName().equals(fetchedUser.getUsername())) {
+                    if (user.getPword().equals(userCredentials.getPassword())) {
+                        loginMsg.setMessage(user.getUserName()); // just sending the username for succesful login and userStore
+                        userDao.login(userCredentials.getUsername());
+                    }
+                //}
 
-                return gson.toJson(loginSuccess);
+                //String json = "{ \"loginSucess\": \"" + loginSuccess + "\" }";
+                //JsonObject convertedObject = new gson().fromJson(json, JsonObject.class);
+
+                return gson.toJson(loginMsg);
             } catch (Exception e) {
                 throw new ApiError(e.getMessage(), 500);
             }
@@ -258,10 +271,22 @@ public class Server {
             res.header("Content-Type", "application/json");
 
             try {
-                String username = req.params("username");
-                String password = req.params("password");
-                System.out.println(username);
-                return "Need some return statement";
+                RouteUser fetchedUser = gson.fromJson(req.body(), RouteUser.class);
+                User user = userDao.read(fetchedUser.getUsername());
+
+                if (user.getIsLoggedIn()) {
+                    userDao.logout(fetchedUser.getUsername());
+                }
+
+                User checkLoggedOut = userDao.read(fetchedUser.getUsername());
+                StatusMessage loginStatus = new StatusMessage();
+                if (checkLoggedOut.getIsLoggedIn() == false) {
+                    loginStatus.setMessage("success");
+                } else {
+                    loginStatus.setMessage("fail");
+                }
+
+                return gson.toJson(loginStatus);
             } catch (Exception e) {
                 throw new ApiError(e.getMessage(), 500);
             }
