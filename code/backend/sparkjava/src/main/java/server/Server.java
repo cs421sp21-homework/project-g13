@@ -297,10 +297,17 @@ public class Server {
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
             try {
-                String username = req.params("username");
-                String password = req.params("password");
-                System.out.println(username);
-                return "Need some return statement";
+                RouteUser fetchedUser = gson.fromJson(req.body(), RouteUser.class);
+                User user = userDao.read(fetchedUser.getUsername());
+                boolean loginStatus = user.getIsLoggedIn();
+                StatusMessage message = new StatusMessage();
+                if (loginStatus) {
+                    message.setMessage("true");
+                } else {
+                    message.setMessage("false");
+                }
+                //System.out.println(username);
+                return gson.toJson(message);
             } catch (Exception e) {
                 throw new ApiError(e.getMessage(), 500);
             }
