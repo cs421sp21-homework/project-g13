@@ -12,6 +12,7 @@ public class User {
     private int group_ID;
     private List<String> preferencesList;
     private String preferences;
+    private boolean isLoggedIn;
 
     /**
      * Construct a User with no information.
@@ -23,6 +24,7 @@ public class User {
         this.preferences = " ";
         this.preferencesList = new ArrayList<>();
         this.group_ID = 1;
+        this.isLoggedIn = false;
     }
 
     /**
@@ -35,6 +37,7 @@ public class User {
         this.group_ID = gid;
         this.preferences = " ";
         this.preferencesList = new ArrayList<>();
+        this.isLoggedIn = false;
 
     }
 
@@ -149,6 +152,22 @@ public class User {
      * @return the user's preferences.
      */
     public String getPreferences() { return this.preferences; }
+
+    /**
+     * Set the user's login status.
+     *
+     * @param log The user's login status.
+     */
+    public void setIsLoggedIn(boolean log) {
+        this.isLoggedIn = log;
+    }
+
+    /**
+     * Get user's login status.
+     *
+     * @return the user's login status.
+     */
+    public boolean getIsLoggedIn() { return this.isLoggedIn; }
 
     @Override
     public boolean equals(Object other) {
