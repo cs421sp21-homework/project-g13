@@ -119,8 +119,18 @@ class SignupForm extends React.Component {
             }
         }
         catch (e) {
+            if (e instanceof TypeError) {
+                const NetworkErr1 = new String("Failed to fetch"); // Chrome
+                const NetworkErr2 = new String("NetworkError when attempting to fetch resource."); // Firefox
+                const NetworkErr3 = new String("Network request failed"); // Safari and others
+                if (e.message.valueOf() === NetworkErr1.valueOf() || e.message.valueOf() === NetworkErr2.valueOf() || e.message.valueOf() === NetworkErr3.valueOf()) {
+                    alert("Backend server is down. Please try again later.")
+                }
+            }
+            
             console.log(e);
             this.resetForm();
+            
         }
     }
 
