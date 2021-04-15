@@ -84,7 +84,7 @@ Monday, April 12 @ 8:30 pm EDT
 - Pulling different restaurants when Individual clicks "Try Again" ([#62](https://github.com/cs421sp21-homework/project-g13/issues/62), Shanelle) :black_square_button:
 - UI for acessing user's permanent preferences in the frontend ([#95](https://github.com/cs421sp21-homework/project-g13/issues/95), Shanelle) :black_square_button:
 - Fix sizing/organization of elements in restaurant card ([#80](https://github.com/cs421sp21-homework/project-g13/issues/80), Shanelle) :black_square_button:
-- Moving styling from "header" to "body" ([#76](https://github.com/cs421sp21-homework/project-g13/issues/76), Shanelle) :black_square_button:
+- Separate styling into more components ([#76](https://github.com/cs421sp21-homework/project-g13/issues/76), Shanelle) :black_square_button:
 - Rearrange the restaurant leaderboard in NotFoundRec.js so the user can easily see it ([#48](https://github.com/cs421sp21-homework/project-g13/issues/48), Shanelle) :black_square_button:
 
 - Saving group's location for "Try Again" button ([#74](https://github.com/cs421sp21-homework/project-g13/issues/74), Eric) :white_check_mark:
