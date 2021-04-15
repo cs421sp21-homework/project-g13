@@ -115,8 +115,6 @@ public interface UserDao {
      */
     List<String> removePreference(User user, String pref) throws DaoException;
 
-
-
     /**
      * Delete user from database.
      *
@@ -125,4 +123,23 @@ public interface UserDao {
      * @throws DaoException A generic exception for CRUD operations.
      */
     User delete(String uName) throws DaoException;
+
+    /**
+     * Record user's login.
+     *
+     * @param uName The username of user who logged in.
+     * @return The user with updated 'isloggedin' column.
+     * @throws DaoException A generic exception for CRUD operations.
+     */
+    User login(String uName) throws DaoException;
+
+    /**
+     * Record user's logout.
+     *
+     * @param uName The username of user who logged out.
+     * @return The user with updated 'isloggedin' column.
+     * @throws DaoException A generic exception for CRUD operations.
+     */
+    User logout(String uName) throws DaoException;
+
 }

@@ -96,7 +96,7 @@ public class Sql2oGroupDao implements GroupDao {
                 // avoiding a NullPointerException
             } else {
                 for (int index = 0; index < numUserIDs; index++) {
-                    sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), group_id " +
+                    sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), isloggedin, group_id " +
                             "FROM user_info WHERE user_id = :uid;";
                     currUser = conn.createQuery(sql) // making proper SQL statement for execution
                             .addParameter("uid", userIDInt[index])   // allowing for varying group ID
@@ -120,7 +120,7 @@ public class Sql2oGroupDao implements GroupDao {
     // helper method to be used when resetting users' group IDs when deleting group
     //@Override
     private List<User> readMembers(Connection conn, int id) throws DaoException {
-        String sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), group_id " +
+        String sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), isloggedin, group_id " +
                      "FROM user_info WHERE group_id = :gid;";
         try {
             List<User> users = conn.createQuery(sql)
@@ -243,7 +243,7 @@ public class Sql2oGroupDao implements GroupDao {
                 String[] userIDString = groups.get(0).getMemberIDs().split(",");
                 //List<Integer> userIDs = group.getMemberIDs();
                 for (int index = 0; index < userIDString.length; index++) {
-                    sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), group_id " +
+                    sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), isloggedin, group_id " +
                           "FROM user_info WHERE user_id = :uid;";
                     currUser = conn.createQuery(sql) // making proper SQL statement for execution
                             .addParameter("uid", Integer.parseInt(userIDString[index]))   // allowing for varying group ID
