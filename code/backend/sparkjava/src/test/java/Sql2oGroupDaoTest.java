@@ -106,13 +106,14 @@ public class Sql2oGroupDaoTest {
                     "pword VARCHAR(50) NOT NULL," +
                     "loc VARCHAR(100)," +
                     "preferences VARCHAR(50) []," + // left as empty upon creation
+                    "isloggedin VARCHAR(20)," +
                     "group_id BIGSERIAL REFERENCES group_info(group_id)," +
                     "UNIQUE(username)," +
                     "UNIQUE(pword));";
             conn.createQuery(sql).executeUpdate();
 
-            sql = "INSERT INTO user_info(username, pWord, loc, preferences, group_id) " +
-                    "VALUES(:username, :pWord, :loc, ARRAY['none'], :group_id);";
+            sql = "INSERT INTO user_info(username, pWord, loc, preferences, isloggedin, group_id) " +
+                    "VALUES(:username, :pWord, :loc, ARRAY['none'], 'no', :group_id);";
             for (User user : samples) {
                 conn.createQuery(sql).addParameter("username", user.getUserName())
                         .addParameter("pWord", user.getPword())

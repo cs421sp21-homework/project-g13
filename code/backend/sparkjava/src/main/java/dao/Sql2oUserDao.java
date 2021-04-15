@@ -31,7 +31,8 @@ public class Sql2oUserDao implements UserDao {
     @Override
     public User create(String uName, String pWord, String location, int gid) throws DaoException {
         String sql = "WITH inserted AS ("
-                + "INSERT INTO user_info(username, pWord, group_id, loc) VALUES(:userName, :pword, :groupNumber, :loc) RETURNING *"
+                + "INSERT INTO user_info(username, pWord, group_id, preferences, loc, isloggedin)"
+                + " VALUES(:userName, :pword, :groupNumber, ARRAY['none'], :loc, 'no') RETURNING *"
                 + ") SELECT * FROM inserted;";
         try (Connection conn = sql2o.open()) {              // opening connection to database
             return conn.createQuery(sql)                    // making proper SQL statement for execution
@@ -48,7 +49,8 @@ public class Sql2oUserDao implements UserDao {
     @Override
     public User create(String uName, String pWord, String location) throws DaoException {
         String sql = "WITH inserted AS ("
-                + "INSERT INTO user_info(username, pWord, group_id, loc) VALUES(:userName, :pword, 1, :loc) RETURNING *"
+                + "INSERT INTO user_info(username, pWord, group_id, preferences, loc, isloggedin)"
+                + " VALUES(:userName, :pword, 1, ARRAY['none'], :loc, 'no') RETURNING *"
                 + ") SELECT * FROM inserted;";
         try (Connection conn = sql2o.open()) {             // opening connection to database
             return conn.createQuery(sql)                   // making proper SQL statement for execution
@@ -64,7 +66,8 @@ public class Sql2oUserDao implements UserDao {
     @Override
     public User create(String uName, String pWord) throws DaoException {
         String sql = "WITH inserted AS ("
-                + "INSERT INTO user_info(username, pWord, group_id, loc) VALUES(:userName, :pword, 1, NULL) RETURNING *"
+                + "INSERT INTO user_info(username, pWord, group_id, preferences, loc, isloggedin) "
+                + "VALUES(:userName, :pword, 1, ARRAY['none'], NULL, 'no') RETURNING *"
                 + ") SELECT * FROM inserted;";
         try (Connection conn = sql2o.open()) {             // opening connection to database
             return conn.createQuery(sql)                   // making proper SQL statement for execution
@@ -78,7 +81,7 @@ public class Sql2oUserDao implements UserDao {
 
     @Override
     public User read(String uName) throws DaoException {
-        String sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), group_id " +
+        String sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), isloggedin, group_id " +
                      "FROM user_info WHERE username = :uName;";
         try (Connection conn = sql2o.open()) {          // opening connection to database
             User currUser = conn.createQuery(sql)                // making proper SQL statement for execution
@@ -89,7 +92,7 @@ public class Sql2oUserDao implements UserDao {
             if (!(currUser.getPreferences().equals(""))) { // would only be "" (no space like in constructor) if all preferences were removed
                 String[] userPrefs = currUser.getPreferences().split(",");
                 currUser.setPreferencesList(Arrays.asList(userPrefs));
-            } else {
+            } else { // just update empty column to have none (more descriptive)
                 // null lists are very bad elsewhere :-(
                 ArrayList<String> temp = new ArrayList<>();
                 temp.add("none");
@@ -107,7 +110,7 @@ public class Sql2oUserDao implements UserDao {
 
     @Override
     public List<User> readAll() throws DaoException {
-        String sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), group_id " +
+        String sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), isloggedin, group_id " +
                      "FROM user_info;";
         try (Connection conn = sql2o.open()) {    // opening connection to database
             List<User> users = conn.createQuery(sql)          // making proper SQL statement for execution
@@ -129,7 +132,7 @@ public class Sql2oUserDao implements UserDao {
 
     @Override
     public List<User> readAllInGroup(int gid) throws DaoException {
-        String sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), group_id " +
+        String sql = "SELECT user_id, username, pword, loc, ARRAY_TO_STRING(preferences, ','), isloggedin, group_id " +
                      "FROM user_info WHERE group_id = :groupID;";
         try (Connection conn = sql2o.open()) {          // opening connection to database
             List<User> users = conn.createQuery(sql)                // making proper SQL statement for execution
@@ -250,6 +253,40 @@ public class Sql2oUserDao implements UserDao {
                     .executeAndFetchFirst(User.class);  // executing SQL + using the object mapper to fill the fields
         } catch (Sql2oException ex) {
             throw new DaoException("Unable to delete the user", ex);
+        }
+    }
+
+    @Override
+    public User login(String uName) throws DaoException {
+        String sql = "UPDATE user_info SET isloggedin = :login WHERE username = :uName;";
+        try (Connection conn = sql2o.open()) {                       // opening connection to database
+            conn.createQuery(sql)                                    // making proper SQL statement for execution
+                    .addParameter("uName", uName)              // allowing for varying username
+                    .addParameter("login", "yes")
+                    .executeUpdate();                                // executing SQL
+
+            User user = read(uName);
+            user.setIsLoggedIn(true);                                // updating in POJO
+            return user;
+        } catch (Sql2oException ex) {
+            throw new DaoException("Unable to update the group ID", ex);
+        }
+    }
+
+    @Override
+    public User logout(String uName) throws DaoException {
+        String sql = "UPDATE user_info SET isloggedin = :login WHERE username = :uName;";
+        try (Connection conn = sql2o.open()) {                       // opening connection to database
+            conn.createQuery(sql)                                    // making proper SQL statement for execution
+                    .addParameter("uName", uName)              // allowing for varying username
+                    .addParameter("login", "no")
+                    .executeUpdate();                                // executing SQL
+
+            User user = read(uName);
+            user.setIsLoggedIn(false);                                // updating in POJO
+            return user;
+        } catch (Sql2oException ex) {
+            throw new DaoException("Unable to update the group ID", ex);
         }
     }
 

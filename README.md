@@ -76,6 +76,7 @@ To build the frontend:
 
 ```shell
 cd cs421sp21-homework/project-g13/code/backend/socketio
+npm install express
 node socketServer.js
 cd cs421sp21-homework/project-g13/code/frontend
 npm run start

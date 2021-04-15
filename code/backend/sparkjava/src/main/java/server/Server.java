@@ -1,5 +1,6 @@
 package server;
 
+import com.google.gson.JsonObject;
 import dao.Sql2oUserDao;
 import dao.Sql2oGroupDao;
 import exceptions.ApiError;
@@ -11,6 +12,8 @@ import dao.UserDao;
 import org.sql2o.Sql2o;
 import util.JsonConverter;
 import util.YelpService;
+import util.StatusMessage;
+import util.RouteUser;
 import util.Database;
 
 import java.net.URISyntaxException;
@@ -28,7 +31,7 @@ public class Server {
             return Integer.parseInt(herokuPort);
         }
         //return default port if heroku-port isn't set (i.e. on localhost)
-        return 4567;
+        return 4568;
     }
 
     private static UserDao getUserDao() throws Exception {
@@ -163,7 +166,7 @@ public class Server {
         get("/api/users/:uname", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET");
-            res.header("Access-Control-Allow-Methods", "POST");
+            //res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
 
             try {
@@ -219,16 +222,44 @@ public class Server {
 
         });
 
+        post("/signup", (req, res) -> {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "POST");
+            res.header("Content-Type", "application/json");
+            RouteUser fetchedUser = gson.fromJson(req.body(), RouteUser.class);
+            //String username = req.params("username");
+            //String password = req.params("password");
+            // implementation kinda depends on "Guest" not being a username
+            User newUser = userDao.create(fetchedUser.getUsername(), fetchedUser.getPassword());
+
+            //System.out.println(username);
+            return gson.toJson(newUser);
+        });
+
         post("/login", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
 
             try {
-                String username = req.params("username");
-                String password = req.params("password");
-                System.out.println(username);
-                return "Need some return statement";
+                RouteUser userCredentials = gson.fromJson(req.body(), RouteUser.class);
+                StatusMessage loginMsg = new StatusMessage();
+                //User newUser = userDao.create(fetchedUser.getUsername(), fetchedUser.getPassword());
+
+                loginMsg.setMessage("fail");
+                User user = userDao.read(userCredentials.getUsername());
+                // handle error if not found
+                //if (user.getUserName().equals(fetchedUser.getUsername())) {
+                    if (user.getPword().equals(userCredentials.getPassword())) {
+                        loginMsg.setMessage(user.getUserName()); // just sending the username for succesful login and userStore
+                        userDao.login(userCredentials.getUsername());
+                    }
+                //}
+
+                //String json = "{ \"loginSucess\": \"" + loginSuccess + "\" }";
+                //JsonObject convertedObject = new gson().fromJson(json, JsonObject.class);
+
+                return gson.toJson(loginMsg);
             } catch (Exception e) {
                 throw new ApiError(e.getMessage(), 500);
             }
@@ -240,10 +271,22 @@ public class Server {
             res.header("Content-Type", "application/json");
 
             try {
-                String username = req.params("username");
-                String password = req.params("password");
-                System.out.println(username);
-                return "Need some return statement";
+                RouteUser fetchedUser = gson.fromJson(req.body(), RouteUser.class);
+                User user = userDao.read(fetchedUser.getUsername());
+
+                if (user.getIsLoggedIn()) {
+                    userDao.logout(fetchedUser.getUsername());
+                }
+
+                User checkLoggedOut = userDao.read(fetchedUser.getUsername());
+                StatusMessage loginStatus = new StatusMessage();
+                if (checkLoggedOut.getIsLoggedIn() == false) {
+                    loginStatus.setMessage("success");
+                } else {
+                    loginStatus.setMessage("fail");
+                }
+
+                return gson.toJson(loginStatus);
             } catch (Exception e) {
                 throw new ApiError(e.getMessage(), 500);
             }
@@ -254,10 +297,71 @@ public class Server {
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
             try {
-                String username = req.params("username");
-                String password = req.params("password");
-                System.out.println(username);
-                return "Need some return statement";
+                RouteUser fetchedUser = gson.fromJson(req.body(), RouteUser.class);
+                User user = userDao.read(fetchedUser.getUsername());
+                boolean loginStatus = user.getIsLoggedIn();
+                StatusMessage message = new StatusMessage();
+                if (loginStatus) {
+                    message.setMessage("true");
+                } else {
+                    message.setMessage("false");
+                }
+                //System.out.println(username);
+                return gson.toJson(message);
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
+        });
+
+        put("/updatePreference", (req, res) -> {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "PUT");
+            res.header("Content-Type", "application/json");
+            try {
+                // ensure that JSON body has preferences field set to array of strings!
+                RouteUser fetchedUser = gson.fromJson(req.body(), RouteUser.class);
+                User user = userDao.read(fetchedUser.getUsername());
+
+                // clean out preferences before adding new ones
+                List<String> oldPrefs = user.getPreferencesList();
+                for (String pref : oldPrefs) {
+
+                    userDao.removePreference(user, pref);
+
+                }
+
+                // actually adding the new ones
+                List<String> newPrefs = fetchedUser.getPreferencesList();
+                for (String pref : newPrefs) {
+
+                    userDao.addPreference(user, pref);
+
+                }
+
+                User userNewPrefs = userDao.read(fetchedUser.getUsername());
+                return gson.toJson(userNewPrefs); // should have updated preferences
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
+        });
+
+        put("/removePreference", (req, res) -> {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "PUT");
+            res.header("Content-Type", "application/json");
+            try {
+                // ensure that JSON body has preferences field set to array of strings!
+                RouteUser fetchedUser = gson.fromJson(req.body(), RouteUser.class);
+                User user = userDao.read(fetchedUser.getUsername());
+
+                for (String pref : fetchedUser.getPreferencesList()) {
+
+                    userDao.removePreference(user, pref);
+
+                }
+
+                User userNewPrefs = userDao.read(fetchedUser.getUsername());
+                return gson.toJson(userNewPrefs); // should have updated preferences
             } catch (Exception e) {
                 throw new ApiError(e.getMessage(), 500);
             }
