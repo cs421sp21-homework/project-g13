@@ -2,8 +2,33 @@ import React from 'react';
 import { Switch, Route } from "react-router";
 import InputField from "./InputField";
 import SubmitButton from "./SubmitButton";
-import Login from "./LoginForm";
-import UserStore from "../../stores/UserStore";
+import Login from "../../pages/Login";
+import { withRouter } from "react-router-dom";
+import { withStyles } from "@material-ui/core/styles";
+import userStore from "../../stores/UserStore";
+
+const styles = theme => ({
+    button: {
+        color: '#5a2c22',
+        backgroundColor: '#d44f22',
+        borderColor: '#d44f22',
+        boxShadow: 'none',
+        margin: theme.spacing(2),
+        width: 300,
+        height: 64,
+        fontSize: 22,
+        '&:hover': {
+            backgroundColor: '#f9b042',
+            borderColor: '#f9b042',
+            boxShadow: 'none',
+        },
+        '&:active': {
+            boxShadow: 'none',
+            backgroundColor: '#f9b042',
+            borderColor: '#f9b042',
+        },
+    },
+});
 
 class SignupForm extends React.Component {
 
@@ -13,9 +38,14 @@ class SignupForm extends React.Component {
             username: '',
             password: '',
             confirmPwd: '',
-            buttonDisabled: false
+            buttonDisabled: false,
+            endpointLocalURL: "http://localhost:4568",
+            endpointHerokuURL: "https://chicken-tinder-13-backend.herokuapp.com"
         }
     }
+
+    //static endpointLocalURL = "http://localhost:4568";
+    //static endpointHerokuURL = "https://chicken-tinder-13-backend.herokuapp.com";
 
     setInputValue(prop, val) {
         val = val.trim();
@@ -43,6 +73,16 @@ class SignupForm extends React.Component {
         })
     }
 
+    /* logoutOnClose() { // tracks if window/tab is closed
+        window.addEventListener("beforeunload", (ev) => {
+            // want to logout in database beforehand
+
+            
+            // ev.preventDefault();
+            // return this.doSomethingBeforeUnload();
+        });
+    }; */
+
     async doSignup() {
         if(!this.state.username) {
             return;
@@ -55,7 +95,7 @@ class SignupForm extends React.Component {
         })
 
         try{
-            let res = await fetch('/signup', {
+            let res = await fetch(this.state.endpointLocalURL + "/signup", {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json',
@@ -68,13 +108,14 @@ class SignupForm extends React.Component {
             });
 
             let result = await res.json();
-            if(result && result.success) {
+            if((result.userName).valueOf() === (this.state.username).valueOf()) {
                 //UserStore.isLoggedIn = false; // have not logged in yet, simply created an account
                 //UserStore.username = result.username;
+                this.props.history.push("/Login"); // going back to Home page
             }
-            else if(result && result.success === false) {
+            else {
                 this.resetForm();
-                alert(result.msg);
+                alert(result.msg + "Could not create account.");
             }
         }
         catch (e) {
@@ -117,10 +158,10 @@ class SignupForm extends React.Component {
                         Already have an account? Login <a href={"/Login"}>here</a>
                     </div>
                 </Route>
-                <Route> <Login/> </Route>
+                <Route path="/Login"> <Login/> </Route>
             </Switch>
         );
     }
 }
 
-export default SignupForm;
+export default withRouter((withStyles(styles)(SignupForm)))
