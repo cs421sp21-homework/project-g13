@@ -7,8 +7,6 @@ import Login from "./Login";
 import Group from './Group'
 import Individual from "./Individual";
 import SetFilters from "./SetFilters.js"
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import AppNavbar from "../components/NavBar.js";
 
@@ -28,7 +26,7 @@ class Home extends Component {
         }
 
         return(
-                    <div className='App'>
+                    <div style={{textAlign: "center"}}>
                         <h1 className="home-main-text">Can't decide what to eat?</h1>
                         <h2 className="home-secondary-text">We'll help you!</h2>
                         <OverlayTrigger
@@ -39,7 +37,7 @@ class Home extends Component {
                                 Find what to eat by yourself or with friends
                                 </Tooltip>
                                  }>
-                            <button type="button" class="btn btn-outline-primary home-button" onClick={() => this.props.history.push("/Host")}>Start</button>
+                            <button type="button" class="btn btn-primary home-button orange-button" onClick={() => this.props.history.push("/Host")}>Start</button>
                         </OverlayTrigger>
 
                         <OverlayTrigger
@@ -50,7 +48,7 @@ class Home extends Component {
                                 Join a room with friends
                                 </Tooltip>
                                  }>
-                            <button type="button" class="btn btn-outline-secondary home-button" onClick={() => this.props.history.push("/Join")}>Join</button>
+                            <button type="button" class="btn btn-secondary home-button" onClick={() => this.props.history.push("/Join")}>Join</button>
                         </OverlayTrigger>
                         
                         

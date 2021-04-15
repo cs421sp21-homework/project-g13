@@ -40,7 +40,7 @@
 }
 
 .app-nav-button {
-  width: 10vmin !important;
+  width: 11vmin !important;
   height: 5vmin !important;
 }
 
@@ -75,10 +75,6 @@
   font-size: 2vmin;
 }
 
-.App {
-  text-align: center;
-}
-
 .App-header {
   padding-top: 8vmin;
   /*color: #d44f22;*/
@@ -88,7 +84,40 @@
   align-items: center;
   font-size: calc(10px + 2vmin);
   text-align: center;
-  font-family: monospace;
+}
+
+.orange-button {
+  background-color: darkorange !important; 
+  border-color: darkorange !important;
+}
+
+.orange-button:hover {
+  background-color: #CC7000 !important;
+  border-color: #CC7000 !important;
+}
+
+.orange-button:active {
+  background-color: #A35A00 !important;
+  border-color: #A35A00 !important;
+}
+
+.join-button {
+  margin: auto;
+  width: 20vmin !important;
+  height: 6vmin;
+  font-size: 2.5vmin !important;
+  margin-top: 1vmin;
+}
+.join-status {
+  color: red;
+  font-size: 2.5vmin;
+}
+
+.host-button {
+  width: 30vmin;
+  height: 8vmin;
+  font-size: 2.5vmin !important;
+  margin: 1vmin auto 1vmin auto;
 }
 
 input[type="text"] {
@@ -119,18 +148,6 @@ input[type="button"]:disabled {
   display: inline;
 }
 
-.font-helvetica {
-  font-family: Helvetica;
-}
-
-.clearfix {
-  clear: both;
-}
-
-.column-50 {
-  flex: 50%;
-}
-
 .like-dislike-container {
   position: absolute;
   margin-bottom: -50px;
@@ -150,26 +167,6 @@ input[type="button"]:disabled {
   font-size: 100px;
   border: none;
   box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-.like-dislike-button:hover {
-  background-color: lightgray;
-}
-
-.like-dislike-button:active {
-  color: white;
-}
-
-.float-left {
-  float: left;
-}
-
-.float-right {
-  float: right;
-}
-
-.red {
-  color: red;
 }
 
 .carousel-indicators li {
@@ -231,10 +228,6 @@ input[type="button"]:disabled {
 
 .filter-dropdown {
   font-size: 2vmin;
-}
-
-.app-background-color {
-  background-color: white;
 }
 
 

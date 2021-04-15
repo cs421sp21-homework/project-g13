@@ -20,7 +20,10 @@ ReactDOM.render(
                     <Home />
                 </Route>
                 <Route path="/Join">
+                    <div>
                     <Group isHost={false} />
+                    </div>
+                    
                 </Route>
                 <Route path="/Host">
                     <Group isHost={true} />
