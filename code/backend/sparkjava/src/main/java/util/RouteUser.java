@@ -1,4 +1,4 @@
-package model;
+package util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ public class RouteUser {
 
     private String username;
     private String password;
+    private List<String> preferencesList;
 
 
     /**
@@ -15,6 +16,7 @@ public class RouteUser {
     public RouteUser() {
         this.username = null;
         this.password = null;
+        this.preferencesList = null;
     }
 
     /**
@@ -29,7 +31,7 @@ public class RouteUser {
     /**
      * Get user name.
      *
-     * @return the user name.
+     * @return The user name.
      */
     public String getUsername() { return this.username; }
 
@@ -45,8 +47,26 @@ public class RouteUser {
     /**
      * Get password.
      *
-     * @return the password.
+     * @return The password.
      */
     public String getPassword() { return this.password; }
+
+    /**
+     * Set the preferences.
+     *
+     * @param prefs The preferences.
+     */
+    public void setPreferencesList(List<String> prefs) {
+        this.preferencesList = prefs;
+    }
+
+    /**
+     * Get preferences.
+     *
+     * @return The preferences.
+     */
+    public List<String> getPreferencesList() {
+        return this.preferencesList;
+    }
 
    }

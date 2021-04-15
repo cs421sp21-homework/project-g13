@@ -6,7 +6,6 @@ import dao.Sql2oGroupDao;
 import exceptions.ApiError;
 import model.yelp.Restaurant;
 import model.User;
-import model.RouteUser;
 import model.Group;
 import dao.GroupDao;
 import dao.UserDao;
@@ -14,6 +13,7 @@ import org.sql2o.Sql2o;
 import util.JsonConverter;
 import util.YelpService;
 import util.StatusMessage;
+import util.RouteUser;
 import util.Database;
 
 import java.net.URISyntaxException;
@@ -308,6 +308,50 @@ public class Server {
                 }
                 //System.out.println(username);
                 return gson.toJson(message);
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
+        });
+
+        put("/addPreference", (req, res) -> {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "POST");
+            res.header("Content-Type", "application/json");
+            try {
+                // ensure that JSON body has preferences field set to array of strings!
+                RouteUser fetchedUser = gson.fromJson(req.body(), RouteUser.class);
+                User user = userDao.read(fetchedUser.getUsername());
+
+                for (String pref : fetchedUser.getPreferencesList()) {
+
+                    userDao.addPreference(user, pref);
+
+                }
+
+                User userNewPrefs = userDao.read(fetchedUser.getUsername());
+                return gson.toJson(userNewPrefs); // should have updated preferences
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
+        });
+
+        put("/removePreference", (req, res) -> {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "POST");
+            res.header("Content-Type", "application/json");
+            try {
+                // ensure that JSON body has preferences field set to array of strings!
+                RouteUser fetchedUser = gson.fromJson(req.body(), RouteUser.class);
+                User user = userDao.read(fetchedUser.getUsername());
+
+                for (String pref : fetchedUser.getPreferencesList()) {
+
+                    userDao.removePreference(user, pref);
+
+                }
+
+                User userNewPrefs = userDao.read(fetchedUser.getUsername());
+                return gson.toJson(userNewPrefs); // should have updated preferences
             } catch (Exception e) {
                 throw new ApiError(e.getMessage(), 500);
             }
