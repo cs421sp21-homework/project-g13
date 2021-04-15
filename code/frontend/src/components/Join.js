@@ -1,34 +1,7 @@
 import React, { Component } from "react";
 import {withStyles} from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button"
-
-const styles = theme => ({
-    textField: {
-        '& .MuiTextField-root': {
-            margin: theme.spacing(1),
-        },
-    },
-    button: {
-        color: '#522402',
-        backgroundColor: '#eca237',
-        boxShadow: 'none',
-        margin: theme.spacing(2),
-        width: 216,
-        height:48,
-        fontSize: 20,
-        '&:hover': {
-            backgroundColor: '#f9b042',
-            borderColor: '#f9b042',
-            boxShadow: 'none',
-        },
-        '&:active': {
-            boxShadow: 'none',
-            backgroundColor: '#f9b042',
-            borderColor: '#f9b042',
-        },
-    },
-});
+import 'bootstrap/dist/css/bootstrap.css';
 
 class Join extends Component {
   constructor(props) {
@@ -54,8 +27,8 @@ class Join extends Component {
     return (
         <div className="App">
         <header className="App-header">
-            <form className={this.props.classes}>
-            <h1>Please enter your Group ID:</h1>
+            <form>
+            <h1 style={{fontWeight: "bold"}}>Please enter your Group ID</h1>
                 <TextField
                     required
                     id="address"
@@ -67,22 +40,14 @@ class Join extends Component {
                     onChange={this.myChangeHandler}
                 />
                 <br/>
-                <Button
-                    className={this.props.classes.button}
-                    onClick={() => {
-                        this.join();
-                    }}
-                    variant="contained"
-                    size='large'
-                >
-                    Join
-                </Button>
+                <button type="button" className="btn btn-primary join-button orange-button"
+                    onClick={() => this.join()}>Join</button>
             </form>
-            <div className="status">{this.props.statusMessage}</div>
+            <div className="join-status">{this.props.statusMessage}</div>
         </header>
         </div>
     );
   }
 }
 
-export default withStyles(styles)(Join);
+export default Join;

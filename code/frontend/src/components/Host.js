@@ -3,15 +3,12 @@ import React, { Component } from "react";
 import SetFilters from "../pages/SetFilters.js"
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 const styles = theme => ({
   button: {
-    color: '#5a2c22',
-    backgroundColor: '#eca237',
-    borderColor: '#eca237',
-    boxShadow: 'none',
     margin: theme.spacing(1),
-    width: 256,
+    width: '30vmin',
     height: 72,
     fontSize: 20,
     '&:hover': {
@@ -54,43 +51,47 @@ class Host extends Component {
 
   render() {
     return (
-          <div className="App">
-            <header className="App-header">
+          <div className="App-header">
               <div>
-                <h1> Waiting for people to join... </h1>
-                <p> TODO: dynamically show group members as they join </p>
+                <h1>Host</h1>
               </div>
               <form>
-                <Button
-                    className={this.props.classes.button}
+                <button type="button" className="btn btn-secondary host-button"
                     onClick={this.props.setLocation}
                     hidden={!this.props.isHost}
                     variant="contained"
-                    size='large'
                 >
                   Set Group Location
-                </Button>
+                </button>
                 <br/>
-                <Button
-                    className={this.props.classes.button}
+                <button
+                    className="btn btn-secondary host-button"
                     onClick={this.props.openSetFilters}
                     hidden={!this.props.isHost}
                     variant="contained"
-                    size='large'
                 >
                   Set Filters
-                </Button>
+                </button>
                 <br />
-                <Button
-                    className={this.props.classes.start}
-                    onClick={this.props.startSwipingEvent}
-                    disabled={!this.props.canStartSwipingEvent}
-                    hidden={!this.props.isHost}
-                    variant="contained"
-                    size='large'
-                >
-                  Start!
-                </Button>
+                <OverlayTrigger placement="right"
+                            overlay={
+                                <Tooltip id={`tooltip-right`} className="home-tooltip">
+                                {this.props.canStartSwipingEvent === true ? "Start finding restaurants" : "Set your location first or wait for restaurant data"}
+                                </Tooltip>
+                                 }>
+                                  <span className="d-inline-block">
+                                    <button className="btn btn-primary host-button" style={{ pointerEvents: 'none' }}
+                                        onClick={this.props.startSwipingEvent}
+                                        disabled={!this.props.canStartSwipingEvent}
+                                        hidden={!this.props.isHost}
+                                        variant="contained">
+                                      Start!
+                                    </button>
+                                    </span>
+                                   
+                                  
+                  </OverlayTrigger>
+                 
               </form>
               <div>
                 <h2> Group ID: {this.props.roomId}</h2>
@@ -98,7 +99,6 @@ class Host extends Component {
                 <h2> Members: {this.props.numMembers}</h2>
                 <h2> Status: {this.props.status}</h2>
               </div>
-            </header>
           </div>
     );
   }

@@ -42,6 +42,8 @@ class Group extends Component {
     constructor(props) {
         super(props);
         const isHost = this.props.isHost == null ? true : this.props.isHost;
+        var d = new Date();
+        console.log("is host: " + isHost + " " + d.getTime());
         const initalLocation = isHost ? "Not Set" : "Host sets location";
         const initialPage = isHost ? "host" : "join";
         const initialStatus = isHost ? "Please set the location" : "";
@@ -56,9 +58,7 @@ class Group extends Component {
             numMembers: 1,
             canStartSwipingEvent: false,
             currentRestaurantIndex: 0,
-            recommendation: "No recommendation found",
-            topVotes: "No votes found",
-            offset: 0,
+            
         };
         this.setInitialData();
         
@@ -338,6 +338,7 @@ class Group extends Component {
 
     componentWillUnmount() {
         this.socket.disconnect();
+        console.log("unmounting");
     }
 
     //socket.io functions
@@ -507,6 +508,8 @@ class Group extends Component {
             canStartSwipingEvent: false,
             currentRestaurantIndex: 0,
             offset: 0,
+            recommendation: "No recommendation found",
+            topVotes: "No votes found",
         }
     }
 

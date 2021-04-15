@@ -1,18 +1,123 @@
-.App {
-  text-align: center;
+.appnav-brand {
+  font-weight: bold;
+  font-size: 3vmin !important;
+}
+
+.app-nav-link {
+  font-size: 2vmin !important;
+  color: black !important;
+  margin: 0 1vmin 0 1vmin;
+}
+
+.app-nav-link:hover, .app-nav-active {
+  text-decoration: none; 
+  position: relative; 
+  display: inline-block;
+}
+
+.app-nav-active::after, .app-nav-link:hover::after {
+  position: absolute;
+  content: '';
+  height: 0.5vmin;
+  bottom: -0.5vmin;
+  background: blue; 
+  left: 0;
+  right: 0;
+  width: 90%;
+  margin: auto;
+}
+
+.app-nav-active::after {
+  background: orange; 
+}
+
+.app-nav-link:hover::after {
+  background: blue;
+}
+
+.app-nav-link:active {
+  color: gray !important;
+}
+
+.app-nav-button {
+  width: 11vmin !important;
+  height: 5vmin !important;
+}
+
+.app-nav-signup {
+  margin: 0 0vmin 0 1.5vmin;
+}
+
+.app-nav-login {
+  margin: 0 1vmin 0 3vmin;
+}
+
+.home-main-text {
+  font-size: 10vmin;
+  font-weight: bold;
+  padding-top: 15vh;
+  margin: 0 auto 2vmin auto;
+}
+
+.home-secondary-text {
+  font-size: 7vmin;
+  margin: 0 auto 5vmin auto;
+}
+
+.home-button {
+  width: 20vmin;
+  height: 10vmin;
+  margin: 0 5vmin 0 5vmin;
+  font-size: 3vmin !important;
+}
+
+.home-tooltip > .tooltip-inner {
+  font-size: 2vmin;
 }
 
 .App-header {
-  background-color: #fdefb2;
-  color: #d44f22;
-  min-height: 100vh;
+  padding-top: 8vmin;
+  /*color: #d44f22;*/
+  color: black;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   text-align: center;
-  font-family: monospace;
+}
+
+.orange-button {
+  background-color: darkorange !important; 
+  border-color: darkorange !important;
+}
+
+.orange-button:hover {
+  background-color: #CC7000 !important;
+  border-color: #CC7000 !important;
+}
+
+.orange-button:active {
+  background-color: #A35A00 !important;
+  border-color: #A35A00 !important;
+}
+
+.join-button {
+  margin: auto;
+  width: 20vmin !important;
+  height: 6vmin;
+  font-size: 2.5vmin !important;
+  margin-top: 1vmin;
+}
+.join-status {
+  color: red;
+  font-size: 2.5vmin;
+}
+
+.host-button {
+  width: 30vmin;
+  height: 8vmin;
+  font-size: 2.5vmin !important;
+  margin: 1vmin auto 1vmin auto;
 }
 
 input[type="text"] {
@@ -39,70 +144,8 @@ input[type="button"]:disabled {
   background-color: gray;
 }
 
-.card-body {
-  width: 45vw;
-  height: 100vh;
-  margin: auto;
-  box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2);
-  border-radius: 25px;
-  overflow: hidden;
-  position: relative;
-  background-color: white;
-  color: black;
-}
-
 .display-inline {
   display: inline;
-}
-
-.font-helvetica {
-  font-family: Helvetica;
-}
-
-.clearfix {
-  clear: both;
-}
-
-.column-50 {
-  flex: 50%;
-}
-
-.restaurant-image {
-  height: 45%;
-  width: 100%;
-  margin: auto;
-  background-size: 100% 100%;
-  border-bottom: solid black 10px;
-}
-
-.restaurant-info {
-  width: 90%;
-  margin: auto;
-  margin-top: 2.5vmin;
-  display: flex;
-}
-
-.restaurant-name {
-  font-size: 8vmin;
-  margin: inherit;
-}
-
-.restaurant-price-range {
-  font-size: 4.5vmin;
-  color: gray;
-  margin: inherit;
-}
-
-.restaurant-cuisine {
-  font-size: 4.5vmin;
-  margin: 0;
-  margin-top: -1vmin;
-}
-
-.restaurant-location {
-  font-size: 4.5vmin;
-  color: black;
-  margin: 0px;
 }
 
 .like-dislike-container {
@@ -124,26 +167,6 @@ input[type="button"]:disabled {
   font-size: 100px;
   border: none;
   box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-.like-dislike-button:hover {
-  background-color: lightgray;
-}
-
-.like-dislike-button:active {
-  color: white;
-}
-
-.float-left {
-  float: left;
-}
-
-.float-right {
-  float: right;
-}
-
-.red {
-  color: red;
 }
 
 .carousel-indicators li {
@@ -205,10 +228,6 @@ input[type="button"]:disabled {
 
 .filter-dropdown {
   font-size: 2vmin;
-}
-
-.app-background-color {
-  background-color: #fdefb2;
 }
 
 
