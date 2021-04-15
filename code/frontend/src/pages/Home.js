@@ -39,7 +39,7 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            endpointLocalURL: "http://localhost:4568",
+            endpointLocalURL: "http://localhost:4568",    // change port to whatever is in getHerokuAssignedPort() in Server.java
             endpointHerokuURL: "https://chicken-tinder-13-backend.herokuapp.com"
         }
     }
@@ -72,7 +72,7 @@ class Home extends Component {
         
         try{
             
-            let res = await fetch(this.state.endpointLocalURL + '/logout', {
+            let res = await fetch(this.state.endpointHerokuURL + '/logout', {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json',

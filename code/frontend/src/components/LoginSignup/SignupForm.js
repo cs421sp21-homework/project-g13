@@ -39,7 +39,7 @@ class SignupForm extends React.Component {
             password: '',
             confirmPwd: '',
             buttonDisabled: false,
-            endpointLocalURL: "http://localhost:4568",
+            endpointLocalURL: "http://localhost:4568",   // change port to whatever is in getHerokuAssignedPort() in Server.java
             endpointHerokuURL: "https://chicken-tinder-13-backend.herokuapp.com"
         }
     }
@@ -95,7 +95,7 @@ class SignupForm extends React.Component {
         })
 
         try{
-            let res = await fetch(this.state.endpointLocalURL + "/signup", {
+            let res = await fetch(this.state.endpointHerokuURL + "/signup", {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json',

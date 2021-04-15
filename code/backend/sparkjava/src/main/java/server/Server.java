@@ -166,7 +166,7 @@ public class Server {
         get("/api/users/:uname", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET");
-            res.header("Access-Control-Allow-Methods", "POST");
+            //res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
 
             try {
@@ -313,16 +313,26 @@ public class Server {
             }
         });
 
-        put("/addPreference", (req, res) -> {
+        put("/updatePreference", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Methods", "POST");
+            res.header("Access-Control-Allow-Methods", "PUT");
             res.header("Content-Type", "application/json");
             try {
                 // ensure that JSON body has preferences field set to array of strings!
                 RouteUser fetchedUser = gson.fromJson(req.body(), RouteUser.class);
                 User user = userDao.read(fetchedUser.getUsername());
 
-                for (String pref : fetchedUser.getPreferencesList()) {
+                // clean out preferences before adding new ones
+                List<String> oldPrefs = user.getPreferencesList();
+                for (String pref : oldPrefs) {
+
+                    userDao.removePreference(user, pref);
+
+                }
+
+                // actually adding the new ones
+                List<String> newPrefs = fetchedUser.getPreferencesList();
+                for (String pref : newPrefs) {
 
                     userDao.addPreference(user, pref);
 
@@ -337,7 +347,7 @@ public class Server {
 
         put("/removePreference", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Methods", "POST");
+            res.header("Access-Control-Allow-Methods", "PUT");
             res.header("Content-Type", "application/json");
             try {
                 // ensure that JSON body has preferences field set to array of strings!

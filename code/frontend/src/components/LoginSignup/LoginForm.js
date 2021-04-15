@@ -39,7 +39,7 @@ class LoginForm extends React.Component {
             username: '',
             password: '',
             buttonDisabled: false,
-            endpointLocalURL: "http://localhost:4568",
+            endpointLocalURL: "http://localhost:4568", // change port to whatever is in getHerokuAssignedPort() in Server.java
             endpointHerokuURL: "https://chicken-tinder-13-backend.herokuapp.com"
         }
     }
