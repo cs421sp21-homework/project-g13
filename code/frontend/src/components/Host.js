@@ -79,9 +79,10 @@ class Host extends Component {
                                 {this.props.canStartSwipingEvent === true ? "Start finding restaurants" : "Set your location first or wait for restaurant data"}
                                 </Tooltip>
                                  }>
-                                  <span className="d-inline-block">
+                                  <span className="d-inline-block" onClick={() => {
+                                    if (this.props.canStartSwipingEvent) this.props.startSwipingEvent();
+                                  }}>
                                     <button className="btn btn-primary host-button" style={{ pointerEvents: 'none' }}
-                                        onClick={this.props.startSwipingEvent}
                                         disabled={!this.props.canStartSwipingEvent}
                                         hidden={!this.props.isHost}
                                         variant="contained">

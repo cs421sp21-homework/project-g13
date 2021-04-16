@@ -37,7 +37,7 @@ class Home extends Component {
                                 Find what to eat by yourself or with friends
                                 </Tooltip>
                                  }>
-                            <button type="button" class="btn btn-primary home-button orange-button" onClick={() => this.props.history.push("/Host")}>Start</button>
+                            <button type="button" class="btn btn-primary home-button" onClick={() => this.props.history.push("/Host")}>Start</button>
                         </OverlayTrigger>
 
                         <OverlayTrigger
