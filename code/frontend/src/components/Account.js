@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import Preference from "./Preference";
+import * as api from "../api/Api"
 import UserStore from "../stores/UserStore";
 
 class Account extends Component {
@@ -11,14 +12,18 @@ class Account extends Component {
         };
     }
 
+    getPreference() {
+        api.getUserPreference(UserStore.username).then((response) => {
+            return response;
+        });
+    }
 
     render() {
         return(
             <div>
                 Welcome, {UserStore.username}
 
-                Dietary Restrictions:
-                TODO: fetch from database
+                Dietary Restrictions: {this.getPreference}
                 <Button
                 onClick={this.state.changePref = true}
                 >

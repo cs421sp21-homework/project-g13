@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import {Checkbox, FormControlLabel, FormGroup} from "@material-ui/core";
+import * as api from "../api/Api"
+import UserStore from "../stores/UserStore";
 
 class Preference extends Component {
     constructor(props) {
@@ -20,6 +22,10 @@ class Preference extends Component {
             [event.target.name]: event.target.checked,
         });
     };
+
+    updatePreference(username) {
+
+    }
 
     render() {
         return (
@@ -47,7 +53,9 @@ class Preference extends Component {
                         label="gluten-free"
                     />
                 </FormGroup>
-                <Button>
+                <Button
+                onClick={this.updatePreference(UserStore.username)}
+                >
                     Save
                 </Button>
             </form>
