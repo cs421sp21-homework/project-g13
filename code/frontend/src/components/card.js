@@ -102,23 +102,23 @@ class Card extends Component {
       let reviews = restaurant.reviews;
 
       return (
-          <NewCard style={{ justify: "center", overflow: "hidden", backgroundColor: "transparent", border: 0 }}>
+          <NewCard style={{ justify: "center", overflow: "hidden", backgroundColor: "transparent", border: 0,}}>
               <NewCard.Body>
                   <Slideshow photos={photos} isImg={true} />
                   <Slideshow reviews={reviews} isImg={false} />
-                  <NewCard.Title style={{ fontSize: "3vh" }}>
+                  <NewCard.Title style={{ fontSize: "3.2vmin" }}>
                       {restaurant.name}
                   </NewCard.Title>
-                  <NewCard.Subtitle style={{ fontSize: "2vh" }}>
+                  <NewCard.Subtitle style={{ fontSize: "1.6vmin" }}>
                       {cuisineType} {restaurant.price}
                   </NewCard.Subtitle>
-                  <NewCard.Text style={{ fontSize: "2vh" }}>
+                  <NewCard.Text style={{ fontSize: "1.6vmin" }}>
                       {rating} stars from {reviewCount} reviews
                   </NewCard.Text>
-                  <NewCard.Text style={{ fontSize: "2vh" }}>
+                  <NewCard.Text style={{ fontSize: "2vmin" }}>
                       {restaurantLocation}
                   </NewCard.Text>
-                  <NewCard.Subtitle>
+                  <NewCard.Subtitle style={{ fontSize: "1.6vmin" }}>
                       <a href={webUrl}>Website</a>
                   </NewCard.Subtitle>
 

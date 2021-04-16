@@ -11,27 +11,30 @@ class Slideshow extends Component {
 
         if (isImg) {
             return (
-                <Carousel nextIcon={next} prevIcon={prev}>
+                <Carousel className="carousel" nextIcon={next} prevIcon={prev}>
                     <Carousel.Item>
+                        <div className="carouselImg">
                         <img
-                            style={{ textAlign: "justify", width: "93%" }}
                             src={photos[0]}
                             //alt={reviews[0]["text"]}
                         />
+                        </div>
                     </Carousel.Item>
                     <Carousel.Item>
+                        <div className="carouselImg">
                         <img
-                            style={{ textAlign: "justify", width: "93%" }}
                             src={photos[1]}
                             //alt={reviews[1]["text"]}
                         />
+                        </div>
                     </Carousel.Item>
                     <Carousel.Item>
+                        <div className="carouselImg">
                         <img
-                            style={{ textAlign: "justify", width: "93%" }}
                             src={photos[2]}
                             //alt={reviews[2]["text"]}
                         />
+                        </div>
                     </Carousel.Item>
                 </Carousel>
             );
@@ -39,13 +42,19 @@ class Slideshow extends Component {
             return (
                 <Carousel nextIcon={next} prevIcon={prev}>
                     <Carousel.Item>
-                        <p style={{ textAlign: "center" }}> {reviews[0]["text"]}</p>
+                        <div className="carouselReview">
+                        <p> {reviews[0]["text"]}</p>
+                        </div>
                     </Carousel.Item>
                     <Carousel.Item>
-                        <p style={{ textAlign: "center" }}> {reviews[1]["text"]}</p>
+                        <div className="carouselReview">
+                        <p> {reviews[1]["text"]}</p>
+                        </div>
                     </Carousel.Item>
                     <Carousel.Item>
-                        <p style={{ textAlign: "center" }}> {reviews[2]["text"]}</p>
+                        <div className="carouselReview">
+                        <p> {reviews[2]["text"]}</p>
+                        </div>
                     </Carousel.Item>
                 </Carousel>
             );
