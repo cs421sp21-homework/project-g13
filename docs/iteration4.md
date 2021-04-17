@@ -72,7 +72,7 @@ Monday, April 12 @ 8:30 pm EDT
 - Fixing errors for undefined address values in Individual swiping event ([#58](https://github.com/cs421sp21-homework/project-g13/issues/58), Abdullah) :white_check_mark:
 - Add "Set Filters" button for individuals ([#79](https://github.com/cs421sp21-homework/project-g13/issues/79), Abdullah) :white_check_mark:
 - Add previous image/next image buttons when swiping through restaurants ([#98](https://github.com/cs421sp21-homework/project-g13/issues/98), Abdullah) :white_check_mark:
-- Make the APIs in Server.java follow a try-catch structure as shown in Module 5 ([#99](https://github.com/cs421sp21-homework/project-g13/issues/99), Abdullah) :black_square_button:
+- Make the APIs in Server.java follow a try-catch structure as shown in Module 5 ([#99](https://github.com/cs421sp21-homework/project-g13/issues/99), Abdullah) :white_check_mark:
 - Remove 'backend/build' from git ([#86](https://github.com/cs421sp21-homework/project-g13/issues/86), Abdullah) :white_check_mark:
 
 - Notifying group members when host leaves ([#56](https://github.com/cs421sp21-homework/project-g13/issues/56), Nathaniel) :black_square_button:
@@ -84,7 +84,7 @@ Monday, April 12 @ 8:30 pm EDT
 - Pulling different restaurants when Individual clicks "Try Again" ([#62](https://github.com/cs421sp21-homework/project-g13/issues/62), Shanelle) :black_square_button:
 - UI for acessing user's permanent preferences in the frontend ([#95](https://github.com/cs421sp21-homework/project-g13/issues/95), Shanelle) :black_square_button:
 - Fix sizing/organization of elements in restaurant card ([#80](https://github.com/cs421sp21-homework/project-g13/issues/80), Shanelle) :black_square_button:
-- Moving styling from "header" to "body" ([#76](https://github.com/cs421sp21-homework/project-g13/issues/76), Shanelle) :black_square_button:
+- Separate styling into more components ([#76](https://github.com/cs421sp21-homework/project-g13/issues/76), Shanelle) :black_square_button:
 - Rearrange the restaurant leaderboard in NotFoundRec.js so the user can easily see it ([#48](https://github.com/cs421sp21-homework/project-g13/issues/48), Shanelle) :black_square_button:
 
 - Saving group's location for "Try Again" button ([#74](https://github.com/cs421sp21-homework/project-g13/issues/74), Eric) :white_check_mark:
@@ -95,13 +95,13 @@ Monday, April 12 @ 8:30 pm EDT
     - Write unit tests on APIs ([#93](https://github.com/cs421sp21-homework/project-g13/issues/93), Eric) :black_square_button:
     - Write Postman tests on APIs ([#92](https://github.com/cs421sp21-homework/project-g13/issues/92), Daniel) :black_square_button:
     
-- Storing user's permanent preferences in backend :black_square_button:
+- Storing user's permanent preferences in backend :white_check_mark:
   - Create column in database for the preferences ([#90](https://github.com/cs421sp21-homework/project-g13/issues/90), Daniel) :white_check_mark:
   - Create DAO methods for accessing/modfying them ([#91](https://github.com/cs421sp21-homework/project-g13/issues/91), Daniel) :white_check_mark:
-- Implementing login system :black_square_button:
-  - Show an error message if the backend server is down ([#83](https://github.com/cs421sp21-homework/project-g13/issues/83), Daniel) :black_square_button:
-  - Fix error "Signup.js:14 POST http://localhost:3000/isLoggedIn 404 (Not Found)" ([#84](https://github.com/cs421sp21-homework/project-g13/issues/84), Daniel) :black_square_button:
-  - Connecting frontend to database with user credentials ([#85](https://github.com/cs421sp21-homework/project-g13/issues/85), Daniel) :black_square_button:
+- Implementing login system :white_check_mark:
+  - Show an error message if the backend server is down ([#83](https://github.com/cs421sp21-homework/project-g13/issues/83), Daniel) :white_check_mark:
+  - Fix error "Signup.js:14 POST http://localhost:3000/isLoggedIn 404 (Not Found)" ([#84](https://github.com/cs421sp21-homework/project-g13/issues/84), Daniel) :white_check_mark:
+  - Connecting frontend to database with user credentials ([#85](https://github.com/cs421sp21-homework/project-g13/issues/85), Daniel) :white_check_mark:
 - Record an individual's swipes in backend ([#77](https://github.com/cs421sp21-homework/project-g13/issues/77), Daniel) :black_square_button:
 - Add 'backend/build' to .gitignore ([#87](https://github.com/cs421sp21-homework/project-g13/issues/87), Daniel) :white_check_mark:
 - Creating & integrating custom exceptions for backend server ([#89](https://github.com/cs421sp21-homework/project-g13/issues/89), Daniel) :black_square_button:

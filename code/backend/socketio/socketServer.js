@@ -8,9 +8,13 @@ const socketio = require("socket.io");
 
 const server = require("http").createServer();
 const options = {
-  transports: ['websocket', 'polling', 'flashsocket'],
+  transports: ["websocket", "polling", "flashsocket"],
   cors: {
-    origin: ["http://localhost:3000", "http://chicken-tinder-13.herokuapp.com", "https://chicken-tinder-13.herokuapp.com"],
+    origin: [
+      "http://localhost:3000",
+      "http://chicken-tinder-13.herokuapp.com",
+      "https://chicken-tinder-13.herokuapp.com",
+    ],
     credentials: true,
   },
 };
@@ -20,6 +24,8 @@ const io = require("socket.io")(server, options);
 const PORT = process.env.PORT || 4000;
 
 const socketMap = {};
+
+let hostID = "";
 
 //import { emit } from "process";
 const Room = require("./Room.js");
@@ -31,6 +37,7 @@ const roomsMap = new Map();
 Room.set_emitReadySignalFunc((room, ready) => {
   console.log("emit ready");
   io.to(room).emit("ready", ready);
+
   //io.to(room).emit("message", {message: "ready"});
 });
 
@@ -42,7 +49,7 @@ Room.emitRestaurantsFunc = function (room, data) {
 Room.emitFinishedFunc = function (room) {
   let rec = roomsMap.get(room).getRec();
   let topVotes = roomsMap.get(room).getTopVotes();
-  io.to(room).emit("finished", {rec: rec, topVotes: topVotes});
+  io.to(room).emit("finished", { rec: rec, topVotes: topVotes });
   console.log("sent finished signal to room " + room);
 };
 
@@ -52,11 +59,11 @@ Room.emitMatchFoundfunc = function (room, restaurantId) {
       io.to(room).emit("match_found", restaurantId);
     }
   }
-}
+};
 
-Room.emitRecommendFunc = function(room, restaurantId) {
+Room.emitRecommendFunc = function (room, restaurantId) {
   io.to(room).emit("recommend", restaurantId);
-}
+};
 
 io.on("connection", function (socket) {
   socket.emit("message", { message: "welcome to Food-Tinder" });
@@ -68,11 +75,12 @@ io.on("connection", function (socket) {
     if (roomsMap.has(room)) {
       roomsMap.get(room).addMember(socket.id);
     } else {
-      var theRoom = new Room(room, 0)
+      var theRoom = new Room(room, 0);
       theRoom.addMember(socket.id);
+
       roomsMap.set(room, theRoom);
     }
-    
+
     //io.to(room).emit("message", {message: "this is a test"});
   });
 
@@ -154,6 +162,9 @@ io.on("connection", function (socket) {
 
   //when a client wants to get a room id
   socket.on("create_room_and_get_id", () => {
+    hostID = socket.id;
+    console.log("host is", hostID);
+
     var roomId = generateRoomId();
     while (roomsMap.has(roomId)) {
       roomId = generateRoomId();
@@ -166,13 +177,15 @@ io.on("connection", function (socket) {
   });
 
   //when a client wants to check if a room exists
-  socket.on("room_exists", (roomId) =>  {
-    console.log("client " + socket.id + " is checking if room " + roomId + " exists");
+  socket.on("room_exists", (roomId) => {
+    console.log(
+      "client " + socket.id + " is checking if room " + roomId + " exists"
+    );
     var doesExist = roomsMap.has(roomId);
     if (doesExist && roomsMap.get(roomId).started) {
       doesExist = false;
     }
-    socket.emit("room_exists", {roomId: roomId, exists: doesExist});
+    socket.emit("room_exists", { roomId: roomId, exists: doesExist });
   });
 
   socket.on("finished", (roomId) => {
@@ -182,10 +195,10 @@ io.on("connection", function (socket) {
     }
   });
 
-
   socket.on("disconnecting", () => {
     console.log("client " + socket.id + " is disconnecting");
     var rooms = socket.rooms;
+
     rooms.forEach((element) => {
       if (roomsMap.has(element)) {
         const room = roomsMap.get(element);
@@ -196,6 +209,11 @@ io.on("connection", function (socket) {
         }
         console.log("client" + socket.id + " left room " + element);
         io.to(element).emit("room_size_changed", room.size);
+
+        if (socket.id === hostID) {
+          console.log("host is leaving");
+          io.to(element).emit("host_left");
+        }
       }
     });
   });
@@ -208,7 +226,7 @@ server.listen(PORT, function () {
 function generateRoomId() {
   var roomId = "" + Math.floor(Math.random() * 10000 + 1);
   while (roomId.length < 5) {
-    roomId = '0' + roomId;
+    roomId = "0" + roomId;
   }
   return roomId;
 }
@@ -217,18 +235,18 @@ function joinRoom(socket, roomId) {
   console.log("client " + socket.id + " joined the room " + roomId);
   socket.join(roomId);
 
-    var size = 0;
-    if (roomsMap.has(roomId)) {
-      const room = roomsMap.get(roomId);
-      if (room.addMember(socket.id)) {
-        var restaurants = room.getRestaurants();
-        io.to(roomId).emit("get_restaurants", JSON.stringify(restaurants));
-      }
-      size = room.size;
-    } else {
-      roomsMap.set(roomId, new Room(1));
-      size = 1;
+  var size = 0;
+  if (roomsMap.has(roomId)) {
+    const room = roomsMap.get(roomId);
+    if (room.addMember(socket.id)) {
+      var restaurants = room.getRestaurants();
+      io.to(roomId).emit("get_restaurants", JSON.stringify(restaurants));
     }
+    size = room.size;
+  } else {
+    roomsMap.set(roomId, new Room(1));
+    size = 1;
+  }
 
-    io.to(roomId).emit("room_size_changed", size);
+  io.to(roomId).emit("room_size_changed", size);
 }

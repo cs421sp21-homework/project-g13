@@ -5,9 +5,13 @@ public class Review {
 
     private Integer rating;
 
-    public Review(String text, int rating) {
+    private String url;
+
+    public Review(String text, int rating, String url) {
         this.text = text;
         this.rating = rating;
+        this.url = url;
+
     }
 
 
@@ -26,4 +30,8 @@ public class Review {
     public void setRating(Integer rating) {
         this.rating = rating;
     }
+
+    public String getRatingUrl() { return url;}
+
+    public void setRatingUrl(String url) { this.url = url; }
 }

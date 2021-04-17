@@ -3,12 +3,12 @@ import React, { Component } from "react";
 import NewCard from "react-bootstrap/Card";
 import Slideshow from "./Slideshow.js";
 import "../App.css";
-import IconButton from '@material-ui/core/IconButton';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-import NotInterestedIcon from '@material-ui/icons/NotInterested'
+import IconButton from "@material-ui/core/IconButton";
+import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
+import NotInterestedIcon from "@material-ui/icons/NotInterested";
 import { withStyles } from "@material-ui/core/styles";
 
-const styles = theme => ({
+const styles = (theme) => ({
   button: {
     margin: theme.spacing(2),
   },
@@ -17,9 +17,11 @@ const styles = theme => ({
 class Card extends Component {
   constructor(props) {
     super(props);
-    this.cardType = (this.props.cardType === undefined || this.props.cardType === null) ? "regular" : this.props.cardType;
+    this.cardType =
+      this.props.cardType === undefined || this.props.cardType === null
+        ? "regular"
+        : this.props.cardType;
   }
-
 
   onKeyPressed(event) {
     if (event.key === "ArrowLeft" && this.cardType === "regular") {
@@ -37,8 +39,8 @@ class Card extends Component {
   }
 
   checkArrayElements(array) {
-    for (let i=0; i<array.length; i++) {
-      if (array[0]=== undefined || array[0] == null) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[0] === undefined || array[0] == null) {
         array[0] = "";
       }
     }
@@ -50,25 +52,63 @@ class Card extends Component {
     if (restaurant === undefined || restaurant === null) {
       return this.getBlankRestaurant();
     } else {
-      if (restaurant.name === undefined || restaurant.name === null) restaurant.name = ""; 
-      if (restaurant.price === undefined || restaurant.price === null) restaurant.price = ""; 
-      if (restaurant.rating === undefined || restaurant.rating === null) restaurant.rating = ""; 
-      if (restaurant.review_count === undefined || restaurant.review_count === null) restaurant.review_count = ""; 
-      if (restaurant.url === undefined || restaurant.url === null) restaurant.url = ""; 
+      if (restaurant.name === undefined || restaurant.name === null)
+        restaurant.name = "";
+      if (restaurant.price === undefined || restaurant.price === null)
+        restaurant.price = "";
+      if (restaurant.rating === undefined || restaurant.rating === null)
+        restaurant.rating = "";
+      if (
+        restaurant.review_count === undefined ||
+        restaurant.review_count === null
+      )
+        restaurant.review_count = "";
+      if (restaurant.url === undefined || restaurant.url === null)
+        restaurant.url = "";
 
-      if (restaurant.location === undefined || restaurant.location === null) restaurant.location = {address1: ""}; 
-      if (restaurant.location["address1"] === undefined || restaurant.location["address1"] === null) restaurant.location = {address1: ""};  
+      if (restaurant.location === undefined || restaurant.location === null)
+        restaurant.location = { address1: "" };
+      if (
+        restaurant.location["address1"] === undefined ||
+        restaurant.location["address1"] === null
+      )
+        restaurant.location = { address1: "" };
 
-      if (restaurant.categories === undefined || restaurant.categories === null) restaurant.categories = [{title: ""}];
-      if (restaurant.categories[0] === undefined || restaurant.categories[0] === null) restaurant.categories[0] = {title: ""};
-      if (restaurant.categories[0]["title"] === undefined || restaurant.categories[0]["title"] === null) restaurant.categories[0] = {title: ""};
+      if (restaurant.categories === undefined || restaurant.categories === null)
+        restaurant.categories = [{ title: "" }];
+      if (
+        restaurant.categories[0] === undefined ||
+        restaurant.categories[0] === null
+      )
+        restaurant.categories[0] = { title: "" };
+      if (
+        restaurant.categories[0]["title"] === undefined ||
+        restaurant.categories[0]["title"] === null
+      )
+        restaurant.categories[0] = { title: "" };
 
-      if (restaurant.photos === undefined || restaurant.photos === null) restaurant.photos = ["", "", ""];
-      if (restaurant.reviews === undefined || restaurant.reviews === null) restaurant.reviews = [{text: ""}, {text: ""}, {text: ""}];
-      for (var i=0; i<3; i++) {
-        if (restaurant.photos[i] === undefined || restaurant.photos[i] === null) restaurant.photos[i] = "";
-        if (restaurant.reviews[i] === undefined || restaurant.reviews[i] === null) restaurant.reviews[i] = {text: ""};
-        if (restaurant.reviews[i]["text"] === undefined || restaurant.reviews[i]["text"] === null) restaurant.reviews[i] = {text: ""};
+      if (restaurant.photos === undefined || restaurant.photos === null)
+        restaurant.photos = ["", "", ""];
+      if (restaurant.reviews === undefined || restaurant.reviews === null)
+        restaurant.reviews = [{ text: "" }, { text: "" }, { text: "" }];
+      for (var i = 0; i < 3; i++) {
+        if (restaurant.photos[i] === undefined || restaurant.photos[i] === null)
+          restaurant.photos[i] = "";
+        if (
+          restaurant.reviews[i] === undefined ||
+          restaurant.reviews[i] === null
+        )
+          restaurant.reviews[i] = { text: "" };
+        if (
+          restaurant.reviews[i]["text"] === undefined ||
+          restaurant.reviews[i]["text"] === null
+        )
+          restaurant.reviews[i] = { text: "" };
+        if (
+          restaurant.reviews[i]["url"] === undefined ||
+          restaurant.reviews[i]["url"] === null
+        )
+          restaurant.reviews[i] = { url: "" };
       }
       return restaurant;
     }
@@ -77,15 +117,15 @@ class Card extends Component {
   getBlankRestaurant() {
     return {
       name: "",
-      location: {address1: ""},
-      categories: [{title: ""}],
+      location: { address1: "" },
+      categories: [{ title: "" }],
       price: "",
       rating: "",
       review_count: "",
       url: "",
       photos: ["", "", ""],
-      reviews: [{text: ""}, {text: ""}, {text: ""}],
-    }
+      reviews: [{ text: "" }, { text: "" }, { text: "" }],
+    };
   }
 
   render() {
