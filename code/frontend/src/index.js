@@ -10,6 +10,9 @@ import Group from './pages/Group';
 import Individual from "./pages/Individual";
 import SetFilters from "./pages/SetFilters.js"
 import AppNavbar from "./components/NavBar.js";
+import LoginForm from "./components/LoginSignup/LoginForm";
+import SignupForm from "./components/LoginSignup/SignupForm";
+import Account from "./components/Account";
 
 ReactDOM.render(
   <Router>
@@ -39,6 +42,15 @@ ReactDOM.render(
                 </Route>
                 <Route path="/Filter">
                     <SetFilters />
+                </Route>
+                <Route path="/Login">
+                    <LoginForm/>
+                </Route>
+                <Route path="/Signup">
+                    <SignupForm/>
+                </Route>
+                <Route path="/Account">
+                    <Account/>
                 </Route>
             </Switch>
         </div>

@@ -2,6 +2,7 @@ import { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap"; 
 import 'bootstrap/dist/css/bootstrap.css';
+import UserStore from "../stores/UserStore";
 
 class AppNavbar extends Component {
     constructor(props) {
@@ -19,6 +20,23 @@ class AppNavbar extends Component {
         if (this.getActivePage() === "/Host") sessionStorage.clear();
         this.props.history.push("/Join");
     }
+
+    login() {
+        return(
+            <div className="navbar-nav ml-auto">
+            <button type="button" className="btn btn-outline-primary app-nav-button app-nav-login" onClick={() => this.props.history.push("/Login")}>Log in</button>
+            <button type="button" className="btn btn-outline-secondary app-nav-button app-nav-signup" onClick={() => this.props.history.push("/Signup")}>Sign up</button>
+            </div>
+        );
+    }
+
+    account() {
+        return(
+            <div className="navbar-nav ml-auto">
+                <button type="button" className="btn btn-outline-primary app-nav-button app-nav-login" onClick={() => this.props.history.push("/Account")}>Account</button>
+            </div>
+        )
+    };
 
 
     render() {
@@ -43,12 +61,9 @@ class AppNavbar extends Component {
                             <a className={`nav-link app-nav-link ${(activePage === "/Join") ? "app-nav-active" : ""}`} onClick={() => this.onClickJoin()}>Join</a>
                         </div>
                     </div>
-
-                    
                     <div className={(isNavCollapsed) ? "collapse navbar-collapse" : "navbar-collapse"} id="navbarNavAltMarkup">
                         <div class="navbar-nav ml-auto">
-                            <button type="button" class="btn btn-outline-primary app-nav-button app-nav-login">Log in</button>
-                            <button type="button" class="btn btn-outline-secondary app-nav-button app-nav-signup">Sign up</button>
+                            {UserStore.getIsLoggedIn() ? this.account() : this.login()}
                         </div>
                     </div>
                     </div>

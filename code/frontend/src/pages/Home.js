@@ -5,8 +5,9 @@ import { withRouter } from "react-router-dom";
 import Signup from "./Signup";
 import Login from "./Login";
 import Group from './Group';
+import userStore from "../stores/UserStore";
 import Individual from "./Individual";
-import SetFilters from "./SetFilters.js"
+import SetFilters from "./SetFilters"
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import AppNavbar from "../components/NavBar.js";
 
@@ -115,8 +116,6 @@ class Home extends Component {
                                  }>
                             <button type="button" class="btn btn-secondary home-button" onClick={() => this.props.history.push("/Join")}>Join</button>
                         </OverlayTrigger>
-                        
-                        
                     </div>
         )
     }

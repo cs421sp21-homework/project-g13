@@ -152,6 +152,7 @@ class LoginForm extends React.Component {
                                     disabled={this.state.buttonDisabled}
                                     onClick={ () => this.doLogin() }
                         />
+                        Don't have an account? Sign up <a href={"/SignupForm"}>here</a>
                     </div>
                 </Route>
                 
