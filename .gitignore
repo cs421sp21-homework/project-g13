@@ -6,6 +6,7 @@
 /code/backend/sparkjava/.gradle/*
 /code/backend/sparkjava/build/*
 /code/backend/.idea/*
+/code/backend/sparkjava/lombok.config
 /code/backend/sparkjava/.idea/*
 /code/backend/socketio/node_modules/*
 /code/backend/build/*
