@@ -4,9 +4,10 @@ import { Switch, Route } from "react-router";
 import { withRouter } from "react-router-dom";
 import Signup from "./Signup";
 import Login from "./Login";
-import Group from './Group'
+import Group from './Group';
 import Individual from "./Individual";
-import SetFilters from "./SetFilters.js"
+import SetFilters from "./SetFilters.js";
+import Account from "../components/Account.js";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
@@ -159,6 +160,15 @@ class Home extends Component {
                                 <br/>
                                 <Button
                                     className={this.props.classes.button}
+                                    onClick={() => this.nextPath('Account')}
+                                    variant="contained"
+                                    size='large'
+                                    hidden={!userStore.getIsLoggedIn()}
+                                >
+                                    Account
+                                </Button>
+                                <Button
+                                    className={this.props.classes.button}
                                     onClick={() => this.logout()}
                                     variant="contained"
                                     size='large'
@@ -186,6 +196,9 @@ class Home extends Component {
                 </Route>
                 <Route path="/Filter">
                     <SetFilters />
+                </Route>
+                <Route path="/Account">
+                    <Account/>
                 </Route>
             </Switch>
         )
