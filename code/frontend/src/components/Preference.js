@@ -24,6 +24,9 @@ class Preference extends Component {
     };
 
     updatePreference() {
+        
+        this.state.preferenceList = [];
+
         if (this.state.vegetarian) {
             this.state.preferenceList.push("vegetarian");
         }

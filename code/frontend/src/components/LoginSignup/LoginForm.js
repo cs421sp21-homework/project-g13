@@ -8,6 +8,8 @@ import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { Message } from 'semantic-ui-react';
 
+import * as Api from "../../api/Api.js";
+
 const styles = theme => ({
     button: {
         color: '#5a2c22',
@@ -77,7 +79,12 @@ class LoginForm extends React.Component {
         })
 
         try{
-            let res = await fetch(this.state.endpointLocalURL + "/login", {
+
+            //tryingThis = Api.postUser("testing", "testing", "testing", 1);
+            //tryingThis = Api.updatePreferences("test22", ["vegan", "indpak", "kosher"]);
+
+
+            let res = await fetch(this.state.endpointHerokuURL + "/login", {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json',

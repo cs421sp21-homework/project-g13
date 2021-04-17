@@ -1,5 +1,6 @@
 import axios from "axios";
 const BACKEND_URL = "https://chicken-tinder-13-backend.herokuapp.com"
+const localURL = "http://localhost:4568";
 const axiosConfig = {
     headers: {
         'Content-Type': 'application/json;charset=UTF-8',
@@ -65,11 +66,11 @@ async function getUserPreference(username) {
 
 async function updatePreference(username, preference) {
     const config = {
-        method: 'post',
-        url: 'https://chicken-tinder-13-backend.herokuapp.com/api/updatePreference',
+        method: 'put',
+        url: BACKEND_URL + '/updatePreference',
         data : JSON.stringify({
             "username" : username,
-            "preferenceList": preference,
+            "preferencesList": preference,
         }),
     };
     const response = await axios(config);

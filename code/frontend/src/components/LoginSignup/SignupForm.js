@@ -95,7 +95,7 @@ class SignupForm extends React.Component {
         })
 
         try{
-            let res = await fetch(this.state.endpointLocalURL + "/signup", {
+            let res = await fetch(this.state.endpointHerokuURL + "/signup", {
                 method: 'post',
                 headers: {
                     'Accept': 'application/json',
