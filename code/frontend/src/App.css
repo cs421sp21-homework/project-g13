@@ -144,6 +144,20 @@ input[type="button"]:disabled {
   background-color: gray;
 }
 
+.card-body {
+  width: 800px;
+  max-width: 80vmin;
+  height: 1000px;
+  max-height: 95vmin;
+  margin: auto;
+  box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 25px;
+  overflow: hidden;
+  position: relative;
+  background-color: white;
+  color: black;
+}
+
 .display-inline {
   display: inline;
 }
@@ -239,4 +253,21 @@ input[type="button"]:disabled {
 .carousel-control-prev {
   color: black !important;
   left: -7% !important;
+}
+
+.carouselImg > img {
+  width: 600px;
+  max-width: 90vmin;
+  height: 400px;
+  max-height: 45vmin !important;
+  object-fit: contain;
+  top: 50%;
+  left: 50%;
+}
+
+
+.carouselReview > p {
+  width: 90%;
+  font-size: 1.8vmin;
+
 }

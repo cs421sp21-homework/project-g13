@@ -9,32 +9,35 @@ class Slideshow extends Component {
     const prev = <i class="fas fa-chevron-left"></i>;
     //console.log("is img: " + isImg);
 
-    if (isImg) {
-      return (
-        <Carousel nextIcon={next} prevIcon={prev}>
-          <Carousel.Item>
-            <img
-              style={{ textAlign: "justify", width: "93%" }}
-              src={photos[0]}
-              //alt={reviews[0]["text"]}
-            />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              style={{ textAlign: "justify", width: "93%" }}
-              src={photos[1]}
-              //alt={reviews[1]["text"]}
-            />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img
-              style={{ textAlign: "justify", width: "93%" }}
-              src={photos[2]}
-              //alt={reviews[2]["text"]}
-            />
-          </Carousel.Item>
-        </Carousel>
-      );
+        if (isImg) {
+            return (
+                <Carousel className="carousel" nextIcon={next} prevIcon={prev}>
+                    <Carousel.Item>
+                        <div className="carouselImg">
+                        <img
+                            src={photos[0]}
+                            //alt={reviews[0]["text"]}
+                        />
+                        </div>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <div className="carouselImg">
+                        <img
+                            src={photos[1]}
+                            //alt={reviews[1]["text"]}
+                        />
+                        </div>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <div className="carouselImg">
+                        <img
+                            src={photos[2]}
+                            //alt={reviews[2]["text"]}
+                        />
+                        </div>
+                    </Carousel.Item>
+                </Carousel>
+            );
     } else {
       return (
         <Carousel nextIcon={next} prevIcon={prev}>

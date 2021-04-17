@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import UserStore from "../stores/UserStore";
 import LoginForm from "../components/LoginSignup/LoginForm";
 import '../components/LoginSignup/LoginSignup.css';
+import Account from "../components/Account";
 
 class Login extends React.Component {
 
@@ -53,7 +54,7 @@ class Login extends React.Component {
 
             if(result && result.success) {
                 UserStore.isLoggedIn = false;
-                UserStore.username = '';
+                UserStore.username = 'Guest';
             }
         }
         catch(e) {
@@ -63,7 +64,7 @@ class Login extends React.Component {
 
     render() {
 
-        if(UserStore.loading) {
+        /* if(UserStore.loading) {
             return(
                 <div className="signup">
                     <div className="container">
@@ -87,12 +88,12 @@ class Login extends React.Component {
                     </div>
                 );
             }
-        }
+        } */
 
         return (
             <div className="signup">
                 <div className="container">
-                    <LoginForm />
+                    {UserStore.isLoggedIn ? <Account/> : <LoginForm/>}
                 </div>
             </div>
         );

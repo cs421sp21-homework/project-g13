@@ -129,65 +129,58 @@ class Card extends Component {
   }
 
   render() {
-    const cardType = this.cardType;
+      const cardType = this.cardType;
 
-    var { restaurant, classes } = this.props;
-    restaurant = this.checkUndefinedOrNull(restaurant);
-    const restaurantLocation = restaurant.location["address1"];
-    const cuisineType = restaurant.categories[0]["title"];
-    const rating = restaurant.rating;
-    const reviewCount = restaurant.review_count;
-    const webUrl = restaurant.url;
-    const photos = restaurant.photos;
-    let reviews = restaurant.reviews;
+      var { restaurant, classes } = this.props;
+      restaurant = this.checkUndefinedOrNull(restaurant);
+      const restaurantLocation = restaurant.location["address1"];
+      const cuisineType = restaurant.categories[0]["title"];
+      const rating = restaurant.rating;
+      const reviewCount = restaurant.review_count;
+      const webUrl = restaurant.url;
+      const photos = restaurant.photos;
+      let reviews = restaurant.reviews;
 
-    console.log("reviews");
-    console.log(reviews);
+      return (
+          <NewCard style={{ justify: "center", overflow: "hidden", backgroundColor: "transparent", border: 0,}}>
+              <NewCard.Body>
+                  <Slideshow photos={photos} isImg={true} />
+                  <Slideshow reviews={reviews} isImg={false} />
+                  <NewCard.Title style={{ fontSize: "3.2vmin" }}>
+                      {restaurant.name}
+                  </NewCard.Title>
+                  <NewCard.Subtitle style={{ fontSize: "1.6vmin" }}>
+                      {cuisineType} {restaurant.price}
+                  </NewCard.Subtitle>
+                  <NewCard.Text style={{ fontSize: "1.6vmin" }}>
+                      {rating} stars from {reviewCount} reviews
+                  </NewCard.Text>
+                  <NewCard.Text style={{ fontSize: "2vmin" }}>
+                      {restaurantLocation}
+                  </NewCard.Text>
+                  <NewCard.Subtitle style={{ fontSize: "1.6vmin" }}>
+                      <a href={webUrl}>Website</a>
+                  </NewCard.Subtitle>
 
-    return (
-      <NewCard
-        style={{
-          justify: "center",
-          overflow: "hidden",
-          backgroundColor: "transparent",
-          border: 0,
-        }}
-      >
-        <NewCard.Body>
-          <Slideshow photos={photos} isImg={true} />
-          <Slideshow reviews={reviews} isImg={false} />
-          <NewCard.Title style={{ fontSize: "3vh" }}>
-            {restaurant.name}
-          </NewCard.Title>
-          <NewCard.Subtitle style={{ fontSize: "2vh" }}>
-            {cuisineType} {restaurant.price}
-          </NewCard.Subtitle>
-          <NewCard.Text style={{ fontSize: "2vh" }}>
-            {rating} stars from {reviewCount} reviews
-          </NewCard.Text>
-          <NewCard.Text style={{ fontSize: "2vh" }}>
-            {restaurantLocation}
-          </NewCard.Text>
-          <NewCard.Subtitle>
-            <a href={webUrl}>Website</a>
-          </NewCard.Subtitle>
-
-          {cardType === "regular" && (
-            <div className="like-dislike-container">
-              <IconButton
-                className={classes.button}
-                onClick={this.props.onLike}
-              >
-                <FavoriteBorder style={{ fontSize: 64, color: "#fc4c4e" }} />
-              </IconButton>
-              <IconButton
-                className={classes.button}
-                onClick={this.props.onDislike}
-              >
-                <NotInterestedIcon style={{ fontSize: 64 }} />
-              </IconButton>
-            </div>
-          )}
+                  { cardType === "regular" &&
+                    <div className="like-dislike-container">
+                    <IconButton className={classes.button}
+                      onClick={this.props.onLike}
+                    >
+                      <FavoriteBorder
+                        style={{fontSize:64,
+                        color: "#fc4c4e"}}
+                      />
+                    </IconButton>
+                    <IconButton className={classes.button}
+                      onClick={this.props.onDislike}
+                    >
+                      <NotInterestedIcon
+                          style={{fontSize:64}}
+                      />
+                    </IconButton>
+                  </div>
+                  }
         </NewCard.Body>
       </NewCard>
     );

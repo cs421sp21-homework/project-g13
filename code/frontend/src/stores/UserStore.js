@@ -1,4 +1,4 @@
-import { extendObservable } from 'mobx';
+//import { extendObservable } from 'mobx';
 
 /*
  * User store
@@ -6,14 +6,31 @@ import { extendObservable } from 'mobx';
 
 class UserStore {
     constructor() {
-        extendObservable(this, {
+        //extendObservable(this, {
 
-            loading: true,
-            isLoggedIn: false,
-            username: ''
+            //loading: false, //idk?
+            this.isLoggedIn = false;
+            this.username = 'Guest';
 
-        })
+        //})
+    }
+
+    setIsLoggedIn(value) {
+        this.isLoggedIn = value;
+    }
+
+    getIsLoggedIn() {
+        return this.isLoggedIn;
+    }
+
+    setUsername(value) {
+        this.username = value;
+    }
+
+    getUsername() {
+        return this.username;
     }
 }
 
-export default new UserStore();
+const userStore = new UserStore();
+export default userStore;

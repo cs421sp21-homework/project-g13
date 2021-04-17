@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router";
 import { withRouter } from "react-router-dom";
 import Signup from "./Signup";
 import Login from "./Login";
-import Group from './Group'
+import Group from './Group';
 import Individual from "./Individual";
 import SetFilters from "./SetFilters.js"
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
@@ -13,17 +13,82 @@ import AppNavbar from "../components/NavBar.js";
 class Home extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            endpointLocalURL: "http://localhost:4568",    // change port to whatever is in getHerokuAssignedPort() in Server.java
+            endpointHerokuURL: "https://chicken-tinder-13-backend.herokuapp.com"
+        }
     }
+
+    //static endpointLocalURL = "http://localhost:4568";
+    //static endpointHerokuURL = "https://chicken-tinder-13-backend.herokuapp.com";
 
     nextPath(path) {
         this.props.history.push(path);
     }
+
+    resetForm() {
+        this.setState({
+            username: '',
+            password: '',
+            buttonDisabled: false
+        })
+    }
+
+    async logout() {
+        //this.setState({ statusMessage: "Fetching restaurants..."});
+        //this.statusMessageChanged = true;
+        /* if (this.validInput()) {
+          var locationString = `${this.state.address} ${this.state.suiteNum} 
+          ${this.state.city} ${this.state.state} ${this.state.zipcode}`;
+          
+          //call the onSubmit function from props
+          this.props.onSubmit({location: locationString, radius: this.state.radius});
+        } */
+        
+        try{
+            
+            let res = await fetch(this.state.endpointHerokuURL + '/logout', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: userStore.getUsername(),
+                    //password: this.state.password
+                })
+            });
+            let result = await res.json();
+            //if((result.userName).valueOf() === (this.state.username).valueOf()) {
+                //const logoutSuccess = new String((JSON.parse(result))["message"]); // getting the return string from Java routing method
+                const success = new String("success");
+                //const fail = new String("fail");
+                //if (message.valueOf() === )
+                if ((result.message).valueOf() === success.valueOf()) {
+                    userStore.setIsLoggedIn(false);
+                    userStore.setUsername("Guest");
+                    this.props.history.push("/"); // going back to Home page
+                } else {
+                    // do something about wrong passwords
+                }
+            /*} else {
+                this.resetForm();
+                alert(result.msg);
+            }*/
+        }
+        catch (e) {
+            console.log(e);
+            this.resetForm();
+        }
+
+      }
 
     render() {
         if (this.props.location.pathname !== "/Join" && this.props.location.pathname !== "/Host") {
             sessionStorage.clear();
             console.log("cleared");
         }
+        const username = userStore.getUsername();
 
         return(
                     <div style={{textAlign: "center"}}>

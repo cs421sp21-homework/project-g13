@@ -15,10 +15,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class Sql2oUserDaoTest {
     private static Sql2o sql2o;
@@ -97,13 +94,14 @@ class Sql2oUserDaoTest {
                     "pword VARCHAR(50) NOT NULL," +
                     "loc VARCHAR(100)," +
                     "preferences VARCHAR(50) []," + // left as empty upon creation
+                    "isloggedin VARCHAR(20)," +
                     "group_id BIGSERIAL REFERENCES group_info(group_id)," +
                     "UNIQUE(username)," +
                     "UNIQUE(pword));";
             conn.createQuery(sql).executeUpdate();
 
-            sql = "INSERT INTO user_info(username, pWord, loc, preferences, group_id) " +
-                    "VALUES(:username, :pWord, :loc, ARRAY['none'], :group_id);";
+            sql = "INSERT INTO user_info(username, pWord, loc, preferences, isloggedin, group_id) " +
+                    "VALUES(:username, :pWord, :loc, ARRAY['none'], 'no', :group_id);";
             for (User user : samples) {
                 conn.createQuery(sql).addParameter("username", user.getUserName())
                         .addParameter("pWord", user.getPword())
@@ -254,6 +252,30 @@ class Sql2oUserDaoTest {
 
         assertEquals(u2.getPreferencesList().size(), 1);
         assertEquals(u2.getPreferencesList().get(0), "none");
+
+    }
+
+    @Test
+    @DisplayName("can record when users login")
+    void testLogin() {
+        User u1 = userDao.create("loginTest123456789", "loginTest123456789");
+        assertFalse(u1.getIsLoggedIn()); // should not be logged in yet
+
+        User u2 = userDao.login("loginTest123456789");
+        assertTrue(u2.getIsLoggedIn()); // should be logged in
+
+    }
+
+    @Test
+    @DisplayName("can record when users logout")
+    void testLogout() {
+        User u1 = userDao.create("loginTest123456789", "loginTest123456789");
+        User u2 = userDao.login(u1.getUserName());
+        assertTrue(u2.getIsLoggedIn()); // should be logged in
+
+        assertEquals(u1.getUserName(), u2.getUserName());
+        User u3 = userDao.logout(u2.getUserName()); // should be the same username
+        assertFalse(u3.getIsLoggedIn()); // should be logged out
 
     }
 

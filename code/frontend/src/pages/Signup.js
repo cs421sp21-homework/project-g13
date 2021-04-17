@@ -53,7 +53,7 @@ class Signup extends React.Component {
 
             if(result && result.success) {
                 UserStore.isLoggedIn = false;
-                UserStore.username = '';
+                UserStore.username = 'Guest';
             }
         }
         catch(e) {
@@ -63,7 +63,7 @@ class Signup extends React.Component {
 
     render() {
 
-        if(UserStore.loading) {
+        /* if(UserStore.loading) {
             return(
                 <div className="signup">
                     <div className="container">
@@ -87,7 +87,7 @@ class Signup extends React.Component {
                     </div>
                 );
             }
-        }
+        } */
 
         return (
             <div className="signup">
