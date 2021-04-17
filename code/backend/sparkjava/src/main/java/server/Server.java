@@ -17,6 +17,7 @@ import util.RouteUser;
 import util.Database;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static spark.Spark.*;
@@ -332,6 +333,9 @@ public class Server {
 
                 // actually adding the new ones
                 List<String> newPrefs = fetchedUser.getPreferencesList();
+                if (newPrefs == null) {
+                    newPrefs = new ArrayList<>();
+                }
                 for (String pref : newPrefs) {
 
                     userDao.addPreference(user, pref);
