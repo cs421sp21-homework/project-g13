@@ -3,6 +3,8 @@ import Button from "@material-ui/core/Button";
 import Preference from "./Preference";
 import * as api from "../api/Api"
 import UserStore from "../stores/UserStore";
+import { withRouter } from "react-router-dom";
+import { Switch, Route } from "react-router";
 
 class Account extends Component {
     constructor(props) {
@@ -20,6 +22,9 @@ class Account extends Component {
 
     render() {
         return(
+            <Switch>
+
+            <Route path="/Account">
             <div>
                 Welcome, {UserStore.username}
 
@@ -31,8 +36,10 @@ class Account extends Component {
                 </Button>
                 {this.state.changePref ? <Preference/> : null}
             </div>
+            </Route>
+            </Switch>
         )
     }
 }
 
-export default Account;
+export default withRouter(Account);
