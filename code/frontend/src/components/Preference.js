@@ -40,6 +40,7 @@ class Preference extends Component {
         if (this.state.gluten) {
             preference.push("gluten-free");
         }
+        console.log(preference);
         api.updatePreference(UserStore.username, preference).then( (response)=> {
             return response;
         });
