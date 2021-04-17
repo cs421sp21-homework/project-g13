@@ -23,8 +23,26 @@ class Preference extends Component {
         });
     };
 
-    updatePreference(username) {
-
+    updatePreference() {
+        var preference = [];
+        if (this.state.vegetarian) {
+            preference.push("vegetarian");
+        }
+        if (this.state.vegan) {
+            preference.push("vegan");
+        }
+        if (this.state.kosher) {
+            preference.push("kosher");
+        }
+        if (this.state.lactose) {
+            preference.push("lactose-intolerant");
+        }
+        if (this.state.gluten) {
+            preference.push("gluten-free");
+        }
+        api.updatePreference(UserStore.username, preference).then( (response)=> {
+            return response;
+        });
     }
 
     render() {
@@ -54,7 +72,7 @@ class Preference extends Component {
                     />
                 </FormGroup>
                 <Button
-                onClick={this.updatePreference(UserStore.username)}
+                onClick={this.updatePreference()}
                 >
                     Save
                 </Button>

@@ -60,16 +60,20 @@ async function getGroupMembers(groupid) {
 
 async function getUserPreference(username) {
     const response = await axios.get(`${BACKEND_URL}/api/users/${username}`);
-    return response.data.preferencesList;
+    return response.data.preferenceList;
 }
 
-async function updatePreference(preference) {
+async function updatePreference(username, preference) {
     const config = {
         method: 'post',
         url: 'https://chicken-tinder-13-backend.herokuapp.com/api/updatePreference',
-        data : preference
+        data : JSON.stringify({
+            "username" : username,
+            "preferenceList": preference,
+        }),
     };
     const response = await axios(config);
+    return response.data;
 }
 
-export {getRestaurants, postGroup, postUser, getGroupMembers, getUserPreference};
+export {getRestaurants, postGroup, postUser, getGroupMembers, getUserPreference, updatePreference};
