@@ -13,6 +13,7 @@ class Preference extends Component {
             kosher: false,
             lactose: false,
             gluten: false,
+            preferenceList: [],
         }
     }
 
@@ -24,24 +25,23 @@ class Preference extends Component {
     };
 
     updatePreference() {
-        var preference = [];
         if (this.state.vegetarian) {
-            preference.push("vegetarian");
+            this.state.preferenceList.push("vegetarian");
         }
         if (this.state.vegan) {
-            preference.push("vegan");
+            this.state.preferenceList.push("vegan");
         }
         if (this.state.kosher) {
-            preference.push("kosher");
+            this.state.preferenceList.push("kosher");
         }
         if (this.state.lactose) {
-            preference.push("lactose-intolerant");
+            this.state.preferenceList.push("lactose-intolerant");
         }
         if (this.state.gluten) {
-            preference.push("gluten-free");
+            this.state.preferenceList.push("gluten-free");
         }
-        console.log(preference);
-        api.updatePreference(UserStore.username, preference).then( (response)=> {
+        console.log(this.state.preferenceList);
+        api.updatePreference(UserStore.getUsername(), this.state.preferenceList).then( (response)=> {
             return response;
         });
     }
