@@ -11,7 +11,6 @@ class Preference extends Component {
             vegetarian: false,
             vegan: false,
             kosher: false,
-            lactose: false,
             gluten: false,
             preferenceList: [],
         }
@@ -34,15 +33,12 @@ class Preference extends Component {
         if (this.state.kosher) {
             this.state.preferenceList.push("kosher");
         }
-        if (this.state.lactose) {
-            this.state.preferenceList.push("lactose-intolerant");
-        }
         if (this.state.gluten) {
             this.state.preferenceList.push("gluten-free");
         }
         console.log(this.state.preferenceList);
         api.updatePreference(UserStore.getUsername(), this.state.preferenceList).then( (response)=> {
-            return response;
+            //return response;
         });
     }
 
@@ -64,16 +60,12 @@ class Preference extends Component {
                         label="kosher"
                     />
                     <FormControlLabel
-                        control={<Checkbox checked={this.state.lactose} onChange={this.handleChange} name="lactose"/>}
-                        label="lactose-intolerant"
-                    />
-                    <FormControlLabel
                         control={<Checkbox checked={this.state.gluten} onChange={this.handleChange} name="gluten"/>}
                         label="gluten-free"
                     />
                 </FormGroup>
                 <Button
-                onClick={this.updatePreference()}
+                onClick={() => this.updatePreference()}
                 >
                     Save
                 </Button>
