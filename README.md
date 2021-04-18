@@ -8,6 +8,8 @@ Backend Deploy Link: https://chicken-tinder-13-backend.herokuapp.com/
 
 Socket.io Deploy Link: https://chicken-tinder-13-socketio.herokuapp.com/
 
+Postman API Documentation: https://documenter.getpostman.com/view/14379444/TzJsexp8
+
 **Advisors**
 
 | Name     | JHU Email    | GitHub Username |
