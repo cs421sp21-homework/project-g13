@@ -12,7 +12,6 @@ class Preference extends Component {
             vegan: false,
             kosher: false,
             gluten: false,
-            preferenceList: [],
         }
     }
 
@@ -25,22 +24,22 @@ class Preference extends Component {
 
     updatePreference() {
         
-        this.state.preferenceList = [];
+        var preferences = [];
 
         if (this.state.vegetarian) {
-            this.state.preferenceList.push("vegetarian");
+            preferences.push("vegetarian");
         }
         if (this.state.vegan) {
-            this.state.preferenceList.push("vegan");
+            preferences.push("vegan");
         }
         if (this.state.kosher) {
-            this.state.preferenceList.push("kosher");
+            preferences.push("kosher");
         }
         if (this.state.gluten) {
-            this.state.preferenceList.push("gluten-free");
+            preferences.push("gluten-free");
         }
-        console.log(this.state.preferenceList);
-        api.updatePreference(UserStore.getUsername(), this.state.preferenceList).then( (response)=> {
+        console.log(preferences);
+        api.updatePreference(UserStore.getUsername(), preferences).then( (response)=> {
             //return response;
         });
     }
