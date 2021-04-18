@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
-import Preference from "./Preference";
+import Preference from "../components/Preference";
 import * as api from "../api/Api"
 import UserStore from "../stores/UserStore";
 import { withRouter } from "react-router-dom";
@@ -27,7 +27,8 @@ class Account extends Component {
         return(
             <Switch>
             <Route path="/Account">
-            <div>
+            <div className="App">
+                <header className="App-header">
                 <h2>Welcome, {UserStore.getUsername()}</h2>
                 <h2>Dietary Restrictions: {this.getPreference}</h2>
                 <Button
@@ -36,6 +37,7 @@ class Account extends Component {
                     Edit
                 </Button>
                 {this.state.changePref ? null : <Preference/> }
+                </header>
             </div>
             </Route>
             </Switch>

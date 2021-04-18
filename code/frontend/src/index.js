@@ -12,7 +12,7 @@ import SetFilters from "./pages/SetFilters.js"
 import AppNavbar from "./components/NavBar.js";
 import LoginForm from "./components/LoginSignup/LoginForm";
 import SignupForm from "./components/LoginSignup/SignupForm";
-import Account from "./components/Account";
+import Account from "./pages/Account";
 
 ReactDOM.render(
   <Router>
