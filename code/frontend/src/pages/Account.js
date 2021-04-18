@@ -32,7 +32,7 @@ class Account extends Component {
                 <h2>Welcome, {UserStore.getUsername()}</h2>
                 <h2>Dietary Restrictions: {this.getPreference}</h2>
                 <Button
-                onClick={this.state.changePref = true}
+                onClick={() => {this.state.changePref = true}}
                 >
                     Edit
                 </Button>

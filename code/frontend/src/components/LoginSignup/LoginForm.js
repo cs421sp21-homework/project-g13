@@ -8,7 +8,7 @@ import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { Message } from 'semantic-ui-react';
 
-import * as Api from "../../api/Api.js";
+import * as api from "../../api/Api.js";
 
 const styles = theme => ({
     button: {
@@ -84,19 +84,8 @@ class LoginForm extends React.Component {
             //tryingThis = Api.updatePreferences("test22", ["vegan", "indpak", "kosher"]);
 
 
-            let res = await fetch(this.state.endpointHerokuURL + "/login", {
-                method: 'post',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: this.state.username,
-                    password: this.state.password
-                })
-            });
+            let result = await api.login(this.state.username, this.state.password);
 
-            let result = await res.json();
             //if((result.userName).valueOf() === (this.state.username).valueOf()) {
                 //const loginSuccess = new String((JSON.parse(result))["message"]); // getting the return string from Java routing method
                 //const pass = new String("pass");

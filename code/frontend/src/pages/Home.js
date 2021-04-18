@@ -10,6 +10,7 @@ import Individual from "./Individual";
 import SetFilters from "./SetFilters"
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import AppNavbar from "../components/NavBar.js";
+import * as api from "../api/Api.js";
 
 class Home extends Component {
     constructor(props) {
@@ -48,18 +49,7 @@ class Home extends Component {
         
         try{
             
-            let res = await fetch(this.state.endpointHerokuURL + '/logout', {
-                method: 'post',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: userStore.getUsername(),
-                    //password: this.state.password
-                })
-            });
-            let result = await res.json();
+            let result = await api.logout(userStore.getUsername());
             //if((result.userName).valueOf() === (this.state.username).valueOf()) {
                 //const logoutSuccess = new String((JSON.parse(result))["message"]); // getting the return string from Java routing method
                 const success = new String("success");
