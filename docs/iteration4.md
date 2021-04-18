@@ -86,11 +86,11 @@ Monday, April 12 @ 8:30 pm EDT
 - Fix sizing/organization of elements in restaurant card ([#80](https://github.com/cs421sp21-homework/project-g13/issues/80), Shanelle) :white_check_mark:
 - Separate styling into more components ([#76](https://github.com/cs421sp21-homework/project-g13/issues/76), Shanelle) :black_square_button:
 - Rearrange the restaurant leaderboard in NotFoundRec.js so the user can easily see it ([#48](https://github.com/cs421sp21-homework/project-g13/issues/48), Shanelle) :black_square_button:
+- Prevent like/dislike buttons and other text/objects on the restaurant card from overlapping ([#94](https://github.com/cs421sp21-homework/project-g13/issues/94), Eric->Shanelle) :black_square_button:
 
 - Saving group's location for "Try Again" button ([#74](https://github.com/cs421sp21-homework/project-g13/issues/74), Eric) :white_check_mark:
 - Fixing Match Found errors when member closes out of swiping event window during the event ([#71](https://github.com/cs421sp21-homework/project-g13/issues/71), Eric) :black_square_button:
 - When a user leaves without pressing "Try Again", the page breaks for everyone ([#81](https://github.com/cs421sp21-homework/project-g13/issues/81), Eric) :white_check_mark:
-- Prevent like/dislike buttons and other text/objects on the restaurant card from overlapping ([#94](https://github.com/cs421sp21-homework/project-g13/issues/94), Eric) :black_square_button:
 - Create a test class for Server.java :black_square_button:
     - Write unit tests on APIs ([#93](https://github.com/cs421sp21-homework/project-g13/issues/93), Eric) :black_square_button:
     - Write Postman tests on APIs ([#92](https://github.com/cs421sp21-homework/project-g13/issues/92), Daniel) :black_square_button:
