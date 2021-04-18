@@ -11,10 +11,14 @@ class NotFoundRec extends Component {
     displayLeaderboard(topRes, topVotes) {
         let display = new Array();
         for (let i = 0; i < topRes.length; i++) {
-            display.push(<div>
+            display.push(<tr>
+                <td>
                 <a href={topRes[i].url}>{topRes[i].name}</a>
-                <p>Number of votes: {topVotes[i]}</p>
-            </div>);
+                </td>
+                <td>
+                <p>{topVotes[i]}</p>
+                </td>
+            </tr>);
         }
         return display;
     }
@@ -32,13 +36,20 @@ class NotFoundRec extends Component {
         console.log(topVotes);
         return(
                     <div className="App">
-                        <header className="App-header">
-                            <h1>No match found.</h1>
+                            <h1 style={{textAlign: "center"}}>No match found.</h1>
+                            <div className="leaderboard">
+                                <h2>Leaderboard</h2>
+                                <table className="leaderboard-table">
+                                    <tr>
+                                        <th>Restaurant:</th>
+                                        <th>Number of votes:</th>
+                                    </tr>
+                                {this.displayLeaderboard(topRes, topVotes)}
+                                </table>
+                            </div>
+                            <div className="recommend">
                             <h1>But here's what our algorithm recommends:</h1>
                             <Card cardType="no_match_found" restaurant={restaurant}></Card>
-                            <h2>Leaderboard</h2>
-                            {this.displayLeaderboard(topRes, topVotes)}
-                        </header>
                         { tryAgainVisible &&
                         <div>
                             <h2>Try again?</h2>
@@ -56,6 +67,7 @@ class NotFoundRec extends Component {
                             </form>
                         </div>
                         }
+                        </div>
                     </div>
 
 

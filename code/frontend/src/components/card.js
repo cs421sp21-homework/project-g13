@@ -10,7 +10,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 const styles = (theme) => ({
   button: {
-    margin: theme.spacing(2),
+    margin: theme.spacing(4),
   },
 });
 
@@ -47,8 +47,8 @@ class Card extends Component {
   }
 
   checkUndefinedOrNull(restaurant) {
-    //console.log("restaurant");
-    //console.log(restaurant);
+    console.log("restaurant");
+    console.log(restaurant);
     if (restaurant === undefined || restaurant === null) {
       return this.getBlankRestaurant();
     } else {
@@ -133,6 +133,7 @@ class Card extends Component {
 
       var { restaurant, classes } = this.props;
       restaurant = this.checkUndefinedOrNull(restaurant);
+      console.log(restaurant);
       const restaurantLocation = restaurant.location["address1"];
       const cuisineType = restaurant.categories[0]["title"];
       const rating = restaurant.rating;
@@ -168,7 +169,7 @@ class Card extends Component {
                       onClick={this.props.onLike}
                     >
                       <FavoriteBorder
-                        style={{fontSize:64,
+                        style={{fontSize:"8vmin",
                         color: "#fc4c4e"}}
                       />
                     </IconButton>
@@ -176,7 +177,7 @@ class Card extends Component {
                       onClick={this.props.onDislike}
                     >
                       <NotInterestedIcon
-                          style={{fontSize:64}}
+                          style={{fontSize:"8vmin"}}
                       />
                     </IconButton>
                   </div>

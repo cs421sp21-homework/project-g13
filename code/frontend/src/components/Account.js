@@ -15,7 +15,10 @@ class Account extends Component {
     }
 
     getPreference() {
-        api.getUserPreference(UserStore.username).then((response) => {
+        api.getUserPreference(UserStore.getUsername()).then((response) => {
+            if (response.isEmpty()) {
+                return "none";
+            }
             return response;
         });
     }
@@ -23,18 +26,16 @@ class Account extends Component {
     render() {
         return(
             <Switch>
-
             <Route path="/Account">
             <div>
-                Welcome, {UserStore.username}
-
-                Dietary Restrictions: {this.getPreference}
+                <h2>Welcome, {UserStore.getUsername()}</h2>
+                <h2>Dietary Restrictions: {this.getPreference}</h2>
                 <Button
                 onClick={this.state.changePref = true}
                 >
                     Edit
                 </Button>
-                {this.state.changePref ? <Preference/> : null}
+                {this.state.changePref ? null : <Preference/> }
             </div>
             </Route>
             </Switch>

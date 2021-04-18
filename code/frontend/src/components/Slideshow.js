@@ -8,10 +8,11 @@ class Slideshow extends Component {
     const next = <i class="fas fa-chevron-right"></i>;
     const prev = <i class="fas fa-chevron-left"></i>;
     //console.log("is img: " + isImg);
+    console.log(reviews);
 
         if (isImg) {
             return (
-                <Carousel className="carousel" nextIcon={next} prevIcon={prev}>
+                <Carousel nextIcon={next} prevIcon={prev}>
                     <Carousel.Item>
                         <div className="carouselImg">
                         <img
@@ -42,15 +43,18 @@ class Slideshow extends Component {
       return (
         <Carousel nextIcon={next} prevIcon={prev}>
           <Carousel.Item>
+            <div className="carouselReview">
             <p style={{ textAlign: "center" }}>
-              {" "}
+                {" "}
               {reviews[0]["text"]}{" "}
               <a href={reviews[0]["url"]} target="_blank">
                 Read More
               </a>
             </p>
+            </div>
           </Carousel.Item>
           <Carousel.Item>
+            <div className="carouselReview">
             <p style={{ textAlign: "center" }}>
               {" "}
               {reviews[1]["text"]}{" "}
@@ -58,8 +62,10 @@ class Slideshow extends Component {
                 Read More
               </a>
             </p>
+            </div>
           </Carousel.Item>
           <Carousel.Item>
+            <div className="carouselReview">
             <p style={{ textAlign: "center" }}>
               {" "}
               {reviews[2]["text"]}{" "}
@@ -67,6 +73,7 @@ class Slideshow extends Component {
                 Read More
               </a>
             </p>
+            </div>
           </Carousel.Item>
         </Carousel>
       );

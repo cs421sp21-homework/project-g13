@@ -145,10 +145,10 @@ input[type="button"]:disabled {
 }
 
 .card-body {
-  width: 800px;
+  width: 600px;
   max-width: 80vmin;
-  height: 1000px;
-  max-height: 95vmin;
+  height: 800px;
+  max-height: 80vmin;
   margin: auto;
   box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2);
   border-radius: 25px;
@@ -164,10 +164,10 @@ input[type="button"]:disabled {
 
 .like-dislike-container {
   position: absolute;
-  margin-bottom: -50px;
-  width: 30vh;
-  height: 13vh;
-  bottom: 8%;
+  margin-bottom: -10vmin;
+  width: 60vmin;
+  height: 20vmin;
+  bottom: 10%;
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
@@ -256,10 +256,10 @@ input[type="button"]:disabled {
 }
 
 .carouselImg > img {
-  width: 600px;
-  max-width: 90vmin;
+  width: 500px;
+  max-width: 75vmin;
   height: 400px;
-  max-height: 45vmin !important;
+  max-height: 40vmin !important;
   object-fit: contain;
   top: 50%;
   left: 50%;
@@ -267,7 +267,23 @@ input[type="button"]:disabled {
 
 
 .carouselReview > p {
-  width: 90%;
-  font-size: 1.8vmin;
+  font-size: 1.6vmin;
+}
 
+.leaderboard {
+  float: left;
+  width: 800px;
+  max-width: 50vw;
+  padding: 5vw;
+}
+
+.leaderboard-table {
+  width: 50vw;
+}
+
+.recommend {
+  float: right;
+  width: 800px;
+  max-width: 50vw;
+  padding: 5vw;
 }
