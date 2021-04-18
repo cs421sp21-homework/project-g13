@@ -17,7 +17,7 @@ Monday, April 12 @ 8:30 pm EDT
 
 # OO Design
 
-![UML Diagram for iteration 4](assets/iteration-4-uml.png)
+![UML Diagram for iteration 4](assets/iteration-4-uml-updated.png)
 
 # Wireframe & Use-case
 
@@ -109,3 +109,13 @@ Monday, April 12 @ 8:30 pm EDT
 
 # Retrospective
 
+Things that worked well:
+- This iteration involved a shift in focus from implementing new features to fixing existing features and improving overall styling of the application. We had the best start as group during this iteration since the tasks were allocated early and clearly. Thanks to advice from our advisors, we were able to create a planning document that accurately reflected what needed to be accomplished. In addition, we filled out the when2meet early so we were able to decide on extra meeting times days in advance. Last iteration, we attempted to implemented a "soft" goal of having all tasks completed by the 2nd Thursday so that we could have two days solely for merging and testing. This goal inspired us to strive for having something to demo during every advisor meeting to ensure that progress that being made. Notably, we finally implemented a login system so that unique users can set long-term preferences on an account page. In general, we seem to have gotten used to iterative development and we are all happy with our progress thus far. 
+
+Things to be improved:
+- Merging all of our pieces earlier would allow for smoother and less stressful development as we approach that iteration's deadline.
+  - Generally, we merged as we developed so it was less stressful than other iterations.
+
+Plans for next iteration:
+- As we prepare for the final presentation and demo, we will continue fixing bugs/styling and potentially implement a new feature to fetch restaurants that are open at the time of swiping or trending in the area.
+- We will continue to create detailed planning documents as they made it easier to track progress and understand what not yet been implemented.

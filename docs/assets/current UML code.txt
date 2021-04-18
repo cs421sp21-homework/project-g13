@@ -1,0 +1,40 @@
+// Cool Class Diagram
+// ------------------
+
+[Server]->[Restaurant]
+
+[YelpService]->[Restaurant]
+
+[RestaurantSearchResponse]->[Restaurant]
+
+[Restaurant] -> [Category]
+
+[Restaurant] -> [Coordinates]
+
+[Restaurant] -> [Location]
+
+[Restaurant] -> [Transactions]
+
+[Restaurant] -> [Review]
+
+[ReviewSearchResponse] -> [Review]
+
+[(interface) GroupDao] -> [Group]
+
+[(interface) GroupDao] -> [Sql2oGroupDao]
+
+[Group] -> [User]
+
+[(interface) UserDao] -> [Sql2oUserDao]
+
+[(interface) UserDao] -> [User]
+
+[Database] -> [Sql2oUserDao]
+
+[Database] -> [Sql2oGroupDao]
+
+[StatusMessage] -> [Server]
+
+[RouteUser] -> [Server]
+
+[JsonConverter] -> [Server]
