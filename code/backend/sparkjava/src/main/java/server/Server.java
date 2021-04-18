@@ -149,21 +149,6 @@ public class Server {
 
         });
 
-        get("/api/groups", (req, res) -> {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Methods", "GET");
-            res.header("Access-Control-Allow-Methods", "POST");
-            res.header("Content-Type", "application/json");
-
-            try {
-                List<Group> groups = groupDao.readAllGroups();
-                return gson.toJson(groups);
-            } catch (Exception e) {
-                throw new ApiError(e.getMessage(), 500);
-            }
-
-        });
-
         get("/api/users/:uname", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "GET");
@@ -174,20 +159,6 @@ public class Server {
                 String uname = req.params("uname");
                 User user = userDao.read(uname);
                 return gson.toJson(user);
-            } catch (Exception e) {
-                throw new ApiError(e.getMessage(), 500);
-            }
-        });
-
-        get("/api/groups/:id", (req, res) -> {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Methods", "GET");
-            res.header("Content-Type", "application/json");
-
-            try {
-                int id = Integer.parseInt(req.params("id"));
-                List<User> users = userDao.readAllInGroup(id);
-                return gson.toJson(users);
             } catch (Exception e) {
                 throw new ApiError(e.getMessage(), 500);
             }
@@ -209,32 +180,23 @@ public class Server {
             }
         });
 
-        post("/api/groups", (req, res) -> {
+        post("/signup", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "POST");
             res.header("Content-Type", "application/json");
 
             try {
-                Group group = groupDao.createGroup();
-                return gson.toJson(group);
+                RouteUser fetchedUser = gson.fromJson(req.body(), RouteUser.class);
+                //String username = req.params("username");
+                //String password = req.params("password");
+                // implementation kinda depends on "Guest" not being a username
+                User newUser = userDao.create(fetchedUser.getUsername(), fetchedUser.getPassword());
+
+                //System.out.println(username);
+                return gson.toJson(newUser);
             } catch (Exception e) {
                 throw new ApiError(e.getMessage(), 500);
             }
-
-        });
-
-        post("/signup", (req, res) -> {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header("Access-Control-Allow-Methods", "POST");
-            res.header("Content-Type", "application/json");
-            RouteUser fetchedUser = gson.fromJson(req.body(), RouteUser.class);
-            //String username = req.params("username");
-            //String password = req.params("password");
-            // implementation kinda depends on "Guest" not being a username
-            User newUser = userDao.create(fetchedUser.getUsername(), fetchedUser.getPassword());
-
-            //System.out.println(username);
-            return gson.toJson(newUser);
         });
 
         post("/login", (req, res) -> {
@@ -385,9 +347,13 @@ public class Server {
         });
 
         options("/*", (req, res)-> {
-            System.out.println(req.headers());
-            res.header("Access-Control-Allow-Origin", "*");
-            return "OK";
+            try {
+                System.out.println(req.headers());
+                res.header("Access-Control-Allow-Origin", "*");
+                return "OK";
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
         });
 
         exception(ApiError.class, (exception, request, response) -> {
