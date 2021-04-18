@@ -21,13 +21,13 @@ Monday, April 12 @ 8:30 pm EDT
 
 # Wireframe & Use-case
 
-![UML Diagram for iteration 4](assets/iteration4_wireframe.png)
+![UML Diagram for iteration 4](assets/iteration4_wireframe_updated.png)
 
 **Use Case: Cumulative Functionality of App**
 
 1. The user opens the application.
 2. The user will be presented with the "Start" page, view (1).
-3. If the user wants to sign-in or create an account, they will click on the "Sign Up/Login" button.
+3. If the user wants to sign-in or create an account, they will click on the "Sign Up" or "Login" button.
     - The user will enter a username and password to create an account, view (2).
     - If the user has as account, they will enter their credentials in view (3).
 4. If they want to begin swiping by themselves, the user will click on “Start”.
@@ -35,7 +35,7 @@ Monday, April 12 @ 8:30 pm EDT
 5. If they want to join a group, the user will click on the “Join a group” button.
     - The user will enter a group ID which represents a specific group to join, view (8).
     - The user is presented with a “Waiting…” screen until the host begins the selection process, view (9).
-6. If they want to host a group, the user will click on the “Host a group” button.
+6. If they want to host a group, the user will click on the “Host” button on the top of the webpage.
     - The user will set the group’s location/preferences by clicking on the “Set Group Location”/"Set Filters" buttons, view (7).
     - The user will wait for people to join and click the “Start” button once everyone has joined, view (7).
 7. By clicking on the "Set Location" button, the user will be able to enter their address and desired search radius, view (5).
