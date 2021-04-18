@@ -274,16 +274,19 @@ input[type="button"]:disabled {
   float: left;
   width: 800px;
   max-width: 50vw;
-  padding: 5vw;
+  padding-top: 2vw;
+  padding-left: 5vw;
 }
 
 .leaderboard-table {
   width: 50vw;
+  font-size: 2vmin;
 }
 
 .recommend {
   float: right;
   width: 800px;
   max-width: 50vw;
-  padding: 5vw;
+  padding-top: 2vw;
+  padding-right: 5vw;
 }

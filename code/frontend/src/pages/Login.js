@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import UserStore from "../stores/UserStore";
 import LoginForm from "../components/LoginSignup/LoginForm";
 import '../components/LoginSignup/LoginSignup.css';
-import Account from "../components/Account";
+import Account from "./Account";
 
 class Login extends React.Component {
 

@@ -13,7 +13,7 @@ class NotFoundRec extends Component {
         for (let i = 0; i < topRes.length; i++) {
             display.push(<tr>
                 <td>
-                <a href={topRes[i].url}>{topRes[i].name}</a>
+                <a href={topRes[i].url} target="_blank">{topRes[i].name}</a>
                 </td>
                 <td>
                 <p>{topVotes[i]}</p>
@@ -37,6 +37,10 @@ class NotFoundRec extends Component {
         return(
                     <div className="App">
                             <h1 style={{textAlign: "center"}}>No match found.</h1>
+                            <div className="recommend">
+                            <h1>But here's what our algorithm recommends:</h1>
+                            <Card cardType="no_match_found" restaurant={restaurant}></Card>
+                            </div>
                             <div className="leaderboard">
                                 <h2>Leaderboard</h2>
                                 <table className="leaderboard-table">
@@ -46,10 +50,6 @@ class NotFoundRec extends Component {
                                     </tr>
                                 {this.displayLeaderboard(topRes, topVotes)}
                                 </table>
-                            </div>
-                            <div className="recommend">
-                            <h1>But here's what our algorithm recommends:</h1>
-                            <Card cardType="no_match_found" restaurant={restaurant}></Card>
                         { tryAgainVisible &&
                         <div>
                             <h2>Try again?</h2>
