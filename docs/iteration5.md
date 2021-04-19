@@ -45,30 +45,30 @@ Meeting tasks:
 
 # Tasks
 
-- Allow users/groups to continue swiping when a match is found #118 -> Eric :black_square_button:
-  - Add buttons in the MatchFound and No Match Found pages to continue searching for restaurants #119 :black_square_button:
+- Allow users/groups to continue swiping when a match is found [#118](https://github.com/cs421sp21-homework/project-g13/issues/118) -> Eric :black_square_button:
+  - Add buttons in the MatchFound and No Match Found pages to continue searching for restaurants [#119](https://github.com/cs421sp21-homework/project-g13/issues/119) :black_square_button:
 
-- Add a toggle in the Host page for users/groups to choose to search only for restaurants that are currently open #120 -> Nathaniel :black_square_button:
+- Add a toggle in the Host page for users/groups to choose to search only for restaurants that are currently open [#120](https://github.com/cs421sp21-homework/project-g13/issues/120) -> Nathaniel :black_square_button:
   - Connect this toggle to the app state :black_square_button:
-  - Modify frontend code for connecting to backend APIs to include a flag for searching only for currently open restarants when true, and searching normally (all restaurants) when false #121 :black_square_button:
-  - Modify API endpoints for searching for restaurants that are currently open (i.e. add a flag such that when true searches only for restaurants that are currently open, otherwise searches normally) #122 :black_square_button:
+  - Modify frontend code for connecting to backend APIs to include a flag for searching only for currently open restarants when true, and searching normally (all restaurants) when false [#121](https://github.com/cs421sp21-homework/project-g13/issues/121) :black_square_button:
+  - Modify API endpoints for searching for restaurants that are currently open (i.e. add a flag such that when true searches only for restaurants that are currently open, otherwise searches normally) [#122](https://github.com/cs421sp21-homework/project-g13/issues/122) :black_square_button:
 
-- Make the socket.io server send a group member name when someone joins a group #123 -> Abdullah :black_square_button:
+- Make the socket.io server send a group member name when someone joins a group [#123](https://github.com/cs421sp21-homework/project-g13/issues/123) -> Abdullah :black_square_button:
   - Make the Group page receive such "member name" data :black_square_button:
-  - Upon receiving such data (described above), show the names of members of the group on the page #124 :black_square_button:
+  - Upon receiving such data (described above), show the names of members of the group on the page [#124](https://github.com/cs421sp21-homework/project-g13/issues/124) :black_square_button:
 
-- UI Improvements #133 -> Shanelle :black_square_button:
-  - Clarifying buttons on the home page #125 :black_square_button:
-  - Making sure pages look the same #126 :black_square_button:
-  - Adding UI for storing user info #127 :black_square_button:
-  - Add a logout button on account page #128 :black_square_button:
+- UI Improvements [#133](https://github.com/cs421sp21-homework/project-g13/issues/133) -> Shanelle :black_square_button:
+  - Clarifying buttons on the home page [#125](https://github.com/cs421sp21-homework/project-g13/issues/125) :black_square_button:
+  - Making sure pages look the same [#126](https://github.com/cs421sp21-homework/project-g13/issues/126) :black_square_button:
+  - Adding UI for storing user info [#127](https://github.com/cs421sp21-homework/project-g13/issues/127) :black_square_button:
+  - Add a logout button on account page [#128](https://github.com/cs421sp21-homework/project-g13/issues/128) :black_square_button:
 
-- Refining user login system #132 -> Daniel :black_square_button:
-  - User doesn't get logged out after refreshing #117 :black_square_button:
-  - Connect user accounts preferences to restaurant search in socket.io #134 :black_square_button:
-  - Allowing users to store/retrieve their addresses #129 :black_square_button:
-    - Add an endpoint for storing addresses #130 :black_square_button:
-    - Add an endpoint for retreiving addresses #131 :black_square_button:
+- Refining user login system [#132](https://github.com/cs421sp21-homework/project-g13/issues/132) -> Daniel :black_square_button:
+  - User doesn't get logged out after refreshing [#117](https://github.com/cs421sp21-homework/project-g13/issues/117) :black_square_button:
+  - Connect user accounts preferences to restaurant search in socket.io [#134](https://github.com/cs421sp21-homework/project-g13/issues/134) :black_square_button:
+  - Allowing users to store/retrieve their addresses [#129](https://github.com/cs421sp21-homework/project-g13/issues/129) :black_square_button:
+    - Add an endpoint for storing addresses [#138](https://github.com/cs421sp21-homework/project-g13/issues/130) :black_square_button:
+    - Add an endpoint for retreiving addresses [#131](https://github.com/cs421sp21-homework/project-g13/issues/131) :black_square_button:
 
 - Wireframe -> Daniel
 
