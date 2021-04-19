@@ -14,6 +14,8 @@ Meeting tasks:
   - Assign tasks
 - Decide on what everyone will do for the final presentation
   - Opening/closing remarks
+  - Who will demo what
+  - What technical aspects will everyone dicuss
 
 ### Past Meetings
 
