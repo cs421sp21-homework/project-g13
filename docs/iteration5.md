@@ -5,7 +5,15 @@ Leader: Abdullah
 When2Meet: https://www.when2meet.com/?11681146-YlLxK
 
 ## Meetings
-Our meeting time is
+Our meeting time is 4pm EDT
+
+### Future Meetings
+April 19, 2021 @ 4pm
+Meeting tasks:
+- Decide what user stories to complete for iteration 5
+  - Assign tasks
+- Decide on what everyone will do for the final presentation
+  - Opening/closing remarks
 
 ### Past Meetings
 
