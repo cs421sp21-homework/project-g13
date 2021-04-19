@@ -90,16 +90,23 @@ class LoginForm extends React.Component {
                 //const loginSuccess = new String((JSON.parse(result))["message"]); // getting the return string from Java routing method
                 //const pass = new String("pass");
                 const fail = new String("fail");
+                const error = new String("400: (BAD REQUEST) No user with that username exists!");
                 //if (message.valueOf() === )
-                if ((result.message).valueOf() !== fail.valueOf()) {
+                if ((result.message).valueOf() === fail.valueOf()) {
+                    // do something about wrong passwords
+                    this.resetForm();
+                    alert("Wrong password!");
+                } else if ((result.message).valueOf() === error.valueOf()) {
+                    this.resetForm();
+                    alert("No user with that username exists!");
+                } else if ((result.message).valueOf() !== fail.valueOf()) {
                     userStore.setIsLoggedIn(true);
                     userStore.setUsername(result.message);
                     this.props.history.push("/"); // going back to Home page
                     //return use
                 } else {
-                    // do something about wrong passwords
                     this.resetForm();
-                    alert("Wrong username or password!");
+                    //alert(result.message);
                 }
             /*} else {
                 this.resetForm();
@@ -144,7 +151,9 @@ class LoginForm extends React.Component {
                         Don't have an account? Sign up <a href={"/Signup"}>here</a>
                     </div>
                 </Route>
-                
+                <Route path="/">
+                    <Home/>
+                </Route>
             </Switch>
         );
     }
