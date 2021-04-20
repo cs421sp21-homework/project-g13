@@ -81,7 +81,7 @@ Meeting tasks:
 - Allow users/groups to continue swiping when a match is found [#118](https://github.com/cs421sp21-homework/project-g13/issues/118) -> Eric :black_square_button:
   - Add buttons in the MatchFound and No Match Found pages to continue searching for restaurants [#119](https://github.com/cs421sp21-homework/project-g13/issues/119) :black_square_button:
 
-- Test the app rigorously [#120](https://github.com/cs421sp21-homework/project-g13/issues/120) -> Nathaniel :black_square_button:
+- Test the app rigorously [#135](https://github.com/cs421sp21-homework/project-g13/issues/135) -> Nathaniel :black_square_button:
 
 - Make the socket.io server send a group member name when someone joins a group [#123](https://github.com/cs421sp21-homework/project-g13/issues/123) -> Abdullah :black_square_button:
   - Make the Group page receive such "member name" data :black_square_button:
