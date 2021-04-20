@@ -40,11 +40,6 @@ Meeting tasks:
 
 ![Wireframe for Iteration 5](assets/iteration5_wireframe.png)
 
-# Iteration Backlog
-- As a user, I would like to continue swiping if a match is already found so that I can find more potential places I want to eat at.
-- As a user, I would like to be presented only with restaurants open at the time of swiping so that the restaurant I've decided on is available right away.
-- As a user, I would like to see who’s in the group so that I know all my friends have joined.
-
 **Use Case: Overall App Function**
 1. The user opens the application.
 2. The user will be presented with the "Start" page, view (1).
@@ -76,6 +71,11 @@ Meeting tasks:
     - If not in a group, then the user is presented with a recommendation, view (14).
     - If in a group, then the group is presented with a recommendation and a leaderboard of restaurants to show how people voted for each one, view (15).
 14. At the end of a swiping event, the user will click “Yes” or "No" if they want to swipe through another collection of restaurants or end the process, views (14,15,16).
+
+# Iteration Backlog
+- As a user, I would like to continue swiping if a match is already found so that I can find more potential places I want to eat at.
+- As a user, I would like to be presented only with restaurants open at the time of swiping so that the restaurant I've decided on is available right away.
+- As a user, I would like to see who’s in the group so that I know all my friends have joined.
 
 # Tasks
 
