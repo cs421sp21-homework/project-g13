@@ -74,7 +74,6 @@ Meeting tasks:
 
 # Iteration Backlog
 - As a user, I would like to continue swiping if a match is already found so that I can find more potential places I want to eat at.
-- As a user, I would like to be presented only with restaurants open at the time of swiping so that the restaurant I've decided on is available right away.
 - As a user, I would like to see who’s in the group so that I know all my friends have joined.
 
 # Tasks
@@ -82,10 +81,7 @@ Meeting tasks:
 - Allow users/groups to continue swiping when a match is found [#118](https://github.com/cs421sp21-homework/project-g13/issues/118) -> Eric :black_square_button:
   - Add buttons in the MatchFound and No Match Found pages to continue searching for restaurants [#119](https://github.com/cs421sp21-homework/project-g13/issues/119) :black_square_button:
 
-- Add a toggle in the Host page for users/groups to choose to search only for restaurants that are currently open [#120](https://github.com/cs421sp21-homework/project-g13/issues/120) -> Nathaniel :black_square_button:
-  - Connect this toggle to the app state :black_square_button:
-  - Modify frontend code for connecting to backend APIs to include a flag for searching only for currently open restarants when true, and searching normally (all restaurants) when false [#121](https://github.com/cs421sp21-homework/project-g13/issues/121) :black_square_button:
-  - Modify API endpoints for searching for restaurants that are currently open (i.e. add a flag such that when true searches only for restaurants that are currently open, otherwise searches normally) [#122](https://github.com/cs421sp21-homework/project-g13/issues/122) :black_square_button:
+- Test the app rigorously [#120](https://github.com/cs421sp21-homework/project-g13/issues/120) -> Nathaniel :black_square_button:
 
 - Make the socket.io server send a group member name when someone joins a group [#123](https://github.com/cs421sp21-homework/project-g13/issues/123) -> Abdullah :black_square_button:
   - Make the Group page receive such "member name" data :black_square_button:
