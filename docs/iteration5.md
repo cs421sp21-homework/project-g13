@@ -8,7 +8,7 @@ When2Meet: https://www.when2meet.com/?11681146-YlLxK
 Our meeting time is 4pm EDT
 
 ### Future Meetings
-Saturday or Sunday to practice the presentation
+Saturday, April 24 3pm EDT to practice the presentation
 
 ### Past Meetings
 April 19, 2021 @ 4pm
