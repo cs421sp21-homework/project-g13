@@ -100,10 +100,12 @@ class LoginForm extends React.Component {
                     this.resetForm();
                     alert("No user with that username exists!");
                 } else if ((result.message).valueOf() !== fail.valueOf()) {
-                    userStore.setIsLoggedIn(true);
-                    userStore.setUsername(result.message);
+                    //userStore.setIsLoggedIn(true);
+                    //userStore.setUsername(result.message);
+                    localStorage.setItem("username", result.message);
                     this.props.history.push("/"); // going back to Home page
                     //return use
+
                 } else {
                     this.resetForm();
                     //alert(result.message);
