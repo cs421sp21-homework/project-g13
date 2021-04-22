@@ -8,6 +8,7 @@ public class RouteUser {
     private String username;
     private String password;
     private List<String> preferencesList;
+    private String location;
 
 
     /**
@@ -17,6 +18,7 @@ public class RouteUser {
         this.username = null;
         this.password = null;
         this.preferencesList = null;
+        this.location = null;
     }
 
     /**
@@ -67,6 +69,24 @@ public class RouteUser {
      */
     public List<String> getPreferencesList() {
         return this.preferencesList;
+    }
+
+    /**
+     * Set the user location.
+     *
+     * @param location The user location.
+     */
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    /**
+     * Get the user location.
+     *
+     * @return The user location.
+     */
+    public String getLocation() {
+        return this.location;
     }
 
    }

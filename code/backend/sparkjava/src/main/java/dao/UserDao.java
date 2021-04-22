@@ -116,6 +116,25 @@ public interface UserDao {
     List<String> removePreference(User user, String pref) throws DaoException;
 
     /**
+     * Set user's location.
+     *
+     * @param uname The user's username.
+     * @param location The user's new location.
+     * @return The user's updated location.
+     * @throws DaoException A generic exception for CRUD operations.
+     */
+    String setLocation(String uname, String location) throws DaoException;
+
+    /**
+     * Get user's location.
+     *
+     * @param uname The user's username.
+     * @return The user's location.
+     * @throws DaoException A generic exception for CRUD operations.
+     */
+    String getLocation(String uname) throws DaoException;
+
+    /**
      * Delete user from database.
      *
      * @param uName The user's username.

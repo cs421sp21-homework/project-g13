@@ -243,6 +243,40 @@ public class Sql2oUserDao implements UserDao {
     }
 
     @Override
+    public String setLocation(String uname, String location) throws DaoException {
+
+        String sql = "UPDATE user_info SET loc = :loc" +
+                " WHERE username = :uname;";
+        try (Connection conn = sql2o.open()) {                           // opening connection to database
+            //String userID =
+            conn.createQuery(sql)                                        // making proper SQL statement for execution
+                    .addParameter("loc", location)                 // allowing for varying location
+                    .addParameter("username", uname)               // allowing for varying username
+                    .executeUpdate();                                    // executing SQL
+
+            // returning from database
+            User user = read(uname);
+            return user.getLoc();
+        } catch (Sql2oException ex) {
+            throw new DaoException("Unable to set location", ex);
+        }
+
+    }
+
+    @Override
+    public String getLocation(String uname) throws DaoException {
+
+        try (Connection conn = sql2o.open()) {  // opening connection to database
+            // getting from database
+            User user = read(uname);
+            return user.getLoc();
+        } catch (Sql2oException ex) {
+            throw new DaoException("Unable to get location", ex);
+        }
+
+    }
+
+    @Override
     public User delete(String uName) throws DaoException {
         String sql = "WITH deleted AS ("
                 + "DELETE FROM user_info WHERE username = :uName RETURNING *"
