@@ -25,12 +25,13 @@ Meeting tasks:
     - Recommendation and leaderboard on no match found page -> Nathaniel
     - Login and storing user preferences -> Abdullah
   - What technical aspects will everyone discuss
-    - Recommendation algorithm -> Nathaniel
+    - Frontend (React, etc) -> Shanelle
+    - Backend overview (UML) -> Shanelle
     - Hosting/joining groups with socket.io -> Abdullah
     - Retrieving restaurant data from Yelp -> Eric
     - Storing user info on our database -> Daniel
-    - General UML overview -> Shanelle
-    - Frontend (React, etc) -> Shanelle
+    - Recommendation algorithm -> Nathaniel
+    
 
 # OO Design
 
