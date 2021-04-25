@@ -251,7 +251,7 @@ public class Sql2oUserDao implements UserDao {
             //String userID =
             conn.createQuery(sql)                                        // making proper SQL statement for execution
                     .addParameter("loc", location)                 // allowing for varying location
-                    .addParameter("username", uname)               // allowing for varying username
+                    .addParameter("uname", uname)               // allowing for varying username
                     .executeUpdate();                                    // executing SQL
 
             // returning from database
