@@ -3,6 +3,8 @@ import { withRouter } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap"; 
 import 'bootstrap/dist/css/bootstrap.css';
 import UserStore from "../stores/UserStore";
+import * as api from "../api/Api.js";
+
 
 class AppNavbar extends Component {
     constructor(props) {
@@ -17,7 +19,7 @@ class AppNavbar extends Component {
     }
 
     onClickJoin() {
-        if (this.getActivePage() === "/Host") sessionStorage.clear();
+        //if (this.getActivePage() === "/Host") sessionStorage.clear();
         this.props.history.push("/Join");
     }
 
@@ -34,21 +36,57 @@ class AppNavbar extends Component {
         return(
             <div className="navbar-nav ml-auto">
                 <button type="button" className="btn btn-outline-primary app-nav-button app-nav-login" onClick={() => this.props.history.push("/Account")}>Account</button>
+                <button type="button" className="btn btn-outline-primary app-nav-button app-nav-login" onClick={() => this.logout()}>Logout</button>
             </div>
         )
     };
 
+    async logout() {
+      
+        try{
+            let currUser = localStorage.getItem("username");
+            let result = await api.logout(currUser);
+            //if((result.userName).valueOf() === (this.state.username).valueOf()) {
+                //const logoutSuccess = new String((JSON.parse(result))["message"]); // getting the return string from Java routing method
+                const success = new String("success");
+                //const fail = new String("fail");
+                //if (message.valueOf() === )
+                if ((result.message).valueOf() === success.valueOf()) {
+                    localStorage.removeItem("username");
+                    alert("Logout succesful");
+                    this.props.history.push("/"); // going back to Home page
+                } else {
+                    // do something about wrong passwords
+                    this.props.history.push("/"); // just trying to refresh page
+                    alert("Unable to logout");
+                }
+            /*} else {
+                this.resetForm();
+                alert(result.msg);
+            }*/
+        }
+        catch (e) {
+            console.log(e);
+            alert("Backend server down: Unable to process logout request");
+            //this.props.history.push("/"); // just trying to refresh page
+        }
+
+      }
 
     render() {
         const isNavCollapsed = this.state.isNavCollapsed;
         const activePage = this.getActivePage();
-        const isLoggedIn = false;
+        let isLoggedIn = true;
+
+        if (localStorage.getItem("username") === null) {
+            isLoggedIn = false;
+        }
 
         return (
             <div style={{width: "95%", margin: "0 auto 0 auto", paddingTop: "2vh"}} className="app-background-color">
                 <nav class="navbar navbar-expand-md navbar-light bg-white">
                 <div class="container-fluid navbar-container-md">
-                    <a class="navbar-brand appnav-brand" href="#">Chicken Tinder</a>
+                    <a class="navbar-brand appnav-brand" href="/">Chicken Tinder</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" 
                     data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" 
                     aria-expanded="false" aria-label="Toggle navigation" onClick={() => this.setState({isNavCollapsed: !this.state.isNavCollapsed})}>
@@ -63,7 +101,7 @@ class AppNavbar extends Component {
                     </div>
                     <div className={(isNavCollapsed) ? "collapse navbar-collapse" : "navbar-collapse"} id="navbarNavAltMarkup">
                         <div class="navbar-nav ml-auto">
-                            {UserStore.getIsLoggedIn() ? this.account() : this.login()}
+                            {isLoggedIn ? this.account() : this.login()}
                         </div>
                     </div>
                     </div>

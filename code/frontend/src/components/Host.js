@@ -50,11 +50,26 @@ class Host extends Component {
   }
 
   render() {
+    console.log("member names");
+    console.log(this.props.memberNames);
+    let memberNames = <span></span>;
+    if (this.props.memberNames.length > 0) {
+      memberNames = this.props.memberNames.map((name) =>
+        <span key={name} className="grid-item">{name}</span>
+      );
+    }
+    
     return (
           <div className="App-header">
               <div>
-                <h1>Host</h1>
+                <h1>Waiting for members to join...</h1>
               </div>
+              
+              <div className="member-names-grid">
+                {memberNames}
+              </div>
+
+
               <form>
                 <button type="button" className="btn btn-secondary host-button"
                     onClick={this.props.setLocation}

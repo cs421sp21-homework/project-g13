@@ -37,15 +37,6 @@ class Home extends Component {
     }
 
     async logout() {
-        //this.setState({ statusMessage: "Fetching restaurants..."});
-        //this.statusMessageChanged = true;
-        /* if (this.validInput()) {
-          var locationString = `${this.state.address} ${this.state.suiteNum} 
-          ${this.state.city} ${this.state.state} ${this.state.zipcode}`;
-          
-          //call the onSubmit function from props
-          this.props.onSubmit({location: locationString, radius: this.state.radius});
-        } */
         
         try{
             

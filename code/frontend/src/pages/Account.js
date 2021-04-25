@@ -15,7 +15,7 @@ class Account extends Component {
     }
 
     getPreference() {
-        api.getUserPreference(UserStore.getUsername()).then((response) => {
+        api.getUserPreference(this.getUserName()).then((response) => {
             if (response.isEmpty()) {
                 return "none";
             }
@@ -24,13 +24,21 @@ class Account extends Component {
         });
     }
 
+    getUserName() {
+        let currUser = localStorage.getItem("username");
+        if (currUser === null) {
+            currUser = "Guest";
+        }
+        return currUser;
+    }
+
     render() {
         return(
             <Switch>
             <Route path="/Account">
             <div className="App">
                 <header className="App-header">
-                <h2>Welcome, {UserStore.getUsername()}</h2>
+                <h2>Welcome, {localStorage.getItem("username")}</h2>
                 <h2>Dietary Restrictions: {this.getPreference}</h2>
                 <Button
                 onClick={() => {this.state.changePref = true}}
