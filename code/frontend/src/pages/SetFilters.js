@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import { Dropdown } from 'semantic-ui-react'
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import * as api from "../api/Api.js";
 
 const styles = theme => ({
     submit: {
@@ -82,32 +83,7 @@ class SetFilters extends Component {
             const kosher = this.props.filters.get("kosher"); 
             const vegan = this.props.filters.get("vegan"); 
             const vegetarian = this.props.filters.get("vegetarian"); 
-
-            let currUser = localStorage.getItem("username");
-            if ( currUser !== null) {
-                api.getUserPreference(currUser).then((response) => {
-                    if (response.isEmpty()) {
-                        //return "none";
-                        alert("Error trying to preset filters");
-                    } else {
-                        //alert("Preferences stored!");
-                        let findKosher = response.find("kosher");
-                        let findVeget = response.find("Vegetarian");
-                        let findVegan = response.find("Vegan");
-                        if (typeof findKosher !== "undefined") {
-                            this.state.kosher = true;
-                        }
-                        if (typeof findVeget !== "undefined") {
-                            this.state.vegetarian = true;
-                        }
-                        if (typeof findVegan !== "undefined") {
-                            this.state.vegan = true;
-                        }
-                        //return response;
-                    }
-                });
-            }
-
+            
             this.state = {
                 prices: (prices == null) ? [] : prices,
                 cuisines: (cuisines == null) ? [] : cuisines,
@@ -116,6 +92,27 @@ class SetFilters extends Component {
                 vegan: (vegan == null) ? false : vegan,
                 vegetarian: (vegetarian == null) ? false : vegetarian,
             }
+
+            let currUser = localStorage.getItem("username");
+            if ( currUser !== null) {
+                api.getUserPreference(currUser).then((response) => {
+                    if (typeof response === "undefined") {
+                        //return "none";
+                        alert("Error trying to preset filters");
+                        this.props.history.push("/");
+                    } else {
+                        //alert("Preferences stored!");
+                     
+                        this.state.kosher = response.includes("kosher");                        
+                        this.state.vegetarian = response.includes("vegetarian");                       
+                        this.state.vegan = response.includes("vegan");
+                        
+                        //return response;
+                    }
+                });
+            }
+
+            
         } else {
             this.state = {
                 prices: [],

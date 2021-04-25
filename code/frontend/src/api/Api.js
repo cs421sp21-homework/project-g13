@@ -61,7 +61,7 @@ async function getGroupMembers(groupid) {
 
 async function getUserPreference(username) {
     const response = await axios.get(`${BACKEND_URL}/api/users/${username}`);
-    return response.data.preferenceList;
+    return response.data.preferencesList;
 }
 
 async function updatePreference(username, preference) {
