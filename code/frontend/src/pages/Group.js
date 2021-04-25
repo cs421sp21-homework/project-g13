@@ -1,5 +1,5 @@
 import "../App.css";
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import { Switch, Route } from "react-router";
 import { withRouter } from "react-router-dom";
 import Join from "../components/Join.js";
@@ -8,7 +8,7 @@ import SetLocation from "../components/SetLocation.js";
 import MatchFound from "../components/MatchFound.js";
 import Card from "../components/card.js";
 import NotFoundRec from "./NotFoundRec.js";
-import NotFound from "./NotFound.js";
+import RequestNickname from "../components/RequestNickname.js"
 import SetFilters from "./SetFilters.js";
 import io from "socket.io-client";
 import { withStyles } from "@material-ui/core/styles";
@@ -41,24 +41,8 @@ const styles = (theme) => ({
 class Group extends Component {
   constructor(props) {
     super(props);
-    const isHost = this.props.isHost == null ? true : this.props.isHost;
-    var d = new Date();
-    console.log("is host: " + isHost + " " + d.getTime());
-    const initalLocation = isHost ? "Not Set" : "Host sets location";
-    const initialPage = isHost ? "host" : "join";
-    const initialStatus = isHost ? "Please set the location" : "";
-    //console.log(isHost);
-    //console.log(this.props.isHost);
-    this.state = {
-      page: initialPage,
-      message: initialStatus,
-      isHost: isHost,
-      roomId: "Waiting for server...",
-      location: initalLocation,
-      numMembers: 1,
-      canStartSwipingEvent: false,
-      currentRestaurantIndex: 0,
-    };
+    
+    //set inital data here (props, state, etc.)
     this.setInitialData();
 
     this.onJoinRoom = this.onJoinRoom.bind(this);
@@ -77,8 +61,10 @@ class Group extends Component {
     this.filters.set("categories", []);
     this.isFinished = false;
 
+    this.joinPage = createRef();
+
     //socket.io stuff
-    const useLocalSocketServer = false;
+    const useLocalSocketServer = true;
     const socketServer = useLocalSocketServer
       ? "http://localhost:4000"
       : "https://chicken-tinder-13-socketio.herokuapp.com";
@@ -122,6 +108,18 @@ class Group extends Component {
       this.setState({ message: "Joining..." });
     }
   }
+
+  onSetNicknameWithRoomId = (nickname, roomId) => {
+    this.name = nickname;
+    this.socket.emit("room_exists", roomId);
+    this.setState({ message: "Joining..." });
+  };
+
+  onSetNickname = (nickname) => {
+    this.name = nickname;
+    this.onSocketConnect();
+    this.setState({showAskForNickname: false});
+  };
 
   openSetLocation() {
     this.setState({ page: "set_location" });
@@ -224,11 +222,6 @@ class Group extends Component {
   }
 
   onTryAgain() {
-    /*if (this.state.isHost) {
-            this.setState({page: "host"});
-        } else {
-            this.setState({page: "join"});
-        }*/
     this.setState({ page: this.state.isHost ? "host" : "join" });
     if (this.state.isHost) {
       this.state.offset = (this.state.offset + 20) % 1000;
@@ -252,11 +245,11 @@ class Group extends Component {
     if (vegetarian != null && vegetarian === true)
       categories.push("vegetarian");
 
-    console.log("prices");
-    console.log(categories);
+    //onsole.log("prices");
+    //console.log(categories);
 
-    console.log("filters");
-    console.log(this.filters);
+    //console.log("filters");
+    //console.log(this.filters);
 
     this.socket.emit("set_filters", {
       room: this.state.roomId,
@@ -286,7 +279,9 @@ class Group extends Component {
     return (
       <div>
         {page === "join" && (
-          <Join onSubmit={this.onJoinRoom} statusMessage={this.state.message} />
+          <Join onSubmit={this.onJoinRoom} statusMessage={this.state.message} setNickname={this.onSetNicknameWithRoomId}
+            ref={this.joinPage}
+          />
         )}
         {page === "host" && (
           <Host
@@ -296,6 +291,7 @@ class Group extends Component {
             roomId={this.state.roomId}
             location={this.state.location}
             numMembers={this.state.numMembers}
+            memberNames={this.state.memberNames}
             status={this.state.message}
             canStartSwipingEvent={
               this.state.isHost && this.state.canStartSwipingEvent
@@ -375,6 +371,8 @@ class Group extends Component {
             onSubmit={() => this.onSetFilters()}
           />
         )}
+
+        <RequestNickname show={this.state.showAskForNickname} setNickname={this.onSetNickname} />
       </div>
     );
   }
@@ -388,12 +386,12 @@ class Group extends Component {
 
   onSocketConnect() {
     //console.log(this.state);
-    if (this.state.isHost != null && this.state.isHost === true) {
+    if (this.state.isHost != null && this.state.isHost === true && this.name !== "") {
       if (this.needsNewRoomId) {
         //send a request to the server to get the room id
-        this.socket.emit("create_room_and_get_id");
+        this.socket.emit("create_room_and_get_id", {name: this.name});
       } else {
-        this.socket.emit("create_room", this.state.roomId);
+        this.socket.emit("create_room", {roomId: this.state.roomId, name: this.name});
       }
     } else {
       //join the room with the room id
@@ -403,10 +401,12 @@ class Group extends Component {
     }
   }
 
-  onReceiveRoomId(roomId) {
+  onReceiveRoomId(data) {
     //console.log("received signal");
     if (this.state.roomId === "Waiting for server...") {
-      this.setState({ roomId: roomId });
+      //console.log("room");
+      //console.log(data);
+      this.setState({ roomId: data.roomId, memberNames: data.memberNames });
       sessionStorage.setItem("roomId", this.state.roomId);
       sessionStorage.setItem("isHost", "true");
       console.log("session host " + sessionStorage.getItem("roomId"));
@@ -418,21 +418,25 @@ class Group extends Component {
     console.log("room_exists");
     if (this.state.page === "join") {
       if (data.exists === true && !this.setState.isHost) {
-        //join the room
-        this.socket.emit("join_room", data.roomId);
-        this.setState({
-          roomId: data.roomId,
-          message: "Not Ready",
-          page: "host",
-        });
-        sessionStorage.setItem("roomId", this.state.roomId);
-        sessionStorage.setItem("isHost", "false");
+        //join the room if the username is set
+        if (this.name === "") {
+          this.joinPage.current.askForNickname();
+        } else {
+          this.socket.emit("join_room", {roomId: data.roomId, name: this.name});
+          this.setState({
+            roomId: data.roomId,
+            message: "Not Ready",
+            page: "host",
+          });
+          sessionStorage.setItem("roomId", this.state.roomId);
+          sessionStorage.setItem("isHost", "false");
+        }
       } else {
         this.setState({ message: "This Group ID does not exist." });
       }
     } else if (this.state.page === "waiting_to_join") {
       if (data.exists === true) {
-        this.socket.emit("join_room", data.roomId);
+        this.socket.emit("join_room", {roomId: data.roomId, name: this.name});
         this.setState({
           roomId: data.roomId,
           message: "Not Ready",
@@ -449,8 +453,8 @@ class Group extends Component {
     }
   }
 
-  onReceiveRoomSizeChanged(newSize) {
-    this.setState({ numMembers: newSize });
+  onReceiveRoomSizeChanged(data) {
+    this.setState({ numMembers: data.newSize, memberNames: data.memberNames });
   }
 
   onReceiveGetRestaurants(restaurants) {
@@ -542,14 +546,17 @@ class Group extends Component {
     var initialLocation;
     var initialPage = isHost ? "host" : "join";
     var initialStatus;
+    let initalShowAskForNickname = false;
     if (isHost) {
       initialPage = "host";
       initialLocation = "Not Set";
       initialStatus = "Please set the location";
+      initalShowAskForNickname = true;
     } else {
       initialPage = this.needsNewRoomId ? "join" : "waiting_to_join";
       initialStatus = "";
       initialLocation = "Host sets location";
+      initalShowAskForNickname = false;
     }
 
     this.state = {
@@ -564,33 +571,13 @@ class Group extends Component {
       offset: 0,
       recommendation: "No recommendation found",
       topVotes: "No votes found",
+      memberNames: [''],
+      showAskForNickname: initalShowAskForNickname,
     };
+
+    this.name = "";
   }
 
-  filterRestaurants() {
-    const prices = this.filters.get("prices");
-    if (prices.length > 0) {
-      for (let i = 0; i < this.restaurants.length; i++) {
-        const restaurant = this.restaurants[i];
-        var fits = false;
-        for (let j = 0; j < prices.length; j++) {
-          const desiredRating = prices[j];
-          if (
-            restaurant.rating >= desiredRating &&
-            restaurant <= desiredRating + 1
-          ) {
-            fits = true;
-            break;
-          }
-        }
-
-        if (fits === false) {
-          this.restaurants.splice(i, 1);
-          i--;
-        }
-      }
-    }
-  }
 }
 
 export default withRouter(withStyles(styles)(Group));
