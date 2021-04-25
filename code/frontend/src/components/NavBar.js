@@ -48,7 +48,7 @@ class AppNavbar extends Component {
             <div style={{width: "95%", margin: "0 auto 0 auto", paddingTop: "2vh"}} className="app-background-color">
                 <nav class="navbar navbar-expand-md navbar-light bg-white">
                 <div class="container-fluid navbar-container-md">
-                    <a class="navbar-brand appnav-brand" href="#">Chicken Tinder</a>
+                    <a class="navbar-brand appnav-brand" href="/">Chicken Tinder</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" 
                     data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" 
                     aria-expanded="false" aria-label="Toggle navigation" onClick={() => this.setState({isNavCollapsed: !this.state.isNavCollapsed})}>

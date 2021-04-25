@@ -175,13 +175,15 @@ class Room {
     }
 
   //return true if we need to send restaurant data to client
-  addMember(memberId) {
+  addMember(memberId, memberName) {
     this.size++;
     this.members.set(memberId, {
       hasRestaurantData: false,
       finished: false,
       votes: new Map(),
+      name: memberName,
     });
+    
     //emit not ready signal to room
     Room.emitReadySignalFunc(this.name, false);
 
@@ -443,6 +445,14 @@ class Room {
                 }
             }
         }
+    }
+
+    getMemberNames() {
+      let memberNames = [];
+      this.members.forEach((value) => {
+        memberNames.push(value.name);
+      });
+      return memberNames;
     }
 }
 
