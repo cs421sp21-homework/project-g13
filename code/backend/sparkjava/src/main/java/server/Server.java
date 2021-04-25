@@ -148,7 +148,7 @@ public class Server {
                     categories = "";
                 }                   // default to specific categories
 
-                List<Restaurant> resp = YelpService.getRestaurantsByFiltersWithDetail(query, limit, offset, radius, price, categories);
+                List<Restaurant> resp = YelpService.getRestaurantsByFiltersWithDetail(query, limit, radius, offset, price, categories);
                 return gson.toJson(resp);
             } catch (NullPointerException e) {
                 throw new ApiError("(BAD REQUEST) No location entered!", 400);
