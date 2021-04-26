@@ -116,6 +116,9 @@ class SetFilters extends Component {
         this.props.filters.set("vegetarian", this.state.vegetarian);
         //this.props.filters.set("lactose", this.state.lactose);
 
+        console.log("filters");
+        console.log(this.props.filters);
+
         this.props.onSubmit();
     }
 
@@ -185,7 +188,7 @@ class SetFilters extends Component {
                     <br/>
                     <Button
                         className={this.props.classes.submit}
-                        onClick={this.props.onSubmit}
+                        onClick={() => this.onSubmit()}
                         variant="contained"
                         size='large'
                     >
