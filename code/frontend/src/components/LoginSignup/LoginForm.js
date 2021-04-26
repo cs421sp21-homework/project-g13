@@ -8,7 +8,7 @@ import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { Message } from 'semantic-ui-react';
 
-import * as Api from "../../api/Api.js";
+import * as api from "../../api/Api.js";
 
 const styles = theme => ({
     button: {
@@ -84,33 +84,31 @@ class LoginForm extends React.Component {
             //tryingThis = Api.updatePreferences("test22", ["vegan", "indpak", "kosher"]);
 
 
-            let res = await fetch(this.state.endpointHerokuURL + "/login", {
-                method: 'post',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: this.state.username,
-                    password: this.state.password
-                })
-            });
+            let result = await api.login(this.state.username, this.state.password);
 
-            let result = await res.json();
             //if((result.userName).valueOf() === (this.state.username).valueOf()) {
                 //const loginSuccess = new String((JSON.parse(result))["message"]); // getting the return string from Java routing method
                 //const pass = new String("pass");
                 const fail = new String("fail");
+                const error = new String("400: (BAD REQUEST) No user with that username exists!");
                 //if (message.valueOf() === )
-                if ((result.message).valueOf() !== fail.valueOf()) {
-                    userStore.setIsLoggedIn(true);
-                    userStore.setUsername(result.message);
-                    this.props.history.push("/"); // going back to Home page
-                    //return use
-                } else {
+                if ((result.message).valueOf() === fail.valueOf()) {
                     // do something about wrong passwords
                     this.resetForm();
-                    alert("Wrong username or password!");
+                    alert("Wrong password!");
+                } else if ((result.message).valueOf() === error.valueOf()) {
+                    this.resetForm();
+                    alert("No user with that username exists!");
+                } else if ((result.message).valueOf() !== fail.valueOf()) {
+                    //userStore.setIsLoggedIn(true);
+                    //userStore.setUsername(result.message);
+                    localStorage.setItem("username", result.message);
+                    this.props.history.push("/"); // going back to Home page
+                    //return use
+
+                } else {
+                    this.resetForm();
+                    //alert(result.message);
                 }
             /*} else {
                 this.resetForm();
@@ -155,7 +153,9 @@ class LoginForm extends React.Component {
                         Don't have an account? Sign up <a href={"/Signup"}>here</a>
                     </div>
                 </Route>
-                
+                <Route path="/">
+                    <Home/>
+                </Route>
             </Switch>
         );
     }

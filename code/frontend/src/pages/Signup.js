@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import UserStore from "../stores/UserStore";
 import SignupForm from "../components/LoginSignup/SignupForm";
 import '../components/LoginSignup/LoginSignup.css';
+import * as api from "../api/Api.js";
 
 class Signup extends React.Component {
 
@@ -11,15 +12,7 @@ class Signup extends React.Component {
 
         try {
 
-            let res = await fetch('/isLoggedIn', {
-                method: 'post',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-type': 'application/json'
-                }
-            });
-
-            let result = await res.json();
+            let result = api.isLoggedIn(UserStore.username ? UserStore.username : "");
 
             if(result && result.success) {
                 UserStore.loading = false;
@@ -41,15 +34,7 @@ class Signup extends React.Component {
 
         try {
 
-            let res = await fetch('/logout', {
-                method: 'post',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-type': 'application/json'
-                }
-            });
-
-            let result = await res.json();
+            let result = await api.logout(UserStore.username);
 
             if(result && result.success) {
                 UserStore.isLoggedIn = false;

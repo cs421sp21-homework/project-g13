@@ -17,17 +17,17 @@ Monday, April 12 @ 8:30 pm EDT
 
 # OO Design
 
-![UML Diagram for iteration 4](assets/iteration-4-uml.png)
+![UML Diagram for iteration 4](assets/iteration-4-uml-updated.png)
 
 # Wireframe & Use-case
 
-![UML Diagram for iteration 4](assets/iteration4_wireframe.png)
+![UML Diagram for iteration 4](assets/iteration4_wireframe_updated.png)
 
 **Use Case: Cumulative Functionality of App**
 
 1. The user opens the application.
 2. The user will be presented with the "Start" page, view (1).
-3. If the user wants to sign-in or create an account, they will click on the "Sign Up/Login" button.
+3. If the user wants to sign-in or create an account, they will click on the "Sign Up" or "Login" button.
     - The user will enter a username and password to create an account, view (2).
     - If the user has as account, they will enter their credentials in view (3).
 4. If they want to begin swiping by themselves, the user will click on “Start”.
@@ -35,7 +35,7 @@ Monday, April 12 @ 8:30 pm EDT
 5. If they want to join a group, the user will click on the “Join a group” button.
     - The user will enter a group ID which represents a specific group to join, view (8).
     - The user is presented with a “Waiting…” screen until the host begins the selection process, view (9).
-6. If they want to host a group, the user will click on the “Host a group” button.
+6. If they want to host a group, the user will click on the “Host” button on the top of the webpage.
     - The user will set the group’s location/preferences by clicking on the “Set Group Location”/"Set Filters" buttons, view (7).
     - The user will wait for people to join and click the “Start” button once everyone has joined, view (7).
 7. By clicking on the "Set Location" button, the user will be able to enter their address and desired search radius, view (5).
@@ -75,22 +75,22 @@ Monday, April 12 @ 8:30 pm EDT
 - Make the APIs in Server.java follow a try-catch structure as shown in Module 5 ([#99](https://github.com/cs421sp21-homework/project-g13/issues/99), Abdullah) :white_check_mark:
 - Remove 'backend/build' from git ([#86](https://github.com/cs421sp21-homework/project-g13/issues/86), Abdullah) :white_check_mark:
 
-- Notifying group members when host leaves ([#56](https://github.com/cs421sp21-homework/project-g13/issues/56), Nathaniel) :black_square_button:
-- Fixing "property alias undefined" error for group recommendations ([#72](https://github.com/cs421sp21-homework/project-g13/issues/72), Nathaniel) :black_square_button:
+- Notifying group members when host leaves ([#56](https://github.com/cs421sp21-homework/project-g13/issues/56), Nathaniel) :white_check_mark:
+- Fixing "property alias undefined" error for group recommendations ([#72](https://github.com/cs421sp21-homework/project-g13/issues/72), Nathaniel) :white_check_mark:
 - Implement recommendation algorithm for individuals using existing group implementation ([#78](https://github.com/cs421sp21-homework/project-g13/issues/78), Nathaniel) :white_check_mark:
 - Fix truncated reviews by adding "read more" links to the restaurant's reviews page ([#96](https://github.com/cs421sp21-homework/project-g13/issues/96), Nathaniel) :black_square_button:
 - Fix restaurant images not showing MatchFound.js ([#97](https://github.com/cs421sp21-homework/project-g13/issues/97), Nathaniel) :black_square_button:
 
 - Pulling different restaurants when Individual clicks "Try Again" ([#62](https://github.com/cs421sp21-homework/project-g13/issues/62), Shanelle) :black_square_button:
 - UI for acessing user's permanent preferences in the frontend ([#95](https://github.com/cs421sp21-homework/project-g13/issues/95), Shanelle) :black_square_button:
-- Fix sizing/organization of elements in restaurant card ([#80](https://github.com/cs421sp21-homework/project-g13/issues/80), Shanelle) :black_square_button:
+- Fix sizing/organization of elements in restaurant card ([#80](https://github.com/cs421sp21-homework/project-g13/issues/80), Shanelle) :white_check_mark:
 - Separate styling into more components ([#76](https://github.com/cs421sp21-homework/project-g13/issues/76), Shanelle) :black_square_button:
 - Rearrange the restaurant leaderboard in NotFoundRec.js so the user can easily see it ([#48](https://github.com/cs421sp21-homework/project-g13/issues/48), Shanelle) :black_square_button:
+- Prevent like/dislike buttons and other text/objects on the restaurant card from overlapping ([#94](https://github.com/cs421sp21-homework/project-g13/issues/94), Eric->Shanelle) :black_square_button:
 
 - Saving group's location for "Try Again" button ([#74](https://github.com/cs421sp21-homework/project-g13/issues/74), Eric) :white_check_mark:
 - Fixing Match Found errors when member closes out of swiping event window during the event ([#71](https://github.com/cs421sp21-homework/project-g13/issues/71), Eric) :black_square_button:
-- When a user leaves without pressing "Try Again", the page breaks for everyone ([#81](https://github.com/cs421sp21-homework/project-g13/issues/81), Eric) :black_square_button:
-- Prevent like/dislike buttons and other text/objects on the restaurant card from overlapping ([#94](https://github.com/cs421sp21-homework/project-g13/issues/94), Eric) :black_square_button:
+- When a user leaves without pressing "Try Again", the page breaks for everyone ([#81](https://github.com/cs421sp21-homework/project-g13/issues/81), Eric) :white_check_mark:
 - Create a test class for Server.java :black_square_button:
     - Write unit tests on APIs ([#93](https://github.com/cs421sp21-homework/project-g13/issues/93), Eric) :black_square_button:
     - Write Postman tests on APIs ([#92](https://github.com/cs421sp21-homework/project-g13/issues/92), Daniel) :black_square_button:
@@ -104,8 +104,18 @@ Monday, April 12 @ 8:30 pm EDT
   - Connecting frontend to database with user credentials ([#85](https://github.com/cs421sp21-homework/project-g13/issues/85), Daniel) :white_check_mark:
 - Record an individual's swipes in backend ([#77](https://github.com/cs421sp21-homework/project-g13/issues/77), Daniel) :black_square_button:
 - Add 'backend/build' to .gitignore ([#87](https://github.com/cs421sp21-homework/project-g13/issues/87), Daniel) :white_check_mark:
-- Creating & integrating custom exceptions for backend server ([#89](https://github.com/cs421sp21-homework/project-g13/issues/89), Daniel) :black_square_button:
-  - Throw HTTP error codes including non-404 errors (make the error codes accurately reflect the error) ([#88](https://github.com/cs421sp21-homework/project-g13/issues/88), Daniel) :black_square_button:
+- Creating & integrating custom exceptions for backend server ([#89](https://github.com/cs421sp21-homework/project-g13/issues/89), Daniel) :white_check_mark:
+  - Throw HTTP error codes including non-404 errors (make the error codes accurately reflect the error) ([#88](https://github.com/cs421sp21-homework/project-g13/issues/88), Daniel) :white_check_mark:
 
 # Retrospective
 
+Things that worked well:
+- This iteration involved a shift in focus from implementing new features to fixing existing features and improving overall styling of the application. We had the best start as group during this iteration since the tasks were allocated early and clearly. Thanks to advice from our advisors, we were able to create a planning document that accurately reflected what needed to be accomplished. In addition, we filled out the when2meet early so we were able to decide on extra meeting times days in advance. Last iteration, we attempted to implemented a "soft" goal of having all tasks completed by the 2nd Thursday so that we could have two days solely for merging and testing. This goal inspired us to strive for having something to demo during every advisor meeting to ensure that progress that being made. Notably, we finally implemented a login system so that unique users can set long-term preferences on an account page. In general, we seem to have gotten used to iterative development and we are all happy with our progress thus far. 
+
+Things to be improved:
+- Merging all of our pieces earlier would allow for smoother and less stressful development as we approach that iteration's deadline.
+  - Generally, we merged as we developed so it was less stressful than other iterations.
+
+Plans for next iteration:
+- As we prepare for the final presentation and demo, we will continue fixing bugs/styling and potentially implement a new feature to fetch restaurants that are open at the time of swiping or trending in the area.
+- We will continue to create detailed planning documents as they made it easier to track progress and understand what not yet been implemented.

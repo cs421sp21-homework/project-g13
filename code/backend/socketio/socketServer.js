@@ -68,17 +68,15 @@ Room.emitRecommendFunc = function (room, restaurantId) {
 io.on("connection", function (socket) {
   socket.emit("message", { message: "welcome to Food-Tinder" });
 
-  socket.on("create_room", (room) => {
-    console.log("create room" + room);
-    socket.join(room);
+  socket.on("create_room", (data) => {
+    const {roomId, name} = data;
+    console.log("create room" + roomId);
+    socket.join(roomId);
 
-    if (roomsMap.has(room)) {
-      roomsMap.get(room).addMember(socket.id);
+    if (roomsMap.has(roomId)) {
+      joinRoom(socket, roomId, name);
     } else {
-      var theRoom = new Room(room, 0);
-      theRoom.addMember(socket.id);
-
-      roomsMap.set(room, theRoom);
+      createRoom(roomId, socket, name);
     }
 
     //io.to(room).emit("message", {message: "this is a test"});
@@ -105,8 +103,9 @@ io.on("connection", function (socket) {
     //io.to(room).emit("message", {message: "room location was set"});
   });
 
-  socket.on("join_room", (roomId) => {
-    joinRoom(socket, roomId);
+  socket.on("join_room", (data) => {
+    const {roomId, name} = data;
+    joinRoom(socket, roomId, name);
   });
 
   socket.on("message", (data) => {
@@ -161,7 +160,8 @@ io.on("connection", function (socket) {
   });
 
   //when a client wants to get a room id
-  socket.on("create_room_and_get_id", () => {
+  socket.on("create_room_and_get_id", (data) => {
+    const {name} = data;
     hostID = socket.id;
     console.log("host is", hostID);
 
@@ -169,11 +169,7 @@ io.on("connection", function (socket) {
     while (roomsMap.has(roomId)) {
       roomId = generateRoomId();
     }
-    var room = new Room(roomId, 0);
-    roomsMap.set(roomId, room);
-    room.addMember(socket.id);
-    socket.join(roomId);
-    socket.emit("room_id", roomId);
+    createRoom(roomId, socket, name);
   });
 
   //when a client wants to check if a room exists
@@ -208,7 +204,7 @@ io.on("connection", function (socket) {
           room.memberLeft(socket.id);
         }
         console.log("client" + socket.id + " left room " + element);
-        io.to(element).emit("room_size_changed", room.size);
+        io.to(element).emit("room_size_changed", {newSize: room.size, memberNames: room.getMemberNames()});
 
         if (socket.id === hostID) {
           console.log("host is leaving");
@@ -231,22 +227,32 @@ function generateRoomId() {
   return roomId;
 }
 
-function joinRoom(socket, roomId) {
+function joinRoom(socket, roomId, name) {
   console.log("client " + socket.id + " joined the room " + roomId);
   socket.join(roomId);
 
   var size = 0;
+  let memberNames = [];
   if (roomsMap.has(roomId)) {
     const room = roomsMap.get(roomId);
-    if (room.addMember(socket.id)) {
+    if (room.addMember(socket.id, name)) {
       var restaurants = room.getRestaurants();
       io.to(roomId).emit("get_restaurants", JSON.stringify(restaurants));
     }
+    memberNames = room.getMemberNames();
     size = room.size;
   } else {
     roomsMap.set(roomId, new Room(1));
     size = 1;
   }
 
-  io.to(roomId).emit("room_size_changed", size);
+  io.to(roomId).emit("room_size_changed", {newSize: size, memberNames: memberNames});
+}
+
+function createRoom(roomId, socket, name) {
+  var room = new Room(roomId, 0);
+  roomsMap.set(roomId, room);
+  room.addMember(socket.id, name);
+  socket.join(roomId);
+  socket.emit("room_id", {roomId: roomId, memberNames: room.getMemberNames()});
 }

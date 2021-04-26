@@ -20,7 +20,6 @@
   content: '';
   height: 0.5vmin;
   bottom: -0.5vmin;
-  background: blue; 
   left: 0;
   right: 0;
   width: 90%;
@@ -28,11 +27,11 @@
 }
 
 .app-nav-active::after {
-  background: orange; 
+  background: #0d6efd; 
 }
 
 .app-nav-link:hover::after {
-  background: blue;
+  background: #757575;
 }
 
 .app-nav-link:active {
@@ -289,4 +288,25 @@ input[type="button"]:disabled {
   max-width: 50vw;
   padding-top: 2vw;
   padding-right: 5vw;
+}
+
+.member-names-grid {
+  width: 60vmin;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /*border: solid 2px black;*/
+  
+}
+
+.grid-item {
+  /*border: solid 3px black;*/
+  flex: 1;
+  animation: pop 0.25s ease-in-out;
+}
+
+@keyframes pop {
+  50% {
+    transform: scale(1.5);
+  }
 }

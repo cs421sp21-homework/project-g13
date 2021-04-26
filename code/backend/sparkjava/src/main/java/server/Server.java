@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import dao.Sql2oUserDao;
 import dao.Sql2oGroupDao;
 import exceptions.ApiError;
+import exceptions.DaoException;
 import model.yelp.Restaurant;
 import model.User;
 import model.Group;
@@ -53,7 +54,7 @@ public class Server {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ApiError {
 
         port(getHerokuAssignedPort());
         staticFiles.location("/public");
@@ -81,7 +82,10 @@ public class Server {
 
             try {
                 String query = req.queryParams("query");
-                if (query == null) res.status(400);
+                if (query == null || query.trim().isEmpty()) {
+                    // handling non-existent and whitespace strings
+                    throw new NullPointerException();
+                }
                 int radius, limit, offset;
 
 
@@ -110,24 +114,44 @@ public class Server {
                 int radius, limit, offset;
                 String price, categories;
 
-                if (query == null) res.status(400);
-                try { limit = Integer.parseInt(req.queryParams("limit")); }
-                catch(Exception e) { limit = 20; }                    // default to getting 20 restaurants from Yelp
-                try { radius = Integer.parseInt(req.queryParams("radius")); }
-                catch(Exception e) { radius = 40000; }                // radius in meters thus 40 km
-                try { offset = Integer.parseInt(req.queryParams("offset")); }
-                catch(Exception e) { offset = 0; }
-                try { price = req.queryParams("price");
+                if (query == null || query.trim().isEmpty()) {
+                    // handling non-existent and whitespace strings
+                    throw new NullPointerException();
+                }
+                try {
+                    limit = Integer.parseInt(req.queryParams("limit"));
+                } catch (Exception e) {
+                    limit = 20;
+                }                    // default to getting 20 restaurants from Yelp
+                try {
+                    radius = Integer.parseInt(req.queryParams("radius"));
+                } catch (Exception e) {
+                    radius = 40000;
+                }                // radius in meters thus 40 km
+                try {
+                    offset = Integer.parseInt(req.queryParams("offset"));
+                } catch (Exception e) {
+                    offset = 0;
+                }
+                try {
+                    price = req.queryParams("price");
                     if (price.equals("")) {                          // if no price is entered
                         price = "1,2,3,4";
                     }
-                }
-                catch(Exception e) { price = "1,2,3,4"; }                 // default to all prices
-                try { categories = req.queryParams("categories"); }       // Order matters!
-                catch(Exception e) { categories = ""; }                   // default to specific categories
+                } catch (Exception e) {
+                    price = "1,2,3,4";
+                }                 // default to all prices
+                try {
+                    categories = req.queryParams("categories");
+                }       // Order matters!
+                catch (Exception e) {
+                    categories = "";
+                }                   // default to specific categories
 
                 List<Restaurant> resp = YelpService.getRestaurantsByFiltersWithDetail(query, limit, offset, radius, price, categories);
                 return gson.toJson(resp);
+            } catch (NullPointerException e) {
+                throw new ApiError("(BAD REQUEST) No location entered!", 400);
             } catch (Exception e) {
                 throw new ApiError(e.getMessage(), 500);
             }
@@ -159,6 +183,8 @@ public class Server {
                 String uname = req.params("uname");
                 User user = userDao.read(uname);
                 return gson.toJson(user);
+            } catch (NullPointerException e) {
+                throw new ApiError("(BAD REQUEST) No user with that username exists!", 400);
             } catch (Exception e) {
                 throw new ApiError(e.getMessage(), 500);
             }
@@ -194,6 +220,10 @@ public class Server {
 
                 //System.out.println(username);
                 return gson.toJson(newUser);
+            } catch (DaoException e) {
+                //StatusMessage err = new StatusMessage();
+                //err.setMessage("Username/Password has been taken!");
+                throw new ApiError("(BAD REQUEST) Username/Password has been taken!", 400);
             } catch (Exception e) {
                 throw new ApiError(e.getMessage(), 500);
             }
@@ -202,13 +232,13 @@ public class Server {
         post("/login", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "POST");
+            res.header("Access-Control-Allow-Methods", "GET");
             res.header("Content-Type", "application/json");
 
             try {
                 RouteUser userCredentials = gson.fromJson(req.body(), RouteUser.class);
-                StatusMessage loginMsg = new StatusMessage();
                 //User newUser = userDao.create(fetchedUser.getUsername(), fetchedUser.getPassword());
-
+                StatusMessage loginMsg = new StatusMessage();
                 loginMsg.setMessage("fail");
                 User user = userDao.read(userCredentials.getUsername());
                 // handle error if not found
@@ -223,6 +253,11 @@ public class Server {
                 //JsonObject convertedObject = new gson().fromJson(json, JsonObject.class);
 
                 return gson.toJson(loginMsg);
+            } catch (NullPointerException e) {
+                throw new ApiError("(BAD REQUEST) No user with that username exists!", 400);
+                //StatusMessage errMessage = new StatusMessage();
+                //errMessage.setMessage("400 Bad Request");
+                //return gson.toJson(errMessage);
             } catch (Exception e) {
                 throw new ApiError(e.getMessage(), 500);
             }
@@ -307,6 +342,7 @@ public class Server {
                 User userNewPrefs = userDao.read(fetchedUser.getUsername());
                 return gson.toJson(userNewPrefs); // should have updated preferences
             } catch (Exception e) {
+                // empty preference arrays do not throw an error
                 throw new ApiError(e.getMessage(), 500);
             }
         });
@@ -340,7 +376,12 @@ public class Server {
             try {
                 String uname = req.params("uname");
                 User user = userDao.delete(uname);
+                if (user == null) {
+                    throw new NullPointerException();
+                }
                 return gson.toJson(user);
+            } catch (NullPointerException e) {
+                throw new ApiError("(BAD REQUEST) Cannot delete a user who does not exist!", 400);
             } catch (Exception e) {
                 throw new ApiError(e.getMessage(), 500);
             }
@@ -359,6 +400,7 @@ public class Server {
         exception(ApiError.class, (exception, request, response) -> {
             printErrorOccurredInPath(request.pathInfo(), exception);
             response.status(exception.getStatus());
+            response.body(exception.getStatus() + ": " + exception.getMessage());
         });
     }
 

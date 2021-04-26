@@ -79,4 +79,81 @@ async function updatePreference(username, preference) {
     return response.data;
 }
 
-export {getRestaurants, postGroup, postUser, getGroupMembers, getUserPreference, updatePreference};
+async function login(username, password) {
+    const data = JSON.stringify({
+        "username": username,
+        "password": password
+    });
+
+    const config = {
+        method: 'post',
+        url: `${BACKEND_URL}/login`,
+        headers: {
+            //'Content-Type': 'application/json'
+        },
+        data : data
+    };
+
+    const response = await axios(config);
+    return response.data;
+}
+
+async function signup(username, password) {
+    const data = JSON.stringify({
+        "username": username,
+        "password": password
+    });
+
+    const config = {
+        method: 'post',
+        url: `${BACKEND_URL}/signup`,
+        headers: {
+            //'Content-Type': 'application/json'
+        },
+        data : data
+    };
+
+    const response = await axios(config);
+    return response.data;
+}
+
+async function isLoggedIn(username) {
+    const data = JSON.stringify({
+        "username": username,
+    });
+
+    const config = {
+        method: 'post',
+        url: `${BACKEND_URL}/isLoggedIn`,
+        headers: {
+            //'Content-Type': 'application/json'
+        },
+        data : data
+    };
+    try {
+        const response = await axios(config);
+        return response.data;
+    } catch(e) {
+        return {message: "failure"};
+    }
+}
+
+async function logout(username) {
+    const data = JSON.stringify({
+        "username": username,
+    });
+
+    const config = {
+        method: 'post',
+        url: `${BACKEND_URL}/logout`,
+        headers: {
+            //'Content-Type': 'application/json'
+        },
+        data : data
+    };
+
+    const response = await axios(config);
+    return response.data;
+}
+
+export {getRestaurants, postGroup, postUser, getGroupMembers, getUserPreference, updatePreference, login, signup, isLoggedIn, logout};

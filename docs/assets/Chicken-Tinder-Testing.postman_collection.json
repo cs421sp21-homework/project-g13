@@ -1,0 +1,3127 @@
+{
+	"info": {
+		"_postman_id": "a5bec969-01bd-4165-9797-70ed46628c39",
+		"name": "Chicken-Tinder-Testing",
+		"description": "- Accounts like dddd / tbubeera / others were either created while writing the documentation or existed beforehand from previous testing\n- Location is Morgan State's campus",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Fetching Restaurants only dependent on location and search radius",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{herokuURL}}/yelpsearch?query=1700 East Cold Spring Lane Baltimore, Maryland 21251&radius=8046.7&offset=0&limit=15",
+					"host": [
+						"{{herokuURL}}"
+					],
+					"path": [
+						"yelpsearch"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "1700 East Cold Spring Lane Baltimore, Maryland 21251",
+							"description": "The location"
+						},
+						{
+							"key": "radius",
+							"value": "8046.7",
+							"description": "Yelp uses meters (equals 5 miles)"
+						},
+						{
+							"key": "offset",
+							"value": "0",
+							"description": "Ignoring the first few restaurants Yelp provides"
+						},
+						{
+							"key": "limit",
+							"value": "15",
+							"description": "Only getting 15 restaurants"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "zoqbFv4-TcxYTq_ebHqpRw",
+					"alias": "tkk-fried-chicken-baltimore-2",
+					"name": "TKK Fried Chicken",
+					"image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/3VZrdRwg31lIx2xNYXSQ1A/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/tkk-fried-chicken-baltimore-2?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 6,
+					"categories": [
+						{
+							"alias": "chicken_wings",
+							"title": "Chicken Wings"
+						},
+						{
+							"alias": "bubbletea",
+							"title": "Bubble Tea"
+						},
+						{
+							"alias": "juicebars",
+							"title": "Juice Bars & Smoothies"
+						}
+					],
+					"rating": 4.0,
+					"coordinates": {
+						"latitude": 39.326342,
+						"longitude": -76.615562
+					},
+					"photos": [
+						"https://s3-media4.fl.yelpcdn.com/bphoto/3VZrdRwg31lIx2xNYXSQ1A/o.jpg",
+						"https://s3-media1.fl.yelpcdn.com/bphoto/MOlKtfPpB3kVA8pqUBAPyw/o.jpg",
+						"https://s3-media3.fl.yelpcdn.com/bphoto/yY8WYiScsTjSB4LHduNPkg/o.jpg"
+					],
+					"transactions": [],
+					"location": {
+						"address1": "3113 St Paul St",
+						"address2": "",
+						"city": "Baltimore",
+						"zip_code": "21218",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"3113 St Paul St",
+							"Baltimore, MD 21218"
+						]
+					},
+					"phone": "+14434497297",
+					"display_phone": "(443) 449-7297",
+					"reviews": [
+						{
+							"text": "YES!! I can't believe there is finally a Kung Fu Tea at the JHU Homewood campus. Bubble tea is my go-to snack at all times of the day, and I will be...",
+							"rating": 5
+						},
+						{
+							"text": "BOBA AND FRIED CHICKEN TOGETHER. A ONE STOP SHOP FOR ALL MY NEEDS!\n\nHonestly, really, how come there aren't more chicken and boba combos. How come KFC and...",
+							"rating": 4
+						},
+						{
+							"text": "FINALLY! I always have a craving for milk tea and to have a KFT open up in the neighborhood is dangerous for my wallet.\n\nMy go-to is always the Jasmine...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "bwPh5IRfBL_TT0wP4aYuvg",
+					"alias": "thelma-jeans-southern-style-cooking-baltimore",
+					"name": "Thelma Jean's Southern Style Cooking",
+					"image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/c7V-vqr7dOjy5Tw67WL3qg/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/thelma-jeans-southern-style-cooking-baltimore?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 57,
+					"categories": [
+						{
+							"alias": "tradamerican",
+							"title": "American (Traditional)"
+						},
+						{
+							"alias": "soulfood",
+							"title": "Soul Food"
+						},
+						{
+							"alias": "seafood",
+							"title": "Seafood"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.37262,
+						"longitude": -76.5947599
+					},
+					"photos": [
+						"https://s3-media2.fl.yelpcdn.com/bphoto/c7V-vqr7dOjy5Tw67WL3qg/o.jpg",
+						"https://s3-media3.fl.yelpcdn.com/bphoto/jaxNNVqEu7Yih-ROA_oFdA/o.jpg",
+						"https://s3-media4.fl.yelpcdn.com/bphoto/ZGbkuRsOrrXcza88akYzug/o.jpg"
+					],
+					"transactions": [
+						"delivery",
+						"pickup"
+					],
+					"location": {
+						"address1": "6309 Sherwood Rd",
+						"address2": "Ste B",
+						"city": "Baltimore",
+						"zip_code": "21239",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"6309 Sherwood Rd",
+							"Ste B",
+							"Baltimore, MD 21239"
+						]
+					},
+					"phone": "+16672062952",
+					"display_phone": "(667) 206-2952",
+					"reviews": [
+						{
+							"text": "THIS FOOD IS INCREDIBLE\n\nJust tried it for the first time the other night. My boyfriend and I got so much. We wanted to try it all so we got a little bit of...",
+							"rating": 5
+						},
+						{
+							"text": "I have had this place on my list for a while and unfortunately it didn't live up to my soul food dreams.   Place is in a tiny strip  \"mall\" with one way in...",
+							"rating": 3
+						},
+						{
+							"text": "Disappointed.  The food was underwhelming.  The macaroni and cheese was extremely overcooked. The collard greens needed better seasoning. The catfish was...",
+							"rating": 3
+						}
+					]
+				},
+				{
+					"id": "hf462K6DsmrRGh7m7zowAw",
+					"alias": "the-local-fry-baltimore-6",
+					"name": "The Local Fry",
+					"image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/utAX0Vl3GVryYqjDUnDPcA/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/the-local-fry-baltimore-6?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 425,
+					"categories": [
+						{
+							"alias": "tradamerican",
+							"title": "American (Traditional)"
+						},
+						{
+							"alias": "chicken_wings",
+							"title": "Chicken Wings"
+						},
+						{
+							"alias": "korean",
+							"title": "Korean"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.336042,
+						"longitude": -76.629814
+					},
+					"photos": [
+						"https://s3-media2.fl.yelpcdn.com/bphoto/utAX0Vl3GVryYqjDUnDPcA/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/Q5CSReNUrUQC3WOq_MXjPg/o.jpg",
+						"https://s3-media4.fl.yelpcdn.com/bphoto/FYYENMAf_RslvgxPHLNy6Q/o.jpg"
+					],
+					"transactions": [
+						"delivery"
+					],
+					"price": "$$",
+					"location": {
+						"address1": "711 W 40th St",
+						"address2": "Ste 152",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21211",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"711 W 40th St",
+							"Ste 152",
+							"Baltimore, MD 21211"
+						]
+					},
+					"phone": "+16672102633",
+					"display_phone": "(667) 210-2633",
+					"reviews": [
+						{
+							"text": "Decided to try the Local Fry based on the reviews as well since I haven't found a Banh Mi spot.\n\nRight now they are only doing online orders for pickup or...",
+							"rating": 5
+						},
+						{
+							"text": "Thanks for coming through like the champ you are Local Fry! After two failed attempts at satiating my hunger this afternoon, I had a seamlessly smooth...",
+							"rating": 5
+						},
+						{
+							"text": "The Local Fry has been a longtime favorite in our household, but the way they've managed to continue safe service during this COVID crisis made me finally...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "ajnib-5m4eNZAcfnoCS59w",
+					"alias": "the-hub-asian-food-hall-catonsville-2",
+					"name": "The Hub Asian Food Hall",
+					"image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/ezf62W31nn_iaufMSMbD7g/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/the-hub-asian-food-hall-catonsville-2?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 91,
+					"categories": [
+						{
+							"alias": "asianfusion",
+							"title": "Asian Fusion"
+						},
+						{
+							"alias": "desserts",
+							"title": "Desserts"
+						},
+						{
+							"alias": "food_court",
+							"title": "Food Court"
+						}
+					],
+					"rating": 4.0,
+					"coordinates": {
+						"latitude": 39.28703,
+						"longitude": -76.761989
+					},
+					"photos": [
+						"https://s3-media1.fl.yelpcdn.com/bphoto/ezf62W31nn_iaufMSMbD7g/o.jpg",
+						"https://s3-media1.fl.yelpcdn.com/bphoto/kPdM5qEt-IqgP5YqMWXtaA/o.jpg"
+					],
+					"transactions": [
+						"delivery",
+						"pickup"
+					],
+					"location": {
+						"address1": "6510 Baltimore National Pike",
+						"address2": "",
+						"city": "Catonsville",
+						"zip_code": "21228",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"6510 Baltimore National Pike",
+							"Catonsville, MD 21228"
+						]
+					},
+					"phone": "+16678025177",
+					"display_phone": "(667) 802-5177",
+					"reviews": [
+						{
+							"text": "Excellent dine-in experience today at Gong Cha (bubble tea) and flaming grill (Korean bbq) both excellent. The hot pot restaurant inside has reopened also....",
+							"rating": 4
+						},
+						{
+							"text": "I was so excited to see The Hub offering delivery! I ordered the purple yam and pudding smoothie with 30% sugar. I love that they have included the options...",
+							"rating": 5
+						},
+						{
+							"text": "We thought this place was pretty great. \n\nFrom a COVID standpoint, social distancing was good, hand sanitizer in many places, bathrooms were clean,...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "8LAeH_Aq9OeRz030YLIZdw",
+					"alias": "1000-degrees-pizza-salad-wings-baltimore-2",
+					"name": "1000 Degrees Pizza Salad Wings",
+					"image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/KfHWRzbO8xhmWo6JQSgowQ/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/1000-degrees-pizza-salad-wings-baltimore-2?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 4,
+					"categories": [
+						{
+							"alias": "pizza",
+							"title": "Pizza"
+						},
+						{
+							"alias": "chicken_wings",
+							"title": "Chicken Wings"
+						},
+						{
+							"alias": "salad",
+							"title": "Salad"
+						}
+					],
+					"rating": 3.5,
+					"coordinates": {
+						"latitude": 39.30043,
+						"longitude": -76.59122
+					},
+					"photos": [
+						"https://s3-media1.fl.yelpcdn.com/bphoto/KfHWRzbO8xhmWo6JQSgowQ/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/oU_x-QGQ6DNwIT3VGUa3RA/o.jpg",
+						"https://s3-media1.fl.yelpcdn.com/bphoto/Ck8RnZt0pD8lIe2XdCj1MQ/o.jpg"
+					],
+					"transactions": [
+						"delivery",
+						"pickup"
+					],
+					"location": {
+						"address1": "1831 Ashland Ave",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21205",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"1831 Ashland Ave",
+							"Baltimore, MD 21205"
+						]
+					},
+					"phone": "+16672102796",
+					"display_phone": "(667) 210-2796",
+					"reviews": [
+						{
+							"text": "Love this place. The service and food were excellent. I have had the wings at least 3 times during my visit.",
+							"rating": 5
+						},
+						{
+							"text": "Unfortunately my crust burnt to the point that we could taste it. Not a good taste when it comes to pizza. Annnd Im all for the brick oven pizza but I think...",
+							"rating": 2
+						},
+						{
+							"text": "Overall a great place to quickly get good thin crust pizza, due to their 1000 degree oven. We also ordered a salad to split between two people: it was fresh...",
+							"rating": 3
+						}
+					]
+				},
+				{
+					"id": "emYq_d3vv5_cudFHMAn77g",
+					"alias": "r-and-r-taqueria-perry-hall",
+					"name": "R&R Taqueria",
+					"image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/I6Cc4u_4Y_cji5iGRCfpqQ/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/r-and-r-taqueria-perry-hall?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 266,
+					"categories": [
+						{
+							"alias": "mexican",
+							"title": "Mexican"
+						}
+					],
+					"rating": 4.0,
+					"coordinates": {
+						"latitude": 39.4047792094355,
+						"longitude": -76.443314464884
+					},
+					"photos": [
+						"https://s3-media1.fl.yelpcdn.com/bphoto/I6Cc4u_4Y_cji5iGRCfpqQ/o.jpg",
+						"https://s3-media3.fl.yelpcdn.com/bphoto/KklCMVykEjpmBeitBQNwWQ/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/OZmFZdB7TK6bE_BieXhsZQ/o.jpg"
+					],
+					"transactions": [],
+					"price": "$$",
+					"location": {
+						"address1": "5009 Honeygo Blvd",
+						"address2": "",
+						"address3": "Honeygo Village Center",
+						"city": "Perry Hall",
+						"zip_code": "21128",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"5009 Honeygo Blvd",
+							"Honeygo Village Center",
+							"Perry Hall, MD 21128"
+						]
+					},
+					"phone": "+14108700185",
+					"display_phone": "(410) 870-0185",
+					"reviews": [
+						{
+							"text": "Absolutely fabulous. \n\nI've been here once since C19 started and once for lunch a week before, and once for dinner late last year. Amazing experiences, all...",
+							"rating": 5
+						},
+						{
+							"text": "This is my go to Mexican restaurant... though I get the same thing every time since I'm a creature of habit. I love that they sell individual tacos rather...",
+							"rating": 5
+						},
+						{
+							"text": "R&R continues to amaze.  There are many choices in the area now for Mexican Tex/Mex but this spot is the one that reminds us of the best spots that we miss...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "1puokdZXeY7xdc-_6aloBA",
+					"alias": "southern-blues-parkville-2",
+					"name": "Southern Blues",
+					"image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/8gNmXrDwF37ohTR40-OaHQ/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/southern-blues-parkville-2?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 128,
+					"categories": [
+						{
+							"alias": "soulfood",
+							"title": "Soul Food"
+						},
+						{
+							"alias": "bbq",
+							"title": "Barbeque"
+						},
+						{
+							"alias": "sandwiches",
+							"title": "Sandwiches"
+						}
+					],
+					"rating": 4.0,
+					"coordinates": {
+						"latitude": 39.3811,
+						"longitude": -76.53694
+					},
+					"photos": [
+						"https://s3-media3.fl.yelpcdn.com/bphoto/8gNmXrDwF37ohTR40-OaHQ/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/clxeJ5Etzidw5ptYEEmnjQ/o.jpg",
+						"https://s3-media3.fl.yelpcdn.com/bphoto/CRZ8FsfGGSU2OnHVgsEkzw/o.jpg"
+					],
+					"transactions": [
+						"delivery",
+						"pickup"
+					],
+					"price": "$$",
+					"location": {
+						"address1": "8406 Harford Rd",
+						"address2": "",
+						"city": "Parkville",
+						"zip_code": "21234",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"8406 Harford Rd",
+							"Parkville, MD 21234"
+						]
+					},
+					"phone": "+14106630300",
+					"display_phone": "(410) 663-0300",
+					"reviews": [
+						{
+							"text": "The food is worth trying, but the wait is ALWAYS horrible. When you are given your wait time prepare to give yourself an additional 10-15 minutes AFTER that...",
+							"rating": 4
+						},
+						{
+							"text": "Today my boyfriend and I tried this place for the first time based on a recommendation from a coworker. We ordered in person and the staff was very...",
+							"rating": 4
+						},
+						{
+							"text": "Found this place by accident. During Covid time yo see a parking lot full must mean that the food is good. They didn't disappoint.  We had the blackened...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "l1XNqjp5oNqdHRSc1HtilA",
+					"alias": "creole-soul-restaurant-baltimore-2",
+					"name": "Creole Soul Restaurant",
+					"image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/-XjKidxfCgucMT6B0CBgyA/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/creole-soul-restaurant-baltimore-2?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 72,
+					"categories": [
+						{
+							"alias": "cajun",
+							"title": "Cajun/Creole"
+						},
+						{
+							"alias": "soulfood",
+							"title": "Soul Food"
+						},
+						{
+							"alias": "southern",
+							"title": "Southern"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.32162,
+						"longitude": -76.6222
+					},
+					"photos": [
+						"https://s3-media4.fl.yelpcdn.com/bphoto/-XjKidxfCgucMT6B0CBgyA/o.jpg",
+						"https://s3-media1.fl.yelpcdn.com/bphoto/OH3vXYwkJgbLjFXtWYIJ_Q/o.jpg",
+						"https://s3-media1.fl.yelpcdn.com/bphoto/SoWYjASBT1xPMbwJii5j1Q/o.jpg"
+					],
+					"transactions": [
+						"pickup",
+						"delivery"
+					],
+					"price": "$$",
+					"location": {
+						"address1": "301 W 29th St",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21211",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"301 W 29th St",
+							"Baltimore, MD 21211"
+						]
+					},
+					"phone": "+14436811904",
+					"display_phone": "(443) 681-1904",
+					"reviews": [
+						{
+							"text": "The beignets are ADDICTIVE! They were absolutely delicious & so were the banana pudding and collard greens. I also had the red velvet corn bread which was...",
+							"rating": 5
+						},
+						{
+							"text": "OMG!!! The food at Creole Soul was so good! We ordered carry-out because, Covid! Smelling the tasty food on the ride home without being about to eat it was...",
+							"rating": 5
+						},
+						{
+							"text": "We decided to go here this afternoon after reconsidering going to DC since we heard MAGA was in the streets. Put it in the Waze and it's like 20-25 minutes...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "EyzwOeUWwoKGeZcOcVUW0A",
+					"alias": "ekiben-baltimore-3",
+					"name": "Ekiben",
+					"image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/Wcriq5edNKNhvahXe7SbBQ/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/ekiben-baltimore-3?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 1276,
+					"categories": [
+						{
+							"alias": "asianfusion",
+							"title": "Asian Fusion"
+						},
+						{
+							"alias": "sandwiches",
+							"title": "Sandwiches"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.2857429,
+						"longitude": -76.594557
+					},
+					"photos": [
+						"https://s3-media3.fl.yelpcdn.com/bphoto/Wcriq5edNKNhvahXe7SbBQ/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/uMW76XXjK_oYT7EZIX0Wgw/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/NEMfZLRiCmMbEb1kiiX_Dg/o.jpg"
+					],
+					"transactions": [
+						"delivery"
+					],
+					"price": "$$",
+					"location": {
+						"address1": "1622 Eastern Ave",
+						"address2": "",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21231",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"1622 Eastern Ave",
+							"Baltimore, MD 21231"
+						]
+					},
+					"phone": "",
+					"display_phone": "",
+					"reviews": [
+						{
+							"text": "Ekiben is a hidden gem. It's a cute mom and pop shop, the atmosphere is very millennial hipster vibe. Only thing I wish is the store was bigger for sit in...",
+							"rating": 5
+						},
+						{
+							"text": "I thought this place was really great tbh. \nThe portion sizes were decent, food was fresh, and it just tasted good. \nI'd like to come back here. They are...",
+							"rating": 5
+						},
+						{
+							"text": "First thing to note: Put in your order EARLY. We tried to order lunch on Saturday and discovered that Ekiben actually paused orders because they were so...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "ewtL3plKywXuLtmFZoUczw",
+					"alias": "fiesta-mexicana-rosedale",
+					"name": "Fiesta Mexicana",
+					"image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/M0HYwbSy67daK4pthjgCMw/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/fiesta-mexicana-rosedale?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 447,
+					"categories": [
+						{
+							"alias": "mexican",
+							"title": "Mexican"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.33047831475273,
+						"longitude": -76.5009858
+					},
+					"photos": [
+						"https://s3-media2.fl.yelpcdn.com/bphoto/M0HYwbSy67daK4pthjgCMw/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/xJiinq0_H3F-piOZudbM9g/o.jpg",
+						"https://s3-media1.fl.yelpcdn.com/bphoto/jG99D7Hduud03zv8lRSV-A/o.jpg"
+					],
+					"transactions": [
+						"delivery"
+					],
+					"price": "$",
+					"location": {
+						"address1": "8436 Philadelphia Rd",
+						"address2": "",
+						"address3": "",
+						"city": "Rosedale",
+						"zip_code": "21237",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"8436 Philadelphia Rd",
+							"Rosedale, MD 21237"
+						]
+					},
+					"phone": "+14106860134",
+					"display_phone": "(410) 686-0134",
+					"reviews": [
+						{
+							"text": "Birthday dinners are a tradition in our household. The person celebrating chooses a food destination for their celebration meal. Yesterday was my son's...",
+							"rating": 5
+						},
+						{
+							"text": "The absolute best Mexican food I've had outside of Mexico, but maybe anywhere! Frederico and his crew have always been there for our cravings, we've been...",
+							"rating": 5
+						},
+						{
+							"text": "We got take out just before the Blue Angels and Thunderbirds flew over during the coronavirus shut down, so we got to eat in our car AND see the fabulous...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "kawDU8jg5z-xBCZwMxi1Hg",
+					"alias": "koba-korean-bbq-baltimore",
+					"name": "Koba Korean Bbq",
+					"image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/bjp46DTI9R-uEyDKrMv0hA/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/koba-korean-bbq-baltimore?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 51,
+					"categories": [
+						{
+							"alias": "korean",
+							"title": "Korean"
+						},
+						{
+							"alias": "bbq",
+							"title": "Barbeque"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.364545,
+						"longitude": -76.608438
+					},
+					"photos": [
+						"https://s3-media1.fl.yelpcdn.com/bphoto/bjp46DTI9R-uEyDKrMv0hA/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/RKMhjkck6TLfyyXdZXhtpw/o.jpg",
+						"https://s3-media4.fl.yelpcdn.com/bphoto/5UAr_pzwTGx7YWyxE2sWeg/o.jpg"
+					],
+					"transactions": [],
+					"location": {
+						"address1": "510 E Belvedere Ave",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21212",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"510 E Belvedere Ave",
+							"Baltimore, MD 21212"
+						]
+					},
+					"phone": "+14434495077",
+					"display_phone": "(443) 449-5077",
+					"reviews": [
+						{
+							"text": "First, I want to say this is a solid place for Korean BBQ. The meats are fresh and tasty. The place itself is clean, modern, and comfortable. I had the...",
+							"rating": 5
+						},
+						{
+							"text": "So I got to try this place right before Baltimore city shut back down due to covid. The manager was great and made sure we got the best service. Our server...",
+							"rating": 5
+						},
+						{
+							"text": "Solid AYCE in Baltimore. We did the Classic Set and it did not disappoint. The servers were very attentive and ensured we had a constant stream of food,...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "cAHZau7NZIjVRBhOOkPTcg",
+					"alias": "nailahs-kitchen-baltimore",
+					"name": "Nailah's Kitchen",
+					"image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/ScdFrhd0zVL6QDtViOQAQw/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/nailahs-kitchen-baltimore?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 284,
+					"categories": [
+						{
+							"alias": "senegalese",
+							"title": "Senegalese"
+						},
+						{
+							"alias": "halal",
+							"title": "Halal"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.3603723,
+						"longitude": -76.6102004
+					},
+					"photos": [
+						"https://s3-media3.fl.yelpcdn.com/bphoto/ScdFrhd0zVL6QDtViOQAQw/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/KkaHZUkooV_dfwLW3EAl5Q/o.jpg",
+						"https://s3-media3.fl.yelpcdn.com/bphoto/_WoanbtMIVkQ_V8t2Ux76Q/o.jpg"
+					],
+					"transactions": [
+						"delivery",
+						"pickup"
+					],
+					"price": "$$",
+					"location": {
+						"address1": "5722 York Rd",
+						"address2": "",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21212",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"5722 York Rd",
+							"Baltimore, MD 21212"
+						]
+					},
+					"phone": "+14434615600",
+					"display_phone": "(443) 461-5600",
+					"reviews": [
+						{
+							"text": "I have been coming to this restaurant for year even when they were located at their previous location . Over the year the quality and taste of their have...",
+							"rating": 5
+						},
+						{
+							"text": "We went for dinner and unfortunately the restaurant was closed. Fortunately for us, the takeout kitchen was open and honestly, I think I prefer to order...",
+							"rating": 5
+						},
+						{
+							"text": "What a delightful experience to get take-out from here! They don't have a way to order online that I could find, and I wasn't confident calling and ordering...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "9PgU81DELsu8GaVX8FT45w",
+					"alias": "underground-pizza-baltimore-2",
+					"name": "Underground Pizza",
+					"image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/l2yfFl9tkOjn-UzSFajUgg/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/underground-pizza-baltimore-2?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 57,
+					"categories": [
+						{
+							"alias": "pizza",
+							"title": "Pizza"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.28907,
+						"longitude": -76.607268
+					},
+					"photos": [
+						"https://s3-media4.fl.yelpcdn.com/bphoto/l2yfFl9tkOjn-UzSFajUgg/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/qtQxfO1BKd_b4f1YcdubKg/o.jpg",
+						"https://s3-media3.fl.yelpcdn.com/bphoto/ZGrjpVXHjgLSLDSvDjNvWg/o.jpg"
+					],
+					"transactions": [
+						"delivery"
+					],
+					"location": {
+						"address1": "30 Market Pl",
+						"address2": "",
+						"city": "Baltimore",
+						"zip_code": "21202",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"30 Market Pl",
+							"Baltimore, MD 21202"
+						]
+					},
+					"phone": "+14433476190",
+					"display_phone": "(443) 347-6190",
+					"reviews": [
+						{
+							"text": "Holy Smokes, Underground Pizza is GOOD! My first time having Detroit style pizza and I'm a definite fan! \n\nSome coworkers and I ordered 2 large pizzas and...",
+							"rating": 5
+						},
+						{
+							"text": "Such good pizza, and even more impressive that they grew so much during the pandemic, selling out of pop ups around the city and now with a storefront! I've...",
+							"rating": 5
+						},
+						{
+							"text": "I'm not sure where to even start, but wow. Wow, wow, wow this pizza is amazing. I'll start from the beginning... walking in first glance the restaurant had...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "vziISH-B9jwzW6iUQ6sEMA",
+					"alias": "maggies-farm-baltimore",
+					"name": "Maggie's Farm",
+					"image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/VP6b_28nZQMWH0hgBOuj0w/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/maggies-farm-baltimore?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 304,
+					"categories": [
+						{
+							"alias": "newamerican",
+							"title": "American (New)"
+						},
+						{
+							"alias": "comfortfood",
+							"title": "Comfort Food"
+						},
+						{
+							"alias": "cocktailbars",
+							"title": "Cocktail Bars"
+						}
+					],
+					"rating": 4.0,
+					"coordinates": {
+						"latitude": 39.339428,
+						"longitude": -76.572469
+					},
+					"photos": [
+						"https://s3-media3.fl.yelpcdn.com/bphoto/VP6b_28nZQMWH0hgBOuj0w/o.jpg",
+						"https://s3-media4.fl.yelpcdn.com/bphoto/Onq9jDVnppB3lQSEXRkniA/o.jpg",
+						"https://s3-media1.fl.yelpcdn.com/bphoto/0r5dYJ1R3_yyr-MJYnI3cQ/o.jpg"
+					],
+					"transactions": [
+						"delivery",
+						"pickup"
+					],
+					"price": "$$",
+					"location": {
+						"address1": "4341 Harford Rd",
+						"address2": "",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21214",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"4341 Harford Rd",
+							"Baltimore, MD 21214"
+						]
+					},
+					"phone": "+14102542376",
+					"display_phone": "(410) 254-2376",
+					"reviews": [
+						{
+							"text": "Maggie's Farm has truly excellent food. I'm lucky enough to live right near it, but if I didn't I would come up to Lauraville just for this food. All the...",
+							"rating": 5
+						},
+						{
+							"text": "It's has been a while since I been to Maggie's Farm, and I'm glad I came back. Me and a good girlfriend just so happen to be on this side of town and wanted...",
+							"rating": 5
+						},
+						{
+							"text": "Yesterday I had the pleasure of visiting this neighborhood gem. I found out about it through IG. I have rode past this place so many times and never knew it...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "rVH8J1hzP1A5JUSc8b1XGA",
+					"alias": "the-real-thing-towson",
+					"name": "The Real Thing",
+					"image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/p_wS1hV37ew140Z-VE8Rzw/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/the-real-thing-towson?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 281,
+					"categories": [
+						{
+							"alias": "sandwiches",
+							"title": "Sandwiches"
+						},
+						{
+							"alias": "cheesesteaks",
+							"title": "Cheesesteaks"
+						}
+					],
+					"rating": 4.0,
+					"coordinates": {
+						"latitude": 39.3998,
+						"longitude": -76.6024
+					},
+					"photos": [
+						"https://s3-media2.fl.yelpcdn.com/bphoto/p_wS1hV37ew140Z-VE8Rzw/o.jpg",
+						"https://s3-media1.fl.yelpcdn.com/bphoto/qqKQiPqBu15ejn1PlSVXZw/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/LYntrEg33bkyS5GmL7GVfw/o.jpg"
+					],
+					"transactions": [
+						"delivery"
+					],
+					"price": "$",
+					"location": {
+						"address1": "412 York Rd",
+						"address2": "",
+						"address3": "",
+						"city": "Towson",
+						"zip_code": "21204",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"412 York Rd",
+							"Towson, MD 21204"
+						]
+					},
+					"phone": "+14105837211",
+					"display_phone": "(410) 583-7211",
+					"reviews": [
+						{
+							"text": "Your cheap, late night dream food.\n\nThe Real Thing is hidden among the larger restaurants in Towson's downtown area with an ancient sign pointing to their...",
+							"rating": 4
+						},
+						{
+							"text": "I love this place I follow cheesesteak gurus on Facebook. I was not surprised to see it mentioned as a favorite there.\n\nThey actually increased their...",
+							"rating": 5
+						},
+						{
+							"text": "Tony & crew are outdoing themselves with awesome food and great service. \nOpen for take-out as always. \nGreat cheesesteaks (chicken or beef). \nFantastic...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "x2BzYafDAlU7cP9s79g2Zg",
+					"alias": "the-lvh-baltimore",
+					"name": "The LVH",
+					"image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/PrFqRdEP1SjLKLM_nWmM3g/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/the-lvh-baltimore?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 25,
+					"categories": [
+						{
+							"alias": "southern",
+							"title": "Southern"
+						},
+						{
+							"alias": "soulfood",
+							"title": "Soul Food"
+						},
+						{
+							"alias": "bars",
+							"title": "Bars"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.3392225,
+						"longitude": -76.5732418
+					},
+					"photos": [
+						"https://s3-media3.fl.yelpcdn.com/bphoto/PrFqRdEP1SjLKLM_nWmM3g/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/MpBzjjz8wK0nZCSeke-YFg/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/dGSRKnNCppVlADEyI4APiQ/o.jpg"
+					],
+					"transactions": [
+						"delivery"
+					],
+					"price": "$$",
+					"location": {
+						"address1": "4258 Harford Rd",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21214",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"4258 Harford Rd",
+							"Baltimore, MD 21214"
+						]
+					},
+					"phone": "+16672604945",
+					"display_phone": "(667) 260-4945",
+					"reviews": [
+						{
+							"text": "I ave spent a good part of my life in the Deep South and this is among the best soul food I've ever had. This includes \"Wilson's \"Ready for the People\" in...",
+							"rating": 5
+						},
+						{
+							"text": "This establishment let go of all of their employees in early May.  They didn't care if they could pay their bills or not.  The owners didn't even have the...",
+							"rating": 1
+						},
+						{
+							"text": "For starters, I just want to say that I've been a longtime fan of Taste This since they opened the location on Harford Road. The food there has always been...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "u6RxOwQy9pBmrFIR_kQJCQ",
+					"alias": "el-trovador-latin-grill-parkville",
+					"name": "El Trovador Latin Grill",
+					"image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/uz2UhMtVKFoIdiGgGYqUvw/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/el-trovador-latin-grill-parkville?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 170,
+					"categories": [
+						{
+							"alias": "mexican",
+							"title": "Mexican"
+						},
+						{
+							"alias": "latin",
+							"title": "Latin American"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.389036,
+						"longitude": -76.542737
+					},
+					"photos": [
+						"https://s3-media2.fl.yelpcdn.com/bphoto/uz2UhMtVKFoIdiGgGYqUvw/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/RAQcOFUgpBtN4-etlLzIDA/o.jpg",
+						"https://s3-media1.fl.yelpcdn.com/bphoto/NUX15rzPO3sSAX_75kLl7g/o.jpg"
+					],
+					"transactions": [
+						"delivery",
+						"pickup"
+					],
+					"price": "$$",
+					"location": {
+						"address1": "2523 Putty Hill Ave",
+						"city": "Parkville",
+						"zip_code": "21234",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"2523 Putty Hill Ave",
+							"Parkville, MD 21234"
+						]
+					},
+					"phone": "+14106631777",
+					"display_phone": "(410) 663-1777",
+					"reviews": [
+						{
+							"text": "Ordered carryout via the website, which I picked up from the market side of the restaurant. The food was well packed and ready by the specified time. The...",
+							"rating": 5
+						},
+						{
+							"text": "Me and my boyfriend order from here twice a week!!!!!! We always get delivery and it's fast and easy! The food is so so so so GOOD! He gets steak street...",
+							"rating": 5
+						},
+						{
+							"text": "Some of the best pupusas I have ever had, ever. For people who have never tried a pupusa before, it's an El Salvadorean delicacy, somewhat like a Mexican...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "O2ZrDUuqXoluq9cmrFhoyg",
+					"alias": "mount-vernon-marketplace-baltimore-2",
+					"name": "Mount Vernon Marketplace",
+					"image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/jlLM8HIUKnJUEE0rftugCw/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/mount-vernon-marketplace-baltimore-2?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 221,
+					"categories": [
+						{
+							"alias": "food_court",
+							"title": "Food Court"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.295902,
+						"longitude": -76.618819
+					},
+					"photos": [
+						"https://s3-media4.fl.yelpcdn.com/bphoto/jlLM8HIUKnJUEE0rftugCw/o.jpg",
+						"https://s3-media3.fl.yelpcdn.com/bphoto/uC879YPgohO6CVIYutCctg/o.jpg",
+						"https://s3-media4.fl.yelpcdn.com/bphoto/eYhLSQqH5nHhrDS7vp99TA/o.jpg"
+					],
+					"transactions": [],
+					"price": "$$",
+					"location": {
+						"address1": "520 Park Ave",
+						"address2": "",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21201",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"520 Park Ave",
+							"Baltimore, MD 21201"
+						]
+					},
+					"phone": "+14437967393",
+					"display_phone": "(443) 796-7393",
+					"reviews": [
+						{
+							"text": "Friendly staff and a great neighborhood place to pick up forgotten items from the major markets. It's even open on Sunday. They also sell local specialty...",
+							"rating": 5
+						},
+						{
+							"text": "The chicken wings from Cheezy Mike's (I got the \"nuclear\") are some of the best chicken wings I've had, they were so flavorful, crispy, not fatty, and a...",
+							"rating": 5
+						},
+						{
+							"text": "I go back and forth about my favorite markets in the city depending on the day, but I know Mt Vernon is one of 'em.\n\nVisited a number of times between...",
+							"rating": 4
+						}
+					]
+				},
+				{
+					"id": "7G6v_LoHwUi1L0y8z6mlJA",
+					"alias": "chaps-pit-beef-baltimore",
+					"name": "Chaps Pit Beef",
+					"image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/2dPRGi5DMVO6PZntVEHEqg/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/chaps-pit-beef-baltimore?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 1241,
+					"categories": [
+						{
+							"alias": "southern",
+							"title": "Southern"
+						},
+						{
+							"alias": "bbq",
+							"title": "Barbeque"
+						},
+						{
+							"alias": "sandwiches",
+							"title": "Sandwiches"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.3016690736144,
+						"longitude": -76.5480052736107
+					},
+					"photos": [
+						"https://s3-media3.fl.yelpcdn.com/bphoto/2dPRGi5DMVO6PZntVEHEqg/o.jpg",
+						"https://s3-media3.fl.yelpcdn.com/bphoto/VWvNq-8v_UnubE80Ne35Og/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/QV07ZY-KkoGjx8s-Qv5WNw/o.jpg"
+					],
+					"transactions": [
+						"delivery"
+					],
+					"price": "$",
+					"location": {
+						"address1": "5801 Pulaski Hwy",
+						"address2": "",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21205",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"5801 Pulaski Hwy",
+							"Baltimore, MD 21205"
+						]
+					},
+					"phone": "+14104832379",
+					"display_phone": "(410) 483-2379",
+					"reviews": [
+						{
+							"text": "I don't live close to chaps pit beef to be going constantly every single day, but I wish I did! There are no words to describe the food but Delicious. The...",
+							"rating": 5
+						},
+						{
+							"text": "I've been a Chaps fan for some time now, but I guess I neglected to share my love on Yelp until today.  Oops.  Well, better late than never, right?\n\nI'm...",
+							"rating": 5
+						},
+						{
+							"text": "Chaps is thoroughly reviewed and I can't improve on those 5 star ratings, but I am posting to provide a Covid update. \nAs of July 15, they did not offer...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "EhpHyXJrI2HWK2_bdd-jwg",
+					"alias": "waffie-baltimore",
+					"name": "Waffie",
+					"image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/TSHXVvkRTx3pKcDM2BKzdg/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/waffie-baltimore?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 209,
+					"categories": [
+						{
+							"alias": "desserts",
+							"title": "Desserts"
+						},
+						{
+							"alias": "waffles",
+							"title": "Waffles"
+						},
+						{
+							"alias": "breakfast_brunch",
+							"title": "Breakfast & Brunch"
+						}
+					],
+					"rating": 5.0,
+					"coordinates": {
+						"latitude": 39.33097,
+						"longitude": -76.63045
+					},
+					"photos": [
+						"https://s3-media2.fl.yelpcdn.com/bphoto/TSHXVvkRTx3pKcDM2BKzdg/o.jpg",
+						"https://s3-media1.fl.yelpcdn.com/bphoto/zto93IfahqP-wRZPW-gCPQ/o.jpg",
+						"https://s3-media1.fl.yelpcdn.com/bphoto/5ArZL_ZQFM91YRizLbe-CA/o.jpg"
+					],
+					"transactions": [
+						"delivery",
+						"pickup"
+					],
+					"price": "$",
+					"location": {
+						"address1": "839 W 36th St",
+						"address2": "",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21211",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"839 W 36th St",
+							"Baltimore, MD 21211"
+						]
+					},
+					"phone": "",
+					"display_phone": "",
+					"reviews": [
+						{
+							"text": "We went to Waffie last night for pickup JUST to get the savory fried chicken sliders that are here. For less than $15 we each got a dinner-sized portion of...",
+							"rating": 5
+						},
+						{
+							"text": "I know, I know, the waffles are the star at this Hampden spot BUT I have to give a major shout out to the hand-breaded and fried chicken tenders that fill...",
+							"rating": 5
+						},
+						{
+							"text": "5/5 or 10/10, no matter the rating system Waffie is fantastic.\n\nThis place is perfect for takeout or delivery. The Covid restrictions have kept seating...",
+							"rating": 5
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Fetching Restaurants based on user's filters",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{herokuURL}}/yelpsearch?query=1700 East Cold Spring Lane Baltimore, Maryland 21251&radius=8046.7&offset=0&limit=15&price=1,2,3,4&categories=chinese, vegan",
+					"host": [
+						"{{herokuURL}}"
+					],
+					"path": [
+						"yelpsearch"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "1700 East Cold Spring Lane Baltimore, Maryland 21251",
+							"description": "The location"
+						},
+						{
+							"key": "radius",
+							"value": "8046.7",
+							"description": "Yelp uses meters (equals 5 miles)"
+						},
+						{
+							"key": "offset",
+							"value": "0",
+							"description": "Ignoring the first few restaurants Yelp provides"
+						},
+						{
+							"key": "limit",
+							"value": "15",
+							"description": "Number of restaurants you want at once"
+						},
+						{
+							"key": "price",
+							"value": "1,2,3,4",
+							"description": "Corresponds to number of dollar signs that appears with restaurants to indicate price"
+						},
+						{
+							"key": "categories",
+							"value": "chinese, vegan",
+							"description": "Cuisine categories (cat1 OR cat2)"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "zoqbFv4-TcxYTq_ebHqpRw",
+					"alias": "tkk-fried-chicken-baltimore-2",
+					"name": "TKK Fried Chicken",
+					"image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/3VZrdRwg31lIx2xNYXSQ1A/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/tkk-fried-chicken-baltimore-2?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 6,
+					"categories": [
+						{
+							"alias": "chicken_wings",
+							"title": "Chicken Wings"
+						},
+						{
+							"alias": "bubbletea",
+							"title": "Bubble Tea"
+						},
+						{
+							"alias": "juicebars",
+							"title": "Juice Bars & Smoothies"
+						}
+					],
+					"rating": 4.0,
+					"coordinates": {
+						"latitude": 39.326342,
+						"longitude": -76.615562
+					},
+					"photos": [
+						"https://s3-media4.fl.yelpcdn.com/bphoto/3VZrdRwg31lIx2xNYXSQ1A/o.jpg",
+						"https://s3-media1.fl.yelpcdn.com/bphoto/MOlKtfPpB3kVA8pqUBAPyw/o.jpg",
+						"https://s3-media3.fl.yelpcdn.com/bphoto/yY8WYiScsTjSB4LHduNPkg/o.jpg"
+					],
+					"transactions": [],
+					"location": {
+						"address1": "3113 St Paul St",
+						"address2": "",
+						"city": "Baltimore",
+						"zip_code": "21218",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"3113 St Paul St",
+							"Baltimore, MD 21218"
+						]
+					},
+					"phone": "+14434497297",
+					"display_phone": "(443) 449-7297",
+					"reviews": [
+						{
+							"text": "YES!! I can't believe there is finally a Kung Fu Tea at the JHU Homewood campus. Bubble tea is my go-to snack at all times of the day, and I will be...",
+							"rating": 5
+						},
+						{
+							"text": "BOBA AND FRIED CHICKEN TOGETHER. A ONE STOP SHOP FOR ALL MY NEEDS!\n\nHonestly, really, how come there aren't more chicken and boba combos. How come KFC and...",
+							"rating": 4
+						},
+						{
+							"text": "FINALLY! I always have a craving for milk tea and to have a KFT open up in the neighborhood is dangerous for my wallet.\n\nMy go-to is always the Jasmine...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "ajnib-5m4eNZAcfnoCS59w",
+					"alias": "the-hub-asian-food-hall-catonsville-2",
+					"name": "The Hub Asian Food Hall",
+					"image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/ezf62W31nn_iaufMSMbD7g/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/the-hub-asian-food-hall-catonsville-2?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 91,
+					"categories": [
+						{
+							"alias": "asianfusion",
+							"title": "Asian Fusion"
+						},
+						{
+							"alias": "desserts",
+							"title": "Desserts"
+						},
+						{
+							"alias": "food_court",
+							"title": "Food Court"
+						}
+					],
+					"rating": 4.0,
+					"coordinates": {
+						"latitude": 39.28703,
+						"longitude": -76.761989
+					},
+					"photos": [
+						"https://s3-media1.fl.yelpcdn.com/bphoto/ezf62W31nn_iaufMSMbD7g/o.jpg",
+						"https://s3-media1.fl.yelpcdn.com/bphoto/kPdM5qEt-IqgP5YqMWXtaA/o.jpg"
+					],
+					"transactions": [
+						"delivery",
+						"pickup"
+					],
+					"location": {
+						"address1": "6510 Baltimore National Pike",
+						"address2": "",
+						"city": "Catonsville",
+						"zip_code": "21228",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"6510 Baltimore National Pike",
+							"Catonsville, MD 21228"
+						]
+					},
+					"phone": "+16678025177",
+					"display_phone": "(667) 802-5177",
+					"reviews": [
+						{
+							"text": "Excellent dine-in experience today at Gong Cha (bubble tea) and flaming grill (Korean bbq) both excellent. The hot pot restaurant inside has reopened also....",
+							"rating": 4
+						},
+						{
+							"text": "I was so excited to see The Hub offering delivery! I ordered the purple yam and pudding smoothie with 30% sugar. I love that they have included the options...",
+							"rating": 5
+						},
+						{
+							"text": "We thought this place was pretty great. \n\nFrom a COVID standpoint, social distancing was good, hand sanitizer in many places, bathrooms were clean,...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "emYq_d3vv5_cudFHMAn77g",
+					"alias": "r-and-r-taqueria-perry-hall",
+					"name": "R&R Taqueria",
+					"image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/I6Cc4u_4Y_cji5iGRCfpqQ/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/r-and-r-taqueria-perry-hall?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 266,
+					"categories": [
+						{
+							"alias": "mexican",
+							"title": "Mexican"
+						}
+					],
+					"rating": 4.0,
+					"coordinates": {
+						"latitude": 39.4047792094355,
+						"longitude": -76.443314464884
+					},
+					"photos": [
+						"https://s3-media1.fl.yelpcdn.com/bphoto/I6Cc4u_4Y_cji5iGRCfpqQ/o.jpg",
+						"https://s3-media3.fl.yelpcdn.com/bphoto/KklCMVykEjpmBeitBQNwWQ/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/OZmFZdB7TK6bE_BieXhsZQ/o.jpg"
+					],
+					"transactions": [],
+					"price": "$$",
+					"location": {
+						"address1": "5009 Honeygo Blvd",
+						"address2": "",
+						"address3": "Honeygo Village Center",
+						"city": "Perry Hall",
+						"zip_code": "21128",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"5009 Honeygo Blvd",
+							"Honeygo Village Center",
+							"Perry Hall, MD 21128"
+						]
+					},
+					"phone": "+14108700185",
+					"display_phone": "(410) 870-0185",
+					"reviews": [
+						{
+							"text": "Absolutely fabulous. \n\nI've been here once since C19 started and once for lunch a week before, and once for dinner late last year. Amazing experiences, all...",
+							"rating": 5
+						},
+						{
+							"text": "This is my go to Mexican restaurant... though I get the same thing every time since I'm a creature of habit. I love that they sell individual tacos rather...",
+							"rating": 5
+						},
+						{
+							"text": "R&R continues to amaze.  There are many choices in the area now for Mexican Tex/Mex but this spot is the one that reminds us of the best spots that we miss...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "1puokdZXeY7xdc-_6aloBA",
+					"alias": "southern-blues-parkville-2",
+					"name": "Southern Blues",
+					"image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/8gNmXrDwF37ohTR40-OaHQ/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/southern-blues-parkville-2?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 128,
+					"categories": [
+						{
+							"alias": "soulfood",
+							"title": "Soul Food"
+						},
+						{
+							"alias": "bbq",
+							"title": "Barbeque"
+						},
+						{
+							"alias": "sandwiches",
+							"title": "Sandwiches"
+						}
+					],
+					"rating": 4.0,
+					"coordinates": {
+						"latitude": 39.3811,
+						"longitude": -76.53694
+					},
+					"photos": [
+						"https://s3-media3.fl.yelpcdn.com/bphoto/8gNmXrDwF37ohTR40-OaHQ/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/clxeJ5Etzidw5ptYEEmnjQ/o.jpg",
+						"https://s3-media3.fl.yelpcdn.com/bphoto/CRZ8FsfGGSU2OnHVgsEkzw/o.jpg"
+					],
+					"transactions": [
+						"delivery",
+						"pickup"
+					],
+					"price": "$$",
+					"location": {
+						"address1": "8406 Harford Rd",
+						"address2": "",
+						"city": "Parkville",
+						"zip_code": "21234",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"8406 Harford Rd",
+							"Parkville, MD 21234"
+						]
+					},
+					"phone": "+14106630300",
+					"display_phone": "(410) 663-0300",
+					"reviews": [
+						{
+							"text": "The food is worth trying, but the wait is ALWAYS horrible. When you are given your wait time prepare to give yourself an additional 10-15 minutes AFTER that...",
+							"rating": 4
+						},
+						{
+							"text": "Today my boyfriend and I tried this place for the first time based on a recommendation from a coworker. We ordered in person and the staff was very...",
+							"rating": 4
+						},
+						{
+							"text": "Found this place by accident. During Covid time yo see a parking lot full must mean that the food is good. They didn't disappoint.  We had the blackened...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "EyzwOeUWwoKGeZcOcVUW0A",
+					"alias": "ekiben-baltimore-3",
+					"name": "Ekiben",
+					"image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/Wcriq5edNKNhvahXe7SbBQ/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/ekiben-baltimore-3?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 1276,
+					"categories": [
+						{
+							"alias": "asianfusion",
+							"title": "Asian Fusion"
+						},
+						{
+							"alias": "sandwiches",
+							"title": "Sandwiches"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.2857429,
+						"longitude": -76.594557
+					},
+					"photos": [
+						"https://s3-media3.fl.yelpcdn.com/bphoto/Wcriq5edNKNhvahXe7SbBQ/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/uMW76XXjK_oYT7EZIX0Wgw/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/NEMfZLRiCmMbEb1kiiX_Dg/o.jpg"
+					],
+					"transactions": [
+						"delivery"
+					],
+					"price": "$$",
+					"location": {
+						"address1": "1622 Eastern Ave",
+						"address2": "",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21231",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"1622 Eastern Ave",
+							"Baltimore, MD 21231"
+						]
+					},
+					"phone": "",
+					"display_phone": "",
+					"reviews": [
+						{
+							"text": "Ekiben is a hidden gem. It's a cute mom and pop shop, the atmosphere is very millennial hipster vibe. Only thing I wish is the store was bigger for sit in...",
+							"rating": 5
+						},
+						{
+							"text": "I thought this place was really great tbh. \nThe portion sizes were decent, food was fresh, and it just tasted good. \nI'd like to come back here. They are...",
+							"rating": 5
+						},
+						{
+							"text": "First thing to note: Put in your order EARLY. We tried to order lunch on Saturday and discovered that Ekiben actually paused orders because they were so...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "bwPh5IRfBL_TT0wP4aYuvg",
+					"alias": "thelma-jeans-southern-style-cooking-baltimore",
+					"name": "Thelma Jean's Southern Style Cooking",
+					"image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/c7V-vqr7dOjy5Tw67WL3qg/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/thelma-jeans-southern-style-cooking-baltimore?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 57,
+					"categories": [
+						{
+							"alias": "tradamerican",
+							"title": "American (Traditional)"
+						},
+						{
+							"alias": "soulfood",
+							"title": "Soul Food"
+						},
+						{
+							"alias": "seafood",
+							"title": "Seafood"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.37262,
+						"longitude": -76.5947599
+					},
+					"photos": [
+						"https://s3-media2.fl.yelpcdn.com/bphoto/c7V-vqr7dOjy5Tw67WL3qg/o.jpg",
+						"https://s3-media3.fl.yelpcdn.com/bphoto/jaxNNVqEu7Yih-ROA_oFdA/o.jpg",
+						"https://s3-media4.fl.yelpcdn.com/bphoto/ZGbkuRsOrrXcza88akYzug/o.jpg"
+					],
+					"transactions": [
+						"pickup",
+						"delivery"
+					],
+					"location": {
+						"address1": "6309 Sherwood Rd",
+						"address2": "Ste B",
+						"city": "Baltimore",
+						"zip_code": "21239",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"6309 Sherwood Rd",
+							"Ste B",
+							"Baltimore, MD 21239"
+						]
+					},
+					"phone": "+16672062952",
+					"display_phone": "(667) 206-2952",
+					"reviews": [
+						{
+							"text": "THIS FOOD IS INCREDIBLE\n\nJust tried it for the first time the other night. My boyfriend and I got so much. We wanted to try it all so we got a little bit of...",
+							"rating": 5
+						},
+						{
+							"text": "I have had this place on my list for a while and unfortunately it didn't live up to my soul food dreams.   Place is in a tiny strip  \"mall\" with one way in...",
+							"rating": 3
+						},
+						{
+							"text": "Disappointed.  The food was underwhelming.  The macaroni and cheese was extremely overcooked. The collard greens needed better seasoning. The catfish was...",
+							"rating": 3
+						}
+					]
+				},
+				{
+					"id": "ewtL3plKywXuLtmFZoUczw",
+					"alias": "fiesta-mexicana-rosedale",
+					"name": "Fiesta Mexicana",
+					"image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/M0HYwbSy67daK4pthjgCMw/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/fiesta-mexicana-rosedale?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 447,
+					"categories": [
+						{
+							"alias": "mexican",
+							"title": "Mexican"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.33047831475273,
+						"longitude": -76.5009858
+					},
+					"photos": [
+						"https://s3-media2.fl.yelpcdn.com/bphoto/M0HYwbSy67daK4pthjgCMw/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/xJiinq0_H3F-piOZudbM9g/o.jpg",
+						"https://s3-media1.fl.yelpcdn.com/bphoto/jG99D7Hduud03zv8lRSV-A/o.jpg"
+					],
+					"transactions": [
+						"delivery"
+					],
+					"price": "$",
+					"location": {
+						"address1": "8436 Philadelphia Rd",
+						"address2": "",
+						"address3": "",
+						"city": "Rosedale",
+						"zip_code": "21237",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"8436 Philadelphia Rd",
+							"Rosedale, MD 21237"
+						]
+					},
+					"phone": "+14106860134",
+					"display_phone": "(410) 686-0134",
+					"reviews": [
+						{
+							"text": "Birthday dinners are a tradition in our household. The person celebrating chooses a food destination for their celebration meal. Yesterday was my son's...",
+							"rating": 5
+						},
+						{
+							"text": "The absolute best Mexican food I've had outside of Mexico, but maybe anywhere! Frederico and his crew have always been there for our cravings, we've been...",
+							"rating": 5
+						},
+						{
+							"text": "We got take out just before the Blue Angels and Thunderbirds flew over during the coronavirus shut down, so we got to eat in our car AND see the fabulous...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "kawDU8jg5z-xBCZwMxi1Hg",
+					"alias": "koba-korean-bbq-baltimore",
+					"name": "Koba Korean Bbq",
+					"image_url": "https://s3-media1.fl.yelpcdn.com/bphoto/bjp46DTI9R-uEyDKrMv0hA/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/koba-korean-bbq-baltimore?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 51,
+					"categories": [
+						{
+							"alias": "korean",
+							"title": "Korean"
+						},
+						{
+							"alias": "bbq",
+							"title": "Barbeque"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.364545,
+						"longitude": -76.608438
+					},
+					"photos": [
+						"https://s3-media1.fl.yelpcdn.com/bphoto/bjp46DTI9R-uEyDKrMv0hA/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/RKMhjkck6TLfyyXdZXhtpw/o.jpg",
+						"https://s3-media4.fl.yelpcdn.com/bphoto/5UAr_pzwTGx7YWyxE2sWeg/o.jpg"
+					],
+					"transactions": [],
+					"location": {
+						"address1": "510 E Belvedere Ave",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21212",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"510 E Belvedere Ave",
+							"Baltimore, MD 21212"
+						]
+					},
+					"phone": "+14434495077",
+					"display_phone": "(443) 449-5077",
+					"reviews": [
+						{
+							"text": "First, I want to say this is a solid place for Korean BBQ. The meats are fresh and tasty. The place itself is clean, modern, and comfortable. I had the...",
+							"rating": 5
+						},
+						{
+							"text": "So I got to try this place right before Baltimore city shut back down due to covid. The manager was great and made sure we got the best service. Our server...",
+							"rating": 5
+						},
+						{
+							"text": "Solid AYCE in Baltimore. We did the Classic Set and it did not disappoint. The servers were very attentive and ensured we had a constant stream of food,...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "hf462K6DsmrRGh7m7zowAw",
+					"alias": "the-local-fry-baltimore-6",
+					"name": "The Local Fry",
+					"image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/utAX0Vl3GVryYqjDUnDPcA/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/the-local-fry-baltimore-6?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 425,
+					"categories": [
+						{
+							"alias": "tradamerican",
+							"title": "American (Traditional)"
+						},
+						{
+							"alias": "chicken_wings",
+							"title": "Chicken Wings"
+						},
+						{
+							"alias": "korean",
+							"title": "Korean"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.336042,
+						"longitude": -76.629814
+					},
+					"photos": [
+						"https://s3-media2.fl.yelpcdn.com/bphoto/utAX0Vl3GVryYqjDUnDPcA/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/Q5CSReNUrUQC3WOq_MXjPg/o.jpg",
+						"https://s3-media4.fl.yelpcdn.com/bphoto/FYYENMAf_RslvgxPHLNy6Q/o.jpg"
+					],
+					"transactions": [
+						"delivery"
+					],
+					"price": "$$",
+					"location": {
+						"address1": "711 W 40th St",
+						"address2": "Ste 152",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21211",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"711 W 40th St",
+							"Ste 152",
+							"Baltimore, MD 21211"
+						]
+					},
+					"phone": "+16672102633",
+					"display_phone": "(667) 210-2633",
+					"reviews": [
+						{
+							"text": "Decided to try the Local Fry based on the reviews as well since I haven't found a Banh Mi spot.\n\nRight now they are only doing online orders for pickup or...",
+							"rating": 5
+						},
+						{
+							"text": "Thanks for coming through like the champ you are Local Fry! After two failed attempts at satiating my hunger this afternoon, I had a seamlessly smooth...",
+							"rating": 5
+						},
+						{
+							"text": "The Local Fry has been a longtime favorite in our household, but the way they've managed to continue safe service during this COVID crisis made me finally...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "cAHZau7NZIjVRBhOOkPTcg",
+					"alias": "nailahs-kitchen-baltimore",
+					"name": "Nailah's Kitchen",
+					"image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/ScdFrhd0zVL6QDtViOQAQw/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/nailahs-kitchen-baltimore?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 284,
+					"categories": [
+						{
+							"alias": "senegalese",
+							"title": "Senegalese"
+						},
+						{
+							"alias": "halal",
+							"title": "Halal"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.3603723,
+						"longitude": -76.6102004
+					},
+					"photos": [
+						"https://s3-media3.fl.yelpcdn.com/bphoto/ScdFrhd0zVL6QDtViOQAQw/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/KkaHZUkooV_dfwLW3EAl5Q/o.jpg",
+						"https://s3-media3.fl.yelpcdn.com/bphoto/_WoanbtMIVkQ_V8t2Ux76Q/o.jpg"
+					],
+					"transactions": [
+						"pickup",
+						"delivery"
+					],
+					"price": "$$",
+					"location": {
+						"address1": "5722 York Rd",
+						"address2": "",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21212",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"5722 York Rd",
+							"Baltimore, MD 21212"
+						]
+					},
+					"phone": "+14434615600",
+					"display_phone": "(443) 461-5600",
+					"reviews": [
+						{
+							"text": "I have been coming to this restaurant for year even when they were located at their previous location . Over the year the quality and taste of their have...",
+							"rating": 5
+						},
+						{
+							"text": "We went for dinner and unfortunately the restaurant was closed. Fortunately for us, the takeout kitchen was open and honestly, I think I prefer to order...",
+							"rating": 5
+						},
+						{
+							"text": "What a delightful experience to get take-out from here! They don't have a way to order online that I could find, and I wasn't confident calling and ordering...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "9PgU81DELsu8GaVX8FT45w",
+					"alias": "underground-pizza-baltimore-2",
+					"name": "Underground Pizza",
+					"image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/l2yfFl9tkOjn-UzSFajUgg/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/underground-pizza-baltimore-2?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 57,
+					"categories": [
+						{
+							"alias": "pizza",
+							"title": "Pizza"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.28907,
+						"longitude": -76.607268
+					},
+					"photos": [
+						"https://s3-media4.fl.yelpcdn.com/bphoto/l2yfFl9tkOjn-UzSFajUgg/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/qtQxfO1BKd_b4f1YcdubKg/o.jpg",
+						"https://s3-media3.fl.yelpcdn.com/bphoto/ZGrjpVXHjgLSLDSvDjNvWg/o.jpg"
+					],
+					"transactions": [
+						"delivery"
+					],
+					"location": {
+						"address1": "30 Market Pl",
+						"address2": "",
+						"city": "Baltimore",
+						"zip_code": "21202",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"30 Market Pl",
+							"Baltimore, MD 21202"
+						]
+					},
+					"phone": "+14433476190",
+					"display_phone": "(443) 347-6190",
+					"reviews": [
+						{
+							"text": "Holy Smokes, Underground Pizza is GOOD! My first time having Detroit style pizza and I'm a definite fan! \n\nSome coworkers and I ordered 2 large pizzas and...",
+							"rating": 5
+						},
+						{
+							"text": "Such good pizza, and even more impressive that they grew so much during the pandemic, selling out of pop ups around the city and now with a storefront! I've...",
+							"rating": 5
+						},
+						{
+							"text": "I'm not sure where to even start, but wow. Wow, wow, wow this pizza is amazing. I'll start from the beginning... walking in first glance the restaurant had...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "vziISH-B9jwzW6iUQ6sEMA",
+					"alias": "maggies-farm-baltimore",
+					"name": "Maggie's Farm",
+					"image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/VP6b_28nZQMWH0hgBOuj0w/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/maggies-farm-baltimore?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 304,
+					"categories": [
+						{
+							"alias": "newamerican",
+							"title": "American (New)"
+						},
+						{
+							"alias": "comfortfood",
+							"title": "Comfort Food"
+						},
+						{
+							"alias": "cocktailbars",
+							"title": "Cocktail Bars"
+						}
+					],
+					"rating": 4.0,
+					"coordinates": {
+						"latitude": 39.339428,
+						"longitude": -76.572469
+					},
+					"photos": [
+						"https://s3-media3.fl.yelpcdn.com/bphoto/VP6b_28nZQMWH0hgBOuj0w/o.jpg",
+						"https://s3-media4.fl.yelpcdn.com/bphoto/Onq9jDVnppB3lQSEXRkniA/o.jpg",
+						"https://s3-media1.fl.yelpcdn.com/bphoto/0r5dYJ1R3_yyr-MJYnI3cQ/o.jpg"
+					],
+					"transactions": [
+						"delivery",
+						"pickup"
+					],
+					"price": "$$",
+					"location": {
+						"address1": "4341 Harford Rd",
+						"address2": "",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21214",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"4341 Harford Rd",
+							"Baltimore, MD 21214"
+						]
+					},
+					"phone": "+14102542376",
+					"display_phone": "(410) 254-2376",
+					"reviews": [
+						{
+							"text": "Maggie's Farm has truly excellent food. I'm lucky enough to live right near it, but if I didn't I would come up to Lauraville just for this food. All the...",
+							"rating": 5
+						},
+						{
+							"text": "It's has been a while since I been to Maggie's Farm, and I'm glad I came back. Me and a good girlfriend just so happen to be on this side of town and wanted...",
+							"rating": 5
+						},
+						{
+							"text": "Yesterday I had the pleasure of visiting this neighborhood gem. I found out about it through IG. I have rode past this place so many times and never knew it...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "rVH8J1hzP1A5JUSc8b1XGA",
+					"alias": "the-real-thing-towson",
+					"name": "The Real Thing",
+					"image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/p_wS1hV37ew140Z-VE8Rzw/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/the-real-thing-towson?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 281,
+					"categories": [
+						{
+							"alias": "sandwiches",
+							"title": "Sandwiches"
+						},
+						{
+							"alias": "cheesesteaks",
+							"title": "Cheesesteaks"
+						}
+					],
+					"rating": 4.0,
+					"coordinates": {
+						"latitude": 39.3998,
+						"longitude": -76.6024
+					},
+					"photos": [
+						"https://s3-media2.fl.yelpcdn.com/bphoto/p_wS1hV37ew140Z-VE8Rzw/o.jpg",
+						"https://s3-media1.fl.yelpcdn.com/bphoto/qqKQiPqBu15ejn1PlSVXZw/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/LYntrEg33bkyS5GmL7GVfw/o.jpg"
+					],
+					"transactions": [
+						"delivery"
+					],
+					"price": "$",
+					"location": {
+						"address1": "412 York Rd",
+						"address2": "",
+						"address3": "",
+						"city": "Towson",
+						"zip_code": "21204",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"412 York Rd",
+							"Towson, MD 21204"
+						]
+					},
+					"phone": "+14105837211",
+					"display_phone": "(410) 583-7211",
+					"reviews": [
+						{
+							"text": "Your cheap, late night dream food.\n\nThe Real Thing is hidden among the larger restaurants in Towson's downtown area with an ancient sign pointing to their...",
+							"rating": 4
+						},
+						{
+							"text": "I love this place I follow cheesesteak gurus on Facebook. I was not surprised to see it mentioned as a favorite there.\n\nThey actually increased their...",
+							"rating": 5
+						},
+						{
+							"text": "Tony & crew are outdoing themselves with awesome food and great service. \nOpen for take-out as always. \nGreat cheesesteaks (chicken or beef). \nFantastic...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "x2BzYafDAlU7cP9s79g2Zg",
+					"alias": "the-lvh-baltimore",
+					"name": "The LVH",
+					"image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/PrFqRdEP1SjLKLM_nWmM3g/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/the-lvh-baltimore?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 25,
+					"categories": [
+						{
+							"alias": "southern",
+							"title": "Southern"
+						},
+						{
+							"alias": "soulfood",
+							"title": "Soul Food"
+						},
+						{
+							"alias": "bars",
+							"title": "Bars"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.3392225,
+						"longitude": -76.5732418
+					},
+					"photos": [
+						"https://s3-media3.fl.yelpcdn.com/bphoto/PrFqRdEP1SjLKLM_nWmM3g/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/MpBzjjz8wK0nZCSeke-YFg/o.jpg",
+						"https://s3-media2.fl.yelpcdn.com/bphoto/dGSRKnNCppVlADEyI4APiQ/o.jpg"
+					],
+					"transactions": [
+						"delivery"
+					],
+					"price": "$$",
+					"location": {
+						"address1": "4258 Harford Rd",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21214",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"4258 Harford Rd",
+							"Baltimore, MD 21214"
+						]
+					},
+					"phone": "+16672604945",
+					"display_phone": "(667) 260-4945",
+					"reviews": [
+						{
+							"text": "I ave spent a good part of my life in the Deep South and this is among the best soul food I've ever had. This includes \"Wilson's \"Ready for the People\" in...",
+							"rating": 5
+						},
+						{
+							"text": "This establishment let go of all of their employees in early May.  They didn't care if they could pay their bills or not.  The owners didn't even have the...",
+							"rating": 1
+						},
+						{
+							"text": "For starters, I just want to say that I've been a longtime fan of Taste This since they opened the location on Harford Road. The food there has always been...",
+							"rating": 5
+						}
+					]
+				},
+				{
+					"id": "O2ZrDUuqXoluq9cmrFhoyg",
+					"alias": "mount-vernon-marketplace-baltimore-2",
+					"name": "Mount Vernon Marketplace",
+					"image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/jlLM8HIUKnJUEE0rftugCw/o.jpg",
+					"is_closed": false,
+					"url": "https://www.yelp.com/biz/mount-vernon-marketplace-baltimore-2?adjust_creative=wCqsN-GxWsGr58NPEXcF9Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=wCqsN-GxWsGr58NPEXcF9Q",
+					"review_count": 221,
+					"categories": [
+						{
+							"alias": "food_court",
+							"title": "Food Court"
+						}
+					],
+					"rating": 4.5,
+					"coordinates": {
+						"latitude": 39.295902,
+						"longitude": -76.618819
+					},
+					"photos": [
+						"https://s3-media4.fl.yelpcdn.com/bphoto/jlLM8HIUKnJUEE0rftugCw/o.jpg",
+						"https://s3-media3.fl.yelpcdn.com/bphoto/uC879YPgohO6CVIYutCctg/o.jpg",
+						"https://s3-media4.fl.yelpcdn.com/bphoto/eYhLSQqH5nHhrDS7vp99TA/o.jpg"
+					],
+					"transactions": [],
+					"price": "$$",
+					"location": {
+						"address1": "520 Park Ave",
+						"address2": "",
+						"address3": "",
+						"city": "Baltimore",
+						"zip_code": "21201",
+						"country": "US",
+						"state": "MD",
+						"display_address": [
+							"520 Park Ave",
+							"Baltimore, MD 21201"
+						]
+					},
+					"phone": "+14437967393",
+					"display_phone": "(443) 796-7393",
+					"reviews": [
+						{
+							"text": "Friendly staff and a great neighborhood place to pick up forgotten items from the major markets. It's even open on Sunday. They also sell local specialty...",
+							"rating": 5
+						},
+						{
+							"text": "The chicken wings from Cheezy Mike's (I got the \"nuclear\") are some of the best chicken wings I've had, they were so flavorful, crispy, not fatty, and a...",
+							"rating": 5
+						},
+						{
+							"text": "I go back and forth about my favorite markets in the city depending on the day, but I know Mt Vernon is one of 'em.\n\nVisited a number of times between...",
+							"rating": 4
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Viewing all users currently in database",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{herokuURL}}/api/users",
+					"host": [
+						"{{herokuURL}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": [
+				{
+					"userName": "elewin0",
+					"pword": "jykBFpuOiS7q",
+					"user_ID": 1,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "gdamrel1",
+					"pword": "1k852EiMi",
+					"user_ID": 2,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "kbastock2",
+					"pword": "P1hYn4U4yMg",
+					"user_ID": 3,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"loc": "64 Susan Place",
+					"userName": "egorusso3",
+					"pword": "bOiAGh",
+					"user_ID": 4,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"loc": "2 Farmco Pass",
+					"userName": "dfulker4",
+					"pword": "uPRmvhlHMnJ",
+					"user_ID": 5,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "mderbyshire5",
+					"pword": "4B36ySy1b2p",
+					"user_ID": 6,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"loc": "14760 Stephen Circle",
+					"userName": "agobourn6",
+					"pword": "RlakQF",
+					"user_ID": 7,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"loc": "84 Meadow Ridge Plaza",
+					"userName": "nrickard7",
+					"pword": "2XxHy8Y07EW",
+					"user_ID": 8,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"loc": "48 Di Loreto Circle",
+					"userName": "rcornborough8",
+					"pword": "AE839b",
+					"user_ID": 9,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"loc": "77114 Linden Plaza",
+					"userName": "kjozaitis9",
+					"pword": "TiE9SD8WA",
+					"user_ID": 10,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "tbubeera",
+					"pword": "xc4Jdg",
+					"user_ID": 11,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "tboolsc",
+					"pword": "WzdZuEht",
+					"user_ID": 13,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"loc": "584 Banding Court",
+					"userName": "beastbrookd",
+					"pword": "dmoVuxhbI",
+					"user_ID": 14,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "tredselle",
+					"pword": "vZWf6zM",
+					"user_ID": 15,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "kfeatherstonef",
+					"pword": "d9jBMbk",
+					"user_ID": 16,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "ppooleyg",
+					"pword": "x8BydCrAGY1",
+					"user_ID": 17,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"loc": "844 Hazelcrest Drive",
+					"userName": "amccrostieh",
+					"pword": "b8V958",
+					"user_ID": 18,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "kfyldesi",
+					"pword": "fo4cfE",
+					"user_ID": 19,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "ppallaskej",
+					"pword": "wg6NVLHRM",
+					"user_ID": 20,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"loc": "893 Pepper Wood Junction",
+					"userName": "tmivalk",
+					"pword": "VUmQzbfIAp",
+					"user_ID": 21,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "newAccount",
+					"pword": "newAccount",
+					"user_ID": 53,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"loc": "testing",
+					"userName": "testing",
+					"pword": "testing",
+					"user_ID": 41,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "msoallb",
+					"pword": "8ZNYnsZtL",
+					"user_ID": 12,
+					"group_ID": 1,
+					"preferencesList": [
+						"indpak",
+						"vegan"
+					],
+					"preferences": "indpak,vegan",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "test2222",
+					"pword": "test2222",
+					"user_ID": 40,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "test1",
+					"pword": "test1",
+					"user_ID": 22,
+					"group_ID": 1,
+					"preferencesList": [
+						"vegan"
+					],
+					"preferences": "vegan",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "test2",
+					"pword": "test2",
+					"user_ID": 23,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "test222",
+					"pword": "test222",
+					"user_ID": 25,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "test10",
+					"pword": "test10",
+					"user_ID": 26,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "test3",
+					"pword": "test3",
+					"user_ID": 27,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "test4",
+					"pword": "test4",
+					"user_ID": 28,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "test6",
+					"pword": "test6",
+					"user_ID": 29,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "test7",
+					"pword": "test7",
+					"user_ID": 30,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "test8",
+					"pword": "test8",
+					"user_ID": 31,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "test9",
+					"pword": "test9",
+					"user_ID": 33,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "test11",
+					"pword": "test11",
+					"user_ID": 34,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": true
+				},
+				{
+					"userName": "test12",
+					"pword": "test12",
+					"user_ID": 35,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": true
+				},
+				{
+					"userName": "test13",
+					"pword": "test13",
+					"user_ID": 36,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": true
+				},
+				{
+					"userName": "test14",
+					"pword": "test14",
+					"user_ID": 37,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": true
+				},
+				{
+					"userName": "ddd",
+					"pword": "ddd",
+					"user_ID": 46,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "test16",
+					"pword": "test16",
+					"user_ID": 39,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "test15",
+					"pword": "test15",
+					"user_ID": 38,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": false
+				},
+				{
+					"userName": "den",
+					"pword": "den",
+					"user_ID": 48,
+					"group_ID": 1,
+					"preferencesList": [
+						"none"
+					],
+					"preferences": "none",
+					"isLoggedIn": true
+				},
+				{
+					"userName": "thee",
+					"pword": "thee",
+					"user_ID": 49,
+					"group_ID": 1,
+					"preferencesList": [
+						"kosher"
+					],
+					"preferences": "kosher",
+					"isLoggedIn": true
+				}
+			]
+		},
+		{
+			"name": "Viewing info of specific user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{herokuURL}}/api/users/tbubeera",
+					"host": [
+						"{{herokuURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"tbubeera"
+					]
+				}
+			},
+			"response": {
+				"userName": "tbubeera",
+				"pword": "xc4Jdg",
+				"user_ID": 11,
+				"group_ID": 1,
+				"preferencesList": [
+					"none"
+				],
+				"preferences": "none",
+				"isLoggedIn": false
+			}
+		},
+		{
+			"name": "Signing up for account",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"newAccount\",\r\n    \"password\": \"newAccount\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{herokuURL}}/signup",
+					"host": [
+						"{{herokuURL}}"
+					],
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": {
+				"userName": "newAccount",
+				"pword": "newAccount",
+				"user_ID": 53,
+				"group_ID": 1,
+				"preferences": "{none}",
+				"isLoggedIn": false
+			}
+		},
+		{
+			"name": "Logging into account (Success)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"newAccount\",\r\n    \"password\": \"newAccount\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{herokuURL}}/login",
+					"host": [
+						"{{herokuURL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": {
+				"message": "newAccount"
+			}
+		},
+		{
+			"name": "Logging into account (Failure)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"newAccount\",\r\n    \"password\": \"woops, i forgot the password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{herokuURL}}/login",
+					"host": [
+						"{{herokuURL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": {
+				"message": "fail"
+			}
+		},
+		{
+			"name": "Checking user's login status (True)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"newAccount\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{herokuURL}}/isLoggedIn",
+					"host": [
+						"{{herokuURL}}"
+					],
+					"path": [
+						"isLoggedIn"
+					]
+				}
+			},
+			"response": {
+				"message": "true"
+			}
+		},
+		{
+			"name": "Logging out",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"newAccount\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{herokuURL}}/logout",
+					"host": [
+						"{{herokuURL}}"
+					],
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": {
+				"message": "success"
+			}
+		},
+		{
+			"name": "Checking user's login status (False)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"newAccount\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{herokuURL}}/isLoggedIn",
+					"host": [
+						"{{herokuURL}}"
+					],
+					"path": [
+						"isLoggedIn"
+					]
+				}
+			},
+			"response": {
+				"message": "false"
+			}
+		},
+		{
+			"name": "Updating user preference list",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"thee\",\r\n    \"preferencesList\": [\"kosher\", \"chinese\", \"vegan\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{herokuURL}}/updatePreference",
+					"host": [
+						"{{herokuURL}}"
+					],
+					"path": [
+						"updatePreference"
+					]
+				}
+			},
+			"response": {
+				"userName": "thee",
+				"pword": "thee",
+				"user_ID": 49,
+				"group_ID": 1,
+				"preferencesList": [
+					"kosher",
+					"chinese",
+					"vegan"
+				],
+				"preferences": "kosher,chinese,vegan",
+				"isLoggedIn": true
+			}
+		},
+		{
+			"name": "Removing user preferences",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"thee\",\r\n    \"preferencesList\": [\"chinese\", \"vegan\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{herokuURL}}/removePreference",
+					"host": [
+						"{{herokuURL}}"
+					],
+					"path": [
+						"removePreference"
+					]
+				}
+			},
+			"response": {
+				"userName": "thee",
+				"pword": "thee",
+				"user_ID": 49,
+				"group_ID": 1,
+				"preferencesList": [
+					"kosher"
+				],
+				"preferences": "kosher",
+				"isLoggedIn": true
+			}
+		},
+		{
+			"name": "Deleting users from database",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "// returns deleted user's info if successful",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{herokuURL}}/api/users/dddd",
+					"host": [
+						"{{herokuURL}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"dddd"
+					]
+				}
+			},
+			"response": {
+				"userName": "dddd",
+				"pword": "dddd",
+				"user_ID": 43,
+				"group_ID": 1,
+				"preferences": "{none}",
+				"isLoggedIn": false
+			}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "localURL",
+			"value": "http://localhost:4568"
+		},
+		{
+			"key": "herokuURL",
+			"value": "https://chicken-tinder-13-backend.herokuapp.com"
+		}
+	]
+}

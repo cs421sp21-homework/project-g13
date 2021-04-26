@@ -7,6 +7,8 @@ import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import userStore from "../../stores/UserStore";
 
+import * as api from "../../api/Api.js";
+
 const styles = theme => ({
     button: {
         color: '#5a2c22',
@@ -83,7 +85,7 @@ class SignupForm extends React.Component {
         });
     }; */
 
-    async doSignup() {
+    doSignup() {
         if(!this.state.username) {
             return;
         }
@@ -94,31 +96,23 @@ class SignupForm extends React.Component {
             buttonDisabled: true
         })
 
-        try{
-            let res = await fetch(this.state.endpointHerokuURL + "/signup", {
-                method: 'post',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username: this.state.username,
-                    password: this.state.password
-                })
-            });
+        //try{
+            api.signup(this.state.username, this.state.password)
+                .then((result) => {
+                if((result.userName).valueOf() === (this.state.username).valueOf()) {
+                    //UserStore.isLoggedIn = false; // have not logged in yet, simply created an account
+                    //UserStore.username = result.username;
+                    this.props.history.push("/Login"); // going back to Home page
+                }
+                else {
+                    this.resetForm();
+                    alert(result.msg + "Could not create account.");
+                }
+            })}
 
-            let result = await res.json();
-            if((result.userName).valueOf() === (this.state.username).valueOf()) {
-                //UserStore.isLoggedIn = false; // have not logged in yet, simply created an account
-                //UserStore.username = result.username;
-                this.props.history.push("/Login"); // going back to Home page
-            }
-            else {
-                this.resetForm();
-                alert(result.msg + "Could not create account.");
-            }
-        }
-        catch (e) {
+
+        //}
+       /* catch (e) {
             if (e instanceof TypeError) {
                 const NetworkErr1 = new String("Failed to fetch"); // Chrome
                 const NetworkErr2 = new String("NetworkError when attempting to fetch resource."); // Firefox
@@ -132,7 +126,7 @@ class SignupForm extends React.Component {
             this.resetForm();
             
         }
-    }
+    } */
 
     render() {
         return (
