@@ -93,7 +93,7 @@ class Login extends React.Component {
         return (
             <div className="signup">
                 <div className="container">
-                    {UserStore.isLoggedIn ? <Account/> : <LoginForm/>}
+                    <LoginForm/>
                 </div>
             </div>
         );
