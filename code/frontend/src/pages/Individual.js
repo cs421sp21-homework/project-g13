@@ -114,8 +114,11 @@ class Individual extends Component {
               }
 
                 { page === "match_found" &&
-                    <MatchFound  restaurant={this.restaurants[this.state.currentRestaurantIndex]} 
-                    onDone={() => this.props.history.push("/")} />
+                    <MatchFound
+                        restaurant={this.restaurants[this.state.currentRestaurantIndex]}
+                        onDone={() => this.props.history.push("/")}
+                        onContinue={() => {}}
+                    />
                 }
 
                 { page === "no_match_found" &&

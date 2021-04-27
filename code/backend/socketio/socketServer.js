@@ -55,7 +55,8 @@ Room.emitFinishedFunc = function (room) {
 
 Room.emitMatchFoundfunc = function (room, restaurantId) {
   if (roomsMap.has(room)) {
-    if (roomsMap.get(room).addYesVote(restaurantId)) {
+    if (roomsMap.get(room).restaurantYesVotes.get(restaurantId) >= roomsMap.get(room).size) {
+      console.log("match found being emitted @ 59");
       io.to(room).emit("match_found", restaurantId);
     }
   }
@@ -137,6 +138,7 @@ io.on("connection", function (socket) {
     const { room, restaurantId } = data;
     if (roomsMap.has(room)) {
       if (roomsMap.get(room).addYesVote(restaurantId, socket.id)) {
+        console.log("match found being emitted @ 141");
         io.to(room).emit("match_found", restaurantId);
       }
     }

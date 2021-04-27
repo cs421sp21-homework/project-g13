@@ -118,7 +118,9 @@ class Room {
             //console.log(this.name ) 
             this.ready = false;
             Room.emitReadySignalFunc(this.name, false);
-            this.retrieveRestaurants();
+            this.retrieveRestaurants().then(() => {
+                this.initializeZeroVotes();
+            });
         }
     }
 
@@ -171,7 +173,9 @@ class Room {
 
         this.restaurants = [];
         this.received = 0;
-        this.retrieveRestaurants();
+        this.retrieveRestaurants().then(() => {
+            this.initializeZeroVotes();
+        });
     }
 
   //return true if we need to send restaurant data to client
@@ -198,13 +202,14 @@ class Room {
     if (this.members.has(memberId)) {
       //update restaurantYes/NoVotes
       for (let i = 0; i < this.restaurants.length; i++) {
-        if (this.members.get(memberId).votes.has(this.restaurants[i])) {
-          if (this.members.get(memberId).votes.get(this.restaurants[i])) {
-            this.restaurantYesVotes.set(this.restaurants[i],
-              this.restaurantYesVotes.get(this.restaurants[i]) - 1);
+        if (this.members.get(memberId).votes.has(this.restaurants[i].id)) {
+          if (this.members.get(memberId).votes.get(this.restaurants[i].id)) {
+            console.log("decreasing yes vote for " + this.restaurants[i].id);
+            this.restaurantYesVotes.set(this.restaurants[i].id,
+              this.restaurantYesVotes.get(this.restaurants[i].id) - 1);
           } else {
-            this.restaurantNoVotes.set(this.restaurants[i],
-              this.restaurantNoVotes.get(this.restaurants[i]) - 1);
+            this.restaurantNoVotes.set(this.restaurants[i].id,
+              this.restaurantNoVotes.get(this.restaurants[i].id) - 1);
           }
         }
       }
@@ -220,6 +225,7 @@ class Room {
   }
 
   addYesVote(restaurantId, member) {
+    console.log("adding yes vote to " + restaurantId);
     if (this.members.has(member)) {
       this.members.get(member).votes.set(restaurantId, true);
     }
@@ -302,7 +308,7 @@ class Room {
                 Room.emitRestaurantsFunc(this.name, JSON.stringify(this.restaurants));
             }
         }
-      }
+    }
 
     async retreiveRestaurantsNoFilters(cancelTokenSource) {
         console.log("retreiving restaurants with no filters...");
@@ -357,12 +363,11 @@ class Room {
     return true;
   }
 
-  checkIfMatchFound() {
-    for (const entry of this.restaurantYesVotes.entries()) {
-      //console.log("member " + key + ": " + value.finished);
-      if (entry[1] >= this.size) {
+   checkIfMatchFound() {
+    for (let i = 20 * this.offset; i < this.restaurants.length; i++) {
+      if (this.restaurantYesVotes.get(this.restaurants[i].id) >= this.size) {
         //send the match found signal
-        Room.emitMatchFoundfunc(this.name, entry[0]);
+        Room.emitMatchFoundfunc(this.name, this.restaurants[i].id);
         return true;
       }
     }
@@ -372,6 +377,7 @@ class Room {
   initializeZeroVotes() {
     for (let i = 0; i < this.restaurants.length; i++) {
       if (!this.restaurantYesVotes.has(this.restaurants[i].id)) {
+        console.log("set yes votes for " + this.restaurants[i].id +" to 0");
         this.restaurantYesVotes.set(this.restaurants[i].id, 0);
       }
       if (!this.restaurantNoVotes.has(this.restaurants[i].id)) {
@@ -394,7 +400,6 @@ class Room {
     for (let i = 0; i < this.restaurants.length; i++) {
       this.restaurantById.set(this.restaurants[i].id, this.restaurants[i]);
     }
-    this.initializeZeroVotes();
     const restaurantId = rec.recommendRestaurant(
       this.members,
       this.restaurantYesVotes,

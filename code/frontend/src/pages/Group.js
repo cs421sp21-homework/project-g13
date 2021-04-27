@@ -54,6 +54,7 @@ class Group extends Component {
     this.onLikeRestaurant = this.onLikeRestaurant.bind(this);
 
     this.restaurants = [];
+    this.matches = [];
     this.filters = new Map();
     this.filters.set("prices", []);
     this.filters.set("ratings", []);
@@ -64,7 +65,7 @@ class Group extends Component {
     this.joinPage = createRef();
 
     //socket.io stuff
-    const useLocalSocketServer = false;
+    const useLocalSocketServer = true;
     const socketServer = useLocalSocketServer
       ? "http://localhost:4000"
       : "https://chicken-tinder-13-socketio.herokuapp.com";
@@ -222,6 +223,7 @@ class Group extends Component {
   }
 
   onTryAgain() {
+    this.isFinished = false;
     this.setState({ page: this.state.isHost ? "host" : "join" });
     if (this.state.isHost) {
       this.state.offset = (this.state.offset + 20) % 1000;
@@ -273,6 +275,7 @@ class Group extends Component {
 
   render() {
     const page = this.state.page;
+    console.log("page " + page);
     const isHost = this.state.isHost;
     //console.log("message:" + this.state.message);
     //console.log(this.state);
@@ -321,7 +324,12 @@ class Group extends Component {
         {page === "match_found" && (
           <MatchFound
             restaurant={this.restaurants[this.state.currentRestaurantIndex]}
+            oldMatches={this.matches}
             onDone={() => this.props.history.push("/")}
+            onContinue={() => {
+              this.matches.push(this.restaurants[this.state.currentRestaurantIndex])
+              this.onTryAgain();
+            }}
           />
         )}
 
@@ -506,7 +514,7 @@ class Group extends Component {
           break;
         }
       }
-
+      console.log("Poopensharten");
       this.setState({ page: "match_found" });
     }
   }

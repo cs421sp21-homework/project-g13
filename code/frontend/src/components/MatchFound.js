@@ -33,14 +33,22 @@ const styles = theme => ({
 class MatchFound extends Component {
 
     render() {
-        const {restaurant, classes} = this.props;
 
+        const {restaurant, classes, oldMatches} = this.props;
         return(
                     <div className='App'>
                         <header className='App-header'>
                             <h1> Match Found!</h1>
-                            <Card cardType="match_found" restaurant={restaurant} ></Card>
+                            <Card cardType="match_found" restaurant={restaurant} />
                             <form>
+                                <Button
+                                    className={classes.button}
+                                    onClick={this.props.onContinue}
+                                    variant="contained"
+                                    size='large'
+                                >
+                                    Continue
+                                </Button>
                                 <Button
                                     className={classes.button}
                                     onClick={this.props.onDone}
@@ -50,6 +58,14 @@ class MatchFound extends Component {
                                     Done
                                 </Button>
                             </form>
+                            {oldMatches.length > 0 &&
+                            <div>
+                                <h1>Previous matches:</h1>
+                                {oldMatches.map((rest) =>
+                                    <Card cardType="match_found" restaurant={rest}/>
+                                )}
+                            </div>
+                            }
                         </header>
                     </div>
         )
