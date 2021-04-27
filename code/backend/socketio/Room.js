@@ -364,7 +364,7 @@ class Room {
   }
 
    checkIfMatchFound() {
-    for (let i = 20 * this.offset; i < this.restaurants.length; i++) {
+    for (let i = this.offset; i < this.restaurants.length; i++) {
       if (this.restaurantYesVotes.get(this.restaurants[i].id) >= this.size) {
         //send the match found signal
         Room.emitMatchFoundfunc(this.name, this.restaurants[i].id);
