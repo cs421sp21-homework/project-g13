@@ -6,7 +6,6 @@ import exceptions.ApiError;
 import exceptions.DaoException;
 import model.yelp.Restaurant;
 import model.User;
-import dao.GroupDao;
 import dao.UserDao;
 import org.sql2o.Sql2o;
 import util.JsonConverter;
@@ -54,7 +53,6 @@ public class Server {
         JsonConverter gson = new JsonConverter();
 
         UserDao userDao;
-        GroupDao groupDao;
 
         try {
             userDao = getUserDao();

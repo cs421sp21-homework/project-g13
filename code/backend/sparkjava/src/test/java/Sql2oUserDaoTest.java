@@ -254,4 +254,17 @@ class Sql2oUserDaoTest {
 
     }
 
+    @Test
+    @DisplayName("can update user's location")
+    void testLocation() {
+        User u1 = userDao.create("locTest", "locTest");
+        User u2 = userDao.login("locTest");
+
+        userDao.setLocation("locTest", "3400 N. Charles St Baltimore MD 21218");
+        assertEquals(userDao.getLocation("locTest"), "3400 N. Charles St Baltimore MD 21218");
+
+        userDao.logout("locTest");
+
+    }
+
 }
