@@ -78,6 +78,7 @@ class Sql2oUserDaoTest {
             conn.createQuery("DROP TABLE IF EXISTS user_info;").executeUpdate();
             conn.createQuery("DROP TABLE IF EXISTS group_info;").executeUpdate();
 
+            /*
             String sql = "CREATE TABLE group_info (" +
                     "group_id BIGSERIAL PRIMARY KEY," +
                     "name VARCHAR(50)," +
@@ -87,26 +88,27 @@ class Sql2oUserDaoTest {
             sql = "insert into group_info(memberIDs) " +
                     "values (ARRAY [0]);";
             conn.createQuery(sql).executeUpdate();
+            */
 
-            sql = "CREATE TABLE user_info (" +
+            String sql = "CREATE TABLE user_info (" +
                     "user_id BIGSERIAL NOT NULL PRIMARY KEY," +
                     "username VARCHAR(50) NOT NULL," +
                     "pword VARCHAR(50) NOT NULL," +
                     "loc VARCHAR(100)," +
                     "preferences VARCHAR(50) []," + // left as empty upon creation
                     "isloggedin VARCHAR(20)," +
-                    "group_id BIGSERIAL REFERENCES group_info(group_id)," +
+                    //"group_id BIGSERIAL REFERENCES group_info(group_id)," +
                     "UNIQUE(username)," +
                     "UNIQUE(pword));";
             conn.createQuery(sql).executeUpdate();
 
-            sql = "INSERT INTO user_info(username, pWord, loc, preferences, isloggedin, group_id) " +
-                    "VALUES(:username, :pWord, :loc, ARRAY['none'], 'no', :group_id);";
+            sql = "INSERT INTO user_info(username, pWord, loc, preferences, isloggedin) " +
+                    "VALUES(:username, :pWord, :loc, ARRAY['none'], 'no');";
             for (User user : samples) {
                 conn.createQuery(sql).addParameter("username", user.getUserName())
                         .addParameter("pWord", user.getPword())
                         .addParameter("loc", user.getLoc())
-                        .addParameter("group_id", user.getGroup_ID())
+                        //.addParameter("group_id", user.getGroup_ID())
                         .executeUpdate();
             }
         }
