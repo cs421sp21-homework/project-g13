@@ -191,6 +191,46 @@ public class Server {
             }
         });
 
+        get("/api/location/:uname", (req, res) -> {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "GET");
+            //res.header("Access-Control-Allow-Methods", "POST");
+            res.header("Content-Type", "application/json");
+
+            try {
+                String uname = req.params("uname");
+                //User user = userDao.read(uname);
+                String location = userDao.getLocation(uname);
+                StatusMessage locationMsg = new StatusMessage();
+                locationMsg.setMessage(location);
+                return gson.toJson(locationMsg);
+            } catch (NullPointerException e) {
+                throw new ApiError("(BAD REQUEST) No user with that username exists!", 400);
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
+        });
+
+        post("/api/location/:uname", (req, res) -> {
+            res.header("Access-Control-Allow-Origin", "*");
+            res.header("Access-Control-Allow-Methods", "GET");
+            res.header("Access-Control-Allow-Methods", "POST");
+            res.header("Content-Type", "application/json");
+
+            try {
+                RouteUser userInfo = gson.fromJson(req.body(), RouteUser.class);
+                String uname = req.params("uname");
+                String location = userDao.setLocation(uname, userInfo.getLocation());
+                StatusMessage locationMsg = new StatusMessage();
+                locationMsg.setMessage(location);
+                return gson.toJson(locationMsg);  // returning updated location
+            } catch (NullPointerException e) {
+                throw new ApiError("(BAD REQUEST) No user with that username exists!", 400);
+            } catch (Exception e) {
+                throw new ApiError(e.getMessage(), 500);
+            }
+        });
+
         post("/api/users", (req, res) -> {
             System.out.println(req.headers());
             res.header("Access-Control-Allow-Origin", "*");
