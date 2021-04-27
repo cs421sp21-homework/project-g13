@@ -8,7 +8,6 @@ When2Meet: https://www.when2meet.com/?11681146-YlLxK
 Our meeting time is 4pm EDT
 
 ### Future Meetings
-Saturday, April 24 3pm EDT to practice the presentation
 
 ### Past Meetings
 April 19, 2021 @ 4pm
@@ -26,12 +25,16 @@ Meeting tasks:
     - Login and storing user preferences -> Abdullah
   - What technical aspects will everyone discuss
     - Frontend (React, etc) -> Shanelle
-    - Backend overview (UML) -> Shanelle
+    - Backend overview (UML) and Database -> Daniel
     - Hosting/joining groups with socket.io -> Abdullah
     - Retrieving restaurant data from Yelp -> Eric
-    - Storing user info on our database -> Daniel
     - Recommendation algorithm -> Nathaniel
     
+Saturday, April 24 3pm EDT 
+- Practiced the presentation
+
+Monday, April 26 3pm EDT
+- Practiced the presentation
 
 # OO Design
 
