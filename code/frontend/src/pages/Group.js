@@ -543,6 +543,9 @@ class Group extends Component {
       roomId = "Waiting for server...";
     }
 
+    this.name = localStorage.getItem("username");
+    if (this.name === null || this.name === undefined) this.name = "";
+
     var initialLocation;
     var initialPage = isHost ? "host" : "join";
     var initialStatus;
@@ -551,7 +554,7 @@ class Group extends Component {
       initialPage = "host";
       initialLocation = "Not Set";
       initialStatus = "Please set the location";
-      initalShowAskForNickname = true;
+      initalShowAskForNickname = this.name === "";
     } else {
       initialPage = this.needsNewRoomId ? "join" : "waiting_to_join";
       initialStatus = "";
@@ -574,8 +577,6 @@ class Group extends Component {
       memberNames: [''],
       showAskForNickname: initalShowAskForNickname,
     };
-
-    this.name = "";
   }
 
 }
