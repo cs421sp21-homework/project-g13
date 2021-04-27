@@ -18,8 +18,7 @@ Meeting tasks:
   - Opening remarks -> Shanelle
   - Closing remarks -> Nathaniel
   - Who will demo what
-    - Individual swiping process (location only) -> Daniel
-    - Searching for restaurants with filters -> Eric
+    - Individual swiping process with filters-> Eric
     - Joining/hosting groups -> Shanelle
     - Recommendation and leaderboard on no match found page -> Nathaniel
     - Login and storing user preferences -> Abdullah
