@@ -111,9 +111,12 @@ class SetFilters extends Component {
                     } else {
                         //alert("Preferences stored!");
                      
-                        this.state.trueKosher = response.includes("kosher");                        
-                        this.state.trueVegetarian = response.includes("vegetarian");                       
+                        this.state.trueKosher = response.includes("kosher");   
+                        this.state.kosher = this.state.trueKosher;                     
+                        this.state.trueVegetarian = response.includes("vegetarian");  
+                        this.state.vegetarian = this.state.trueVegetarian;                     
                         this.state.trueVegan = response.includes("vegan");
+                        this.state.vegan = this.state.trueVegan;
                         
                         //return response;
                     }
