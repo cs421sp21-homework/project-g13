@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import { Dropdown } from 'semantic-ui-react'
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import * as api from "../api/Api.js";
 
 const styles = theme => ({
     submit: {
@@ -82,7 +83,12 @@ class SetFilters extends Component {
             const kosher = this.props.filters.get("kosher"); 
             const vegan = this.props.filters.get("vegan"); 
             const vegetarian = this.props.filters.get("vegetarian"); 
-            const lactose = this.props.filters.get("lactose"); 
+
+            // long-term preferences from database
+            const trueKosher = this.props.filters.get("kosher"); 
+            const trueVegan = this.props.filters.get("vegan"); 
+            const trueVegetarian = this.props.filters.get("vegetarian"); 
+            
             this.state = {
                 prices: (prices == null) ? [] : prices,
                 cuisines: (cuisines == null) ? [] : cuisines,
@@ -90,15 +96,45 @@ class SetFilters extends Component {
                 kosher: (kosher == null) ? false : kosher,
                 vegan: (vegan == null) ? false : vegan,
                 vegetarian: (vegetarian == null) ? false : vegetarian,
+                trueKosher: (trueKosher == null) ? false : trueKosher,
+                trueVegan: (trueVegan == null) ? false : trueVegan,
+                trueVegetarian: (trueVegetarian == null) ? false : trueVegetarian,
             }
+
+            let currUser = localStorage.getItem("username");
+            if ( currUser !== null) {
+                api.getUserPreference(currUser).then((response) => {
+                    if (typeof response === "undefined") {
+                        //return "none";
+                        alert("Error trying to preset filters");
+                        this.props.history.push("/");
+                    } else {
+                        //alert("Preferences stored!");
+                     
+                        this.state.trueKosher = response.includes("kosher");   
+                        this.state.kosher = this.state.trueKosher;                     
+                        this.state.trueVegetarian = response.includes("vegetarian");  
+                        this.state.vegetarian = this.state.trueVegetarian;                     
+                        this.state.trueVegan = response.includes("vegan");
+                        this.state.vegan = this.state.trueVegan;
+                        
+                        //return response;
+                    }
+                });
+            }
+
+            
         } else {
             this.state = {
                 prices: [],
                 cuisines: [],
                 ratings: [],
-                kosher: true,
+                kosher: false,
                 vegan: false,
                 vegetarian: false,
+                trueKosher: (trueKosher == null) ? false : trueKosher,
+                trueVegan: (trueVegan == null) ? false : trueVegan,
+                trueVegetarian: (trueVegetarian == null) ? false : trueVegetarian,
             }
         }
 
@@ -111,6 +147,18 @@ class SetFilters extends Component {
         this.props.filters.set("prices", this.state.prices);
         this.props.filters.set("cuisines", this.state.cuisines);
         this.props.filters.set("ratings", this.state.ratings);
+
+        // ensuring that database preferences override whatever the user chooses here
+        if (this.state.trueKosher === true) {
+            this.state.kosher = true;
+        }
+        if (this.state.trueVegan === true) {
+            this.state.vegan = true;
+        }
+        if (this.state.trueVegetarian === true) {
+            this.state.vegetarian = true;
+        }
+
         this.props.filters.set("kosher", this.state.kosher);
         this.props.filters.set("vegan", this.state.vegan);
         this.props.filters.set("vegetarian", this.state.vegetarian);

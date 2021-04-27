@@ -39,7 +39,8 @@ class Preference extends Component {
             preferences.push("gluten-free");
         }
         console.log(preferences);
-        api.updatePreference(UserStore.getUsername(), preferences).then( (response)=> {
+        api.updatePreference(localStorage.getItem("username"), preferences).then( (response)=> {
+            alert("Preferences saved!");
             //return response;
         });
     }

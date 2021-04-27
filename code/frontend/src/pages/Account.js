@@ -19,6 +19,7 @@ class Account extends Component {
             if (response.isEmpty()) {
                 return "none";
             }
+            alert("Preferences stored!");
             return response;
         });
     }
