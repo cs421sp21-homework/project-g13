@@ -10,7 +10,6 @@ import Group from './pages/Group';
 import Individual from "./pages/Individual";
 import SetFilters from "./pages/SetFilters.js"
 import AppNavbar from "./components/NavBar.js";
-import LoginForm from "./components/LoginSignup/LoginForm";
 import SignupForm from "./components/LoginSignup/SignupForm";
 import Account from "./pages/Account";
 
@@ -44,7 +43,7 @@ ReactDOM.render(
                     <SetFilters />
                 </Route>
                 <Route path="/Login">
-                    <LoginForm/>
+                    <Login/>
                 </Route>
                 <Route path="/Signup">
                     <SignupForm/>

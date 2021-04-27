@@ -288,7 +288,7 @@ class Room {
                 }
             }
 
-            console.log(this);
+            //console.log(this);
             if (this.price.length !== 0 || this.categories.length !== 0 || this.ratings.length !== 0) {
                 response = await this.retreiveRestaurantsWithFilters(cancelToken);
             } else {

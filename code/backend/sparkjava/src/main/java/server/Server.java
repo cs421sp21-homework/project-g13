@@ -143,6 +143,7 @@ public class Server {
                 }                 // default to all prices
                 try {
                     categories = req.queryParams("categories");
+                    if (categories == null) categories = "";
                 }       // Order matters!
                 catch (Exception e) {
                     categories = "";

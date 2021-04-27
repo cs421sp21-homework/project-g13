@@ -50,8 +50,8 @@ class Host extends Component {
   }
 
   render() {
-    console.log("member names");
-    console.log(this.props.memberNames);
+    //console.log("member names");
+    //console.log(this.props.memberNames);
     let memberNames = <span></span>;
     if (this.props.memberNames.length > 0) {
       memberNames = this.props.memberNames.map((name) =>
