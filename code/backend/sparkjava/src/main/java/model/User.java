@@ -9,7 +9,6 @@ public class User {
     private String userName;
     private String pword;
     private int user_ID;
-    private int group_ID;
     private List<String> preferencesList;
     private String preferences;
     private boolean isLoggedIn;
@@ -23,18 +22,16 @@ public class User {
         this.loc = null;
         this.preferences = " ";
         this.preferencesList = new ArrayList<>();
-        this.group_ID = 1;
         this.isLoggedIn = false;
     }
 
     /**
      * Construct a User with regular information (no preferences).
      */
-    public User(String uName, String pWord, String location, int gid) {
+    public User(String uName, String pWord, String location) {
         this.userName = uName;
         this.pword = pWord;
         this.loc = location;
-        this.group_ID = gid;
         this.preferences = " ";
         this.preferencesList = new ArrayList<>();
         this.isLoggedIn = false;
@@ -104,22 +101,6 @@ public class User {
      * @return the user's id.
      */
     public int getUser_ID() { return this.user_ID; }
-
-    /**
-     * Set the user's group id.
-     *
-     * @param gid The user's group id.
-     */
-    public void setGroup_ID(int gid) {
-        this.group_ID = gid;
-    }
-
-    /**
-     * Get user's group id.
-     *
-     * @return the user's group id.
-     */
-    public int getGroup_ID() { return this.group_ID; }
 
     /**
      * Set the user's long-term preferences AS A STRING.

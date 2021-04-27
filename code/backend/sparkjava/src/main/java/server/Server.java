@@ -2,12 +2,10 @@ package server;
 
 import com.google.gson.JsonObject;
 import dao.Sql2oUserDao;
-import dao.Sql2oGroupDao;
 import exceptions.ApiError;
 import exceptions.DaoException;
 import model.yelp.Restaurant;
 import model.User;
-import model.Group;
 import dao.GroupDao;
 import dao.UserDao;
 import org.sql2o.Sql2o;
@@ -45,15 +43,6 @@ public class Server {
         }
     }
 
-    private static GroupDao getGroupDao() throws Exception {
-        try {
-            Sql2o sql2o = getSql2o();
-            return new Sql2oGroupDao(sql2o);
-        } catch(URISyntaxException e) {
-            throw new Exception();
-        }
-    }
-
     public static void main(String[] args) throws ApiError {
 
         port(getHerokuAssignedPort());
@@ -69,7 +58,6 @@ public class Server {
 
         try {
             userDao = getUserDao();
-            groupDao = getGroupDao();
         } catch(Exception e) {
             throw new ApiError(e.getMessage(), 500);
         }
@@ -240,7 +228,7 @@ public class Server {
 
             try {
                 User user = gson.fromJson(req.body(), User.class);
-                userDao.create(user.getUserName(), user.getPword(), user.getLoc(), user.getGroup_ID());
+                userDao.create(user.getUserName(), user.getPword(), user.getLoc());
                 return gson.toJson(user);
             } catch (Exception e) {
                 throw new ApiError(e.getMessage(), 500);

@@ -1,4 +1,4 @@
-import dao.Sql2oGroupDao;
+/* import dao.Sql2oGroupDao;
 import dao.GroupDao;
 import dao.Sql2oUserDao;
 import dao.UserDao;
@@ -89,7 +89,8 @@ public class Sql2oGroupDaoTest {
                     "member9 BIGINT," +
                     "member10 BIGINT);";
 
-             */
+             *
+             /
             String sql = "CREATE TABLE group_info (" +
                     "group_id BIGSERIAL PRIMARY KEY," +
                     "name VARCHAR(50)," +
@@ -214,8 +215,10 @@ public class Sql2oGroupDaoTest {
         assertEquals(groupOneMembers.get(userTwoIndex), u2);
 
     }
-    */
+    *
+    /
 
 
 
 }
+*/

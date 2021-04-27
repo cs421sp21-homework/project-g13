@@ -1,4 +1,4 @@
-package dao;
+/* package dao;
 
 import exceptions.DaoException;
 
@@ -26,7 +26,8 @@ public class Sql2oGroupDao implements GroupDao {
      * @param sql2o A Sql2o object is injected as a dependency;
      *   it is assumed sql2o is connected to a database that  contains a table called
      *   "courses" with eleven columns: "group_id" / "member1" / "member2" / "member3" / "member4" / "member5" / "member6" / "member7" / "member8" / "member9" / "member10".
-     */
+     *
+     /
     public Sql2oGroupDao(Sql2o sql2o) {
         this.sql2o = sql2o;
     }
@@ -200,7 +201,8 @@ public class Sql2oGroupDao implements GroupDao {
 
         /* if (memberNum == -1) {
             throw new DaoException("Unable to delete user: not found");
-        } */
+        } *
+        /
 
         String sql = "UPDATE group_info SET memberIDs" +
                 " = ARRAY_REMOVE(memberIDs, CAST(:uid AS BIGINT)) WHERE group_id = :gid;";
@@ -320,3 +322,4 @@ public class Sql2oGroupDao implements GroupDao {
 
 
 }
+ */

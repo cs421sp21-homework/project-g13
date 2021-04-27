@@ -47,27 +47,27 @@ class Sql2oUserDaoTest {
         // instantiate "samples" with sample users
         samples = new ArrayList<>();
 
-        samples.add(new User("elewin0", "jykBFpuOiS7q", null, 1));
-        samples.add(new User("gdamrel1", "1k852EiMi", null, 1));
-        samples.add(new User("kbastock2", "P1hYn4U4yMg", null, 1));
-        samples.add(new User("egorusso3", "bOiAGh", "64 Susan Place", 1));
-        samples.add(new User("dfulker4", "uPRmvhlHMnJ", "2 Farmco Pass", 1));
-        samples.add(new User("mderbyshire5", "4B36ySy1b2p", null, 1));
-        samples.add(new User("agobourn6", "RlakQF", "14760 Stephen Circle", 1));
-        samples.add(new User("nrickard7", "2XxHy8Y07EW", "84 Meadow Ridge Plaza", 1));
-        samples.add(new User("rcornborough8", "AE839b", "48 Di Loreto Circle", 1));
-        samples.add(new User("kjozaitis9", "TiE9SD8WA", "77114 Linden Plaza", 1));
-        samples.add(new User("tbubeera", "xc4Jdg", null, 1));
-        samples.add(new User("msoallb", "8ZNYnsZtL", null, 1));
-        samples.add(new User("tboolsc", "WzdZuEht", null, 1));
-        samples.add(new User("beastbrookd", "dmoVuxhbI", "584 Banding Court", 1));
-        samples.add(new User("tredselle", "vZWf6zM", null, 1));
-        samples.add(new User("kfeatherstonef", "d9jBMbk", null, 1));
-        samples.add(new User("ppooleyg", "x8BydCrAGY1", null, 1));
-        samples.add(new User("amccrostieh", "b8V958", "844 Hazelcrest Drive", 1));
-        samples.add(new User("kfyldesi", "fo4cfE", null, 1));
-        samples.add(new User("ppallaskej", "wg6NVLHRM", null, 1));
-        samples.add(new User("tmivalk", "VUmQzbfIAp", "893 Pepper Wood Junction", 1));
+        samples.add(new User("elewin0", "jykBFpuOiS7q", null));
+        samples.add(new User("gdamrel1", "1k852EiMi", null));
+        samples.add(new User("kbastock2", "P1hYn4U4yMg", null));
+        samples.add(new User("egorusso3", "bOiAGh", "64 Susan Place"));
+        samples.add(new User("dfulker4", "uPRmvhlHMnJ", "2 Farmco Pass"));
+        samples.add(new User("mderbyshire5", "4B36ySy1b2p", null));
+        samples.add(new User("agobourn6", "RlakQF", "14760 Stephen Circle"));
+        samples.add(new User("nrickard7", "2XxHy8Y07EW", "84 Meadow Ridge Plaza"));
+        samples.add(new User("rcornborough8", "AE839b", "48 Di Loreto Circle"));
+        samples.add(new User("kjozaitis9", "TiE9SD8WA", "77114 Linden Plaza"));
+        samples.add(new User("tbubeera", "xc4Jdg", null));
+        samples.add(new User("msoallb", "8ZNYnsZtL", null));
+        samples.add(new User("tboolsc", "WzdZuEht", null));
+        samples.add(new User("beastbrookd", "dmoVuxhbI", "584 Banding Court"));
+        samples.add(new User("tredselle", "vZWf6zM", null));
+        samples.add(new User("kfeatherstonef", "d9jBMbk", null));
+        samples.add(new User("ppooleyg", "x8BydCrAGY1", null));
+        samples.add(new User("amccrostieh", "b8V958", "844 Hazelcrest Drive"));
+        samples.add(new User("kfyldesi", "fo4cfE", null));
+        samples.add(new User("ppallaskej", "wg6NVLHRM", null));
+        samples.add(new User("tmivalk", "VUmQzbfIAp", "893 Pepper Wood Junction"));
 
     }
 
@@ -78,18 +78,6 @@ class Sql2oUserDaoTest {
             conn.createQuery("DROP TABLE IF EXISTS user_info;").executeUpdate();
             conn.createQuery("DROP TABLE IF EXISTS group_info;").executeUpdate();
 
-            /*
-            String sql = "CREATE TABLE group_info (" +
-                    "group_id BIGSERIAL PRIMARY KEY," +
-                    "name VARCHAR(50)," +
-                    "memberIDs BIGINT []);";
-            conn.createQuery(sql).executeUpdate();
-
-            sql = "insert into group_info(memberIDs) " +
-                    "values (ARRAY [0]);";
-            conn.createQuery(sql).executeUpdate();
-            */
-
             String sql = "CREATE TABLE user_info (" +
                     "user_id BIGSERIAL NOT NULL PRIMARY KEY," +
                     "username VARCHAR(50) NOT NULL," +
@@ -97,7 +85,6 @@ class Sql2oUserDaoTest {
                     "loc VARCHAR(100)," +
                     "preferences VARCHAR(50) []," + // left as empty upon creation
                     "isloggedin VARCHAR(20)," +
-                    //"group_id BIGSERIAL REFERENCES group_info(group_id)," +
                     "UNIQUE(username)," +
                     "UNIQUE(pword));";
             conn.createQuery(sql).executeUpdate();
@@ -108,7 +95,6 @@ class Sql2oUserDaoTest {
                 conn.createQuery(sql).addParameter("username", user.getUserName())
                         .addParameter("pWord", user.getPword())
                         .addParameter("loc", user.getLoc())
-                        //.addParameter("group_id", user.getGroup_ID())
                         .executeUpdate();
             }
         }
@@ -119,13 +105,12 @@ class Sql2oUserDaoTest {
     @Test
     @DisplayName("create works for valid input")
     void createUser() {
-        User u1 = new User("kpawnsford16", "w6HXK786uN", "3 Leroy Circle", 1);
-        User u2 = userDao.create(u1.getUserName(), u1.getPword(), u1.getLoc(), u1.getGroup_ID());
+        User u1 = new User("kpawnsford16", "w6HXK786uN", "3 Leroy Circle");
+        User u2 = userDao.create(u1.getUserName(), u1.getPword(), u1.getLoc());
 
         assertEquals(u1.getUserName(), u2.getUserName());
         assertEquals(u1.getLoc(), u2.getLoc());
         assertEquals(u1.getPword(), u2.getPword());
-        assertEquals(u1.getGroup_ID(), u2.getGroup_ID());
         // not testing same user ID because u1 has a default of zero while u2 has the actual user ID
 
     }
@@ -141,7 +126,6 @@ class Sql2oUserDaoTest {
         assertEquals(u1.getUserName(), u2.getUserName());
         assertEquals(u1.getLoc(), u2.getLoc());
         assertEquals(u1.getPword(), u2.getPword());
-        assertEquals(u1.getGroup_ID(), u2.getGroup_ID());
         // not testing same user ID because u1 has a default of zero while u2 has the actual user ID
 
     }
@@ -156,17 +140,8 @@ class Sql2oUserDaoTest {
         assertEquals(users.indexOf(u1), -1); // should not be found in database
     }
 
-    /*
     @Test
-    @DisplayName("group name can be changed")
-    void changeGroupNumber() {
-        //User u1 = userDao.updateGroupID("msoallb", 5);
-    }
-
-     */
-
-    @Test
-    @DisplayName("can get list of group members")
+    @DisplayName("can get list of users")
     void getListOfUsers() {
         // not really a test, just seeing if it can work without errors
         List<User> users = userDao.readAll();
@@ -183,8 +158,6 @@ class Sql2oUserDaoTest {
         assertEquals(u1.getPword(), "8ZNYnsZtL");
         assertEquals(u1.getUser_ID(), 12);
         assertEquals(u1.getLoc(), null);
-        assertEquals(u1.getGroup_ID(), 1); // 1 because not in a group
-
     }
 
     @Test
