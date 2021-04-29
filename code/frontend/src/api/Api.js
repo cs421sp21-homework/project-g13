@@ -69,7 +69,7 @@ async function getUserPreference(username) {
 async function updatePreference(username, preference) {
     const config = {
         method: 'put',
-        url: BACKEND_URL + '/updatePreference',
+        url: `${BACKEND_URL}/updatePreference`,
         data : JSON.stringify({
             "username" : username,
             "preferencesList": preference,
