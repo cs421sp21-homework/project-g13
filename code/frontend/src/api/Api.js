@@ -74,6 +74,9 @@ async function updatePreference(username, preference) {
             "username" : username,
             "preferencesList": preference,
         }),
+        headers: { 
+        'Content-Type': 'application/json'
+        },
     };
     const response = await axios(config);
     return response.data;
