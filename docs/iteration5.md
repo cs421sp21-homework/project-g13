@@ -37,7 +37,7 @@ Monday, April 26 3pm EDT
 
 # OO Design
 
-![UML Diagram for iteration 4](assets/iteration-4-uml-updated.png)
+![UML Diagram for iteration 5](assets/uml-diagram-iteration5-updated.jpg)
 
 # Wireframe & Use-case
 
