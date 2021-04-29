@@ -1,13 +1,13 @@
 // Cool Class Diagram
 // ------------------
 
-[Server]->[Restaurant]
+[Server] -1..>* [Restaurant]
 
-[YelpService]->[Restaurant]
+[YelpService] -1..>* [Restaurant]
 
-[RestaurantSearchResponse]->[Restaurant]
+[RestaurantSearchResponse] -1..>*[Restaurant]
 
-[Restaurant] -> [Category]
+[Restaurant] -1..>* [Category]
 
 [Restaurant] -> [Coordinates]
 
@@ -15,23 +15,15 @@
 
 [Restaurant] -> [Transactions]
 
-[Restaurant] -> [Review]
+[Restaurant] -1..>* [Review]
 
-[ReviewSearchResponse] -> [Review]
-
-[(interface) GroupDao] -> [Group]
-
-[(interface) GroupDao] -> [Sql2oGroupDao]
-
-[Group] -> [User]
+[ReviewSearchResponse] -1..>* [Review]
 
 [(interface) UserDao] -> [Sql2oUserDao]
 
-[(interface) UserDao] -> [User]
+[(interface) UserDao] -1..>* [User]
 
 [Database] -> [Sql2oUserDao]
-
-[Database] -> [Sql2oGroupDao]
 
 [StatusMessage] -> [Server]
 
