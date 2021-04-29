@@ -96,10 +96,10 @@ Monday, April 26 3pm EDT
   - Adding UI for storing user info [#127](https://github.com/cs421sp21-homework/project-g13/issues/127) :black_square_button:
   - Add a logout button on account page [#128](https://github.com/cs421sp21-homework/project-g13/issues/128) :black_square_button:
 
-- Refining user login system [#132](https://github.com/cs421sp21-homework/project-g13/issues/132) -> Daniel :white_check_mark:
+- Refining user login system [#132](https://github.com/cs421sp21-homework/project-g13/issues/132) -> Daniel :black_square_button:
   - User doesn't get logged out after refreshing [#117](https://github.com/cs421sp21-homework/project-g13/issues/117) :white_check_mark:
   - Connect user accounts preferences to restaurant search in socket.io [#134](https://github.com/cs421sp21-homework/project-g13/issues/134) :white_check_mark:
-  - Allowing users to store/retrieve their addresses [#129](https://github.com/cs421sp21-homework/project-g13/issues/129) :white_check_mark:
+  - Allowing users to store/retrieve their addresses [#129](https://github.com/cs421sp21-homework/project-g13/issues/129) :black_square_button:
     - Add an endpoint for storing addresses [#138](https://github.com/cs421sp21-homework/project-g13/issues/130) :white_check_mark:
     - Add an endpoint for retreiving addresses [#131](https://github.com/cs421sp21-homework/project-g13/issues/131) :white_check_mark:
 
