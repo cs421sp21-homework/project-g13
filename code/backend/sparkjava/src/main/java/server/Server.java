@@ -305,7 +305,7 @@ public class Server {
 
                 User checkLoggedOut = userDao.read(fetchedUser.getUsername());
                 StatusMessage loginStatus = new StatusMessage();
-                if (checkLoggedOut.getIsLoggedIn() == false) {
+                if (!checkLoggedOut.getIsLoggedIn()) {
                     loginStatus.setMessage("success");
                 } else {
                     loginStatus.setMessage("fail");
@@ -341,6 +341,8 @@ public class Server {
         put("/updatePreference", (req, res) -> {
             res.header("Access-Control-Allow-Origin", "*");
             res.header("Access-Control-Allow-Methods", "PUT");
+            res.header("Access-Control-Allow-Methods", "POST");
+            res.header("Access-Control-Allow-Methods", "GET");
             res.header("Content-Type", "application/json");
             try {
                 // ensure that JSON body has preferences field set to array of strings!
@@ -416,7 +418,7 @@ public class Server {
 
         options("/*", (req, res)-> {
             try {
-                System.out.println(req.headers("Access-Control-Request-Headers"));
+                System.out.println(req.headers());
                 res.header("Access-Control-Allow-Origin", "*");
                 res.header("Access-Control-Allow-Methods", "*");
                 return "OK";
