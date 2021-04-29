@@ -416,8 +416,9 @@ public class Server {
 
         options("/*", (req, res)-> {
             try {
-                System.out.println(req.headers());
+                System.out.println(req.headers().get("Access-Control-Request-Headers"));
                 res.header("Access-Control-Allow-Origin", "*");
+                res.header("Access-Control-Allow-Headers", "*");
                 return "OK";
             } catch (Exception e) {
                 throw new ApiError(e.getMessage(), 500);
