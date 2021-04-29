@@ -65,7 +65,7 @@ class Group extends Component {
     this.joinPage = createRef();
 
     //socket.io stuff
-    const useLocalSocketServer = false;
+    const useLocalSocketServer = true;
     const socketServer = useLocalSocketServer
       ? "http://localhost:4000"
       : "https://chicken-tinder-13-socketio.herokuapp.com";
