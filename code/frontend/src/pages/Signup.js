@@ -75,10 +75,8 @@ class Signup extends React.Component {
         } */
 
         return (
-            <div className="signup">
-                <div className="container">
-                    <SignupForm />
-                </div>
+            <div className="App">
+                <SignupForm />
             </div>
         );
     }

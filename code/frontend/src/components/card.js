@@ -147,7 +147,7 @@ class Card extends Component {
               <NewCard.Body>
                   <Slideshow photos={photos} isImg={true} />
                   <Slideshow reviews={reviews} isImg={false} />
-                  <NewCard.Title style={{ fontSize: "3.2vmin" }}>
+                  <NewCard.Title style={{fontSize: "3.2vmin" }}>
                       {restaurant.name}
                   </NewCard.Title>
                   <NewCard.Subtitle style={{ fontSize: "1.6vmin" }}>

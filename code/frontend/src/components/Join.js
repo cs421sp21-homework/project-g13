@@ -6,6 +6,13 @@ import RequestNickname from "./RequestNickname.js"
 import 'bootstrap/dist/css/bootstrap.css';
 import { FlashOnTwoTone } from "@material-ui/icons";
 
+const styles = theme => ({
+    input: {
+        height: 50,
+        fontSize: 24,
+    }
+});
+
 class Join extends Component {
   constructor(props) {
     super(props);
@@ -39,17 +46,16 @@ class Join extends Component {
   render() {
     return (
         <div className="App">
-        <header className="App-header">
             <form>
             <h1 style={{fontWeight: "bold"}}>Please enter your Group ID</h1>
                 <TextField
                     required
-                    id="address"
                     label="Group ID"
                     variant="outlined"
                     helperText="* are required fields"
                     name="groupID"
-                    style={{width:256}}
+                    style={{width: 256}}
+                    InputProps={{className: this.props.classes.input}}
                     onChange={this.myChangeHandler}
                 />
                 <br/>
@@ -58,10 +64,9 @@ class Join extends Component {
             </form>
             <div className="join-status">{this.props.statusMessage}</div>
            <RequestNickname show={this.state.showJoinModal} setNickname={(nickname) => this.setNickname(nickname)} />
-        </header>
         </div>
     );
   }
 }
 
-export default Join;
+export default withStyles(styles)(Join);

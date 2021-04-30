@@ -75,10 +75,8 @@ class Login extends React.Component {
         } */
 
         return (
-            <div className="signup">
-                <div className="container">
-                    <LoginForm/>
-                </div>
+            <div className="App">
+                <LoginForm/>
             </div>
         );
     }

@@ -7,46 +7,6 @@ import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import * as api from "../api/Api.js";
 
-const styles = theme => ({
-    submit: {
-        color: '#522402',
-        backgroundColor: '#eca237',
-        boxShadow: 'none',
-        margin: theme.spacing(2),
-        width: 128,
-        height:48,
-        fontSize: 20,
-        '&:hover': {
-            backgroundColor: '#f9b042',
-            borderColor: '#f9b042',
-            boxShadow: 'none',
-        },
-        '&:active': {
-            boxShadow: 'none',
-            backgroundColor: '#f9b042',
-            borderColor: '#f9b042',
-        },
-    },
-    back: {
-        color: '#522402',
-        backgroundColor: '#f1d043',
-        boxShadow: 'none',
-        margin: theme.spacing(2),
-        width: 128,
-        height:48,
-        fontSize: 20,
-        '&:hover': {
-            backgroundColor: '#ffe03b',
-            borderColor: '#ffe03b',
-            boxShadow: 'none',
-        },
-        '&:active': {
-            boxShadow: 'none',
-            backgroundColor: '#ffe03b',
-            borderColor: '#ffe03b',
-        },
-    },
-});
 
 class SetFilters extends Component {
     constructor(props) {
@@ -193,7 +153,7 @@ class SetFilters extends Component {
 
     render() {
         return (
-            <div className="app-background-color">
+            <div className="App">
                 <div className="filter-content">
                     <h1 className="filter-header">Let's narrow down your search:</h1>
 
@@ -234,26 +194,22 @@ class SetFilters extends Component {
 
                     <div className="clearfix"></div>
                     <br/>
-                    <Button
-                        className={this.props.classes.submit}
-                        onClick={() => this.onSubmit()}
-                        variant="contained"
-                        size='large'
-                    >
-                        Submit
-                    </Button>
-                    <Button
-                        className={this.props.classes.back}
+                    <button
+                        className="btn btn-secondary gen-btn"
                         onClick={this.props.onBack}
-                        variant="contained"
-                        size='large'
                     >
                         Back
-                    </Button>
+                    </button>
+                    <button
+                        className="btn btn-primary gen-btn"
+                        onClick={() => this.onSubmit()}
+                    >
+                        Submit
+                    </button>
                 </div>
             </div>
         );
     }
 }
 
-export default withStyles(styles)(SetFilters)
+export default SetFilters

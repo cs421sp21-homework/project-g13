@@ -8,28 +8,18 @@ import { withStyles } from "@material-ui/core/styles";
 import userStore from "../../stores/UserStore";
 
 import * as api from "../../api/Api.js";
+import TextField from "@material-ui/core/TextField";
 
 const styles = theme => ({
-    button: {
-        color: '#5a2c22',
-        backgroundColor: '#d44f22',
-        borderColor: '#d44f22',
-        boxShadow: 'none',
-        margin: theme.spacing(2),
-        width: 300,
-        height: 64,
-        fontSize: 22,
-        '&:hover': {
-            backgroundColor: '#f9b042',
-            borderColor: '#f9b042',
-            boxShadow: 'none',
-        },
-        '&:active': {
-            boxShadow: 'none',
-            backgroundColor: '#f9b042',
-            borderColor: '#f9b042',
+    textField: {
+        '& .MuiTextField-root': {
+            margin: theme.spacing(1),
         },
     },
+    input: {
+        height: 50,
+        fontSize: 20,
+    }
 });
 
 class SignupForm extends React.Component {
@@ -58,6 +48,13 @@ class SignupForm extends React.Component {
             [prop]: val
         })
     }
+
+    myChangeHandler = (event) => {
+        event.preventDefault();
+        this.setState({
+            [event.target.name]: event.target.value,
+        });
+    };
 
     validatePwd(prop, val) {
         this.setInputValue('confirmPwd', val);
@@ -132,34 +129,51 @@ class SignupForm extends React.Component {
         return (
             <Switch>
                 <Route path="/Signup">
-                    <div className="loginSignupForm">
-                        Get started with us today!
-                        <br/>
-                        Create your account by filling out the information below.
-                        <br/>
-                        Username
-                        <InputField type='text'
-                                    placeholder='Username'
-                                    value={this.state.username ? this.state.username : ''}
-                                    onChange={ (val) => this.setInputValue('username', val) }
-                        />
-                        Password
-                        <InputField type='password'
-                                    placeholder='Password'
-                                    value={this.state.password ? this.state.password : ''}
-                                    onChange={ (val) => this.setInputValue('password', val) }
-                        />
-                        Confirm Password
-                        <InputField type='password'
-                                    placeholder='Password'
-                                    value={this.state.confirmPwd ? this.state.confirmPwd : ''}
-                                    onChange={ (val) => this.validatePwd('confirmPwd', val) }
-                        />
-                        <SubmitButton text='Sign up'
-                                    disabled={this.state.buttonDisabled}
-                                    onClick={ () => this.doSignup() }
-                        />
-                        Already have an account? Login <a href={"/Login"}>here</a>
+                    <div className="login-container">
+                        <h1 style={{fontWeight: "bold", fontSize: "4vmin"}}>Chicken Tinder</h1>
+                        <h2 style={{fontSize: "3vmin"}}>Get started with us today!</h2>
+                        <h3 style={{fontSize: "2vmin"}}>Create your account by filling out the information below.</h3>
+                        <form className={this.props.classes.textField}>
+                            <TextField
+                                id="username"
+                                label="Username"
+                                variant="outlined"
+                                name="username"
+                                style={{width: 256}}
+                                InputProps={{className: this.props.classes.input}}
+                                onChange={this.myChangeHandler}
+                            />
+                            <br/>
+                            <TextField
+                                id="password"
+                                label="Password"
+                                variant="outlined"
+                                name="password"
+                                type="password"
+                                style={{width: 256}}
+                                InputProps={{className: this.props.classes.input}}
+                                onChange={this.myChangeHandler}
+                            />
+                            <br/>
+                            <TextField
+                                id="confirmPwd"
+                                label="Confirm Password"
+                                variant="outlined"
+                                name="confirmPwd"
+                                type="password"
+                                style={{width: 256}}
+                                InputProps={{className: this.props.classes.input}}
+                                onChange={this.myChangeHandler}
+                            />
+                        </form>
+                        <button
+                            className="btn btn-primary wide-btn"
+                            onClick={() => {this.doSignup();}}
+                            disabled={this.state.buttonDisabled}
+                        >
+                            Sign up
+                        </button>
+                        <p style={{fontSize: "1.6vmin"}}>Already have an account? Login <a href={"/Login"}>here</a></p>
                     </div>
                 </Route>
                 <Route path="/Login"> <Login/> </Route>

@@ -65,18 +65,17 @@
 
 .home-button {
   width: 20vmin;
-  height: 10vmin;
+  height: 9vmin;
   margin: 0 5vmin 0 5vmin;
   font-size: 3vmin !important;
 }
 
 .home-tooltip > .tooltip-inner {
-  font-size: 2vmin;
+  font-size: 1.8vmin;
 }
 
-.App-header {
+.App {
   padding-top: 8vmin;
-  /*color: #d44f22;*/
   color: black;
   display: flex;
   flex-direction: column;
@@ -107,8 +106,23 @@
   font-size: 2.5vmin !important;
   margin-top: 1vmin;
 }
+
+.gen-btn {
+  width: 15vmin !important;
+  height: 5vmin;
+  font-size: 2vmin !important;
+  margin: 1vmin 2vmin 1vmin;
+}
+
+.wide-btn {
+  width: 20vmin !important;
+  height: 5vmin;
+  font-size: 2vmin !important;
+  margin: 1vmin 2vmin 1vmin;
+}
+
 .join-status {
-  color: red;
+  color: black;
   font-size: 2.5vmin;
 }
 
@@ -146,9 +160,9 @@ input[type="button"]:disabled {
 .card-body {
   width: 600px;
   max-width: 80vmin;
-  height: 800px;
+  height: 900px;
   max-height: 80vmin;
-  margin: auto;
+  margin: 2vmin auto;
   box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.2);
   border-radius: 25px;
   overflow: hidden;
@@ -189,34 +203,32 @@ input[type="button"]:disabled {
 .filter-content {
   font-size: calc(10px + 2vmin);
   text-align: center;
-  color: #d44f22;
-  font-family: monospace;
+  color: black;
   width: 80%;
   min-height: 100vh;
   margin: auto;
 }
 
 .filter-header {
-  color: #d44f22;
-  font-family: monospace;
-  padding-top: 10vmin;
-  font-size: 5vmin;
+  color: black;
+  padding-top: 2vmin;
+  font-size: 3.6vmin;
   margin: 0;
 }
 
 .filter-subheader {
-  font-size: 3vmin;
+  font-size: 2.4vmin;
   margin: 2vmin 0 0.8vmin 0;
 }
 
 .filter-dietary-restrictions {
-  font-size: 3vmin;
+  font-size: 2.4vmin;
   margin: 2vmin 0 0vmin 0;
 }
 
 .filter-checkbox {
-  font-size: 2.5vmin;
-  margin: 0 3vw 0 0.8vw;
+  font-size: 2vmin;
+  margin: 0 3.6vw 0 0.8vw;
 }
 
 .filter-submit {
@@ -240,9 +252,15 @@ input[type="button"]:disabled {
 }
 
 .filter-dropdown {
-  font-size: 2vmin;
+  font-size: 1.8vmin;
 }
 
+.login-container {
+  width: 500px;
+  max-width: 80vmin;
+  height: 600px;
+  max-height: 80vmin;
+}
 
 .carousel-control-next {
   color: black !important;
@@ -272,7 +290,7 @@ input[type="button"]:disabled {
 .leaderboard {
   float: left;
   width: 800px;
-  max-width: 50vw;
+  max-width: 45vw;
   padding-top: 2vw;
   padding-left: 5vw;
 }
@@ -285,7 +303,7 @@ input[type="button"]:disabled {
 .recommend {
   float: right;
   width: 800px;
-  max-width: 50vw;
+  max-width: 45vw;
   padding-top: 2vw;
   padding-right: 5vw;
 }
