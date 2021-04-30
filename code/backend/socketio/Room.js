@@ -259,6 +259,7 @@ class Room {
 
   receivedRestaurantData(memberId) {
     if (this.members.has(memberId)) {
+      this.members.get(memberId).finished = false;
       this.members.get(memberId).hasRestaurantData = true;
       console.log(this.members.get(memberId).hasRestaurantData);
       if (this.checkIfEveryMemberIsReady() === true) {
