@@ -12,6 +12,7 @@ import SetFilters from "./pages/SetFilters.js"
 import AppNavbar from "./components/NavBar.js";
 import SignupForm from "./components/LoginSignup/SignupForm";
 import Account from "./pages/Account";
+import Address from "./pages/Address.js";
 
 ReactDOM.render(
   <Router>
@@ -50,6 +51,9 @@ ReactDOM.render(
                 </Route>
                 <Route path="/Account">
                     <Account/>
+                </Route>
+                <Route path="/Address">
+                    <Address/>
                 </Route>
             </Switch>
         </div>

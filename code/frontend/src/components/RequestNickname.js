@@ -49,7 +49,7 @@ export default class RequestNickname extends Component {
               //onHide={() => this.setState({showModal: false})}
               backdrop="static"
               keyboard={false}>
-              <Modal.Header closeButton>
+              <Modal.Header>
                 <Modal.Title>Set your nickname</Modal.Title>
               </Modal.Header>
               <Modal.Body>
