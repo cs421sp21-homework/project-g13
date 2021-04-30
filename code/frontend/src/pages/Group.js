@@ -262,9 +262,9 @@ class Group extends Component {
 
     var message = "";
     if (this.state.location !== "" && this.state.location !== "Not Set") {
-      message = "Waiting to receive data from server...";
+      message = "Fetching restaurant data...";
     } else {
-      message = "Please set your location.";
+      message = "Please first set your location.";
     }
     this.setState({
       page: "host",
@@ -311,7 +311,7 @@ class Group extends Component {
         )}
 
         {page === "show_restaurant" && (
-          <div className="App-header">
+          <div className="App">
             <Card
               restaurant={this.restaurants[this.state.currentRestaurantIndex]}
               onDislike={this.onDislikeRestaurant}

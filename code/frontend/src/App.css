@@ -75,7 +75,7 @@
 }
 
 .App {
-  padding-top: 8vmin;
+  margin-top: 5vmin;
   color: black;
   display: flex;
   flex-direction: column;
@@ -291,21 +291,31 @@ input[type="button"]:disabled {
   float: left;
   width: 800px;
   max-width: 45vw;
-  padding-top: 2vw;
-  padding-left: 5vw;
+  margin-top: 2vw;
+  margin-left: 5vw;
+  align-items: center;
+  text-align: center;
 }
 
 .leaderboard-table {
-  width: 50vw;
+  width: 40vw;
   font-size: 2vmin;
+  text-align: left;
+  margin-left: 8vmin;
 }
 
 .recommend {
   float: right;
   width: 800px;
   max-width: 45vw;
-  padding-top: 2vw;
-  padding-right: 5vw;
+  margin-top: 2vw;
+  margin-right: 5vw;
+  align-items: center;
+  text-align: center;
+}
+
+.try-again {
+  margin-top: 8vmin;
 }
 
 .member-names-grid {

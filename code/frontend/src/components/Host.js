@@ -52,7 +52,7 @@ class Host extends Component {
                 <OverlayTrigger placement="right"
                             overlay={
                                 <Tooltip id={`tooltip-right`} className="home-tooltip">
-                                {this.props.canStartSwipingEvent === true ? "Start finding restaurants" : "Set your location first or wait for restaurant data"}
+                                {this.props.canStartSwipingEvent === true ? "Start finding restaurants" : "Set your location first or currently fetching data"}
                                 </Tooltip>
                                  }>
                                   <span className="d-inline-block" onClick={() => {

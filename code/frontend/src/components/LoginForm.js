@@ -1,15 +1,13 @@
 import React from 'react';
 import { Switch, Route } from "react-router";
-import InputField from "./InputField";
-import SubmitButton from "./SubmitButton";
-import userStore from "../../stores/UserStore";
-import Home from "../../pages/Home";
+import userStore from "../stores/UserStore";
+import Home from "../pages/Home";
 import TextField from "@material-ui/core/TextField";
 import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { Message } from 'semantic-ui-react';
 
-import * as api from "../../api/Api.js";
+import * as api from "../api/Api.js";
 
 const styles = theme => ({
     textField: {

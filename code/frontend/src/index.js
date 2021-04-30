@@ -10,7 +10,7 @@ import Group from './pages/Group';
 import Individual from "./pages/Individual";
 import SetFilters from "./pages/SetFilters.js"
 import AppNavbar from "./components/NavBar.js";
-import SignupForm from "./components/LoginSignup/SignupForm";
+import SignupForm from "./components/SignupForm";
 import Account from "./pages/Account";
 
 ReactDOM.render(

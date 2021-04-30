@@ -1,13 +1,11 @@
 import React from 'react';
 import { Switch, Route } from "react-router";
-import InputField from "./InputField";
-import SubmitButton from "./SubmitButton";
-import Login from "../../pages/Login";
+import Login from "../pages/Login";
 import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
-import userStore from "../../stores/UserStore";
+import userStore from "../stores/UserStore";
 
-import * as api from "../../api/Api.js";
+import * as api from "../api/Api.js";
 import TextField from "@material-ui/core/TextField";
 
 const styles = theme => ({
