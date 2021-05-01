@@ -5,25 +5,22 @@ import 'bootstrap/dist/css/bootstrap.css';
 import UserStore from "../stores/UserStore";
 import * as api from "../api/Api.js";
 
-
 class AppNavbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isNavCollapsed: true,
+            username: localStorage.getItem("username"),
         }
+        
     }
 
     getActivePage() {
         return this.props.location.pathname;
     }
 
-    onClickAccount() {
-
-    }
-
     onClickJoin() {
-        //if (this.getActivePage() === "/Host") sessionStorage.clear();
+        if (this.getActivePage() === "/Host") sessionStorage.clear();
         this.props.history.push("/Join");
     }
 
@@ -37,25 +34,28 @@ class AppNavbar extends Component {
     }
 
     account() {
-        const buttonType = '<button type="button" className="btn btn-outline-primary app-nav-button app-nav-login">';
+        const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
+            <button href="" ref={ref} className="btn btn-outline-primary app-nav-login"
+            style={{height: "5vmin", minWidth: "11vmin", whiteSpace: "nowrap"}}
+              onClick={(e) => {
+                e.preventDefault();
+                onClick(e);
+              }}>
+              {children} &#x25bc;
+            </button>
+            ));
         return(
             <div className="navbar-nav ml-auto">
-                <button type="button" className="btn btn-outline-primary app-nav-button app-nav-login" onClick={() => this.props.history.push("/Account")}>Account</button>
                 <Dropdown>
-                    <Dropdown.Toggle id="dropdown" as={buttonType}>
-                        Account
+                    <Dropdown.Toggle id="dropdown" as={CustomToggle}>
+                        Welcome, {this.state.username}
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                    <Dropdown.Menu align="right">
+                        <Dropdown.Item href="/Account">My Account</Dropdown.Item>
+                        <Dropdown.Item href="/Address">My Address</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
-                <DropdownButton id="account" title="Account">
-                    <Dropdown.Item as="button" onClick={() => this.props.history.push("/Account")}>My Preferences</Dropdown.Item>
-                    <Dropdown.Item as="button">My Address</Dropdown.Item>
-                </DropdownButton>
                 <button type="button" className="btn btn-outline-primary app-nav-button app-nav-login" onClick={() => this.logout()}>Logout</button>
             </div>
         )
