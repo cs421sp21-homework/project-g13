@@ -50,10 +50,10 @@ export default class RequestNickname extends Component {
               backdrop="static"
               keyboard={false}>
               <Modal.Header>
-                <Modal.Title>Set your nickname</Modal.Title>
+                <Modal.Title>Enter your nickname</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-              <label htmlFor="nickname">Please set your nickname</label>
+              <label htmlFor="nickname">Please enter your nickname</label>
                 <InputGroup className="mb-3">
                   <FormControl type="text" id="nickname" onChange={this.onNicknameChanged} isInvalid={this.state.isInvalid}/>
                   <FormControl.Feedback type="invalid">{this.state.errorMessage}</FormControl.Feedback>

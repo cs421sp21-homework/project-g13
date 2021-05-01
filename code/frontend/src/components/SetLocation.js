@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -9,44 +8,10 @@ const styles = theme => ({
       margin: theme.spacing(1),
     },
   },
-  submit: {
-    color: '#522402',
-    backgroundColor: '#eca237',
-    boxShadow: 'none',
-    margin: theme.spacing(2),
-    width: 128,
-    height:48,
+  input: {
+    height: 50,
     fontSize: 20,
-    '&:hover': {
-      backgroundColor: '#f9b042',
-      borderColor: '#f9b042',
-      boxShadow: 'none',
-    },
-    '&:active': {
-      boxShadow: 'none',
-      backgroundColor: '#f9b042',
-      borderColor: '#f9b042',
-    },
-  },
-  back: {
-    color: '#522402',
-    backgroundColor: '#f1d043',
-    boxShadow: 'none',
-    margin: theme.spacing(2),
-    width: 128,
-    height:48,
-    fontSize: 20,
-    '&:hover': {
-      backgroundColor: '#ffe03b',
-      borderColor: '#ffe03b',
-      boxShadow: 'none',
-    },
-    '&:active': {
-      boxShadow: 'none',
-      backgroundColor: '#ffe03b',
-      borderColor: '#ffe03b',
-    },
-  },
+  }
 });
 
 class SetLocation extends Component {
@@ -133,6 +98,7 @@ class SetLocation extends Component {
                     variant="outlined"
                     fullWidth
                     name="address"
+                    InputProps={{className: this.props.classes.input}}
                     onChange={this.myChangeHandler}
                 />
                 <TextField
@@ -141,6 +107,7 @@ class SetLocation extends Component {
                     variant="outlined"
                     fullWidth
                     name="address"
+                    InputProps={{className: this.props.classes.input}}
                     onChange={this.myChangeHandler}
                 />
                 <TextField
@@ -150,6 +117,7 @@ class SetLocation extends Component {
                     variant="outlined"
                     fullWidth
                     name="city"
+                    InputProps={{className: this.props.classes.input}}
                     onChange={this.myChangeHandler}
                 />
                 <TextField
@@ -159,6 +127,7 @@ class SetLocation extends Component {
                     variant="outlined"
                     fullWidth
                     name="state"
+                    InputProps={{className: this.props.classes.input}}
                     onChange={this.myChangeHandler}
                 />
                 <TextField
@@ -169,6 +138,7 @@ class SetLocation extends Component {
                     helperText="* are required fields"
                     fullWidth
                     name="zipcode"
+                    InputProps={{className: this.props.classes.input}}
                     onChange={this.myChangeHandler}
                 />
                 <br/>
@@ -184,24 +154,20 @@ class SetLocation extends Component {
                 />
                 miles
                 <br/>
-                <Button
-                    className={this.props.classes.submit}
+                <button
+                    className="btn btn-secondary gen-btn"
+                    onClick={this.props.onBack}
+                >
+                  Back
+                </button>
+                <button
+                    class="btn btn-primary gen-btn"
                     onClick={() => {
                       this.submit();
                     }}
-                    variant="contained"
-                    size='large'
                 >
                   Submit
-                </Button>
-                <Button
-                    className={this.props.classes.back}
-                    onClick={this.props.onBack}
-                    variant="contained"
-                    size='large'
-                >
-                  Back
-                </Button>
+                </button>
               </form>
               <div className="status">{this.state.statusMessage}</div>
             </header>

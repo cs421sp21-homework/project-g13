@@ -81,7 +81,7 @@ class Home extends Component {
                             placement="left"
                             overlay={
                                 <Tooltip id={`tooltip-left`} className="home-tooltip">
-                                Find what to eat by yourself or with friends
+                                Find out what to eat by yourself or with friends
                                 </Tooltip>
                                  }>
                             <button type="button" class="btn btn-primary home-button" onClick={() => this.props.history.push("/Host")}>Start</button>

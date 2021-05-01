@@ -2,8 +2,7 @@ import "../App.css";
 import React from 'react';
 import { observer } from 'mobx-react';
 import UserStore from "../stores/UserStore";
-import SignupForm from "../components/LoginSignup/SignupForm";
-import '../components/LoginSignup/LoginSignup.css';
+import SignupForm from "../components/SignupForm";
 import * as api from "../api/Api.js";
 
 class Signup extends React.Component {
@@ -75,10 +74,8 @@ class Signup extends React.Component {
         } */
 
         return (
-            <div className="signup">
-                <div className="container">
-                    <SignupForm />
-                </div>
+            <div className="App">
+                <SignupForm />
             </div>
         );
     }

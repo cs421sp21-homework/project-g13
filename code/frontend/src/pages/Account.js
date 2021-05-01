@@ -16,9 +16,7 @@ class Account extends Component {
 
     getPreference() {
         api.getUserPreference(this.getUserName()).then((response) => {
-            if (response.isEmpty()) {
-                return "none";
-            }
+            console.log(response);
             alert("Preferences stored!");
             return response;
         });
@@ -33,21 +31,21 @@ class Account extends Component {
     }
 
     render() {
+        const prefList = this.getPreference();
+        console.log(prefList);
         return(
             <Switch>
             <Route path="/Account">
             <div className="App">
-                <header className="App-header">
-                <h2>Welcome, {localStorage.getItem("username")}</h2>
-                <h2>Dietary Restrictions: {this.getPreference}</h2>
+                <h1 style={{fontWeight: "bold", fontSize: "3vmin"}}> Welcome, {localStorage.getItem("username")}</h1>
+                <h2 style={{fontSize: "2vmin"}}>Dietary Restrictions: </h2>
                 <Button
-                onClick={() => {this.state.changePref = true}}
+                onClick={() => {this.state.changePref = !this.state.changePref;}}
                 >
                     Edit
                 </Button>
                 {this.state.changePref ? null : <Preference/> }
-                </header>
-            </div>
+                </div>
             </Route>
             </Switch>
         )

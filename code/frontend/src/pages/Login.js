@@ -2,8 +2,7 @@ import "../App.css";
 import React from 'react';
 import { observer } from 'mobx-react';
 import UserStore from "../stores/UserStore";
-import LoginForm from "../components/LoginSignup/LoginForm";
-import '../components/LoginSignup/LoginSignup.css';
+import LoginForm from "../components/LoginForm";
 import Account from "./Account";
 
 class Login extends React.Component {
@@ -75,10 +74,8 @@ class Login extends React.Component {
         } */
 
         return (
-            <div className="signup">
-                <div className="container">
-                    <LoginForm/>
-                </div>
+            <div className="App">
+                <LoginForm/>
             </div>
         );
     }

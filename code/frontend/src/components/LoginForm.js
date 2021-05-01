@@ -1,36 +1,24 @@
 import React from 'react';
 import { Switch, Route } from "react-router";
-import InputField from "./InputField";
-import SubmitButton from "./SubmitButton";
-import userStore from "../../stores/UserStore";
-import Home from "../../pages/Home";
+import userStore from "../stores/UserStore";
+import Home from "../pages/Home";
+import TextField from "@material-ui/core/TextField";
 import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { Message } from 'semantic-ui-react';
 
-import * as api from "../../api/Api.js";
+import * as api from "../api/Api.js";
 
 const styles = theme => ({
-    button: {
-        color: '#5a2c22',
-        backgroundColor: '#d44f22',
-        borderColor: '#d44f22',
-        boxShadow: 'none',
-        margin: theme.spacing(2),
-        width: 300,
-        height: 64,
-        fontSize: 22,
-        '&:hover': {
-            backgroundColor: '#f9b042',
-            borderColor: '#f9b042',
-            boxShadow: 'none',
-        },
-        '&:active': {
-            boxShadow: 'none',
-            backgroundColor: '#f9b042',
-            borderColor: '#f9b042',
+    textField: {
+        '& .MuiTextField-root': {
+            margin: theme.spacing(1),
         },
     },
+    input: {
+        height: 50,
+        fontSize: 20,
+    }
 });
 
 class LoginForm extends React.Component {
@@ -66,6 +54,13 @@ class LoginForm extends React.Component {
             buttonDisabled: false
         })
     }
+
+    myChangeHandler = (event) => {
+        event.preventDefault();
+        this.setState({
+            [event.target.name]: event.target.value,
+        });
+    };
 
     async doLogin() {
         if(!this.state.username) {
@@ -134,23 +129,35 @@ class LoginForm extends React.Component {
         return (
             <Switch>
                 <Route path="/Login">
-                    <div className="loginSignupForm">
-                        Log in
-                        <InputField type='text'
-                                    placeholder='Username'
-                                    value={this.state.username ? this.state.username : ''}
-                                    onChange={ (val) => this.setInputValue('username', val) }
+                    <div className="login-container">
+                        <h1 style={{fontWeight: "bold", fontSize: "4vmin"}}>Chicken Tinder</h1>
+                        <h2 style={{fontSize: "2.4vmin"}}>Welcome back, please log in.</h2>
+                        <form className={this.props.classes.textField}>
+                        <TextField
+                            id="username"
+                            label="Username"
+                            variant="outlined"
+                            name="username"
+                            style={{width: 256}}
+                            InputProps={{className: this.props.classes.input}}
+                            onChange={this.myChangeHandler}
                         />
-                        <InputField type='password'
-                                    placeholder='Password'
-                                    value={this.state.password ? this.state.password : ''}
-                                    onChange={ (val) => this.setInputValue('password', val) }
+                        <br/>
+                        <TextField
+                            id="password"
+                            label="Password"
+                            variant="outlined"
+                            name="password"
+                            type="password"
+                            style={{width: 256}}
+                            InputProps={{className: this.props.classes.input}}
+                            onChange={this.myChangeHandler}
                         />
-                        <SubmitButton text='Login'
-                                    disabled={this.state.buttonDisabled}
-                                    onClick={ () => this.doLogin() }
-                        />
-                        Don't have an account? Sign up <a href={"/Signup"}>here</a>
+                        </form>
+                        <button class="btn btn-primary wide-btn" onClick={() => {this.doLogin();}}>
+                            Login
+                        </button>
+                        <p style={{fontSize: "1.6vmin"}}>Don't have an account? Sign up <a href={"/Signup"}>here</a></p>
                     </div>
                 </Route>
                 <Route path="/">

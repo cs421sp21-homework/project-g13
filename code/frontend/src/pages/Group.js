@@ -14,29 +14,6 @@ import io from "socket.io-client";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
-const styles = (theme) => ({
-  button: {
-    color: "#5a2c22",
-    backgroundColor: "#eca237",
-    borderColor: "#eca237",
-    boxShadow: "none",
-    margin: theme.spacing(1),
-    width: 256,
-    height: 64,
-    fontSize: 24,
-    "&:hover": {
-      backgroundColor: "#f9b042",
-      borderColor: "#f9b042",
-      boxShadow: "none",
-    },
-    "&:active": {
-      boxShadow: "none",
-      backgroundColor: "#f9b042",
-      borderColor: "#f9b042",
-    },
-  },
-});
-
 //Contains join page, host page
 class Group extends Component {
   constructor(props) {
@@ -65,7 +42,7 @@ class Group extends Component {
     this.joinPage = createRef();
 
     //socket.io stuff
-    const useLocalSocketServer = true;
+    const useLocalSocketServer = false;
     const socketServer = useLocalSocketServer
       ? "http://localhost:4000"
       : "https://chicken-tinder-13-socketio.herokuapp.com";
@@ -139,21 +116,6 @@ class Group extends Component {
     }
   }
 
-  onSetLocation(data) {
-    this.socket.emit("set_location", {
-      room: this.state.roomId,
-      location: data.location,
-      radius: data.radius,
-      offset: this.state.offset,
-    });
-    this.setState({
-      page: "host",
-      location: data.location,
-      message: "Loading data...",
-      canStartSwipingEvent: false,
-    });
-  }
-
   onDislikeRestaurant() {
     console.log("restaurants length: " + this.restaurants.length);
     if (this.state.currentRestaurantIndex + 1 < this.restaurants.length) {
@@ -180,7 +142,7 @@ class Group extends Component {
     this.setState({
       page: "host",
       location: data.location,
-      message: "Waiting to receive data from server...",
+      message: "Fetching restaurant data...",
       canStartSwipingEvent: false,
     });
   }
@@ -262,9 +224,9 @@ class Group extends Component {
 
     var message = "";
     if (this.state.location !== "" && this.state.location !== "Not Set") {
-      message = "Waiting to receive data from server...";
+      message = "Fetching restaurant data...";
     } else {
-      message = "Please set your location.";
+      message = "Please first set your location.";
     }
     this.setState({
       page: "host",
@@ -311,7 +273,7 @@ class Group extends Component {
         )}
 
         {page === "show_restaurant" && (
-          <div className="App-header">
+          <div className="App">
             <Card
               restaurant={this.restaurants[this.state.currentRestaurantIndex]}
               onDislike={this.onDislikeRestaurant}
@@ -358,14 +320,12 @@ class Group extends Component {
               <div>
                 <h1> Waiting for host to create the group... </h1>
                 <form>
-                  <Button
-                    className={this.props.classes.button}
-                    onClick={() => this.props.history.push("/")}
-                    variant="contained"
-                    size="large"
-                  >
+                  <button
+                      className="btn btn-primary wide-btn"
+                      onClick={() => this.props.history.push("/")}
+                      >
                     Return Home
-                  </Button>
+                  </button>
                 </form>
               </div>
             </header>
@@ -475,16 +435,16 @@ class Group extends Component {
 
       if (this.restaurants.length > 0) {
         if (this.restaurants[0] === "err") {
-          message = "Received invalid restaurant data";
+          message = "An error occurred while loading restaurants. Please try again later or at another location.";
         } else {
           message = "Waiting for other members...";
           this.socket.emit("got_restaurants", this.state.roomId);
         }
       } else {
-        message = "Received no restaurant data";
+        message = "No restaurants found.";
       }
     } catch (err) {
-      message = "Could not parse restaurant data. Please try another location.";
+      message = "An error occurred while loading restaurants. Please try again later or at another location.";
     }
 
     this.setState({ message: message, canStartSwipingEvent: false });
@@ -589,4 +549,4 @@ class Group extends Component {
 
 }
 
-export default withRouter(withStyles(styles)(Group));
+export default withRouter(Group);

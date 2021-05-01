@@ -9,6 +9,9 @@ import Card from "../components/card.js"
 class NotFoundRec extends Component {
 
     displayLeaderboard(topRes, topVotes) {
+        if (topRes.length === 0) {
+            return(<tr><td>None</td><td>None</td></tr>)
+        }
         let display = new Array();
         for (let i = 0; i < topRes.length; i++) {
             display.push(<tr>
@@ -35,14 +38,14 @@ class NotFoundRec extends Component {
         console.log(topRes);
         console.log(topVotes);
         return(
-                    <div className="App">
-                            <h1 style={{textAlign: "center"}}>No match found.</h1>
+                    <div style={{marginTop: "2vmin"}}>
+                            <h1 style={{fontWeight: "bold", fontSize: "4vmin", textAlign: "center"}}>No match found.</h1>
                             <div className="recommend">
                             <h1>But here's what our algorithm recommends:</h1>
                             <Card cardType="no_match_found" restaurant={restaurant}></Card>
                             </div>
                             <div className="leaderboard">
-                                <h2>Leaderboard</h2>
+                                <h1>Leaderboard</h1>
                                 <table className="leaderboard-table">
                                     <tr>
                                         <th>Restaurant:</th>
@@ -51,20 +54,11 @@ class NotFoundRec extends Component {
                                 {this.displayLeaderboard(topRes, topVotes)}
                                 </table>
                         { tryAgainVisible &&
-                        <div>
+                        <div className="try-again">
                             <h2>Try again?</h2>
-                            <form>
-                                <input
-                                    type="button"
-                                    value="Yes"
-                                    onClick={this.props.onTryAgain}
-                                />
-                                <input
-                                    type="button"
-                                    value="No"
-                                    onClick={() => history.push("/")}
-                                />
-                            </form>
+                            <button className={"btn btn-primary wide-btn"} onClick={this.props.onTryAgain}> Yes </button>
+                            <br/>
+                            <button className={"btn btn-secondary wide-btn"} onClick={() => history.push("/")}> No </button>
                         </div>
                         }
                         </div>
