@@ -18,7 +18,7 @@ class NotFoundRec extends Component {
     let display = new Array();
     for (let i = 0; i < topRes.length; i++) {
       display.push(
-        <tr>
+        <tr key={i}>
           <td>
             <a href={topRes[i].url} target="_blank">
               {topRes[i].name}
@@ -58,7 +58,7 @@ class NotFoundRec extends Component {
         <div className="leaderboard">
           <h1>Leaderboard</h1>
           <table className="leaderboard-table">
-            <tbody>
+            <tbody key="tbody">
               <tr>
                 <th>Restaurant:</th>
                 <th>Number of votes:</th>
