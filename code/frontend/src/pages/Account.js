@@ -17,13 +17,18 @@ class Account extends Component {
             showForm: false,
             prefList: [],
         };
+
+        console.log(this.state.prefList);
+        console.log(this.state.isLoading);
+        this.getPreference();
     }
 
     async getPreference() {
         console.log("getPreference");
         this.state.prefList = await api.getUserPreference(localStorage.getItem("username"));
-        this.state.isLoading= false;
+        this.setState({isLoading: false});
         console.log(this.state.prefList);
+        console.log(this.state.isLoading);
     }
 
     showForm() {
@@ -35,22 +40,21 @@ class Account extends Component {
     }
 
     render() {
-        this.getPreference();
         if(this.state.isLoading) {
             return(
-                <div>
-                    <p>Loading preferences...</p>
+                <div className="App">
+                    <p style={{marginTop: "10vh", fontSize: "3vmin"}}>Loading preferences...</p>
                 </div>
             )
         }
         return(
             <Route path="/Account">
                 <div className="App">
-                    <h2 style={{fontSize: "2vmin"}}>Dietary Restrictions:</h2>
-            {this.state.prefList.map((pref) => (<span>{pref}</span>))}
-            <Button onClick={() => this.setState({showForm: true})}>
+                    <h2 style={{marginTop: "4vmin"}}>Dietary Restrictions:</h2>
+            {this.state.prefList.map((pref) => (<span style={{fontSize: "2.4vmin"}}>{pref}</span>))}
+            <button className="btn btn-secondary small-btn" onClick={() => this.setState({showForm: true})}>
                 Edit
-            </Button>
+            </button>
             {this.state.showForm ? this.showForm() : null}
             </div>
             </Route>

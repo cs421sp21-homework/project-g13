@@ -42,6 +42,8 @@ class Preference extends Component {
         await api.updatePreference(localStorage.getItem("username"), preferences).then( (response)=> {
             alert("Preferences saved!");
         });
+
+        this.props.history.push("/Account");
     }
 
     render() {
@@ -66,11 +68,12 @@ class Preference extends Component {
                         label="gluten-free"
                     />
                 </FormGroup>
-                <Button
-                onClick={() => this.updatePreference()}
+                <button
+                    className="btn btn-primary wide-btn"
+                    onClick={() => this.updatePreference()}
                 >
                     Save
-                </Button>
+                </button>
             </form>
         )
     }
