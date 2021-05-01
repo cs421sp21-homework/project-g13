@@ -7,20 +7,24 @@ class Address extends Component {
         super(props);
 
         //check if someone is logged in, if not redirect to home page
+        if (localStorage.getItem("username") === null) {
+            this.props.history.push("/");
+        }
 
         const isInvalid = new Map();
         this.setDefaultValues(isInvalid, false);
         const values = new Map();
         this.setDefaultValues(values, "");
         this.state = {
-            canNotEdit: false,
-            invalidMessage: "Please make sure the information entered is not blank",
+            canNotEdit: true,
+            errorMessage: "Please make sure the information entered is not blank",
             isInvalid: isInvalid,
             values: values,
+            hasAddress: false,
 
         }
         this.realValues = new Map();
-        this.setDefaultValues(realValues, "");
+        this.setDefaultValues(this.realValues, "");
     }
 
     setDefaultValues(map, defaultValue) {
@@ -47,7 +51,7 @@ class Address extends Component {
             this.state.values.set(field, realvalue);
             notShowAddress = realvalue === "" && notShowAddress === false;
         });
-        this.setState({canNotEdit: true, hasAddress: notShowAddress});
+        this.setState({canNotEdit: true, hasAddress: !notShowAddress});
     }
 
     onSaveAddress() {
@@ -74,11 +78,11 @@ class Address extends Component {
     }
 
     render() {
-        const hasAddress = false;
+        const hasAddress = this.state.hasAddress;
         const canNotEdit = this.state.canNotEdit;
         return (
             <div className="address-content">
-                <span>My Address</span>
+                <span style={{display: "block"}}>My Address</span>
 
                 {hasAddress === true &&
                 <div className="address-container">
@@ -88,7 +92,7 @@ class Address extends Component {
                         <Form.Label className="float-left">Address</Form.Label>
                         <Form.Control placeholder="1234 Main St" name="address1" readOnly={this.state.canNotEdit}
                          isInvalid={this.state.isInvalid.get("address1")} value={this.state.values.get("address1")} onChange={this.myChangeHandler}/>
-                        <FormControl.Feedback type="invalid">{this.state.errorMessage}</FormControl.Feedback>
+                        <FormControl.Feedback className="float-left" type="invalid">{this.state.errorMessage}</FormControl.Feedback>
                     </Form.Group>
 
                     <Form.Group controlId="formGridAddress2">
@@ -127,7 +131,8 @@ class Address extends Component {
                 }
                 
                 {hasAddress === false &&
-                    <button className="btn btn-primary address-button" onClick={() => this.setState({hasAddress: true, canNotEdit: false})}>+ Add Address</button>
+                    <button className="btn btn-primary address-button" style={{width: "20vmin"}}
+                    onClick={() => this.setState({hasAddress: true, canNotEdit: false})}>+ Add Address</button>
                 }
 
                 {canNotEdit === true && hasAddress === true &&

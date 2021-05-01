@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { Navbar, Nav } from "react-bootstrap"; 
+import { Navbar, Nav, Dropdown, DropdownButton } from "react-bootstrap"; 
 import 'bootstrap/dist/css/bootstrap.css';
 import UserStore from "../stores/UserStore";
 import * as api from "../api/Api.js";
@@ -18,6 +18,10 @@ class AppNavbar extends Component {
         return this.props.location.pathname;
     }
 
+    onClickAccount() {
+
+    }
+
     onClickJoin() {
         //if (this.getActivePage() === "/Host") sessionStorage.clear();
         this.props.history.push("/Join");
@@ -33,9 +37,25 @@ class AppNavbar extends Component {
     }
 
     account() {
+        const buttonType = '<button type="button" className="btn btn-outline-primary app-nav-button app-nav-login">';
         return(
             <div className="navbar-nav ml-auto">
                 <button type="button" className="btn btn-outline-primary app-nav-button app-nav-login" onClick={() => this.props.history.push("/Account")}>Account</button>
+                <Dropdown>
+                    <Dropdown.Toggle id="dropdown" as={buttonType}>
+                        Account
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+                <DropdownButton id="account" title="Account">
+                    <Dropdown.Item as="button" onClick={() => this.props.history.push("/Account")}>My Preferences</Dropdown.Item>
+                    <Dropdown.Item as="button">My Address</Dropdown.Item>
+                </DropdownButton>
                 <button type="button" className="btn btn-outline-primary app-nav-button app-nav-login" onClick={() => this.logout()}>Logout</button>
             </div>
         )
