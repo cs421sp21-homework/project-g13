@@ -67,14 +67,20 @@ async function getUserPreference(username) {
 }
 
 async function updatePreference(username, preference) {
+    let data = JSON.stringify({
+        "username": username,
+        "preferencesList": preference
+      });
+    
     const config = {
         method: 'put',
         url: `${BACKEND_URL}/updatePreference`,
-        data : JSON.stringify({
-            "username" : username,
-            "preferencesList": preference,
-        }),
+        headers: { 
+            'Content-Type': 'application/json'
+          },
+        data : data
     };
+   
     const response = await axios(config);
     return response.data;
 }
@@ -156,4 +162,32 @@ async function logout(username) {
     return response.data;
 }
 
-export {getRestaurants, postGroup, postUser, getGroupMembers, getUserPreference, updatePreference, login, signup, isLoggedIn, logout};
+async function getLocation(username) {
+  
+    const config = {
+        method: 'get',
+        url: `${BACKEND_URL}/api/location/${username}`
+    };
+
+    const response = await axios(config);
+    return response.data.message;
+}
+
+async function setLocation(username, location) {
+    
+    const data = JSON.stringify({
+        "location": location,
+    });
+
+    const config = {
+        method: 'post',
+        url: `${BACKEND_URL}/api/location/${username}`,
+        data: data
+    };
+
+    const response = await axios(config);
+    return response.data.message; // should be location from parameter
+}
+
+export {getRestaurants, getRestaurantsFilters, postGroup, postUser, getGroupMembers, getUserPreference, 
+    updatePreference, login, signup, isLoggedIn, logout, setLocation, getLocation};
