@@ -38,12 +38,16 @@ class Address extends Component {
     }
 
     async retrieveUserLocation() {
-        console.log("start retrieve");
+        //console.log("start retrieve");
         let showError = false;
         let hasAddress = false;
         try {
-            let location = await getLocation(localStorage.getItem("username")).trim();
-            console.log("location: " + location);
+            let location = await getLocation(localStorage.getItem("username"));
+            console.log(location);
+            location = location.trim();
+
+
+            //console.log("location: " + location);
             if (location !== "") {
                 let splitLocation = location.split("%", 5);
                 let fields = ["address1", "address2", "city", "state", "zip"];
@@ -53,16 +57,17 @@ class Address extends Component {
                 }
                 //this.setState({showLoadingModal: false, hasAddress: true});
                 hasAddress = true;
-                console.log("loc");
+                //console.log("loc");
             } else {
                 //this.setState({showLoadingModal: false});
-                console.log("no loc");
+                //console.log("no loc");
             }
         } catch (err) {
             //this.setState({showErrorModal: true, showLoadingModal: false});
             showError = true;
             console.log("err");
-            console.log("loading modal: " + this.state.showLoadingModal);
+            console.log(err);
+            
         }
         if (this.renders > 0) {
             this.setState({showErrorModal: showError, showLoadingModal: false, hasAddress: hasAddress});
@@ -110,9 +115,16 @@ class Address extends Component {
     }
 
     async saveAddress() {
-        let location = `${this.state.values.get("address1")}%${this.state.values.get("address2")}
-            %${this.state.values.get("city")}%${this.state.values.get("state")}%${this.state.values.get("zip")}`;
-            try {
+        let location = "";
+        let fields = ["address1", "address2", "city", "state", "zip"];
+        for (let i=0; i<fields.length; i++) {
+            location += this.state.values.get(fields[i]).trim();
+
+            if (i < fields.length-1) location += "%";
+        }
+        
+        
+        try {
                 await setLocation(localStorage.getItem("username"), location);
                 //updated real values
                 let fields = ["address1", "address2", "city", "state", "zip"];
@@ -127,7 +139,7 @@ class Address extends Component {
     }
 
     validateAddress() {
-        let fields = ["address1", "address2", "city", "state", "zip"];
+        let fields = ["address1", "city", "state", "zip"];
         let redraw = false;
         fields.forEach((field) => {
             const value = this.state.values.get(field);
