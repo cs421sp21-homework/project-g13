@@ -5,7 +5,7 @@ Leader: Abdullah
 When2Meet: https://www.when2meet.com/?11681146-YlLxK
 
 ## Meetings
-Our meeting time is 4pm EDT
+Our meeting time is Monday/Saturday 3/4pm EDT
 
 ### Future Meetings
 
@@ -107,3 +107,11 @@ Monday, April 26 3pm EDT
 
 # Retrospective
 
+## What worked well
+Overall, this iteration went by smoothly. We learned a lot about project management and how to structure our project from previous iterations, so our plan for this iteration was very mature and well done. We were able to meet and divide tasks at the beginning of the iteration. For this iteration, we focused on adding two new user stories and squishing bugs present in our app. The new user stories were incorporated into our app smoothly and without too much difficulty. We were able to successfully squish bugs and fix inconsistencies in our app (e.g. making the UI look uniform). One chanllenge we faced was Heroku not working well, and we were able to solve this issue by changing the configuration of our app. Overall, we were able to collaborate well. I believe we are satisfied with the progress of our app and the current state of the app.
+
+## Things to be improved
+My biggest worry about the app is the presence of unfound bugs. Despite squishing many bugs, I believe we could have greater emphasized finding bugs in our plan. We could have given each person an area within the app to test rigoursly in order to find bugs. 
+
+## Plans for next iteration
+No more iterations. How sad!
