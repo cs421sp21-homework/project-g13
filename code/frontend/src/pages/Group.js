@@ -11,8 +11,10 @@ import NotFoundRec from "./NotFoundRec.js";
 import RequestNickname from "../components/RequestNickname.js"
 import SetFilters from "./SetFilters.js";
 import io from "socket.io-client";
+import {getLocation} from "../api/Api.js";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import { Modal, Spinner } from "react-bootstrap";
 
 //Contains join page, host page
 class Group extends Component {
@@ -100,7 +102,39 @@ class Group extends Component {
   };
 
   openSetLocation() {
-    this.setState({ page: "set_location" });
+    //check if a user is signed in and has an address
+    let username = localStorage.getItem("username");
+    if (username !== null && username !== "") {
+      //check if user has a valid location
+      this.setState({showLoadingModal: true});
+      this.checkUserLocationData(username);
+    } else {
+      this.setState({ page: "set_location" });
+    }
+  }
+
+  async checkUserLocationData(username) {
+    try {
+      let location = await getLocation(username);
+      location = location.replace(/%/g, "\n");
+      if (location !== null && location.trim() !== "") {
+        //show option popup
+        this.setState({userAddress: location, showChooseLocationModal: true, showLoadingModal: false});
+        return;
+      }
+    } catch (err) {
+
+    }
+    this.setState({ page: "set_location", showLoadingModal: false });
+  }
+
+  onChooseWhichLocationToUse() {
+    if (this.state.useUserAddress === true) {
+      this.onSetLocation({location: this.state.userAddress, radius: 20});
+      this.setState({ showChooseLocationModal: false, useUserAddress: true});
+    } else {
+      this.setState({ showChooseLocationModal: false, useUserAddress: true, page: "set_location"});
+    }
   }
 
   startSwipingEvent() {
@@ -341,6 +375,53 @@ class Group extends Component {
         )}
 
         <RequestNickname show={this.state.showAskForNickname} setNickname={this.onSetNickname} />
+
+        <Modal
+                    show={this.state.showLoadingModal || this.state.showChooseLocationModal}
+                    //onHide={() => this.setState({showModal: false})}
+                    backdrop="static"
+                    keyboard={false}>
+                    <Modal.Header>
+                        {this.state.showLoadingModal === true &&
+                            <Modal.Title>Loading...</Modal.Title>
+                        }   
+                        {this.state.showChooseLocationModal === true &&
+                            <Modal.Title>Select an option</Modal.Title>
+                        }   
+                    </Modal.Header>
+                    <Modal.Body>
+                        {this.state.showLoadingModal === true &&
+                            <div>
+                                <span>Please wait while we retrieve data from the server</span>
+                                <Spinner animation="border" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </Spinner>
+                              </div>
+                        }   
+                        {this.state.showChooseLocationModal === true &&
+                            <div className="row">
+                                <div className="col col-6">
+                                  <input type="radio" id="useUserLocation" name="useUserLocation" value="true" 
+                                  onChange={() => this.setState({useUserAddress: true})} checked={this.state.useUserAddress}/>
+                                  <label for="useUserLocation" style={{margin: "0 0 0 1vmin"}}>Use your address</label><br/>
+                                  <span>{this.state.userAddress}</span>
+                                </div>
+                                <div className="col col-6">
+                                  <input type="radio" id="useTempLocation" name="useUserLocation" value="false" 
+                                  onChange={() => this.setState({useUserAddress: false})} checked={!this.state.useUserAddress}/>
+                                  <label for="useTempLocation" style={{margin: "0 0 0 1vmin"}}>Use a temporary address</label><br/>
+                                </div>
+                                
+                            </div>
+                        }
+
+                    </Modal.Body>
+                    <Modal.Footer>
+                        {this.state.showChooseLocationModal === true &&
+                                <button className="btn btn-primary" onClick={() => this.onChooseWhichLocationToUse()}>Submit</button>
+                        }   
+                    </Modal.Footer>
+                </Modal>
       </div>
     );
   }
@@ -544,6 +625,7 @@ class Group extends Component {
       topVotes: "No votes found",
       memberNames: [''],
       showAskForNickname: initalShowAskForNickname,
+      useUserAddress: true,
     };
   }
 
