@@ -338,3 +338,28 @@ input[type="button"]:disabled {
     transform: scale(1.5);
   }
 }
+
+.address-content {
+  padding-top: 8vmin;
+  /*color: #d44f22;*/
+  color: black;
+  font-size: calc(10px + 2vmin);
+  text-align: center;
+}
+
+.float-left {
+  float: left;
+}
+
+.address-container {
+  width: 700px;
+  margin: auto;
+  font-size: 2vmin;
+}
+
+.address-button {
+  margin: auto 2vmin 0 2vmin;
+  width: 13vmin;
+  height: 6vmin;
+  font-size: 2vmin !important;
+}
