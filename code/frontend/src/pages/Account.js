@@ -36,6 +36,13 @@ class Account extends Component {
 
     render() {
         this.getPreference();
+        if(this.state.isLoading) {
+            return(
+                <div>
+                    <p>Loading preferences...</p>
+                </div>
+            )
+        }
         return(
             <Route path="/Account">
                 <div className="App">

@@ -64,7 +64,7 @@ class NotFoundRec extends Component {
                 <th>Number of votes:</th>
               </tr>
               {this.displayLeaderboard(topRes, topVotes)}
-              <p style={{fontSize: "1.8vmin"}}>Only showing votes over 50%</p>
+              <p style={{fontSize: "1.6vmin"}}>Only showing votes over 50%</p>
             </tbody>
           </table>
           {tryAgainVisible && (
