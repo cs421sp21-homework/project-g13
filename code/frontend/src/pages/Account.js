@@ -9,45 +9,44 @@ import { Switch, Route } from "react-router";
 class Account extends Component {
     constructor(props) {
         super(props);
+        if (localStorage.getItem("username") === null) {
+            this.props.history.push("/");
+        }
         this.state = {
-            changePref: false
+            isLoading: true,
+            showForm: false,
+            prefList: [],
         };
     }
 
-    getPreference() {
-        api.getUserPreference(this.getUserName()).then((response) => {
-            console.log(response);
-            alert("Preferences stored!");
-            return response;
-        });
+    async getPreference() {
+        console.log("getPreference");
+        this.state.prefList = await api.getUserPreference(localStorage.getItem("username"));
+        this.state.isLoading= false;
+        console.log(this.state.prefList);
     }
 
-    getUserName() {
-        let currUser = localStorage.getItem("username");
-        if (currUser === null) {
-            currUser = "Guest";
-        }
-        return currUser;
+    showForm() {
+        return(
+            <div>
+            <Preference/>
+            </div>
+        );
     }
 
     render() {
-        const prefList = this.getPreference();
-        console.log(prefList);
+        this.getPreference();
         return(
-            <Switch>
             <Route path="/Account">
-            <div className="App">
-                <h1 style={{fontWeight: "bold", fontSize: "3vmin"}}> Welcome, {localStorage.getItem("username")}</h1>
-                <h2 style={{fontSize: "2vmin"}}>Dietary Restrictions: </h2>
-                <Button
-                onClick={() => {this.state.changePref = !this.state.changePref;}}
-                >
-                    Edit
-                </Button>
-                {this.state.changePref ? null : <Preference/> }
-                </div>
+                <div className="App">
+                    <h2 style={{fontSize: "2vmin"}}>Dietary Restrictions:</h2>
+            {this.state.prefList.map((pref) => (<span>{pref}</span>))}
+            <Button onClick={() => this.setState({showForm: true})}>
+                Edit
+            </Button>
+            {this.state.showForm ? this.showForm() : null}
+            </div>
             </Route>
-            </Switch>
         )
     }
 }

@@ -22,9 +22,9 @@ class Preference extends Component {
         });
     };
 
-    updatePreference() {
+    async updatePreference() {
         
-        var preferences = [];
+        let preferences = [];
 
         if (this.state.vegetarian) {
             preferences.push("vegetarian");
@@ -39,9 +39,8 @@ class Preference extends Component {
             preferences.push("gluten-free");
         }
         console.log(preferences);
-        api.updatePreference(localStorage.getItem("username"), preferences).then( (response)=> {
+        await api.updatePreference(localStorage.getItem("username"), preferences).then( (response)=> {
             alert("Preferences saved!");
-            //return response;
         });
     }
 
