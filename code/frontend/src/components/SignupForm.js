@@ -55,9 +55,10 @@ class SignupForm extends React.Component {
     };
 
     validatePwd(prop, val) {
-        this.setInputValue('confirmPwd', val);
+        // this.setInputValue('confirmPwd', val);
         if(this.state.password !== this.state.confirmPwd) {
-
+            alert("'Confirm Password' does not match 'Password'!")
+            this.resetForm();
         }
     }
 
@@ -90,6 +91,8 @@ class SignupForm extends React.Component {
         this.setState({
             buttonDisabled: true
         })
+
+        this.validatePwd();
 
         //try{
             api.signup(this.state.username, this.state.password)
