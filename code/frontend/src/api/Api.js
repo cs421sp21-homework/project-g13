@@ -75,14 +75,15 @@ async function updatePreference(username, preference) {
     const config = {
         method: 'put',
         url: `${BACKEND_URL}/updatePreference`,
-        data : JSON.stringify({
-            "username" : username,
-            "preferencesList": preference,
-        }),
+        data : data,
     };
-   
-    const response = await axios(config);
-    return response.data;
+
+    try {
+        const response = await axios(config);
+        return response.data;
+    } catch (e) {
+        return {message: "failure"};
+    }
 }
 
 async function login(username, password) {

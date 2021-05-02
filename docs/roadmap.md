@@ -31,11 +31,11 @@
 ## Iteration 5 (misc. features)
 
 - As a user, I would like to continue swiping if a match is already found so that I can find more potential places I want to eat at.
-- As a user, I would like to be presented only with restaurants open at the time of swiping so that the restaurant I've decided on is available right away.
 - As a user, I would like to see who’s in the group so that I know all my friends have joined.
-- As a user, I would like to see the most common matches in my area to help me make a decision.
-- As a user, I would like the program to get my real-time location so that I don’t have to manually enter it.
 
-Might delete these:
+## We were not able to get to these
 - As a user, I would like to be able to detect and join nearby groups so that joining our group is faster when hanging out with friends.
 - As a user, I would like to see trending restaurants nearby so that I know what the community thinks are the best options right now.
+- As a user, I would like to be presented only with restaurants open at the time of swiping so that the restaurant I've decided on is available right away.
+- As a user, I would like to see the most common matches in my area to help me make a decision.
+- As a user, I would like the program to get my real-time location so that I don’t have to manually enter it.

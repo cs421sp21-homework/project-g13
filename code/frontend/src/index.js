@@ -11,7 +11,7 @@ import Individual from "./pages/Individual";
 import SetFilters from "./pages/SetFilters.js"
 import AppNavbar from "./components/NavBar.js";
 import SignupForm from "./components/SignupForm";
-import Account from "./pages/Account";
+import Preference from "./pages/Preference";
 import Address from "./pages/Address.js";
 
 ReactDOM.render(
@@ -49,8 +49,8 @@ ReactDOM.render(
                 <Route path="/Signup">
                     <SignupForm/>
                 </Route>
-                <Route path="/Account">
-                    <Account/>
+                <Route path="/Preference">
+                    <Preference/>
                 </Route>
                 <Route path="/Address">
                     <Address/>

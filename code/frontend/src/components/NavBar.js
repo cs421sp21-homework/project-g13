@@ -52,7 +52,7 @@ class AppNavbar extends Component {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu align="right">
-                        <Dropdown.Item href="/Account">My Account</Dropdown.Item>
+                        <Dropdown.Item href="/Preference">My Preference</Dropdown.Item>
                         <Dropdown.Item href="/Address">My Address</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
