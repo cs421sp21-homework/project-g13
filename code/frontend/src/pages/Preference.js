@@ -49,11 +49,16 @@ class Preference extends Component {
             preferences.push("gluten-free");
         }
         console.log(preferences);
-        await api.updatePreference(localStorage.getItem("username"), preferences).then(() => {
-            alert("Preferences saved.");
-        });
+        try {
+            await api.updatePreference(localStorage.getItem("username"), preferences).then(() => {
+                alert("Preferences saved.");
+            });
+        } catch (err) {
+            alert("An error occurred while updating preferences.")
+        }
         this.setState({prefList: preferences});
         console.log(this.state.prefList);
+        this.props.history.push("/Account");
     }
 
     async getPreference() {

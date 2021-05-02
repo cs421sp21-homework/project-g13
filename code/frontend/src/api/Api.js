@@ -77,9 +77,13 @@ async function updatePreference(username, preference) {
         url: `${BACKEND_URL}/updatePreference`,
         data : data,
     };
-   
-    const response = await axios(config);
-    return response.data;
+
+    try {
+        const response = await axios(config);
+        return response.data;
+    } catch (e) {
+        return {message: "failure"};
+    }
 }
 
 async function login(username, password) {
