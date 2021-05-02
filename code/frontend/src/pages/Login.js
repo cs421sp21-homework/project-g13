@@ -3,7 +3,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import UserStore from "../stores/UserStore";
 import LoginForm from "../components/LoginForm";
-import Account from "./Account";
+import Account from "./Preference";
 
 class Login extends React.Component {
 

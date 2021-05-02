@@ -49,9 +49,9 @@ Monday, April 26 3pm EDT
 3. If the user wants to sign-in or create an account, they will click on the "Sign Up" or "Login" button.
     - The user will enter a username and password to create an account, view (2).
     - If the user has as account, they will enter their credentials in view (3).
-4. After logging in, the user is redirected to the "Home" page where they can now access their "Account: page, view (4).
+4. After logging in, the user is redirected to the "Home" page where they can now access their "Preference: page, view (4).
 5. If the user wants to set preferences that are unlikely to change between swiping events, they can click on options from view (5) and save them.
-6. If the user wants to logout, they can click the "Logout" button on the "Account" page, view (5).
+6. If the user wants to logout, they can click the "Logout" button on the "Preference" page, view (5).
     - They will be redirected to view (1) where account-less swiping can occur.
 7. If they want to begin swiping by themselves, the user will click on “Start”, view (4).
     - They will be presented with buttons for setting locations/preferences and starting the event, view (6).

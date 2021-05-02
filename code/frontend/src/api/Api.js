@@ -75,10 +75,7 @@ async function updatePreference(username, preference) {
     const config = {
         method: 'put',
         url: `${BACKEND_URL}/updatePreference`,
-        data : JSON.stringify({
-            "username" : username,
-            "preferencesList": preference,
-        }),
+        data : data,
     };
    
     const response = await axios(config);
